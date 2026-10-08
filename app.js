@@ -4265,20 +4265,3947 @@ void main() {
 
 	}
 
-}`,BC=class{constructor(){this.texture=null,this.mesh=null,this.depthNear=0,this.depthFar=0}init(e,t){if(this.texture===null){let n=new R_(e.texture);(e.depthNear!==t.depthNear||e.depthFar!==t.depthFar)&&(this.depthNear=e.depthNear,this.depthFar=e.depthFar),this.texture=n}}getMesh(e){if(this.texture!==null&&this.mesh===null){let t=e.cameras[0].viewport,n=new _y({vertexShader:RC,fragmentShader:zC,uniforms:{depthColor:{value:this.texture},depthWidth:{value:t.z},depthHeight:{value:t.w}}});this.mesh=new p_(new cy(20,20),n)}return this.mesh}reset(){this.texture=null,this.mesh=null}getDepthTexture(){return this.texture}},VC=class extends mm{constructor(e,t){super();let n=this,r=null,i=1,a=null,o=`local-floor`,s=1,c=null,l=null,u=null,d=null,f=null,p=null,m=typeof XRWebGLBinding<`u`,h=new BC,g={},_=t.getContextAttributes(),v=null,y=null,b=[],x=[],S=new Z,C=null,w=null,T=new nb;T.viewport=new sh;let E=new nb;E.viewport=new sh;let D=[T,E],O=new lb,k=null,A=null;this.cameraAutoUpdate=!0,this.enabled=!1,this.isPresenting=!1,this.getController=function(e){let t=b[e];return t===void 0&&(t=new Hh,b[e]=t),t.getTargetRaySpace()},this.getControllerGrip=function(e){let t=b[e];return t===void 0&&(t=new Hh,b[e]=t),t.getGripSpace()},this.getHand=function(e){let t=b[e];return t===void 0&&(t=new Hh,b[e]=t),t.getHandSpace()};function j(e){let t=x.indexOf(e.inputSource);if(t===-1)return;let n=b[t];n!==void 0&&(n.update(e.inputSource,e.frame,c||a),n.dispatchEvent({type:e.type,data:e.inputSource}))}function M(){r.removeEventListener(`select`,j),r.removeEventListener(`selectstart`,j),r.removeEventListener(`selectend`,j),r.removeEventListener(`squeeze`,j),r.removeEventListener(`squeezestart`,j),r.removeEventListener(`squeezeend`,j),r.removeEventListener(`end`,M),r.removeEventListener(`inputsourceschange`,N);for(let e=0;e<b.length;e++){let t=x[e];t!==null&&(x[e]=null,b[e].disconnect(t))}k=null,A=null,h.reset();for(let e in g)delete g[e];if(e.setRenderTarget(v),f=null,d=null,u=null,r=null,y=null,R.stop(),n.isPresenting=!1,e.setPixelRatio(C),e.setSize(S.width,S.height,!1),w!==null){let e=w.camera;e.fov=w.fov,e.zoom=w.zoom,e.updateProjectionMatrix(),w=null}n.dispatchEvent({type:`sessionend`})}this.setFramebufferScaleFactor=function(e){i=e,n.isPresenting===!0&&Y(`WebXRManager: Cannot change framebuffer scale while presenting.`)},this.setReferenceSpaceType=function(e){o=e,n.isPresenting===!0&&Y(`WebXRManager: Cannot change reference space type while presenting.`)},this.getReferenceSpace=function(){return c||a},this.setReferenceSpace=function(e){c=e},this.getBaseLayer=function(){return d===null?f:d},this.getBinding=function(){return u===null&&m&&(u=new XRWebGLBinding(r,t)),u},this.getFrame=function(){return p},this.getSession=function(){return r},this.setSession=async function(l){if(r=l,r!==null){if(v=e.getRenderTarget(),r.addEventListener(`select`,j),r.addEventListener(`selectstart`,j),r.addEventListener(`selectend`,j),r.addEventListener(`squeeze`,j),r.addEventListener(`squeezestart`,j),r.addEventListener(`squeezeend`,j),r.addEventListener(`end`,M),r.addEventListener(`inputsourceschange`,N),_.xrCompatible!==!0&&await t.makeXRCompatible(),C=e.getPixelRatio(),e.getSize(S),m&&`createProjectionLayer`in XRWebGLBinding.prototype){let n=null,a=null,o=null;_.depth&&(o=_.stencil?t.DEPTH24_STENCIL8:t.DEPTH_COMPONENT24,n=_.stencil?ep:$f,a=_.stencil?qf:Hf);let s={colorFormat:t.RGBA8,depthFormat:o,scaleFactor:i};u=this.getBinding(),d=u.createProjectionLayer(s),r.updateRenderState({layers:[d]}),e.setPixelRatio(1),e.setSize(d.textureWidth,d.textureHeight,!1),y=new lh(d.textureWidth,d.textureHeight,{format:Qf,type:Lf,depthTexture:new I_(d.textureWidth,d.textureHeight,a,void 0,void 0,void 0,void 0,void 0,void 0,n),stencilBuffer:_.stencil,colorSpace:e.outputColorSpace,samples:_.antialias?4:0,resolveDepthBuffer:d.ignoreDepthValues===!1,resolveStencilBuffer:d.ignoreDepthValues===!1,storeMultisampledDepthBuffer:d.ignoreDepthValues===!1,storeMultisampledStencilBuffer:d.ignoreDepthValues===!1})}else{let n={antialias:_.antialias,alpha:!0,depth:_.depth,stencil:_.stencil,framebufferScaleFactor:i};f=new XRWebGLLayer(r,t,n),r.updateRenderState({baseLayer:f}),e.setPixelRatio(1),e.setSize(f.framebufferWidth,f.framebufferHeight,!1),y=new lh(f.framebufferWidth,f.framebufferHeight,{format:Qf,type:Lf,colorSpace:e.outputColorSpace,stencilBuffer:_.stencil,resolveDepthBuffer:f.ignoreDepthValues===!1,resolveStencilBuffer:f.ignoreDepthValues===!1,storeMultisampledDepthBuffer:f.ignoreDepthValues===!1,storeMultisampledStencilBuffer:f.ignoreDepthValues===!1})}y.isXRRenderTarget=!0,this.setFoveation(s),c=null,a=await r.requestReferenceSpace(o),R.setContext(r),R.start(),n.isPresenting=!0,n.dispatchEvent({type:`sessionstart`})}},this.getEnvironmentBlendMode=function(){if(r!==null)return r.environmentBlendMode},this.getDepthTexture=function(){return h.getDepthTexture()};function N(e){for(let t=0;t<e.removed.length;t++){let n=e.removed[t],r=x.indexOf(n);r>=0&&(x[r]=null,b[r].disconnect(n))}for(let t=0;t<e.added.length;t++){let n=e.added[t],r=x.indexOf(n);if(r===-1){for(let e=0;e<b.length;e++)if(e>=x.length){x.push(n),r=e;break}else if(x[e]===null){x[e]=n,r=e;break}if(r===-1)break}let i=b[r];i&&i.connect(n)}}let P=new Q,F=new Q;function I(e,t,n){P.setFromMatrixPosition(t.matrixWorld),F.setFromMatrixPosition(n.matrixWorld);let r=P.distanceTo(F),i=t.projectionMatrix.elements,a=n.projectionMatrix.elements,o=i[14]/(i[10]-1),s=i[14]/(i[10]+1),c=(i[9]+1)/i[5],l=(i[9]-1)/i[5],u=(i[8]-1)/i[0],d=(a[8]+1)/a[0],f=o*u,p=o*d,m=r/(-u+d),h=m*-u;if(t.matrixWorld.decompose(e.position,e.quaternion,e.scale),e.translateX(h),e.translateZ(m),e.matrixWorld.compose(e.position,e.quaternion,e.scale),e.matrixWorldInverse.copy(e.matrixWorld).invert(),i[10]===-1)e.projectionMatrix.copy(t.projectionMatrix),e.projectionMatrixInverse.copy(t.projectionMatrixInverse);else{let t=o+m,n=s+m,i=f-h,a=p+(r-h),u=c*s/n*t,d=l*s/n*t;e.projectionMatrix.makePerspective(i,a,u,d,t,n),e.projectionMatrixInverse.copy(e.projectionMatrix).invert()}}function L(e,t){t===null?e.matrixWorld.copy(e.matrix):e.matrixWorld.multiplyMatrices(t.matrixWorld,e.matrix),e.matrixWorldInverse.copy(e.matrixWorld).invert()}this.updateCamera=function(e){if(r===null)return;let t=e.near,n=e.far;h.texture!==null&&(h.depthNear>0&&(t=h.depthNear),h.depthFar>0&&(n=h.depthFar)),O.near=E.near=T.near=t,O.far=E.far=T.far=n,(k!==O.near||A!==O.far)&&(r.updateRenderState({depthNear:O.near,depthFar:O.far}),k=O.near,A=O.far),O.layers.mask=e.layers.mask|6,T.layers.mask=O.layers.mask&-5,E.layers.mask=O.layers.mask&-3;let i=e.parent,a=O.cameras;L(O,i);for(let e=0;e<a.length;e++)L(a[e],i);a.length===2?I(O,T,E):O.projectionMatrix.copy(T.projectionMatrix),w===null&&e.isPerspectiveCamera&&(w={camera:e,fov:e.fov,zoom:e.zoom}),ee(e,O,i)};function ee(e,t,n){n===null?e.matrix.copy(t.matrixWorld):(e.matrix.copy(n.matrixWorld),e.matrix.invert(),e.matrix.multiply(t.matrixWorld)),e.matrix.decompose(e.position,e.quaternion,e.scale),e.updateMatrixWorld(!0),e.projectionMatrix.copy(t.projectionMatrix),e.projectionMatrixInverse.copy(t.projectionMatrixInverse),e.isPerspectiveCamera&&(e.fov=vm*2*Math.atan(1/e.projectionMatrix.elements[5]),e.zoom=1)}this.getCamera=function(){return O},this.getFoveation=function(){if(!(d===null&&f===null))return s},this.setFoveation=function(e){s=e,d!==null&&(d.fixedFoveation=e),f!==null&&f.fixedFoveation!==void 0&&(f.fixedFoveation=e)},this.hasDepthSensing=function(){return h.texture!==null},this.getDepthSensingMesh=function(){return h.getMesh(O)},this.getCameraTexture=function(e){return g[e]};let te=null;function ne(t,i){if(l=i.getViewerPose(c||a),p=i,l!==null){let t=l.views;f!==null&&(e.setRenderTargetFramebuffer(y,f.framebuffer),e.setRenderTarget(y));let i=!1;t.length!==O.cameras.length&&(O.cameras.length=0,i=!0);for(let n=0;n<t.length;n++){let r=t[n],a=null;if(f!==null)a=f.getViewport(r);else{let t=u.getViewSubImage(d,r);a=t.viewport,n===0&&(e.setRenderTargetTextures(y,t.colorTexture,t.depthStencilTexture),e.setRenderTarget(y))}let o=D[n];o===void 0&&(o=new nb,o.layers.enable(n),o.viewport=new sh,D[n]=o),o.matrix.fromArray(r.transform.matrix),o.matrix.decompose(o.position,o.quaternion,o.scale),o.projectionMatrix.fromArray(r.projectionMatrix),o.projectionMatrixInverse.copy(o.projectionMatrix).invert(),o.viewport.set(a.x,a.y,a.width,a.height),n===0&&(O.matrix.copy(o.matrix),O.matrix.decompose(O.position,O.quaternion,O.scale)),i===!0&&O.cameras.push(o)}let a=r.enabledFeatures;if(a&&a.includes(`depth-sensing`)&&r.depthUsage==`gpu-optimized`&&m){u=n.getBinding();let e=u.getDepthInformation(t[0]);e&&e.isValid&&e.texture&&h.init(e,r.renderState)}if(a&&a.includes(`camera-access`)&&m){e.state.unbindTexture(),u=n.getBinding();for(let e=0;e<t.length;e++){let n=t[e].camera;if(n){let e=g[n];e||(e=new R_,g[n]=e);let t=u.getCameraImage(n);e.sourceTexture=t}}}}for(let e=0;e<b.length;e++){let t=x[e],n=b[e];t!==null&&n!==void 0&&n.update(t,i,c||a)}te&&te(t,i),i.detectedPlanes&&n.dispatchEvent({type:`planesdetected`,data:i}),p=null}let R=new Mb;R.setAnimationLoop(ne),this.setAnimationLoop=function(e){te=e},this.dispose=function(){}}},HC=new fh,UC=new Gm;UC.set(-1,0,0,0,1,0,0,0,1);function WC(e,t){function n(e,t){e.matrixAutoUpdate===!0&&e.updateMatrix(),t.value.copy(e.matrix)}function r(t,n){n.color.getRGB(t.fogColor.value,py(e)),n.isFog?(t.fogNear.value=n.near,t.fogFar.value=n.far):n.isFogExp2&&(t.fogDensity.value=n.density)}function i(e,t,n,r,i){t.isNodeMaterial?t.uniformsNeedUpdate=!1:t.isMeshBasicMaterial?a(e,t):t.isMeshLambertMaterial?(a(e,t),t.envMap&&(e.envMapIntensity.value=t.envMapIntensity)):t.isMeshToonMaterial?(a(e,t),d(e,t)):t.isMeshPhongMaterial?(a(e,t),u(e,t),t.envMap&&(e.envMapIntensity.value=t.envMapIntensity)):t.isMeshStandardMaterial?(a(e,t),f(e,t),t.isMeshPhysicalMaterial&&p(e,t,i)):t.isMeshMatcapMaterial?(a(e,t),m(e,t)):t.isMeshDepthMaterial?a(e,t):t.isMeshDistanceMaterial?(a(e,t),h(e,t)):t.isMeshNormalMaterial?a(e,t):t.isLineBasicMaterial?(o(e,t),t.isLineDashedMaterial&&s(e,t)):t.isPointsMaterial?c(e,t,n,r):t.isSpriteMaterial?l(e,t):t.isShadowMaterial?(e.color.value.copy(t.color),e.opacity.value=t.opacity):t.isShaderMaterial&&(t.uniformsNeedUpdate=!1)}function a(e,r){e.opacity.value=r.opacity,r.color&&e.diffuse.value.copy(r.color),r.emissive&&e.emissive.value.copy(r.emissive).multiplyScalar(r.emissiveIntensity),r.map&&(e.map.value=r.map,n(r.map,e.mapTransform)),r.alphaMap&&(e.alphaMap.value=r.alphaMap,n(r.alphaMap,e.alphaMapTransform)),r.bumpMap&&(e.bumpMap.value=r.bumpMap,n(r.bumpMap,e.bumpMapTransform),e.bumpScale.value=r.bumpScale,r.side===1&&(e.bumpScale.value*=-1)),r.normalMap&&(e.normalMap.value=r.normalMap,n(r.normalMap,e.normalMapTransform),e.normalScale.value.copy(r.normalScale),r.side===1&&e.normalScale.value.negate()),r.displacementMap&&(e.displacementMap.value=r.displacementMap,n(r.displacementMap,e.displacementMapTransform),e.displacementScale.value=r.displacementScale,e.displacementBias.value=r.displacementBias),r.emissiveMap&&(e.emissiveMap.value=r.emissiveMap,n(r.emissiveMap,e.emissiveMapTransform)),r.specularMap&&(e.specularMap.value=r.specularMap,n(r.specularMap,e.specularMapTransform)),r.alphaTest>0&&(e.alphaTest.value=r.alphaTest);let i=t.get(r),a=i.envMap,o=i.envMapRotation;a&&(e.envMap.value=a,e.envMapRotation.value.setFromMatrix4(HC.makeRotationFromEuler(o)).transpose(),a.isCubeTexture&&a.isRenderTargetTexture===!1&&e.envMapRotation.value.premultiply(UC),e.reflectivity.value=r.reflectivity,e.ior.value=r.ior,e.refractionRatio.value=r.refractionRatio),r.lightMap&&(e.lightMap.value=r.lightMap,e.lightMapIntensity.value=r.lightMapIntensity,n(r.lightMap,e.lightMapTransform)),r.aoMap&&(e.aoMap.value=r.aoMap,e.aoMapIntensity.value=r.aoMapIntensity,n(r.aoMap,e.aoMapTransform))}function o(e,t){e.diffuse.value.copy(t.color),e.opacity.value=t.opacity,t.map&&(e.map.value=t.map,n(t.map,e.mapTransform))}function s(e,t){e.dashSize.value=t.dashSize,e.totalSize.value=t.dashSize+t.gapSize,e.scale.value=t.scale}function c(e,t,r,i){e.diffuse.value.copy(t.color),e.opacity.value=t.opacity,e.size.value=t.size*r,e.scale.value=i*.5,t.map&&(e.map.value=t.map,n(t.map,e.uvTransform)),t.alphaMap&&(e.alphaMap.value=t.alphaMap,n(t.alphaMap,e.alphaMapTransform)),t.alphaTest>0&&(e.alphaTest.value=t.alphaTest)}function l(e,t){e.diffuse.value.copy(t.color),e.opacity.value=t.opacity,e.rotation.value=t.rotation,t.map&&(e.map.value=t.map,n(t.map,e.mapTransform)),t.alphaMap&&(e.alphaMap.value=t.alphaMap,n(t.alphaMap,e.alphaMapTransform)),t.alphaTest>0&&(e.alphaTest.value=t.alphaTest)}function u(e,t){e.specular.value.copy(t.specular),e.shininess.value=Math.max(t.shininess,1e-4)}function d(e,t){t.gradientMap&&(e.gradientMap.value=t.gradientMap)}function f(e,t){e.metalness.value=t.metalness,t.metalnessMap&&(e.metalnessMap.value=t.metalnessMap,n(t.metalnessMap,e.metalnessMapTransform)),e.roughness.value=t.roughness,t.roughnessMap&&(e.roughnessMap.value=t.roughnessMap,n(t.roughnessMap,e.roughnessMapTransform)),t.envMap&&(e.envMapIntensity.value=t.envMapIntensity)}function p(e,t,r){e.ior.value=t.ior,t.sheen>0&&(e.sheenColor.value.copy(t.sheenColor).multiplyScalar(t.sheen),e.sheenRoughness.value=t.sheenRoughness,t.sheenColorMap&&(e.sheenColorMap.value=t.sheenColorMap,n(t.sheenColorMap,e.sheenColorMapTransform)),t.sheenRoughnessMap&&(e.sheenRoughnessMap.value=t.sheenRoughnessMap,n(t.sheenRoughnessMap,e.sheenRoughnessMapTransform))),t.clearcoat>0&&(e.clearcoat.value=t.clearcoat,e.clearcoatRoughness.value=t.clearcoatRoughness,t.clearcoatMap&&(e.clearcoatMap.value=t.clearcoatMap,n(t.clearcoatMap,e.clearcoatMapTransform)),t.clearcoatRoughnessMap&&(e.clearcoatRoughnessMap.value=t.clearcoatRoughnessMap,n(t.clearcoatRoughnessMap,e.clearcoatRoughnessMapTransform)),t.clearcoatNormalMap&&(e.clearcoatNormalMap.value=t.clearcoatNormalMap,n(t.clearcoatNormalMap,e.clearcoatNormalMapTransform),e.clearcoatNormalScale.value.copy(t.clearcoatNormalScale),t.side===1&&e.clearcoatNormalScale.value.negate())),t.dispersion>0&&(e.dispersion.value=t.dispersion),t.retroreflectivity>0&&(e.retroreflectivity.value=t.retroreflectivity),t.iridescence>0&&(e.iridescence.value=t.iridescence,e.iridescenceIOR.value=t.iridescenceIOR,e.iridescenceThicknessMinimum.value=t.iridescenceThicknessRange[0],e.iridescenceThicknessMaximum.value=t.iridescenceThicknessRange[1],t.iridescenceMap&&(e.iridescenceMap.value=t.iridescenceMap,n(t.iridescenceMap,e.iridescenceMapTransform)),t.iridescenceThicknessMap&&(e.iridescenceThicknessMap.value=t.iridescenceThicknessMap,n(t.iridescenceThicknessMap,e.iridescenceThicknessMapTransform))),t.transmission>0&&(e.transmission.value=t.transmission,e.transmissionSamplerMap.value=r.texture,e.transmissionSamplerSize.value.set(r.width,r.height),t.transmissionMap&&(e.transmissionMap.value=t.transmissionMap,n(t.transmissionMap,e.transmissionMapTransform)),e.thickness.value=t.thickness,t.thicknessMap&&(e.thicknessMap.value=t.thicknessMap,n(t.thicknessMap,e.thicknessMapTransform)),e.attenuationDistance.value=t.attenuationDistance,e.attenuationColor.value.copy(t.attenuationColor)),t.anisotropy>0&&(e.anisotropyVector.value.set(t.anisotropy*Math.cos(t.anisotropyRotation),t.anisotropy*Math.sin(t.anisotropyRotation)),t.anisotropyMap&&(e.anisotropyMap.value=t.anisotropyMap,n(t.anisotropyMap,e.anisotropyMapTransform))),e.specularIntensity.value=t.specularIntensity,e.specularColor.value.copy(t.specularColor),t.specularColorMap&&(e.specularColorMap.value=t.specularColorMap,n(t.specularColorMap,e.specularColorMapTransform)),t.specularIntensityMap&&(e.specularIntensityMap.value=t.specularIntensityMap,n(t.specularIntensityMap,e.specularIntensityMapTransform))}function m(e,t){t.matcap&&(e.matcap.value=t.matcap)}function h(e,n){let r=t.get(n).light;e.referencePosition.value.setFromMatrixPosition(r.matrixWorld),e.nearDistance.value=r.shadow.camera.near,e.farDistance.value=r.shadow.camera.far}return{refreshFogUniforms:r,refreshMaterialUniforms:i}}function GC(e,t,n,r){let i={},a={},o=[],s=e.getParameter(e.MAX_UNIFORM_BUFFER_BINDINGS);function c(e,t){let n=t.program;r.uniformBlockBinding(e,n)}function l(e,n){let o=i[e.id];o===void 0&&(g(e),o=u(e),i[e.id]=o,e.addEventListener(`dispose`,v));let s=n.program;r.updateUBOMapping(e,s);let c=t.render.frame;a[e.id]!==c&&(f(e),a[e.id]=c)}function u(t){let n=d();t.__bindingPointIndex=n;let r=e.createBuffer(),i=t.__size,a=t.usage;return e.bindBuffer(e.UNIFORM_BUFFER,r),e.bufferData(e.UNIFORM_BUFFER,i,a),e.bindBuffer(e.UNIFORM_BUFFER,null),e.bindBufferBase(e.UNIFORM_BUFFER,n,r),r}function d(){for(let e=0;e<s;e++)if(o.indexOf(e)===-1)return o.push(e),e;return X(`WebGLRenderer: Maximum number of simultaneously usable uniforms groups reached.`),0}function f(t){let n=i[t.id],r=t.uniforms,a=t.__cache;e.bindBuffer(e.UNIFORM_BUFFER,n);for(let e=0,t=r.length;e<t;e++){let t=r[e];if(Array.isArray(t))for(let n=0,r=t.length;n<r;n++)p(t[n],e,n,a);else p(t,e,0,a)}e.bindBuffer(e.UNIFORM_BUFFER,null)}function p(t,n,r,i){if(h(t,n,r,i)===!0){let n=t.__offset,r=t.value;if(Array.isArray(r)){let e=0;for(let n=0;n<r.length;n++){let i=r[n],a=_(i);m(i,t.__data,e),typeof i!=`number`&&typeof i!=`boolean`&&!i.isMatrix3&&!ArrayBuffer.isView(i)&&(e+=a.storage/Float32Array.BYTES_PER_ELEMENT)}}else m(r,t.__data,0);e.bufferSubData(e.UNIFORM_BUFFER,n,t.__data)}}function m(e,t,n){typeof e==`number`||typeof e==`boolean`?t[0]=e:e.isMatrix3?(t[0]=e.elements[0],t[1]=e.elements[1],t[2]=e.elements[2],t[3]=0,t[4]=e.elements[3],t[5]=e.elements[4],t[6]=e.elements[5],t[7]=0,t[8]=e.elements[6],t[9]=e.elements[7],t[10]=e.elements[8],t[11]=0):ArrayBuffer.isView(e)?t.set(new e.constructor(e.buffer,e.byteOffset,t.length)):e.toArray(t,n)}function h(e,t,n,r){let i=e.value,a=t+`_`+n;if(r[a]===void 0)return typeof i==`number`||typeof i==`boolean`?r[a]=i:ArrayBuffer.isView(i)?r[a]=i.slice():r[a]=i.clone(),!0;{let e=r[a];if(typeof i==`number`||typeof i==`boolean`){if(e!==i)return r[a]=i,!0}else if(ArrayBuffer.isView(i))return!0;else if(e.equals(i)===!1)return e.copy(i),!0}return!1}function g(e){let t=e.uniforms,n=0;for(let e=0,r=t.length;e<r;e++){let r=Array.isArray(t[e])?t[e]:[t[e]];for(let e=0,t=r.length;e<t;e++){let t=r[e],i=Array.isArray(t.value)?t.value:[t.value];for(let e=0,r=i.length;e<r;e++){let r=i[e],a=_(r),o=n%16,s=o%a.boundary,c=o+s;n+=s,c!==0&&16-c<a.storage&&(n+=16-c),t.__data=new Float32Array(a.storage/Float32Array.BYTES_PER_ELEMENT),t.__offset=n,n+=a.storage}}}let r=n%16;return r>0&&(n+=16-r),e.__size=n,e.__cache={},this}function _(e){let t={boundary:0,storage:0};return typeof e==`number`||typeof e==`boolean`?(t.boundary=4,t.storage=4):e.isVector2?(t.boundary=8,t.storage=8):e.isVector3||e.isColor?(t.boundary=16,t.storage=12):e.isVector4?(t.boundary=16,t.storage=16):e.isMatrix3?(t.boundary=48,t.storage=48):e.isMatrix4?(t.boundary=64,t.storage=64):e.isTexture?Y(`WebGLRenderer: Texture samplers can not be part of an uniforms group.`):ArrayBuffer.isView(e)?(t.boundary=16,t.storage=e.byteLength):Y(`WebGLRenderer: Unsupported uniform value type.`,e),t}function v(t){let n=t.target;n.removeEventListener(`dispose`,v);let r=o.indexOf(n.__bindingPointIndex);o.splice(r,1),e.deleteBuffer(i[n.id]),delete i[n.id],delete a[n.id]}function y(){for(let t in i)e.deleteBuffer(i[t]);o=[],i={},a={}}return{bind:c,update:l,dispose:y}}var KC=new Uint16Array([12469,15057,12620,14925,13266,14620,13807,14376,14323,13990,14545,13625,14713,13328,14840,12882,14931,12528,14996,12233,15039,11829,15066,11525,15080,11295,15085,10976,15082,10705,15073,10495,13880,14564,13898,14542,13977,14430,14158,14124,14393,13732,14556,13410,14702,12996,14814,12596,14891,12291,14937,11834,14957,11489,14958,11194,14943,10803,14921,10506,14893,10278,14858,9960,14484,14039,14487,14025,14499,13941,14524,13740,14574,13468,14654,13106,14743,12678,14818,12344,14867,11893,14889,11509,14893,11180,14881,10751,14852,10428,14812,10128,14765,9754,14712,9466,14764,13480,14764,13475,14766,13440,14766,13347,14769,13070,14786,12713,14816,12387,14844,11957,14860,11549,14868,11215,14855,10751,14825,10403,14782,10044,14729,9651,14666,9352,14599,9029,14967,12835,14966,12831,14963,12804,14954,12723,14936,12564,14917,12347,14900,11958,14886,11569,14878,11247,14859,10765,14828,10401,14784,10011,14727,9600,14660,9289,14586,8893,14508,8533,15111,12234,15110,12234,15104,12216,15092,12156,15067,12010,15028,11776,14981,11500,14942,11205,14902,10752,14861,10393,14812,9991,14752,9570,14682,9252,14603,8808,14519,8445,14431,8145,15209,11449,15208,11451,15202,11451,15190,11438,15163,11384,15117,11274,15055,10979,14994,10648,14932,10343,14871,9936,14803,9532,14729,9218,14645,8742,14556,8381,14461,8020,14365,7603,15273,10603,15272,10607,15267,10619,15256,10631,15231,10614,15182,10535,15118,10389,15042,10167,14963,9787,14883,9447,14800,9115,14710,8665,14615,8318,14514,7911,14411,7507,14279,7198,15314,9675,15313,9683,15309,9712,15298,9759,15277,9797,15229,9773,15166,9668,15084,9487,14995,9274,14898,8910,14800,8539,14697,8234,14590,7790,14479,7409,14367,7067,14178,6621,15337,8619,15337,8631,15333,8677,15325,8769,15305,8871,15264,8940,15202,8909,15119,8775,15022,8565,14916,8328,14804,8009,14688,7614,14569,7287,14448,6888,14321,6483,14088,6171,15350,7402,15350,7419,15347,7480,15340,7613,15322,7804,15287,7973,15229,8057,15148,8012,15046,7846,14933,7611,14810,7357,14682,7069,14552,6656,14421,6316,14251,5948,14007,5528,15356,5942,15356,5977,15353,6119,15348,6294,15332,6551,15302,6824,15249,7044,15171,7122,15070,7050,14949,6861,14818,6611,14679,6349,14538,6067,14398,5651,14189,5311,13935,4958,15359,4123,15359,4153,15356,4296,15353,4646,15338,5160,15311,5508,15263,5829,15188,6042,15088,6094,14966,6001,14826,5796,14678,5543,14527,5287,14377,4985,14133,4586,13869,4257,15360,1563,15360,1642,15358,2076,15354,2636,15341,3350,15317,4019,15273,4429,15203,4732,15105,4911,14981,4932,14836,4818,14679,4621,14517,4386,14359,4156,14083,3795,13808,3437,15360,122,15360,137,15358,285,15355,636,15344,1274,15322,2177,15281,2765,15215,3223,15120,3451,14995,3569,14846,3567,14681,3466,14511,3305,14344,3121,14037,2800,13753,2467,15360,0,15360,1,15359,21,15355,89,15346,253,15325,479,15287,796,15225,1148,15133,1492,15008,1749,14856,1882,14685,1886,14506,1783,14324,1608,13996,1398,13702,1183]),qC=null;function JC(){return qC===null&&(qC=new g_(KC,16,16,rp,Wf),qC.name=`DFG_LUT`,qC.minFilter=Pf,qC.magFilter=Pf,qC.wrapS=kf,qC.wrapT=kf,qC.generateMipmaps=!1,qC.needsUpdate=!0),qC}var YC=class{constructor(e={}){let{canvas:t=om(),context:n=null,depth:r=!0,stencil:i=!1,alpha:a=!1,antialias:o=!1,premultipliedAlpha:s=!0,preserveDrawingBuffer:c=!1,powerPreference:l=`default`,failIfMajorPerformanceCaveat:u=!1,reversedDepthBuffer:d=!1,outputBufferType:f=Lf}=e;this.isWebGLRenderer=!0;let p;if(n!==null){if(typeof WebGLRenderingContext<`u`&&n instanceof WebGLRenderingContext)throw Error(`THREE.WebGLRenderer: WebGL 1 is not supported since r163.`);p=n.getContextAttributes().alpha}else p=a;let m=f,h=new Set([ap,ip,np]),g=new Set([Lf,Hf,Bf,qf,Gf,Kf]),_=new Uint32Array(4),v=new Int32Array(4),y=new Q,b=null,x=null,S=[],C=[],w=null;this.domElement=t,this.debug={checkShaderErrors:!0,diagnostics:{keywords:!1},onShaderError:null},this.autoClear=!0,this.autoClearColor=!0,this.autoClearDepth=!0,this.autoClearStencil=!0,this.sortObjects=!0,this.clippingPlanes=[],this.localClippingEnabled=!1,this.toneMapping=0,this.toneMappingExposure=1,this.transmissionResolutionScale=1;let T=this,E=!1,D=null,O=null,k=null,A=null;this._outputColorSpace=Xp;let j=0,M=0,N=null,P=-1,F=null,I=new sh,L=new sh,ee=null,te=new qh(0),ne=0,R=t.width,z=t.height,B=1,re=null,V=null,ie=new sh(0,0,R,z),ae=new sh(0,0,R,z),oe=!1,se=new b_,ce=!1,le=!1,ue=new fh,de=new Q,fe=new sh,pe={background:null,fog:null,environment:null,overrideMaterial:null,isScene:!0},me=!1;function he(){return N===null?B:1}let H=n;function ge(e,n){return t.getContext(e,n)}let _e,ve,U,ye,W,be,xe,Se,Ce,we,Te,Ee,De,Oe,ke,Ae,je,Me,Ne,Pe,Fe,Ie,Le;try{let e={alpha:!0,depth:r,stencil:i,antialias:o,premultipliedAlpha:s,preserveDrawingBuffer:c,powerPreference:l,failIfMajorPerformanceCaveat:u};if(`setAttribute`in t&&t.setAttribute(`data-engine`,`three.js r186`),t.addEventListener(`webglcontextlost`,ze,!1),t.addEventListener(`webglcontextrestored`,Be,!1),t.addEventListener(`webglcontextcreationerror`,K,!1),H===null){let t=`webgl2`;if(H=ge(t,e),H===null)throw ge(t)?Error(`THREE.WebGLRenderer: Error creating WebGL context with your selected attributes.`):Error(`THREE.WebGLRenderer: Error creating WebGL context.`)}Re()}catch(e){throw t.removeEventListener(`webglcontextlost`,ze,!1),t.removeEventListener(`webglcontextrestored`,Be,!1),t.removeEventListener(`webglcontextcreationerror`,K,!1),X(`WebGLRenderer: `+e.message),e}function Re(){_e=new px(H),_e.init(),Fe=new LC(H,_e),ve=new Hb(H,_e,e,Fe),U=new FC(H,_e),ve.reversedDepthBuffer&&d&&U.buffers.depth.setReversed(!0),O=H.createFramebuffer(),k=H.createFramebuffer(),A=H.createFramebuffer(),ye=new gx(H),W=new hC,be=new IC(H,_e,U,W,ve,Fe,ye),xe=new fx(T),Se=new Nb(H),Ie=new Bb(H,Se),Ce=new mx(H,Se,ye,Ie),we=new vx(H,Ce,Se,Ie,ye),Me=new _x(H,ve,be),ke=new Ub(W),Te=new mC(T,xe,_e,ve,Ie,ke),Ee=new WC(T,W),De=new yC,Oe=new EC(_e),je=new zb(T,xe,U,we,p,s),Ae=new PC(T,we,ve),Le=new GC(H,ye,ve,U),Ne=new Vb(H,_e,ye),Pe=new hx(H,_e,ye),ye.programs=Te.programs,T.capabilities=ve,T.extensions=_e,T.properties=W,T.renderLists=De,T.shadowMap=Ae,T.state=U,T.info=ye}m!==1009&&(w=new bx(m,t.width,t.height,o,r,i));let G=new VC(T,H);this.xr=G,this.getContext=function(){return H},this.getContextAttributes=function(){return H.getContextAttributes()},this.forceContextLoss=function(){let e=_e.get(`WEBGL_lose_context`);e&&e.loseContext()},this.forceContextRestore=function(){let e=_e.get(`WEBGL_lose_context`);e&&e.restoreContext()},this.getPixelRatio=function(){return B},this.setPixelRatio=function(e){e!==void 0&&(B=e,this.setSize(R,z,!1))},this.getSize=function(e){return e.set(R,z)},this.setSize=function(e,n,r=!0){if(G.isPresenting){Y(`WebGLRenderer: Can't change size while VR device is presenting.`);return}R=e,z=n,t.width=Math.floor(e*B),t.height=Math.floor(n*B),r===!0&&(t.style.width=e+`px`,t.style.height=n+`px`),w!==null&&w.setSize(t.width,t.height),this.setViewport(0,0,e,n)},this.getDrawingBufferSize=function(e){return e.set(R*B,z*B).floor()},this.setDrawingBufferSize=function(e,n,r){R=e,z=n,B=r,t.width=Math.floor(e*r),t.height=Math.floor(n*r),this.setViewport(0,0,e,n)},this.setEffects=function(e){if(m===1009){X(`WebGLRenderer: setEffects() requires outputBufferType set to HalfFloatType or FloatType.`);return}if(e){for(let t=0;t<e.length;t++)if(e[t].isOutputPass===!0){Y(`WebGLRenderer: OutputPass is not needed in setEffects(). Tone mapping and color space conversion are applied automatically.`);break}}w.setEffects(e||[])},this.getCurrentViewport=function(e){return e.copy(I)},this.getViewport=function(e){return e.copy(ie)},this.setViewport=function(e,t,n,r){e.isVector4?ie.set(e.x,e.y,e.z,e.w):ie.set(e,t,n,r),U.viewport(I.copy(ie).multiplyScalar(B).round())},this.getScissor=function(e){return e.copy(ae)},this.setScissor=function(e,t,n,r){e.isVector4?ae.set(e.x,e.y,e.z,e.w):ae.set(e,t,n,r),U.scissor(L.copy(ae).multiplyScalar(B).round())},this.getScissorTest=function(){return oe},this.setScissorTest=function(e){U.setScissorTest(oe=e)},this.setOpaqueSort=function(e){re=e},this.setTransparentSort=function(e){V=e},this.getClearColor=function(e){return e.copy(je.getClearColor())},this.setClearColor=function(){je.setClearColor(...arguments)},this.getClearAlpha=function(){return je.getClearAlpha()},this.setClearAlpha=function(){je.setClearAlpha(...arguments)},this.clear=function(e=!0,t=!0,n=!0){let r=0;if(e){let e=!1;if(N!==null){let t=N.texture.format;e=h.has(t)}if(e){let e=N.texture.type,t=g.has(e),n=je.getClearColor(),r=je.getClearAlpha(),i=n.r,a=n.g,o=n.b;t?(_[0]=i,_[1]=a,_[2]=o,_[3]=r,H.clearBufferuiv(H.COLOR,0,_)):(v[0]=i,v[1]=a,v[2]=o,v[3]=r,H.clearBufferiv(H.COLOR,0,v))}else r|=H.COLOR_BUFFER_BIT}t&&(r|=H.DEPTH_BUFFER_BIT,this.state.buffers.depth.setMask(!0)),n&&(r|=H.STENCIL_BUFFER_BIT,this.state.buffers.stencil.setMask(4294967295)),r!==0&&H.clear(r)},this.clearColor=function(){this.clear(!0,!1,!1)},this.clearDepth=function(){this.clear(!1,!0,!1)},this.clearStencil=function(){this.clear(!1,!1,!0)},this.setNodesHandler=function(e){e.setRenderer(this),D=e},this.dispose=function(){t.removeEventListener(`webglcontextlost`,ze,!1),t.removeEventListener(`webglcontextrestored`,Be,!1),t.removeEventListener(`webglcontextcreationerror`,K,!1),je.dispose(),De.dispose(),Oe.dispose(),W.dispose(),xe.dispose(),we.dispose(),Ie.dispose(),Le.dispose(),Te.dispose(),G.dispose(),G.removeEventListener(`sessionstart`,qe),G.removeEventListener(`sessionend`,Je),Ye.stop()};function ze(e){e.preventDefault(),lm(`WebGLRenderer: Context Lost.`),E=!0}function Be(){lm(`WebGLRenderer: Context Restored.`),E=!1;let e=ye.autoReset,t=Ae.enabled,n=Ae.autoUpdate,r=Ae.needsUpdate,i=Ae.type;Re(),ye.autoReset=e,Ae.enabled=t,Ae.autoUpdate=n,Ae.needsUpdate=r,Ae.type=i}function K(e){X(`WebGLRenderer: A WebGL context could not be created. Reason: `,e.statusMessage)}function Ve(e){let t=e.target;t.removeEventListener(`dispose`,Ve),He(t)}function He(e){Ue(e),W.remove(e)}function Ue(e){let t=W.get(e).programs;t!==void 0&&(t.forEach(function(e){Te.releaseProgram(e)}),e.isShaderMaterial&&Te.releaseShaderCache(e))}this.renderBufferDirect=function(e,t,n,r,i,a){t===null&&(t=pe);let o=i.isMesh&&i.matrixWorld.determinantAffine()<0,s=at(e,t,n,r,i);U.setMaterial(r,o);let c=n.index,l=1;if(r.wireframe===!0){if(c=Ce.getWireframeAttribute(n),c===void 0)return;l=2}let u=n.drawRange,d=n.attributes.position,f=u.start*l,p=(u.start+u.count)*l;a!==null&&(f=Math.max(f,a.start*l),p=Math.min(p,(a.start+a.count)*l)),c===null?d!=null&&(f=Math.max(f,0),p=Math.min(p,d.count)):(f=Math.max(f,0),p=Math.min(p,c.count));let m=p-f;if(m<0||m===1/0)return;Ie.setup(i,r,s,n,c);let h,g=Ne;if(c!==null&&(h=Se.get(c),g=Pe,g.setIndex(h)),i.isMesh)r.wireframe===!0?(U.setLineWidth(r.wireframeLinewidth*he()),g.setMode(H.LINES)):g.setMode(H.TRIANGLES);else if(i.isLine){let e=r.linewidth;e===void 0&&(e=1),U.setLineWidth(e*he()),i.isLineSegments?g.setMode(H.LINES):i.isLineLoop?g.setMode(H.LINE_LOOP):g.setMode(H.LINE_STRIP)}else i.isPoints?g.setMode(H.POINTS):i.isSprite&&g.setMode(H.TRIANGLES);if(i.isBatchedMesh)if(_e.get(`WEBGL_multi_draw`))g.renderMultiDraw(i._multiDrawStarts,i._multiDrawCounts,i._multiDrawCount);else{let e=i._multiDrawStarts,t=i._multiDrawCounts,n=i._multiDrawCount,a=c?Se.get(c).bytesPerElement:1,o=W.get(r).currentProgram.getUniforms();for(let r=0;r<n;r++)o.setValue(H,`_gl_DrawID`,r),g.render(e[r]/a,t[r])}else if(i.isInstancedMesh)g.renderInstances(f,m,i.count);else if(n.isInstancedBufferGeometry){let e=n._maxInstanceCount===void 0?1/0:n._maxInstanceCount,t=Math.min(n.instanceCount,e);g.renderInstances(f,m,t)}else g.render(f,m)};function We(e,t,n,r){D!==null&&e.isNodeMaterial&&D.setObject(r,e),ce===!0&&ke.setState(e,n,!1),e.transparent===!0&&e.side===2&&e.forceSinglePass===!1?(e.side=1,e.needsUpdate=!0,tt(e,t,r),e.side=0,e.needsUpdate=!0,tt(e,t,r),e.side=2):tt(e,t,r)}this.compile=function(e,t,n=null){n===null&&(n=e),D!==null&&D.renderStart(e,t,n),x=Oe.get(n),x.init(t),C.push(x),n.traverseVisible(function(e){e.isLight&&e.layers.test(t.layers)&&(x.pushLight(e),e.castShadow&&x.pushShadow(e))}),e!==n&&e.traverseVisible(function(e){e.isLight&&e.layers.test(t.layers)&&(x.pushLight(e),e.castShadow&&x.pushShadow(e))}),x.setupLights(),D!==null&&D.updateLights(x.state.lightsArray),le=this.localClippingEnabled,ce=ke.init(this.clippingPlanes,le),ce===!0&&ke.setGlobalState(this.clippingPlanes,t),D!==null&&Ae.render(x.state.shadowsArray,n,t);let r=new Set;return e.traverse(function(e){if(!(e.isMesh||e.isPoints||e.isLine||e.isSprite))return;let i=e.material;if(i)if(Array.isArray(i))for(let a=0;a<i.length;a++){let o=i[a];We(o,n,t,e),r.add(o)}else We(i,n,t,e),r.add(i)}),x=C.pop(),D!==null&&D.renderEnd(),r},this.compileAsync=function(e,t,n=null){let r=this.compile(e,t,n);return new Promise(t=>{function n(){if(r.forEach(function(e){let t=W.get(e).currentProgram;(t===void 0||t.isReady())&&r.delete(e)}),r.size===0){t(e);return}setTimeout(n,10)}_e.get(`KHR_parallel_shader_compile`)===null?setTimeout(n,10):n()})};let Ge=null;function Ke(e){Ge&&Ge(e)}function qe(){Ye.stop()}function Je(){Ye.start()}let Ye=new Mb;Ye.setAnimationLoop(Ke),typeof self<`u`&&Ye.setContext(self),this.setAnimationLoop=function(e){Ge=e,G.setAnimationLoop(e),e===null?Ye.stop():Ye.start()},G.addEventListener(`sessionstart`,qe),G.addEventListener(`sessionend`,Je),this.render=function(e,t){if(t!==void 0&&t.isCamera!==!0){X(`WebGLRenderer.render: camera is not an instance of THREE.Camera.`);return}if(E===!0)return;D!==null&&D.renderStart(e,t);let n=G.enabled===!0&&G.isPresenting===!0,r=w!==null&&(N===null||n)&&w.begin(T,N);if(e.matrixWorldAutoUpdate===!0&&e.updateMatrixWorld(),t.parent===null&&t.matrixWorldAutoUpdate===!0&&t.updateMatrixWorld(),G.enabled===!0&&G.isPresenting===!0&&(w===null||w.isCompositing()===!1)&&(G.cameraAutoUpdate===!0&&G.updateCamera(t),t=G.getCamera()),e.isScene===!0&&e.onBeforeRender(T,e,t,N),x=Oe.get(e,C.length),x.init(t),x.state.textureUnits=be.getTextureUnits(),C.push(x),ue.multiplyMatrices(t.projectionMatrix,t.matrixWorldInverse),se.setFromProjectionMatrix(ue,nm,t.reversedDepth),le=this.localClippingEnabled,ce=ke.init(this.clippingPlanes,le),b=De.get(e,S.length),b.init(),S.push(b),G.enabled===!0&&G.isPresenting===!0){let e=T.xr.getDepthSensingMesh();e!==null&&Xe(e,t,-1/0,T.sortObjects)}Xe(e,t,0,T.sortObjects),b.finish(),D!==null&&D.updateLights(x.state.lightsArray),T.sortObjects===!0&&b.sort(re,V),me=G.enabled===!1||G.isPresenting===!1||G.hasDepthSensing()===!1,me&&je.addToRenderList(b,e),this.info.render.frame++,this.info.autoReset===!0&&this.info.reset(),ce===!0&&ke.beginShadows();let i=x.state.shadowsArray;if(Ae.render(i,e,t),ce===!0&&ke.endShadows(),(r&&w.hasRenderPass())===!1){let n=b.opaque,r=b.transmissive;if(x.setupLights(),t.isArrayCamera){let i=t.cameras;if(r.length>0)for(let t=0,a=i.length;t<a;t++){let a=i[t];Qe(n,r,e,a)}me&&je.render(e);for(let t=0,n=i.length;t<n;t++){let n=i[t];Ze(b,e,n,n.viewport)}}else r.length>0&&Qe(n,r,e,t),me&&je.render(e),Ze(b,e,t)}N!==null&&M===0&&(be.updateMultisampleRenderTarget(N),be.updateRenderTargetMipmap(N)),r&&w.end(T),e.isScene===!0&&e.onAfterRender(T,e,t),Ie.resetDefaultState(),P=-1,F=null,C.pop(),C.length>0?(x=C[C.length-1],be.setTextureUnits(x.state.textureUnits),ce===!0&&ke.setGlobalState(T.clippingPlanes,x.state.camera)):x=null,S.pop(),b=S.length>0?S[S.length-1]:null,D!==null&&D.renderEnd()};function Xe(e,t,n,r){if(e.visible===!1)return;if(e.layers.test(t.layers)){if(e.isGroup)n=e.renderOrder;else if(e.isLOD)e.autoUpdate===!0&&e.update(t);else if(e.isLightProbeGrid)x.pushLightProbeGrid(e);else if(e.isLight)x.pushLight(e),e.castShadow&&x.pushShadow(e);else if(e.isSprite){if(!e.frustumCulled||e.intersectsFrustum(se)){r&&fe.setFromMatrixPosition(e.matrixWorld).applyMatrix4(ue);let i=we.update(e),a=e.material;a.visible&&b.push(e,i,a,n,fe.z,null,t)}}else if((e.isMesh||e.isLine||e.isPoints)&&(!e.frustumCulled||e.intersectsFrustum(se))){let i=we.update(e),a=e.material;if(r&&(e.boundingSphere===void 0?(i.boundingSphere===null&&i.computeBoundingSphere(),fe.copy(i.boundingSphere.center)):(e.boundingSphere===null&&e.computeBoundingSphere(),fe.copy(e.boundingSphere.center)),fe.applyMatrix4(e.matrixWorld).applyMatrix4(ue)),Array.isArray(a)){let r=i.groups;for(let o=0,s=r.length;o<s;o++){let s=r[o],c=a[s.materialIndex];c&&c.visible&&b.push(e,i,c,n,fe.z,s,t)}}else a.visible&&b.push(e,i,a,n,fe.z,null,t)}}let i=e.children;for(let e=0,a=i.length;e<a;e++)Xe(i[e],t,n,r)}function Ze(e,t,n,r){let{opaque:i,transmissive:a,transparent:o}=e;x.setupLightsView(n),ce===!0&&ke.setGlobalState(T.clippingPlanes,n),r&&U.viewport(I.copy(r)),i.length>0&&$e(i,t,n),a.length>0&&$e(a,t,n),o.length>0&&$e(o,t,n),U.buffers.depth.setTest(!0),U.buffers.depth.setMask(!0),U.buffers.color.setMask(!0),U.setPolygonOffset(!1)}function Qe(e,t,n,r){if((n.isScene===!0?n.overrideMaterial:null)!==null)return;if(x.state.transmissionRenderTarget[r.id]===void 0){let e=_e.has(`EXT_color_buffer_half_float`)||_e.has(`EXT_color_buffer_float`);x.state.transmissionRenderTarget[r.id]=new lh(1,1,{generateMipmaps:!0,type:e?Wf:Lf,minFilter:If,samples:Math.max(4,ve.samples),stencilBuffer:i,resolveDepthBuffer:!1,resolveStencilBuffer:!1,storeMultisampledDepthBuffer:!1,storeMultisampledStencilBuffer:!1,colorSpace:Xm.workingColorSpace})}let a=x.state.transmissionRenderTarget[r.id],o=r.viewport||I;a.setSize(o.z*T.transmissionResolutionScale,o.w*T.transmissionResolutionScale);let s=T.getRenderTarget(),c=T.getActiveCubeFace(),l=T.getActiveMipmapLevel();T.setRenderTarget(a),T.getClearColor(te),ne=T.getClearAlpha(),ne<1&&T.setClearColor(16777215,.5),T.clear(),me&&je.render(n);let u=T.toneMapping;T.toneMapping=0;let d=r.viewport;if(r.viewport!==void 0&&(r.viewport=void 0),x.setupLightsView(r),ce===!0&&ke.setGlobalState(T.clippingPlanes,r),$e(e,n,r),be.updateMultisampleRenderTarget(a),be.updateRenderTargetMipmap(a),_e.has(`WEBGL_multisampled_render_to_texture`)===!1){let e=!1;for(let i=0,a=t.length;i<a;i++){let{object:a,geometry:o,material:s,group:c}=t[i];if(s.side===2&&a.layers.test(r.layers)){let t=s.side;s.side=1,s.needsUpdate=!0,et(a,n,r,o,s,c),s.side=t,s.needsUpdate=!0,e=!0}}e===!0&&(be.updateMultisampleRenderTarget(a),be.updateRenderTargetMipmap(a))}T.setRenderTarget(s,c,l),T.setClearColor(te,ne),d!==void 0&&(r.viewport=d),T.toneMapping=u}function $e(e,t,n){let r=t.isScene===!0?t.overrideMaterial:null;for(let i=0,a=e.length;i<a;i++){let a=e[i],{object:o,geometry:s,group:c}=a,l=a.material;l.allowOverride===!0&&r!==null&&(l=r),o.layers.test(n.layers)&&et(o,t,n,s,l,c)}}function et(e,t,n,r,i,a){D!==null&&i.isNodeMaterial&&D.setObject(e,i),e.onBeforeRender(T,t,n,r,i,a),e.modelViewMatrix.multiplyMatrices(n.matrixWorldInverse,e.matrixWorld),e.normalMatrix.getNormalMatrix(e.modelViewMatrix),i.onBeforeRender(T,t,n,r,e,a),i.transparent===!0&&i.side===2&&i.forceSinglePass===!1?(i.side=1,i.needsUpdate=!0,T.renderBufferDirect(n,t,r,i,e,a),i.side=0,i.needsUpdate=!0,T.renderBufferDirect(n,t,r,i,e,a),i.side=2):T.renderBufferDirect(n,t,r,i,e,a),e.onAfterRender(T,t,n,r,i,a)}function tt(e,t,n){t.isScene!==!0&&(t=pe);let r=W.get(e),i=x.state.lights,a=x.state.shadowsArray,o=i.state.version,s=Te.getParameters(e,i.state,a,t,n,x.state.lightProbeGridArray),c=Te.getProgramCacheKey(s),l=r.programs;r.environment=e.isMeshStandardMaterial||e.isMeshLambertMaterial||e.isMeshPhongMaterial?t.environment:null,r.fog=t.fog;let u=e.isMeshStandardMaterial||e.isMeshLambertMaterial&&!e.envMap||e.isMeshPhongMaterial&&!e.envMap;r.envMap=xe.get(e.envMap||r.environment,u),r.envMapRotation=r.environment!==null&&e.envMap===null?t.environmentRotation:e.envMapRotation,l===void 0&&(e.addEventListener(`dispose`,Ve),l=new Map,r.programs=l);let d=l.get(c);if(d!==void 0){if(r.currentProgram===d&&r.lightsStateVersion===o)return rt(e,s),d}else s.uniforms=Te.getUniforms(e),D!==null&&e.isNodeMaterial&&D.build(e,n,s),e.onBeforeCompile(s,T),d=Te.acquireProgram(s,c),l.set(c,d),r.uniforms=s.uniforms;let f=r.uniforms;return(!e.isShaderMaterial&&!e.isRawShaderMaterial||e.clipping===!0)&&(f.clippingPlanes=ke.uniform),rt(e,s),r.needsLights=st(e),r.lightsStateVersion=o,r.needsLights&&(f.ambientLightColor.value=i.state.ambient,f.lightProbe.value=i.state.probe,f.sunLights.value=i.state.sun,f.sunLightShadows.value=i.state.sunShadow,f.directionalLights.value=i.state.directional,f.directionalLightShadows.value=i.state.directionalShadow,f.spotLights.value=i.state.spot,f.spotLightShadows.value=i.state.spotShadow,f.rectAreaLights.value=i.state.rectArea,f.ltc_1.value=i.state.rectAreaLTC1,f.ltc_2.value=i.state.rectAreaLTC2,f.pointLights.value=i.state.point,f.pointLightShadows.value=i.state.pointShadow,f.hemisphereLights.value=i.state.hemi,f.sunShadowMatrix.value=i.state.sunShadowMatrix,f.sunShadowCascade.value=i.state.sunShadowCascade,f.directionalShadowMatrix.value=i.state.directionalShadowMatrix,f.spotLightMatrix.value=i.state.spotLightMatrix,f.spotLightMap.value=i.state.spotLightMap,f.pointShadowMatrix.value=i.state.pointShadowMatrix),r.lightProbeGrid=x.state.lightProbeGridArray.length>0,r.currentProgram=d,r.uniformsList=null,d}function nt(e){if(e.uniformsList===null){let t=e.currentProgram.getUniforms();e.uniformsList=DS.seqWithValue(t.seq,e.uniforms)}return e.uniformsList}function rt(e,t){let n=W.get(e);n.outputColorSpace=t.outputColorSpace,n.batching=t.batching,n.batchingColor=t.batchingColor,n.instancing=t.instancing,n.instancingColor=t.instancingColor,n.instancingMorph=t.instancingMorph,n.skinning=t.skinning,n.morphTargets=t.morphTargets,n.morphNormals=t.morphNormals,n.morphColors=t.morphColors,n.morphTargetsCount=t.morphTargetsCount,n.numClippingPlanes=t.numClippingPlanes,n.numIntersection=t.numClipIntersection,n.vertexAlphas=t.vertexAlphas,n.vertexTangents=t.vertexTangents,n.toneMapping=t.toneMapping}function it(e,t){if(e.length===0)return null;if(e.length===1)return e[0].texture===null?null:e[0];y.setFromMatrixPosition(t.matrixWorld);for(let t=0,n=e.length;t<n;t++){let n=e[t];if(n.texture!==null&&n.boundingBox.containsPoint(y))return n}return null}function at(e,t,n,r,i){t.isScene!==!0&&(t=pe),be.resetTextureUnits();let a=t.fog,o=r.isMeshStandardMaterial||r.isMeshLambertMaterial||r.isMeshPhongMaterial?t.environment:null,s=N===null?T.outputColorSpace:N.isXRRenderTarget===!0?N.texture.colorSpace:Xm.workingColorSpace,c=r.isMeshStandardMaterial||r.isMeshLambertMaterial&&!r.envMap||r.isMeshPhongMaterial&&!r.envMap,l=xe.get(r.envMap||o,c),u=r.vertexColors===!0&&!!n.attributes.color&&n.attributes.color.itemSize===4,d=!!n.attributes.tangent&&(!!r.normalMap||r.anisotropy>0),f=!!n.morphAttributes.position,p=!!n.morphAttributes.normal,m=!!n.morphAttributes.color,h=0;r.toneMapped&&(N===null||N.isXRRenderTarget===!0)&&(h=T.toneMapping);let g=n.morphAttributes.position||n.morphAttributes.normal||n.morphAttributes.color,_=g===void 0?0:g.length,v=W.get(r),y=x.state.lights;if(ce===!0&&(le===!0||e!==F)){let t=e===F&&r.id===P;ke.setState(r,e,t)}let b=!1;r.version===v.__version?v.needsLights&&v.lightsStateVersion!==y.state.version?b=!0:v.outputColorSpace===s?i.isBatchedMesh&&v.batching===!1||!i.isBatchedMesh&&v.batching===!0||i.isBatchedMesh&&v.batchingColor===!0&&i._colorsTexture===null||i.isBatchedMesh&&v.batchingColor===!1&&i._colorsTexture!==null||i.isInstancedMesh&&v.instancing===!1||!i.isInstancedMesh&&v.instancing===!0||i.isSkinnedMesh&&v.skinning===!1||!i.isSkinnedMesh&&v.skinning===!0||i.isInstancedMesh&&v.instancingColor===!0&&i.instanceColor===null||i.isInstancedMesh&&v.instancingColor===!1&&i.instanceColor!==null||i.isInstancedMesh&&v.instancingMorph===!0&&i.morphTexture===null||i.isInstancedMesh&&v.instancingMorph===!1&&i.morphTexture!==null?b=!0:v.envMap===l?r.fog===!0&&v.fog!==a||v.numClippingPlanes!==void 0&&(v.numClippingPlanes!==ke.numPlanes||v.numIntersection!==ke.numIntersection)?b=!0:v.vertexAlphas===u&&v.vertexTangents===d&&v.morphTargets===f&&v.morphNormals===p&&v.morphColors===m&&v.toneMapping===h&&v.morphTargetsCount===_?!!v.lightProbeGrid!=x.state.lightProbeGridArray.length>0&&(b=!0):b=!0:b=!0:b=!0:(b=!0,v.__version=r.version);let S=v.currentProgram;b===!0&&(S=tt(r,t,i),D&&r.isNodeMaterial&&D.onUpdateProgram(r,S,v));let C=!1,w=!1,E=!1,O=S.getUniforms(),k=v.uniforms;if(U.useProgram(S.program)&&(C=!0,w=!0,E=!0),r.id!==P&&(P=r.id,w=!0),v.needsLights){let e=it(x.state.lightProbeGridArray,i);v.lightProbeGrid!==e&&(v.lightProbeGrid=e,w=!0)}if(C||F!==e){U.buffers.depth.getReversed()&&e.reversedDepth!==!0&&(e._reversedDepth=!0,e.updateProjectionMatrix()),O.setValue(H,`projectionMatrix`,e.projectionMatrix),O.setValue(H,`viewMatrix`,e.matrixWorldInverse);let t=O.map.cameraPosition;t!==void 0&&t.setValue(H,de.setFromMatrixPosition(e.matrixWorld)),ve.logarithmicDepthBuffer&&O.setValue(H,`logDepthBufFC`,2/(Math.log(e.far+1)/Math.LN2)),(r.isMeshPhongMaterial||r.isMeshToonMaterial||r.isMeshLambertMaterial||r.isMeshBasicMaterial||r.isMeshStandardMaterial||r.isShaderMaterial)&&O.setValue(H,`isOrthographic`,e.isOrthographicCamera===!0),F!==e&&(F=e,w=!0,E=!0)}if(v.needsLights&&(y.state.sunShadowMap.length>0&&O.setValue(H,`sunShadowMap`,y.state.sunShadowMap,be),y.state.directionalShadowMap.length>0&&O.setValue(H,`directionalShadowMap`,y.state.directionalShadowMap,be),y.state.spotShadowMap.length>0&&O.setValue(H,`spotShadowMap`,y.state.spotShadowMap,be),y.state.pointShadowMap.length>0&&O.setValue(H,`pointShadowMap`,y.state.pointShadowMap,be)),i.isSkinnedMesh){O.setOptional(H,i,`bindMatrix`),O.setOptional(H,i,`bindMatrixInverse`);let e=i.skeleton;e&&(e.boneTexture===null&&e.computeBoneTexture(),O.setValue(H,`boneTexture`,e.boneTexture,be))}i.isBatchedMesh&&(O.setOptional(H,i,`batchingTexture`),O.setValue(H,`batchingTexture`,i._matricesTexture,be),O.setOptional(H,i,`batchingIdTexture`),O.setValue(H,`batchingIdTexture`,i._indirectTexture,be),O.setOptional(H,i,`batchingColorTexture`),i._colorsTexture!==null&&O.setValue(H,`batchingColorTexture`,i._colorsTexture,be));let A=n.morphAttributes;if((A.position!==void 0||A.normal!==void 0||A.color!==void 0)&&Me.update(i,n,S),(w||v.receiveShadow!==i.receiveShadow)&&(v.receiveShadow=i.receiveShadow,O.setValue(H,`receiveShadow`,i.receiveShadow)),(r.isMeshStandardMaterial||r.isMeshLambertMaterial||r.isMeshPhongMaterial)&&r.envMap===null&&t.environment!==null&&(k.envMapIntensity.value=t.environmentIntensity),k.dfgLUT!==void 0&&(k.dfgLUT.value=JC()),w){if(O.setValue(H,`toneMappingExposure`,T.toneMappingExposure),v.needsLights&&ot(k,E),a&&r.fog===!0&&Ee.refreshFogUniforms(k,a),Ee.refreshMaterialUniforms(k,r,B,z,x.state.transmissionRenderTarget[e.id]),v.needsLights&&v.lightProbeGrid){let e=v.lightProbeGrid;k.probesSH.value=e.texture,k.probesMin.value.copy(e.boundingBox.min),k.probesMax.value.copy(e.boundingBox.max),k.probesResolution.value.copy(e.resolution)}DS.upload(H,nt(v),k,be)}if(r.isShaderMaterial&&r.uniformsNeedUpdate===!0&&(DS.upload(H,nt(v),k,be),r.uniformsNeedUpdate=!1),r.isSpriteMaterial&&O.setValue(H,`center`,i.center),O.setValue(H,`modelViewMatrix`,i.modelViewMatrix),O.setValue(H,`normalMatrix`,i.normalMatrix),O.setValue(H,`modelMatrix`,i.matrixWorld),r.uniformsGroups!==void 0){let e=r.uniformsGroups;for(let t=0,n=e.length;t<n;t++){let n=e[t];Le.update(n,S),Le.bind(n,S)}}return S}function ot(e,t){e.ambientLightColor.needsUpdate=t,e.lightProbe.needsUpdate=t,e.sunLights.needsUpdate=t,e.sunLightShadows.needsUpdate=t,e.directionalLights.needsUpdate=t,e.directionalLightShadows.needsUpdate=t,e.pointLights.needsUpdate=t,e.pointLightShadows.needsUpdate=t,e.spotLights.needsUpdate=t,e.spotLightShadows.needsUpdate=t,e.rectAreaLights.needsUpdate=t,e.hemisphereLights.needsUpdate=t}function st(e){return e.isMeshLambertMaterial||e.isMeshToonMaterial||e.isMeshPhongMaterial||e.isMeshStandardMaterial||e.isShadowMaterial||e.isShaderMaterial&&e.lights===!0}this.getActiveCubeFace=function(){return j},this.getActiveMipmapLevel=function(){return M},this.getRenderTarget=function(){return N},this.setRenderTargetTextures=function(e,t,n){let r=W.get(e);r.__autoAllocateDepthBuffer=e.resolveDepthBuffer===!1,r.__autoAllocateDepthBuffer===!1&&(r.__useRenderToTexture=!1),W.get(e.texture).__webglTexture=t,W.get(e.depthTexture).__webglTexture=r.__autoAllocateDepthBuffer?void 0:n,r.__hasExternalTextures=!0},this.setRenderTargetFramebuffer=function(e,t){let n=W.get(e);n.__webglFramebuffer=t,n.__useDefaultFramebuffer=t===void 0},this.setRenderTarget=function(e,t=0,n=0){N=e,j=t,M=n;let r=null,i=!1,a=!1;if(e){let o=W.get(e);if(o.__useDefaultFramebuffer!==void 0){U.bindFramebuffer(H.FRAMEBUFFER,o.__webglFramebuffer),I.copy(e.viewport),L.copy(e.scissor),ee=e.scissorTest,U.viewport(I),U.scissor(L),U.setScissorTest(ee),P=-1;return}else if(o.__webglFramebuffer===void 0)be.setupRenderTarget(e);else if(o.__hasExternalTextures)be.rebindTextures(e,W.get(e.texture).__webglTexture,W.get(e.depthTexture).__webglTexture);else if(e.depthBuffer){let t=e.depthTexture;if(o.__boundDepthTexture!==t){if(t!==null&&W.has(t)&&(e.width!==t.image.width||e.height!==t.image.height))throw Error(`THREE.WebGLRenderer: Attached DepthTexture is initialized to the incorrect size.`);be.setupDepthRenderbuffer(e)}}let s=e.texture;(s.isData3DTexture||s.isDataArrayTexture||s.isCompressedArrayTexture)&&(a=!0);let c=W.get(e).__webglFramebuffer;e.isWebGLCubeRenderTarget?(r=Array.isArray(c[t])?c[t][n]:c[t],i=!0):r=e.samples>0&&be.useMultisampledRTT(e)===!1?W.get(e).__webglMultisampledFramebuffer:Array.isArray(c)?c[n]:c,I.copy(e.viewport),L.copy(e.scissor),ee=e.scissorTest}else I.copy(ie).multiplyScalar(B).floor(),L.copy(ae).multiplyScalar(B).floor(),ee=oe;if(n!==0&&(r=O),U.bindFramebuffer(H.FRAMEBUFFER,r)&&U.drawBuffers(e,r),U.viewport(I),U.scissor(L),U.setScissorTest(ee),i){let r=W.get(e.texture);H.framebufferTexture2D(H.FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_CUBE_MAP_POSITIVE_X+t,r.__webglTexture,n)}else if(a){let r=t;for(let t=0;t<e.textures.length;t++){let i=W.get(e.textures[t]);H.framebufferTextureLayer(H.FRAMEBUFFER,H.COLOR_ATTACHMENT0+t,i.__webglTexture,n,r)}}else if(e!==null&&n!==0){let t=W.get(e.texture);H.framebufferTexture2D(H.FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_2D,t.__webglTexture,n)}P=-1};function ct(e){let t=W.get(e);return(t.__readFormat!==e.format||t.__readType!==e.type)&&(t.__readFormat=e.format,t.__readType=e.type,t.__formatReadable=ve.textureFormatReadable(e.format),t.__typeReadable=ve.textureTypeReadable(e.type)),t}this.readRenderTargetPixels=function(e,t,n,r,i,a,o,s=0){if(!(e&&e.isWebGLRenderTarget)){X(`WebGLRenderer.readRenderTargetPixels: renderTarget is not THREE.WebGLRenderTarget.`);return}let c=W.get(e).__webglFramebuffer;if(e.isWebGLCubeRenderTarget&&o!==void 0&&(c=c[o]),c){U.bindFramebuffer(H.FRAMEBUFFER,c);try{let o=e.textures[s],c=o.format,l=o.type;e.textures.length>1&&H.readBuffer(H.COLOR_ATTACHMENT0+s);let u=ct(o);if(u.__formatReadable===!1){X(`WebGLRenderer.readRenderTargetPixels: renderTarget is not in RGBA or implementation defined format.`);return}if(u.__typeReadable===!1){X(`WebGLRenderer.readRenderTargetPixels: renderTarget is not in UnsignedByteType or implementation defined type.`);return}t>=0&&t<=e.width-r&&n>=0&&n<=e.height-i&&H.readPixels(t,n,r,i,Fe.convert(c),Fe.convert(l),a)}finally{let e=N===null?null:W.get(N).__webglFramebuffer;U.bindFramebuffer(H.FRAMEBUFFER,e)}}},this.readRenderTargetPixelsAsync=async function(e,t,n,r,i,a,o,s=0){if(!(e&&e.isWebGLRenderTarget))throw Error(`THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not THREE.WebGLRenderTarget.`);let c=W.get(e).__webglFramebuffer;if(e.isWebGLCubeRenderTarget&&o!==void 0&&(c=c[o]),c)if(t>=0&&t<=e.width-r&&n>=0&&n<=e.height-i){U.bindFramebuffer(H.FRAMEBUFFER,c);let o=e.textures[s],l=o.format,u=o.type;e.textures.length>1&&H.readBuffer(H.COLOR_ATTACHMENT0+s);let d=ct(o);if(d.__formatReadable===!1)throw Error(`THREE.WebGLRenderer.readRenderTargetPixelsAsync: renderTarget is not in RGBA or implementation defined format.`);if(d.__typeReadable===!1)throw Error(`THREE.WebGLRenderer.readRenderTargetPixelsAsync: renderTarget is not in UnsignedByteType or implementation defined type.`);let f=H.createBuffer();H.bindBuffer(H.PIXEL_PACK_BUFFER,f),H.bufferData(H.PIXEL_PACK_BUFFER,a.byteLength,H.STREAM_READ),H.readPixels(t,n,r,i,Fe.convert(l),Fe.convert(u),0),H.bindBuffer(H.PIXEL_PACK_BUFFER,null);let p=N===null?null:W.get(N).__webglFramebuffer;U.bindFramebuffer(H.FRAMEBUFFER,p);let m=H.fenceSync(H.SYNC_GPU_COMMANDS_COMPLETE,0);return H.flush(),await fm(H,m,4),H.bindBuffer(H.PIXEL_PACK_BUFFER,f),H.getBufferSubData(H.PIXEL_PACK_BUFFER,0,a),H.bindBuffer(H.PIXEL_PACK_BUFFER,null),H.deleteBuffer(f),H.deleteSync(m),a}else throw Error(`THREE.WebGLRenderer.readRenderTargetPixelsAsync: requested read bounds are out of range.`)},this.copyFramebufferToTexture=function(e,t=null,n=0){let r=2**-n,i=Math.floor(e.image.width*r),a=Math.floor(e.image.height*r),o=t===null?0:t.x,s=t===null?0:t.y;be.setTexture2D(e,0),H.copyTexSubImage2D(H.TEXTURE_2D,n,0,0,o,s,i,a),U.unbindTexture()},this.copyTextureToTexture=function(e,t,n=null,r=null,i=0,a=0){let o,s,c,l,u,d,f,p,m,h=e.isCompressedTexture?e.mipmaps[a]:e.image;if(n!==null)o=n.max.x-n.min.x,s=n.max.y-n.min.y,c=n.isBox3?n.max.z-n.min.z:1,l=n.min.x,u=n.min.y,d=n.isBox3?n.min.z:0;else{let t=2**-i;o=Math.floor(h.width*t),s=Math.floor(h.height*t),c=e.isDataArrayTexture?h.depth:e.isData3DTexture?Math.floor(h.depth*t):1,l=0,u=0,d=0}r===null?(f=0,p=0,m=0):(f=r.x,p=r.y,m=r.z);let g=Fe.convert(t.format),_=Fe.convert(t.type),v;t.isData3DTexture?(be.setTexture3D(t,0),v=H.TEXTURE_3D):t.isDataArrayTexture||t.isCompressedArrayTexture?(be.setTexture2DArray(t,0),v=H.TEXTURE_2D_ARRAY):(be.setTexture2D(t,0),v=H.TEXTURE_2D),U.activeTexture(H.TEXTURE0),U.pixelStorei(H.UNPACK_FLIP_Y_WEBGL,t.flipY),U.pixelStorei(H.UNPACK_PREMULTIPLY_ALPHA_WEBGL,t.premultiplyAlpha),U.pixelStorei(H.UNPACK_ALIGNMENT,t.unpackAlignment);let y=U.getParameter(H.UNPACK_ROW_LENGTH),b=U.getParameter(H.UNPACK_IMAGE_HEIGHT),x=U.getParameter(H.UNPACK_SKIP_PIXELS),S=U.getParameter(H.UNPACK_SKIP_ROWS),C=U.getParameter(H.UNPACK_SKIP_IMAGES);U.pixelStorei(H.UNPACK_ROW_LENGTH,h.width),U.pixelStorei(H.UNPACK_IMAGE_HEIGHT,h.height),U.pixelStorei(H.UNPACK_SKIP_PIXELS,l),U.pixelStorei(H.UNPACK_SKIP_ROWS,u),U.pixelStorei(H.UNPACK_SKIP_IMAGES,d);let w=e.isDataArrayTexture||e.isData3DTexture,T=t.isDataArrayTexture||t.isData3DTexture;if(e.isDepthTexture){let n=W.get(e),r=W.get(t),h=W.get(n.__renderTarget),g=W.get(r.__renderTarget);U.bindFramebuffer(H.READ_FRAMEBUFFER,h.__webglFramebuffer),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,g.__webglFramebuffer);for(let n=0;n<c;n++)w&&(H.framebufferTextureLayer(H.READ_FRAMEBUFFER,H.COLOR_ATTACHMENT0,W.get(e).__webglTexture,i,d+n),H.framebufferTextureLayer(H.DRAW_FRAMEBUFFER,H.COLOR_ATTACHMENT0,W.get(t).__webglTexture,a,m+n)),H.blitFramebuffer(l,u,o,s,f,p,o,s,H.DEPTH_BUFFER_BIT,H.NEAREST);U.bindFramebuffer(H.READ_FRAMEBUFFER,null),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,null)}else if(i!==0||e.isRenderTargetTexture||W.has(e)){let n=W.get(e),r=W.get(t);U.bindFramebuffer(H.READ_FRAMEBUFFER,k),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,A);for(let e=0;e<c;e++)w?H.framebufferTextureLayer(H.READ_FRAMEBUFFER,H.COLOR_ATTACHMENT0,n.__webglTexture,i,d+e):H.framebufferTexture2D(H.READ_FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_2D,n.__webglTexture,i),T?H.framebufferTextureLayer(H.DRAW_FRAMEBUFFER,H.COLOR_ATTACHMENT0,r.__webglTexture,a,m+e):H.framebufferTexture2D(H.DRAW_FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_2D,r.__webglTexture,a),i===0?T?H.copyTexSubImage3D(v,a,f,p,m+e,l,u,o,s):H.copyTexSubImage2D(v,a,f,p,l,u,o,s):H.blitFramebuffer(l,u,o,s,f,p,o,s,H.COLOR_BUFFER_BIT,H.NEAREST);U.bindFramebuffer(H.READ_FRAMEBUFFER,null),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,null)}else T?e.isDataTexture||e.isData3DTexture?H.texSubImage3D(v,a,f,p,m,o,s,c,g,_,h.data):t.isCompressedArrayTexture?H.compressedTexSubImage3D(v,a,f,p,m,o,s,c,g,h.data):H.texSubImage3D(v,a,f,p,m,o,s,c,g,_,h):e.isDataTexture?H.texSubImage2D(H.TEXTURE_2D,a,f,p,o,s,g,_,h.data):e.isCompressedTexture?H.compressedTexSubImage2D(H.TEXTURE_2D,a,f,p,h.width,h.height,g,h.data):H.texSubImage2D(H.TEXTURE_2D,a,f,p,o,s,g,_,h);U.pixelStorei(H.UNPACK_ROW_LENGTH,y),U.pixelStorei(H.UNPACK_IMAGE_HEIGHT,b),U.pixelStorei(H.UNPACK_SKIP_PIXELS,x),U.pixelStorei(H.UNPACK_SKIP_ROWS,S),U.pixelStorei(H.UNPACK_SKIP_IMAGES,C),a===0&&t.generateMipmaps&&H.generateMipmap(v),U.unbindTexture()},this.initRenderTarget=function(e){W.get(e).__webglFramebuffer===void 0&&be.setupRenderTarget(e)},this.initTexture=function(e){e.isCubeTexture?be.setTextureCube(e,0):e.isData3DTexture?be.setTexture3D(e,0):e.isDataArrayTexture||e.isCompressedArrayTexture?be.setTexture2DArray(e,0):be.setTexture2D(e,0),U.unbindTexture()},this.resetState=function(){j=0,M=0,N=null,U.reset(),Ie.reset()},typeof __THREE_DEVTOOLS__<`u`&&__THREE_DEVTOOLS__.dispatchEvent(new CustomEvent(`observe`,{detail:this}))}get coordinateSystem(){return nm}get outputColorSpace(){return this._outputColorSpace}set outputColorSpace(e){this._outputColorSpace=e;let t=this.getContext();t.drawingBufferColorSpace=Xm._getDrawingBufferColorSpace(e),t.unpackColorSpace=Xm._getUnpackColorSpace()}},XC={type:`change`},ZC={type:`start`},QC={type:`end`},$C=new e_,ew=new qg,tw=Math.cos(70*Vm.DEG2RAD),nw=new Q,rw=2*Math.PI,iw={NONE:-1,ROTATE:0,DOLLY:1,PAN:2,TOUCH_ROTATE:3,TOUCH_PAN:4,TOUCH_DOLLY_PAN:5,TOUCH_DOLLY_ROTATE:6},aw=1e-6,ow=class extends kb{constructor(e,t=null){super(e,t),this.state=iw.NONE,this.target=new Q,this.cursor=new Q,this.minDistance=0,this.maxDistance=1/0,this.minZoom=0,this.maxZoom=1/0,this.minTargetRadius=0,this.maxTargetRadius=1/0,this.minPolarAngle=0,this.maxPolarAngle=Math.PI,this.minAzimuthAngle=-1/0,this.maxAzimuthAngle=1/0,this.enableDamping=!1,this.dampingFactor=.05,this.enableZoom=!0,this.zoomSpeed=1,this.enableRotate=!0,this.rotateSpeed=1,this.keyRotateSpeed=1,this.enablePan=!0,this.panSpeed=1,this.screenSpacePanning=!0,this.keyPanSpeed=7,this.zoomToCursor=!1,this.autoRotate=!1,this.autoRotateSpeed=2,this.keys={LEFT:`ArrowLeft`,UP:`ArrowUp`,RIGHT:`ArrowRight`,BOTTOM:`ArrowDown`},this.mouseButtons={LEFT:Ef.ROTATE,MIDDLE:Ef.DOLLY,RIGHT:Ef.PAN},this.touches={ONE:Df.ROTATE,TWO:Df.DOLLY_PAN},this.target0=this.target.clone(),this.position0=this.object.position.clone(),this.zoom0=this.object.zoom,this._cursorStyle=`auto`,this._domElementKeyEvents=null,this._lastPosition=new Q,this._lastQuaternion=new Hm,this._lastTargetPosition=new Q,this._quat=new Hm().setFromUnitVectors(e.up,new Q(0,1,0)),this._quatInverse=this._quat.clone().invert(),this._spherical=new Eb,this._sphericalDelta=new Eb,this._scale=1,this._panOffset=new Q,this._rotateStart=new Z,this._rotateEnd=new Z,this._rotateDelta=new Z,this._panStart=new Z,this._panEnd=new Z,this._panDelta=new Z,this._dollyStart=new Z,this._dollyEnd=new Z,this._dollyDelta=new Z,this._dollyDirection=new Q,this._mouse=new Z,this._performCursorZoom=!1,this._pointers=[],this._pointerPositions={},this._controlActive=!1,this._onPointerMove=cw.bind(this),this._onPointerDown=sw.bind(this),this._onPointerUp=lw.bind(this),this._onContextMenu=gw.bind(this),this._onMouseWheel=fw.bind(this),this._onKeyDown=pw.bind(this),this._onTouchStart=mw.bind(this),this._onTouchMove=hw.bind(this),this._onMouseDown=uw.bind(this),this._onMouseMove=dw.bind(this),this._interceptControlDown=_w.bind(this),this._interceptControlUp=vw.bind(this),this.domElement!==null&&this.connect(this.domElement),this.update()}set cursorStyle(e){this._cursorStyle=e,e===`grab`?this.domElement.style.cursor=`grab`:this.domElement.style.cursor=`auto`}get cursorStyle(){return this._cursorStyle}connect(e){super.connect(e),this.domElement.addEventListener(`pointerdown`,this._onPointerDown),this.domElement.addEventListener(`pointercancel`,this._onPointerUp),this.domElement.addEventListener(`contextmenu`,this._onContextMenu),this.domElement.addEventListener(`wheel`,this._onMouseWheel,{passive:!1}),this.domElement.getRootNode().addEventListener(`keydown`,this._interceptControlDown,{passive:!0,capture:!0}),this.domElement.style.touchAction=`none`}disconnect(){this.state=iw.NONE,this.domElement.removeEventListener(`pointerdown`,this._onPointerDown),this.domElement.ownerDocument.removeEventListener(`pointermove`,this._onPointerMove),this.domElement.ownerDocument.removeEventListener(`pointerup`,this._onPointerUp),this.domElement.removeEventListener(`pointercancel`,this._onPointerUp),this.domElement.removeEventListener(`wheel`,this._onMouseWheel),this.domElement.removeEventListener(`contextmenu`,this._onContextMenu),this.stopListenToKeyEvents();let e=this.domElement.getRootNode();e.removeEventListener(`keydown`,this._interceptControlDown,{capture:!0}),e.removeEventListener(`keyup`,this._interceptControlUp,{capture:!0}),this._controlActive=!1,this._pointers.length=0,this._pointerPositions={},this.domElement.style.touchAction=``,this.domElement.style.cursor=`auto`}dispose(){this.disconnect()}getPolarAngle(){return this._spherical.phi}getAzimuthalAngle(){return this._spherical.theta}getDistance(){return this.object.position.distanceTo(this.target)}listenToKeyEvents(e){e.addEventListener(`keydown`,this._onKeyDown),this._domElementKeyEvents=e}stopListenToKeyEvents(){this._domElementKeyEvents!==null&&(this._domElementKeyEvents.removeEventListener(`keydown`,this._onKeyDown),this._domElementKeyEvents=null)}saveState(){this.target0.copy(this.target),this.position0.copy(this.object.position),this.zoom0=this.object.zoom}reset(){this.target.copy(this.target0),this.object.position.copy(this.position0),this.object.zoom=this.zoom0,this.object.updateProjectionMatrix(),this.dispatchEvent(XC),this.update(),this.state=iw.NONE}pan(e,t){this._pan(e,t),this.update()}dollyIn(e){this._dollyIn(e),this.update()}dollyOut(e){this._dollyOut(e),this.update()}rotateLeft(e){this._rotateLeft(e),this.update()}rotateUp(e){this._rotateUp(e),this.update()}update(e=null){let t=this.object.position;nw.copy(t).sub(this.target),nw.applyQuaternion(this._quat),this._spherical.setFromVector3(nw),this.autoRotate&&this.state===iw.NONE&&this._rotateLeft(this._getAutoRotationAngle(e)),this.enableDamping?(this._spherical.theta+=this._sphericalDelta.theta*this.dampingFactor,this._spherical.phi+=this._sphericalDelta.phi*this.dampingFactor):(this._spherical.theta+=this._sphericalDelta.theta,this._spherical.phi+=this._sphericalDelta.phi);let n=this.minAzimuthAngle,r=this.maxAzimuthAngle;isFinite(n)&&isFinite(r)&&(n<-Math.PI?n+=rw:n>Math.PI&&(n-=rw),r<-Math.PI?r+=rw:r>Math.PI&&(r-=rw),n<=r?this._spherical.theta=Math.max(n,Math.min(r,this._spherical.theta)):this._spherical.theta=this._spherical.theta>(n+r)/2?Math.max(n,this._spherical.theta):Math.min(r,this._spherical.theta)),this._spherical.phi=Math.max(this.minPolarAngle,Math.min(this.maxPolarAngle,this._spherical.phi)),this._spherical.makeSafe(),this.enableDamping===!0?this.target.addScaledVector(this._panOffset,this.dampingFactor):this.target.add(this._panOffset),this.target.sub(this.cursor),this.target.clampLength(this.minTargetRadius,this.maxTargetRadius),this.target.add(this.cursor);let i=!1;if(this.zoomToCursor&&this._performCursorZoom||this.object.isOrthographicCamera)this._spherical.radius=this._clampDistance(this._spherical.radius);else{let e=this._spherical.radius;this._spherical.radius=this._clampDistance(this._spherical.radius*this._scale),i=e!=this._spherical.radius}if(nw.setFromSpherical(this._spherical),nw.applyQuaternion(this._quatInverse),t.copy(this.target).add(nw),this.object.lookAt(this.target),this.enableDamping===!0?(this._sphericalDelta.theta*=1-this.dampingFactor,this._sphericalDelta.phi*=1-this.dampingFactor,this._panOffset.multiplyScalar(1-this.dampingFactor)):(this._sphericalDelta.set(0,0,0),this._panOffset.set(0,0,0)),this.zoomToCursor&&this._performCursorZoom){let e=null;if(this.object.isPerspectiveCamera){let t=nw.length();e=this._clampDistance(t*this._scale);let n=t-e;this.object.position.addScaledVector(this._dollyDirection,n),this.object.updateMatrixWorld(),i=!!n}else if(this.object.isOrthographicCamera){let t=new Q(this._mouse.x,this._mouse.y,0);t.unproject(this.object);let n=this.object.zoom;this.object.zoom=Math.max(this.minZoom,Math.min(this.maxZoom,this.object.zoom/this._scale)),this.object.updateProjectionMatrix(),i=n!==this.object.zoom;let r=new Q(this._mouse.x,this._mouse.y,0);r.unproject(this.object),this.object.position.sub(r).add(t),this.object.updateMatrixWorld(),e=nw.length()}else console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - zoom to cursor disabled.`),this.zoomToCursor=!1;e!==null&&(this.screenSpacePanning?this.target.set(0,0,-1).transformDirection(this.object.matrix).multiplyScalar(e).add(this.object.position):($C.origin.copy(this.object.position),$C.direction.set(0,0,-1).transformDirection(this.object.matrix),Math.abs(this.object.up.dot($C.direction))<tw?this.object.lookAt(this.target):(ew.setFromNormalAndCoplanarPoint(this.object.up,this.target),$C.intersectPlane(ew,this.target))))}else if(this.object.isOrthographicCamera){let e=this.object.zoom;this.object.zoom=Math.max(this.minZoom,Math.min(this.maxZoom,this.object.zoom/this._scale)),e!==this.object.zoom&&(this.object.updateProjectionMatrix(),i=!0)}return this._scale=1,this._performCursorZoom=!1,i||this._lastPosition.distanceToSquared(this.object.position)>aw||8*(1-this._lastQuaternion.dot(this.object.quaternion))>aw||this._lastTargetPosition.distanceToSquared(this.target)>aw?(this.dispatchEvent(XC),this._lastPosition.copy(this.object.position),this._lastQuaternion.copy(this.object.quaternion),this._lastTargetPosition.copy(this.target),!0):!1}_getAutoRotationAngle(e){return e===null?rw/60/60*this.autoRotateSpeed:rw/60*this.autoRotateSpeed*e}_getZoomScale(e){let t=Math.abs(e*.01);return .95**(this.zoomSpeed*t)}_rotateLeft(e){this._sphericalDelta.theta-=e}_rotateUp(e){this._sphericalDelta.phi-=e}_panLeft(e,t){nw.setFromMatrixColumn(t,0),nw.multiplyScalar(-e),this._panOffset.add(nw)}_panUp(e,t){this.screenSpacePanning===!0?nw.setFromMatrixColumn(t,1):(nw.setFromMatrixColumn(t,0),nw.crossVectors(this.object.up,nw)),nw.multiplyScalar(e),this._panOffset.add(nw)}_pan(e,t){let n=this.domElement;if(this.object.isPerspectiveCamera){let r=this.object.position;nw.copy(r).sub(this.target);let i=nw.length();i*=Math.tan(this.object.fov/2*Math.PI/180),this._panLeft(2*e*i/n.clientHeight,this.object.matrix),this._panUp(2*t*i/n.clientHeight,this.object.matrix)}else this.object.isOrthographicCamera?(this._panLeft(e*(this.object.right-this.object.left)/this.object.zoom/n.clientWidth,this.object.matrix),this._panUp(t*(this.object.top-this.object.bottom)/this.object.zoom/n.clientHeight,this.object.matrix)):(console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - pan disabled.`),this.enablePan=!1)}_dollyOut(e){this.object.isPerspectiveCamera||this.object.isOrthographicCamera?this._scale/=e:(console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.`),this.enableZoom=!1)}_dollyIn(e){this.object.isPerspectiveCamera||this.object.isOrthographicCamera?this._scale*=e:(console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.`),this.enableZoom=!1)}_updateZoomParameters(e,t){if(!this.zoomToCursor)return;this._performCursorZoom=!0;let n=this.domElement.getBoundingClientRect(),r=e-n.left,i=t-n.top,a=n.width,o=n.height;this._mouse.x=r/a*2-1,this._mouse.y=-(i/o)*2+1,this._dollyDirection.set(this._mouse.x,this._mouse.y,1).unproject(this.object).sub(this.object.position).normalize()}_clampDistance(e){return Math.max(this.minDistance,Math.min(this.maxDistance,e))}_handleMouseDownRotate(e){this._rotateStart.set(e.clientX,e.clientY)}_handleMouseDownDolly(e){this._updateZoomParameters(e.clientX,e.clientX),this._dollyStart.set(e.clientX,e.clientY)}_handleMouseDownPan(e){this._panStart.set(e.clientX,e.clientY)}_handleMouseMoveRotate(e){this._rotateEnd.set(e.clientX,e.clientY),this._rotateDelta.subVectors(this._rotateEnd,this._rotateStart).multiplyScalar(this.rotateSpeed);let t=this.domElement;this._rotateLeft(rw*this._rotateDelta.x/t.clientHeight),this._rotateUp(rw*this._rotateDelta.y/t.clientHeight),this._rotateStart.copy(this._rotateEnd),this.update()}_handleMouseMoveDolly(e){this._dollyEnd.set(e.clientX,e.clientY),this._dollyDelta.subVectors(this._dollyEnd,this._dollyStart),this._dollyDelta.y>0?this._dollyOut(this._getZoomScale(this._dollyDelta.y)):this._dollyDelta.y<0&&this._dollyIn(this._getZoomScale(this._dollyDelta.y)),this._dollyStart.copy(this._dollyEnd),this.update()}_handleMouseMovePan(e){this._panEnd.set(e.clientX,e.clientY),this._panDelta.subVectors(this._panEnd,this._panStart).multiplyScalar(this.panSpeed),this._pan(this._panDelta.x,this._panDelta.y),this._panStart.copy(this._panEnd),this.update()}_handleMouseWheel(e){this._updateZoomParameters(e.clientX,e.clientY),e.deltaY<0?this._dollyIn(this._getZoomScale(e.deltaY)):e.deltaY>0&&this._dollyOut(this._getZoomScale(e.deltaY)),this.update()}_handleKeyDown(e){let t=!1;switch(e.code){case this.keys.UP:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateUp(rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(0,this.keyPanSpeed),t=!0;break;case this.keys.BOTTOM:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateUp(-rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(0,-this.keyPanSpeed),t=!0;break;case this.keys.LEFT:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateLeft(rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(this.keyPanSpeed,0),t=!0;break;case this.keys.RIGHT:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateLeft(-rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(-this.keyPanSpeed,0),t=!0;break}t&&(e.preventDefault(),this.update())}_handleTouchStartRotate(e){if(this._pointers.length===1)this._rotateStart.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._rotateStart.set(n,r)}}_handleTouchStartPan(e){if(this._pointers.length===1)this._panStart.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._panStart.set(n,r)}}_handleTouchStartDolly(e){let t=this._getSecondPointerPosition(e),n=e.pageX-t.x,r=e.pageY-t.y,i=Math.sqrt(n*n+r*r);this._dollyStart.set(0,i)}_handleTouchStartDollyPan(e){this.enableZoom&&this._handleTouchStartDolly(e),this.enablePan&&this._handleTouchStartPan(e)}_handleTouchStartDollyRotate(e){this.enableZoom&&this._handleTouchStartDolly(e),this.enableRotate&&this._handleTouchStartRotate(e)}_handleTouchMoveRotate(e){if(this._pointers.length==1)this._rotateEnd.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._rotateEnd.set(n,r)}this._rotateDelta.subVectors(this._rotateEnd,this._rotateStart).multiplyScalar(this.rotateSpeed);let t=this.domElement;this._rotateLeft(rw*this._rotateDelta.x/t.clientHeight),this._rotateUp(rw*this._rotateDelta.y/t.clientHeight),this._rotateStart.copy(this._rotateEnd)}_handleTouchMovePan(e){if(this._pointers.length===1)this._panEnd.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._panEnd.set(n,r)}this._panDelta.subVectors(this._panEnd,this._panStart).multiplyScalar(this.panSpeed),this._pan(this._panDelta.x,this._panDelta.y),this._panStart.copy(this._panEnd)}_handleTouchMoveDolly(e){let t=this._getSecondPointerPosition(e),n=e.pageX-t.x,r=e.pageY-t.y,i=Math.sqrt(n*n+r*r);this._dollyEnd.set(0,i),this._dollyDelta.set(0,(this._dollyEnd.y/this._dollyStart.y)**+this.zoomSpeed),this._dollyOut(this._dollyDelta.y),this._dollyStart.copy(this._dollyEnd);let a=(e.pageX+t.x)*.5,o=(e.pageY+t.y)*.5;this._updateZoomParameters(a,o)}_handleTouchMoveDollyPan(e){this.enableZoom&&this._handleTouchMoveDolly(e),this.enablePan&&this._handleTouchMovePan(e)}_handleTouchMoveDollyRotate(e){this.enableZoom&&this._handleTouchMoveDolly(e),this.enableRotate&&this._handleTouchMoveRotate(e)}_addPointer(e){this._pointers.push(e.pointerId)}_removePointer(e){delete this._pointerPositions[e.pointerId];for(let t=0;t<this._pointers.length;t++)if(this._pointers[t]==e.pointerId){this._pointers.splice(t,1);return}}_isTrackingPointer(e){for(let t=0;t<this._pointers.length;t++)if(this._pointers[t]==e.pointerId)return!0;return!1}_trackPointer(e){let t=this._pointerPositions[e.pointerId];t===void 0&&(t=new Z,this._pointerPositions[e.pointerId]=t),t.set(e.pageX,e.pageY)}_getSecondPointerPosition(e){let t=e.pointerId===this._pointers[0]?this._pointers[1]:this._pointers[0];return this._pointerPositions[t]}_customWheelEvent(e){let t=e.deltaMode,n={clientX:e.clientX,clientY:e.clientY,deltaY:e.deltaY};switch(t){case 1:n.deltaY*=16;break;case 2:n.deltaY*=100;break}return e.ctrlKey&&!this._controlActive&&(n.deltaY*=10),n}};function sw(e){this.enabled!==!1&&(this._pointers.length===0&&(this.domElement.setPointerCapture(e.pointerId),this.domElement.ownerDocument.addEventListener(`pointermove`,this._onPointerMove),this.domElement.ownerDocument.addEventListener(`pointerup`,this._onPointerUp)),!this._isTrackingPointer(e)&&(this._addPointer(e),e.pointerType===`touch`?this._onTouchStart(e):this._onMouseDown(e),this._cursorStyle===`grab`&&(this.domElement.style.cursor=`grabbing`)))}function cw(e){this.enabled!==!1&&(e.pointerType===`touch`?this._onTouchMove(e):this._onMouseMove(e))}function lw(e){switch(this._removePointer(e),this._pointers.length){case 0:this.domElement.releasePointerCapture(e.pointerId),this.domElement.ownerDocument.removeEventListener(`pointermove`,this._onPointerMove),this.domElement.ownerDocument.removeEventListener(`pointerup`,this._onPointerUp),this.dispatchEvent(QC),this.state=iw.NONE,this._cursorStyle===`grab`&&(this.domElement.style.cursor=`grab`);break;case 1:let t=this._pointers[0],n=this._pointerPositions[t];this._onTouchStart({pointerId:t,pageX:n.x,pageY:n.y});break}}function uw(e){let t;switch(e.button){case 0:t=this.mouseButtons.LEFT;break;case 1:t=this.mouseButtons.MIDDLE;break;case 2:t=this.mouseButtons.RIGHT;break;default:t=-1}switch(t){case Ef.DOLLY:if(this.enableZoom===!1)return;this._handleMouseDownDolly(e),this.state=iw.DOLLY;break;case Ef.ROTATE:if(e.ctrlKey||e.metaKey||e.shiftKey){if(this.enablePan===!1)return;this._handleMouseDownPan(e),this.state=iw.PAN}else{if(this.enableRotate===!1)return;this._handleMouseDownRotate(e),this.state=iw.ROTATE}break;case Ef.PAN:if(e.ctrlKey||e.metaKey||e.shiftKey){if(this.enableRotate===!1)return;this._handleMouseDownRotate(e),this.state=iw.ROTATE}else{if(this.enablePan===!1)return;this._handleMouseDownPan(e),this.state=iw.PAN}break;default:this.state=iw.NONE}this.state!==iw.NONE&&this.dispatchEvent(ZC)}function dw(e){switch(this.state){case iw.ROTATE:if(this.enableRotate===!1)return;this._handleMouseMoveRotate(e);break;case iw.DOLLY:if(this.enableZoom===!1)return;this._handleMouseMoveDolly(e);break;case iw.PAN:if(this.enablePan===!1)return;this._handleMouseMovePan(e);break}}function fw(e){this.enabled===!1||this.enableZoom===!1||this.state!==iw.NONE||(e.preventDefault(),this.dispatchEvent(ZC),this._handleMouseWheel(this._customWheelEvent(e)),this.dispatchEvent(QC))}function pw(e){this.enabled!==!1&&this._handleKeyDown(e)}function mw(e){switch(this._trackPointer(e),this._pointers.length){case 1:switch(this.touches.ONE){case Df.ROTATE:if(this.enableRotate===!1)return;this._handleTouchStartRotate(e),this.state=iw.TOUCH_ROTATE;break;case Df.PAN:if(this.enablePan===!1)return;this._handleTouchStartPan(e),this.state=iw.TOUCH_PAN;break;default:this.state=iw.NONE}break;case 2:switch(this.touches.TWO){case Df.DOLLY_PAN:if(this.enableZoom===!1&&this.enablePan===!1)return;this._handleTouchStartDollyPan(e),this.state=iw.TOUCH_DOLLY_PAN;break;case Df.DOLLY_ROTATE:if(this.enableZoom===!1&&this.enableRotate===!1)return;this._handleTouchStartDollyRotate(e),this.state=iw.TOUCH_DOLLY_ROTATE;break;default:this.state=iw.NONE}break;default:this.state=iw.NONE}this.state!==iw.NONE&&this.dispatchEvent(ZC)}function hw(e){switch(this._trackPointer(e),this.state){case iw.TOUCH_ROTATE:if(this.enableRotate===!1)return;this._handleTouchMoveRotate(e),this.update();break;case iw.TOUCH_PAN:if(this.enablePan===!1)return;this._handleTouchMovePan(e),this.update();break;case iw.TOUCH_DOLLY_PAN:if(this.enableZoom===!1&&this.enablePan===!1)return;this._handleTouchMoveDollyPan(e),this.update();break;case iw.TOUCH_DOLLY_ROTATE:if(this.enableZoom===!1&&this.enableRotate===!1)return;this._handleTouchMoveDollyRotate(e),this.update();break;default:this.state=iw.NONE}}function gw(e){this.enabled!==!1&&e.preventDefault()}function _w(e){e.key===`Control`&&(this._controlActive=!0,this.domElement.getRootNode().addEventListener(`keyup`,this._interceptControlUp,{passive:!0,capture:!0}))}function vw(e){e.key===`Control`&&(this._controlActive=!1,this.domElement.getRootNode().removeEventListener(`keyup`,this._interceptControlUp,{passive:!0,capture:!0}))}function yw(e){return e.assemblyPaths.filter(e=>!e.isHole).map(t=>{let n=new xv(t.points.map(e=>new Z(e.x,e.y)));for(let t of e.assemblyPaths.filter(e=>e.isHole))n.holes.push(new bv(t.points.map(e=>new Z(e.x,e.y))));return n})}function bw(e,t){let n=new ay(yw(e),{depth:t,bevelEnabled:!1,curveSegments:2,steps:1});return n.translate(0,0,-t/2),e.axis===`X`?n.applyMatrix4(new fh().makeBasis(new Q(0,1,0),new Q(0,0,1),new Q(1,0,0))):e.axis===`Y`&&n.rotateX(Math.PI/2),n}function xw(e){let t=(0,C.useRef)(null),n=(0,C.useRef)(e);n.current=e;let r=(0,C.useRef)(null),[i,a]=(0,C.useState)(``);return(0,C.useEffect)(()=>{let e=t.current,i;try{i=new YC({antialias:!0,alpha:!1,powerPreference:`high-performance`})}catch{a(`3D preview needs WebGL. The sheet layout and cut-file exports are still available.`);return}i.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75)),i.setClearColor(2239280),i.outputColorSpace=Xp,i.toneMapping=4,i.toneMappingExposure=1.4,i.domElement.setAttribute(`aria-label`,`Interactive 3D assembly. Drag to orbit, scroll to zoom, shift-drag to pan. Click a part to select it.`),i.domElement.tabIndex=0,e.appendChild(i.domElement);let o=new Yh,s=new Bh;o.add(s);let c=new nb(34,1,.1,3e4);c.up.set(0,0,1);let l=new ow(c,i.domElement);l.enableDamping=!0,l.dampingFactor=.09,l.screenSpacePanning=!0,l.maxDistance=2e4,o.add(new Wy(16774358,6846337,2.3));let u=new ab(16773588,3.4);u.position.set(150,-300,450),o.add(u);let d=new ab(14085631,2.3);d.position.set(-300,200,300),o.add(d);let f=new Db(2e3,100,5924717,3621963);f.rotation.x=Math.PI/2,f.position.z=-.15,o.add(f);let p=new Ob(70);o.add(p);let m=()=>{let e=n.current,t=e.result,r=[...t?.dimensions||[220,180,250]];t?.settings.mode===`stacked`&&(r[t.settings.stackedAxis===`X`?0:t.settings.stackedAxis===`Y`?1:2]=t.builtDepth);let i=new Q(r[0]/2,r[1]/2,r[2]/2),a=[...r];if(t){let n=n=>e.explode/100*Math.max(0,n-1)*t.settings.materialThickness*3.5;t.settings.mode===`stacked`?a[t.settings.stackedAxis===`X`?0:t.settings.stackedAxis===`Y`?1:2]+=n(t.layerCount):(a[0]+=n(t.settings.xSliceCount),a[1]+=n(t.settings.ySliceCount))}let o=Math.max(...a)*2.25;e.view===`front`?c.position.copy(i).add(new Q(0,-o,0)):e.view===`top`?c.position.copy(i).add(new Q(0,-o*.002,o)):c.position.copy(i).add(new Q(o*.95,-o,o*.67)),l.target.copy(i),c.near=Math.max(.05,o/1e4),c.far=o*40,c.updateProjectionMatrix(),l.update()};r.current={scene:o,root:s,camera:c,controls:l,renderer:i,reset:m},m();let h=new ResizeObserver(()=>{let t=e.clientWidth,n=e.clientHeight;!t||!n||(i.setSize(t,n),c.aspect=t/n,c.updateProjectionMatrix())});h.observe(e);let g=0,_=()=>{if(g=requestAnimationFrame(_),document.hidden)return;let e=n.current,t=e.result;if(t){let n=(t.settings.xSliceCount-1)/2,r=(t.settings.ySliceCount-1)/2,i=(t.layerCount-1)/2;s.children.forEach((a,o)=>{if(a.userData.ghost){a.visible=e.ghost;return}let s=a.userData.piece;if(!s)return;a.visible=o<e.step;let c=s.axis===`X`?0:s.axis===`Y`?1:2,l=t.settings.mode===`stacked`?i:s.axis===`X`?n:r,u=e.explode/100*(s.sliceIndex-l)*t.settings.materialThickness*3.5;a.position.set(0,0,0),a.position.setComponent(c,s.worldPosition+u);let d=a.material;if(d){let t=d[0];t.color.set(s.id===e.selected?13102458:s.axis===`Y`?12361841:13941128),t.emissive.set(s.id===e.selected?2437909:0)}})}l.update(),i.render(o,c)};_();let v={x:0,y:0};return i.domElement.addEventListener(`pointerdown`,e=>{v={x:e.clientX,y:e.clientY}}),i.domElement.addEventListener(`pointerup`,e=>{if(Math.hypot(e.clientX-v.x,e.clientY-v.y)>5)return;let t=i.domElement.getBoundingClientRect(),r=new Cb;r.setFromCamera(new Z((e.clientX-t.left)/t.width*2-1,-(e.clientY-t.top)/t.height*2+1),c);let a=r.intersectObjects(s.children.filter(e=>e.visible&&!e.userData.ghost),!1);n.current.onSelect(a[0]?.object.userData.piece?.id||null)}),i.domElement.addEventListener(`keydown`,e=>{e.key.toLowerCase()===`f`&&m()}),()=>{cancelAnimationFrame(g),h.disconnect(),l.dispose(),o.traverse(e=>{(e instanceof p_||e instanceof N_)&&(e.geometry.dispose(),(Array.isArray(e.material)?e.material:[e.material]).forEach(e=>e.dispose()))}),i.dispose(),i.domElement.remove(),r.current=null}},[]),(0,C.useEffect)(()=>{let t=r.current;if(!t||!e.result)return;let{root:n}=t;for(;n.children.length;){let e=n.children[0];n.remove(e),e.traverse(e=>{(e instanceof p_||e instanceof N_)&&(e.geometry.dispose(),(Array.isArray(e.material)?e.material:[e.material]).forEach(e=>e.dispose()))})}let i=e.result,a=document.createElement(`canvas`);a.width=a.height=64;let o=a.getContext(`2d`);o.fillStyle=`#a2875c`,o.fillRect(0,0,64,64);for(let e=0;e<64;e++)o.fillStyle=`rgba(48,31,12,${.08+.1*(1+Math.cos(e*Math.PI/5))/2})`,o.fillRect(e,0,1,64);let s=new F_(a);s.wrapS=s.wrapT=Of,s.repeat.set(.2,2),s.colorSpace=Xp;for(let e of i.pieces){let t=bw(e,i.settings.materialThickness),r=new p_(t,[new yy({color:13941128,roughness:.94,metalness:0,side:2}),new yy({color:9335110,roughness:1,map:s,side:2})]);r.userData.piece=e,n.add(r);let a=new N_(new W_(t,25),new x_({color:6640698,transparent:!0,opacity:.4}));r.add(a)}let c=new Ug;c.setAttribute(`position`,new Og(i.vertices,3)),c.computeVertexNormals();let l=new p_(c,new t_({color:11785936,wireframe:!0,transparent:!0,opacity:.095,depthWrite:!1}));return l.userData.ghost=!0,n.add(l),()=>s.dispose()},[e.result]),(0,C.useEffect)(()=>{r.current?.reset()},[e.view,e.fit,e.result?.model.name,e.result?.dimensions[0],e.result?.dimensions[1],e.result?.dimensions[2],e.result?.settings.mode]),(0,G.jsx)(`div`,{className:`assembly-canvas`,ref:t,children:i&&(0,G.jsx)(`div`,{className:`viewport-error`,children:i})})}function Sw(e,t){return t.x>=e.x-1e-8&&t.y>=e.y-1e-8&&t.x+t.w<=e.x+e.w+1e-8&&t.y+t.h<=e.y+e.h+1e-8}function Cw(e,t){let n=[];for(let r of e){if(t.x>=r.x+r.w-1e-8||t.x+t.w<=r.x+1e-8||t.y>=r.y+r.h-1e-8||t.y+t.h<=r.y+1e-8){n.push(r);continue}t.x>r.x&&n.push({x:r.x,y:r.y,w:t.x-r.x,h:r.h}),t.x+t.w<r.x+r.w&&n.push({x:t.x+t.w,y:r.y,w:r.x+r.w-t.x-t.w,h:r.h}),t.y>r.y&&n.push({x:r.x,y:r.y,w:r.w,h:t.y-r.y}),t.y+t.h<r.y+r.h&&n.push({x:r.x,y:t.y+t.h,w:r.w,h:r.y+r.h-t.y-t.h})}return n.filter((e,t)=>e.w>1e-8&&e.h>1e-8&&!n.some((n,r)=>r!==t&&Sw(n,e)&&(!Sw(e,n)||r<t)))}function ww(e,t){let n=t.sheetWidth-t.sheetMargin*2,r=t.sheetHeight-t.sheetMargin*2,i=[],a=[],o=[...e].sort((e,t)=>t.bounds.width*t.bounds.height-e.bounds.width*e.bounds.height||e.id.localeCompare(t.id));for(let e of o){let o=e.bounds.width+t.partSpacing,s=e.bounds.height+t.partSpacing;if(!(o<=n&&s<=r||t.allowRotation&&s<=n&&o<=r)){a.push(e.id);continue}let c=null,l=e=>{for(let n of i[e].free)for(let r of t.allowRotation?[0,90]:[0]){let t=r===0?o:s,i=r===0?s:o;if(t>n.w+1e-8||i>n.h+1e-8)continue;let a=Math.min(n.w-t,n.h-i),l=Math.max(n.w-t,n.h-i);(!c||a<c.short-1e-8||Math.abs(a-c.short)<1e-8&&l<c.long)&&(c={bin:e,rect:{x:n.x,y:n.y,w:t,h:i},rotation:r,short:a,long:l})}};for(let e=0;e<i.length;e++)l(e);c||(i.push({free:[{x:0,y:0,w:n,h:r}],sheet:{sheetIndex:i.length,placements:[],utilization:0,cutLength:0}}),l(i.length-1));let u=c;if(!u){a.push(e.id);continue}let d=i[u.bin];d.free=Cw(d.free,u.rect),d.sheet.placements.push({pieceId:e.id,x:u.rect.x+t.sheetMargin+t.partSpacing/2,y:u.rect.y+t.sheetMargin+t.partSpacing/2,rotation:u.rotation}),d.sheet.utilization+=e.area/(t.sheetWidth*t.sheetHeight),d.sheet.cutLength+=e.cutLength}return{sheets:i.map(e=>e.sheet),unplaced:a}}function Tw(e,t,n){return n.rotation===90?{x:n.x+t.bounds.maxY-e.y,y:n.y+e.x-t.bounds.minX}:{x:n.x+e.x-t.bounds.minX,y:n.y+e.y-t.bounds.minY}}var Ew=e=>e.map(e=>e.points.map((e,t)=>`${t?`L`:`M`}${e.x},${e.y}`).join(` `)+`Z`).join(` `);function Dw(e){let t=(0,C.useRef)(null),n=(0,C.useRef)(null),r=e.result.settings.sheetWidth,i=e.result.settings.sheetHeight,[a,o]=(0,C.useState)({x:-25,y:-25,w:r+50,h:i+50}),s=(0,C.useRef)(a);s.current=a;let c=()=>o({x:-25,y:-25,w:r+50,h:i+50});(0,C.useEffect)(()=>{c()},[r,i,e.sheetIndex]),(0,C.useEffect)(()=>{e.zoomAction.kind===`fit`?c():o(t=>{let n=e.zoomAction.kind===`in`?.8:1.25;return{x:t.x+t.w*(1-n)/2,y:t.y+t.h*(1-n)/2,w:t.w*n,h:t.h*n}})},[e.zoomAction]),(0,C.useEffect)(()=>{let e=t.current,n=t=>{t.preventDefault();let n=s.current,i=e.getScreenCTM();if(!i)return;let a=new DOMPoint(t.clientX,t.clientY).matrixTransform(i.inverse()),c=Math.exp(Math.max(-150,Math.min(150,t.deltaY))*.002);n.w*c<r/15||n.w*c>r*8||o({x:a.x+(n.x-a.x)*c,y:a.y+(n.y-a.y)*c,w:n.w*c,h:n.h*c})};return e.addEventListener(`wheel`,n,{passive:!1}),()=>e.removeEventListener(`wheel`,n)},[r]);let l=e.result.sheets[e.sheetIndex],u=new Map(e.result.pieces.map(e=>[e.id,e]));if(!l)return null;let d=r>1e3?100:50,f=Array.from({length:Math.floor(r/d)+1},(e,t)=>t*d);return(0,G.jsxs)(`svg`,{ref:t,className:`sheet-svg`,viewBox:`${a.x} ${a.y} ${a.w} ${a.h}`,role:`group`,"aria-label":`Laser sheet ${e.sheetIndex+1}, ${r} by ${i} millimeters. Select a part, or drag empty space to pan.`,onPointerDown:e=>{e.target.closest(`[data-piece]`)||(e.currentTarget.setPointerCapture(e.pointerId),n.current={x:e.clientX,y:e.clientY,bx:a.x,by:a.y})},onPointerMove:e=>{let t=n.current;if(!t)return;let r=e.currentTarget.getScreenCTM();r&&o(n=>({...n,x:t.bx-(e.clientX-t.x)/r.a,y:t.by-(e.clientY-t.y)/r.d}))},onPointerUp:()=>{n.current=null},onPointerCancel:()=>{n.current=null},children:[(0,G.jsx)(`defs`,{children:(0,G.jsx)(`pattern`,{id:`sheet-grid`,width:`25`,height:`25`,patternUnits:`userSpaceOnUse`,children:(0,G.jsx)(`path`,{d:`M25 0H0V25`,stroke:`#dce2e2`,strokeWidth:`.25`,fill:`none`})})}),(0,G.jsx)(`rect`,{x:`0`,y:`0`,width:r,height:i,fill:`#fcfdfb`,stroke:`#879896`,strokeWidth:`1`,vectorEffect:`non-scaling-stroke`}),(0,G.jsx)(`rect`,{x:`0`,y:`0`,width:r,height:i,fill:`url(#sheet-grid)`}),(0,G.jsxs)(`g`,{transform:`translate(0 ${i}) scale(1 -1)`,children:[(0,G.jsx)(`rect`,{x:e.result.settings.sheetMargin,y:e.result.settings.sheetMargin,width:r-2*e.result.settings.sheetMargin,height:i-2*e.result.settings.sheetMargin,fill:`none`,stroke:`#a9b8b3`,strokeWidth:`.8`,strokeDasharray:`4 4`,vectorEffect:`non-scaling-stroke`}),l.placements.map(t=>{let n=u.get(t.pieceId),r=e.selected===n.id,i=e=>e.map(e=>({...e,points:e.points.map(e=>Tw(e,n,t))}));return(0,G.jsxs)(`g`,{"data-piece":n.id,role:`button`,tabIndex:0,"aria-label":`Select part ${n.id}`,className:`sheet-part`,onClick:()=>e.onSelect(n.id),onKeyDown:t=>{(t.key===`Enter`||t.key===` `)&&(t.preventDefault(),e.onSelect(n.id))},children:[(0,G.jsxs)(`title`,{children:[n.id,` · `,n.bounds.width.toFixed(1),` × `,n.bounds.height.toFixed(1),` mm`]}),(0,G.jsx)(`path`,{d:Ew(i(n.cutPaths)),fill:r?`#def0ad`:`#f3eadc`,fillOpacity:r?.8:.65,fillRule:`evenodd`,stroke:`transparent`,strokeWidth:`8`,vectorEffect:`non-scaling-stroke`}),e.raw&&(0,G.jsx)(`path`,{d:Ew(i(n.unmodifiedPaths)),fill:`none`,stroke:`#9eaaa5`,strokeWidth:`.8`,strokeDasharray:`2 3`,vectorEffect:`non-scaling-stroke`}),e.cuts&&(0,G.jsx)(`path`,{d:Ew(i(n.cutPaths.filter(e=>!e.isRegistration))),fill:`none`,stroke:r?`#527817`:`#b8433b`,strokeWidth:r?1.8:1.05,vectorEffect:`non-scaling-stroke`}),e.pins&&(0,G.jsx)(`path`,{d:Ew(i(n.cutPaths.filter(e=>e.isRegistration))),fill:`none`,stroke:`#15965e`,strokeWidth:`1.05`,vectorEffect:`non-scaling-stroke`}),e.labels&&n.etchPaths.map((e,r)=>(0,G.jsx)(`path`,{d:e.points.map((e,r)=>{let i=Tw(e,n,t);return`${r?`L`:`M`}${i.x},${i.y}`}).join(` `),fill:`none`,stroke:`#3869b1`,strokeWidth:`.85`,strokeLinecap:`round`,vectorEffect:`non-scaling-stroke`},r))]},n.id)})]}),f.map(e=>(0,G.jsxs)(`g`,{children:[(0,G.jsx)(`path`,{d:`M${e} -3V-8`,stroke:`#75847f`,strokeWidth:`1`,vectorEffect:`non-scaling-stroke`}),(0,G.jsx)(`text`,{x:e,y:`-12`,fill:`#65766f`,textAnchor:`middle`,fontSize:`9`,fontFamily:`monospace`,children:e})]},e)),(0,G.jsx)(`text`,{x:`0`,y:i+18,fill:`#65766f`,fontSize:`10`,fontFamily:`monospace`,children:`0,0 · mm`})]})}function Ow(e){let t=[1/0,1/0,1/0],n=[-1/0,-1/0,-1/0];for(let r=0;r<e.length;r++){if(!Number.isFinite(e[r]))throw Error(`The mesh contains invalid vertex coordinates.`);let i=r%3;t[i]=Math.min(t[i],e[r]),n[i]=Math.max(n[i],e[r])}let r=n.map((e,n)=>e-t[n]);if(r.some(e=>e<=1e-9||!Number.isFinite(e)))throw Error(`The STL must have volume in all three dimensions.`);return{min:t,max:n,dimensions:r}}function kw(e,t,n){let{min:r,dimensions:i}=Ow(e),a=Math.max(...i)*1e-7,o=new Map,s=new Map,c=new Uint32Array(e.length/3);for(let t=0,n=0;t<e.length;t+=3,n++){let i=[0,1,2].map(n=>Math.round((e[t+n]-r[n])/a)).join(`,`),s=o.get(i);s===void 0&&(s=o.size,o.set(i,s)),c[n]=s}for(let e=0;e<c.length;e+=3)if(!(c[e]===c[e+1]||c[e+1]===c[e+2]||c[e]===c[e+2]))for(let t=0;t<3;t++){let n=c[e+t],r=c[e+(t+1)%3],i=n<r?`${n}:${r}`:`${r}:${n}`;s.set(i,(s.get(i)||0)+1)}let l=0,u=0;for(let e of s.values())e===1&&l++,e>2&&u++;return{name:t,format:n,triangleCount:e.length/9,originalDimensions:i,boundaryEdges:l,nonManifoldEdges:u}}function Aw(e,t){if(e.byteLength>100*1024*1024)throw Error(`This STL is over 100 MB. Simplify the mesh before importing it.`);let n=new DataView(e),r=e.byteLength>=84?n.getUint32(80,!0):0,i=84+r*50,a=new TextDecoder().decode(e.slice(0,Math.min(256,e.byteLength))).trimStart();if(r>1e6&&i<=e.byteLength)throw Error(`Simplify this mesh to fewer than one million triangles.`);let o=r>0&&r<=1e6&&(i===e.byteLength||i<=e.byteLength&&(!/^solid\b/i.test(a)||/[\x00-\x08\x0e-\x1f]/.test(a))),s,c;if(o){s=new Float64Array(r*9);for(let e=0;e<r;e++){let t=84+e*50+12;for(let r=0;r<9;r++)s[e*9+r]=n.getFloat32(t+r*4,!0)}c=`Binary STL`}else{let t=new TextDecoder().decode(e);if(!/^\s*solid\b/i.test(t))throw Error(`This is not a readable binary or ASCII STL file.`);let n=`([+-]?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?)`,r=RegExp(`\\bvertex\\s+${n}\\s+${n}\\s+${n}`,`gi`),i=[],a;for(;a=r.exec(t);)if(i.push(Number(a[1]),Number(a[2]),Number(a[3])),i.length>9e6)throw Error(`Simplify this mesh to fewer than one million triangles.`);if(i.length<36||i.length%9!=0)throw Error(`The ASCII STL contains incomplete triangles.`);if(t.match(/\bfacet\s+normal\b/gi)?.length!==i.length/9)throw Error(`The ASCII STL facet and vertex counts do not match.`);s=new Float64Array(i),c=`ASCII STL`}return{vertices:s,info:kw(s,t,c)}}var jw={ripple:`Ripple form`,sphere:`Ellipsoid`,torus:`Torus`,cube:`Calibration cube`};function Mw(e){let t=[],n=(e,n,r)=>t.push(...e,...n,...r);if(e===`cube`){let e=[[0,0,0],[100,0,0],[100,100,0],[0,100,0],[0,0,100],[100,0,100],[100,100,100],[0,100,100]];for(let[t,r,i,a]of[[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]])n(e[t],e[r],e[i]),n(e[t],e[i],e[a])}else if(e===`torus`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI*2;return[(76+30*Math.cos(r))*Math.cos(n),(76+30*Math.cos(r))*Math.sin(n),30*Math.sin(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}}else if(e===`sphere`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI;return[100*Math.sin(r)*Math.cos(n),80*Math.sin(r)*Math.sin(n),112*Math.cos(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);r>0&&n(i,a,o),r<35&&n(i,o,s)}}else{let e=(e,t)=>{let n=e/80*Math.PI*2,r=t/44,i=37+49*Math.sin(Math.PI*r)**.75+12*Math.sin(r*Math.PI*2),a=1+.08*Math.sin(3*n-r*5);return[i*a*Math.cos(n),i*a*Math.sin(n)*.84,r*220]};for(let t=0;t<80;t++)for(let r=0;r<44;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}for(let t=0;t<80;t++)n([0,0,0],e(t+1,0),e(t,0)),n([0,0,220],e(t,44),e(t+1,44))}let r=new Float64Array(t);return{vertices:r,info:kw(r,jw[e],`Sample model`)}}var Nw={mode:`interlocking`,targetWidth:220,targetDepth:180,targetHeight:240,keepAspectRatio:!0,scaleAxis:`X`,materialThickness:3.8,laserKerf:.15,slotFitTolerance:.05,leadInChamfer:1.2,xSliceCount:10,ySliceCount:8,slotDepthRatio:.5,stackedAxis:`Z`,alignmentPins:!0,pinDiameter:6,pinCount:2,sheetWidth:600,sheetHeight:400,sheetMargin:10,partSpacing:5,allowRotation:!0},Pw=Uint8Array,Fw=Uint16Array,Iw=Int32Array,Lw=new Pw([0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0,0,0,0]),Rw=new Pw([0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,0,0]),zw=new Pw([16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15]),Bw=function(e,t){for(var n=new Fw(31),r=0;r<31;++r)n[r]=t+=1<<e[r-1];for(var i=new Iw(n[30]),r=1;r<30;++r)for(var a=n[r];a<n[r+1];++a)i[a]=a-n[r]<<5|r;return{b:n,r:i}},Vw=Bw(Lw,2),Hw=Vw.b,Uw=Vw.r;Hw[28]=258,Uw[258]=28;var Ww=Bw(Rw,0);Ww.b;for(var Gw=Ww.r,Kw=new Fw(32768),qw=0;qw<32768;++qw){var Jw=(qw&43690)>>1|(qw&21845)<<1;Jw=(Jw&52428)>>2|(Jw&13107)<<2,Jw=(Jw&61680)>>4|(Jw&3855)<<4,Kw[qw]=((Jw&65280)>>8|(Jw&255)<<8)>>1}for(var Yw=(function(e,t,n){for(var r=e.length,i=0,a=new Fw(t);i<r;++i)e[i]&&++a[e[i]-1];var o=new Fw(t);for(i=1;i<t;++i)o[i]=o[i-1]+a[i-1]<<1;var s;if(n){s=new Fw(1<<t);var c=15-t;for(i=0;i<r;++i)if(e[i])for(var l=i<<4|e[i],u=t-e[i],d=o[e[i]-1]++<<u,f=d|(1<<u)-1;d<=f;++d)s[Kw[d]>>c]=l}else for(s=new Fw(r),i=0;i<r;++i)e[i]&&(s[i]=Kw[o[e[i]-1]++]>>15-e[i]);return s}),Xw=new Pw(288),qw=0;qw<144;++qw)Xw[qw]=8;for(var qw=144;qw<256;++qw)Xw[qw]=9;for(var qw=256;qw<280;++qw)Xw[qw]=7;for(var qw=280;qw<288;++qw)Xw[qw]=8;for(var Zw=new Pw(32),qw=0;qw<32;++qw)Zw[qw]=5;var Qw=Yw(Xw,9,0),$w=Yw(Zw,5,0),eT=function(e){return(e+7)/8|0},tT=function(e,t,n){return(t==null||t<0)&&(t=0),(n==null||n>e.length)&&(n=e.length),new Pw(e.subarray(t,n))},nT=[`unexpected EOF`,`invalid block type`,`invalid length/literal`,`invalid distance`,`stream finished`,`no stream handler`,,`no callback`,`invalid UTF-8 data`,`extra field too long`,`date not in range 1980-2099`,`filename too long`,`stream finishing`,`invalid zip data`],rT=function(e,t,n){var r=Error(t||nT[e]);if(r.code=e,Error.captureStackTrace&&Error.captureStackTrace(r,rT),!n)throw r;return r},iT=function(e,t,n){n<<=t&7;var r=t/8|0;e[r]|=n,e[r+1]|=n>>8},aT=function(e,t,n){n<<=t&7;var r=t/8|0;e[r]|=n,e[r+1]|=n>>8,e[r+2]|=n>>16},oT=function(e,t){for(var n=[],r=0;r<e.length;++r)e[r]&&n.push({s:r,f:e[r]});var i=n.length,a=n.slice();if(!i)return{t:pT,l:0};if(i==1){var o=new Pw(n[0].s+1);return o[n[0].s]=1,{t:o,l:1}}n.sort(function(e,t){return e.f-t.f}),n.push({s:-1,f:25001});var s=n[0],c=n[1],l=0,u=1,d=2;for(n[0]={s:-1,f:s.f+c.f,l:s,r:c};u!=i-1;)s=n[n[l].f<n[d].f?l++:d++],c=n[l!=u&&n[l].f<n[d].f?l++:d++],n[u++]={s:-1,f:s.f+c.f,l:s,r:c};for(var f=a[0].s,r=1;r<i;++r)a[r].s>f&&(f=a[r].s);var p=new Fw(f+1),m=sT(n[u-1],p,0);if(m>t){var r=0,h=0,g=m-t,_=1<<g;for(a.sort(function(e,t){return p[t.s]-p[e.s]||e.f-t.f});r<i;++r){var v=a[r].s;if(p[v]>t)h+=_-(1<<m-p[v]),p[v]=t;else break}for(h>>=g;h>0;){var y=a[r].s;p[y]<t?h-=1<<t-p[y]++-1:++r}for(;r>=0&&h;--r){var b=a[r].s;p[b]==t&&(--p[b],++h)}m=t}return{t:new Pw(p),l:m}},sT=function(e,t,n){return e.s==-1?Math.max(sT(e.l,t,n+1),sT(e.r,t,n+1)):t[e.s]=n},cT=function(e){for(var t=e.length;t&&!e[--t];);for(var n=new Fw(++t),r=0,i=e[0],a=1,o=function(e){n[r++]=e},s=1;s<=t;++s)if(e[s]==i&&s!=t)++a;else{if(!i&&a>2){for(;a>138;a-=138)o(32754);a>2&&(o(a>10?a-11<<5|28690:a-3<<5|12305),a=0)}else if(a>3){for(o(i),--a;a>6;a-=6)o(8304);a>2&&(o(a-3<<5|8208),a=0)}for(;a--;)o(i);a=1,i=e[s]}return{c:n.subarray(0,r),n:t}},lT=function(e,t){for(var n=0,r=0;r<t.length;++r)n+=e[r]*t[r];return n},uT=function(e,t,n){var r=n.length,i=eT(t+2);e[i]=r&255,e[i+1]=r>>8,e[i+2]=e[i]^255,e[i+3]=e[i+1]^255;for(var a=0;a<r;++a)e[i+a+4]=n[a];return(i+4+r)*8},dT=function(e,t,n,r,i,a,o,s,c,l,u){iT(t,u++,n),++i[256];for(var d=oT(i,15),f=d.t,p=d.l,m=oT(a,15),h=m.t,g=m.l,_=cT(f),v=_.c,y=_.n,b=cT(h),x=b.c,S=b.n,C=new Fw(19),w=0;w<v.length;++w)++C[v[w]&31];for(var w=0;w<x.length;++w)++C[x[w]&31];for(var T=oT(C,7),E=T.t,D=T.l,O=19;O>4&&!E[zw[O-1]];--O);var k=l+5<<3,A=lT(i,Xw)+lT(a,Zw)+o,j=lT(i,f)+lT(a,h)+o+14+3*O+lT(C,E)+2*C[16]+3*C[17]+7*C[18];if(c>=0&&k<=A&&k<=j)return uT(t,u,e.subarray(c,c+l));var M,N,P,F;if(iT(t,u,1+(j<A)),u+=2,j<A){M=Yw(f,p,0),N=f,P=Yw(h,g,0),F=h;var I=Yw(E,D,0);iT(t,u,y-257),iT(t,u+5,S-1),iT(t,u+10,O-4),u+=14;for(var w=0;w<O;++w)iT(t,u+3*w,E[zw[w]]);u+=3*O;for(var L=[v,x],ee=0;ee<2;++ee)for(var te=L[ee],w=0;w<te.length;++w){var ne=te[w]&31;iT(t,u,I[ne]),u+=E[ne],ne>15&&(iT(t,u,te[w]>>5&127),u+=te[w]>>12)}}else M=Qw,N=Xw,P=$w,F=Zw;for(var w=0;w<s;++w){var R=r[w];if(R>255){var ne=R>>18&31;aT(t,u,M[ne+257]),u+=N[ne+257],ne>7&&(iT(t,u,R>>23&31),u+=Lw[ne]);var z=R&31;aT(t,u,P[z]),u+=F[z],z>3&&(aT(t,u,R>>5&8191),u+=Rw[z])}else aT(t,u,M[R]),u+=N[R]}return aT(t,u,M[256]),u+N[256]},fT=new Iw([65540,131080,131088,131104,262176,1048704,1048832,2114560,2117632]),pT=new Pw(0),mT=function(e,t,n,r,i,a){var o=a.z||e.length,s=new Pw(r+o+5*(1+Math.ceil(o/7e3))+i),c=s.subarray(r,s.length-i),l=a.l,u=(a.r||0)&7;if(t){u&&(c[0]=a.r>>3);for(var d=fT[t-1],f=d>>13,p=d&8191,m=(1<<n)-1,h=a.p||new Fw(32768),g=a.h||new Fw(m+1),_=Math.ceil(n/3),v=2*_,y=function(t){return(e[t]^e[t+1]<<_^e[t+2]<<v)&m},b=new Iw(25e3),x=new Fw(288),S=new Fw(32),C=0,w=0,T=a.i||0,E=0,D=a.w||0,O=0;T+2<o;++T){var k=y(T),A=T&32767,j=g[k];if(h[A]=j,g[k]=A,D<=T){var M=o-T;if((C>7e3||E>24576)&&(M>423||!l)){u=dT(e,c,0,b,x,S,w,E,O,T-O,u),E=C=w=0,O=T;for(var N=0;N<286;++N)x[N]=0;for(var N=0;N<30;++N)S[N]=0}var P=2,F=0,I=p,L=A-j&32767;if(M>2&&k==y(T-L))for(var ee=Math.min(f,M)-1,te=Math.min(32767,T),ne=Math.min(258,M);L<=te&&--I&&A!=j;){if(e[T+P]==e[T+P-L]){for(var R=0;R<ne&&e[T+R]==e[T+R-L];++R);if(R>P){if(P=R,F=L,R>ee)break;for(var z=Math.min(L,R-2),B=0,N=0;N<z;++N){var re=T-L+N&32767,V=re-h[re]&32767;V>B&&(B=V,j=re)}}}A=j,j=h[A],L+=A-j&32767}if(F){b[E++]=268435456|Uw[P]<<18|Gw[F];var ie=Uw[P]&31,ae=Gw[F]&31;w+=Lw[ie]+Rw[ae],++x[257+ie],++S[ae],D=T+P,++C}else b[E++]=e[T],++x[e[T]]}}for(T=Math.max(T,D);T<o;++T)b[E++]=e[T],++x[e[T]];u=dT(e,c,l,b,x,S,w,E,O,T-O,u),l||(a.r=u&7|c[u/8|0]<<3,u-=7,a.h=g,a.p=h,a.i=T,a.w=D)}else{for(var T=a.w||0;T<o+l;T+=65535){var oe=T+65535;oe>=o&&(c[u/8|0]=l,oe=o),u=uT(c,u+1,e.subarray(T,oe))}a.i=o}return tT(s,0,r+eT(u)+i)},hT=(function(){for(var e=new Int32Array(256),t=0;t<256;++t){for(var n=t,r=9;--r;)n=(n&1&&-306674912)^n>>>1;e[t]=n}return e})(),gT=function(){var e=-1;return{p:function(t){for(var n=e,r=0;r<t.length;++r)n=hT[n&255^t[r]]^n>>>8;e=n},d:function(){return~e}}},_T=function(e,t,n,r,i){if(!i&&(i={l:1},t.dictionary)){var a=t.dictionary.subarray(-32768),o=new Pw(a.length+e.length);o.set(a),o.set(e,a.length),e=o,i.w=a.length}return mT(e,t.level==null?6:t.level,t.mem==null?i.l?Math.ceil(Math.max(8,Math.min(13,Math.log(e.length)))*1.5):20:12+t.mem,n,r,i)},vT=function(e,t){var n={};for(var r in e)n[r]=e[r];for(var r in t)n[r]=t[r];return n},yT=function(e,t,n){for(;n;++t)e[t]=n,n>>>=8};function bT(e,t){return _T(e,t||{},0,0)}var xT=function(e,t,n,r){for(var i in e){var a=e[i],o=t+i,s=r;Array.isArray(a)&&(s=vT(r,a[1]),a=a[0]),ArrayBuffer.isView(a)?n[o]=[a,s]:(n[o+=`/`]=[new Pw(0),s],xT(a,o,n,r))}},ST=typeof TextEncoder<`u`&&new TextEncoder,CT=typeof TextDecoder<`u`&&new TextDecoder;try{CT.decode(pT,{stream:!0})}catch{}function wT(e,t){if(t){for(var n=new Pw(e.length),r=0;r<e.length;++r)n[r]=e.charCodeAt(r);return n}if(ST)return ST.encode(e);for(var i=e.length,a=new Pw(e.length+(e.length>>1)),o=0,s=function(e){a[o++]=e},r=0;r<i;++r){if(o+5>a.length){var c=new Pw(o+8+(i-r<<1));c.set(a),a=c}var l=e.charCodeAt(r);l<128||t?s(l):l<2048?(s(192|l>>6),s(128|l&63)):l>55295&&l<57344?(l=65536+(l&1047552)|e.charCodeAt(++r)&1023,s(240|l>>18),s(128|l>>12&63),s(128|l>>6&63),s(128|l&63)):(s(224|l>>12),s(128|l>>6&63),s(128|l&63))}return tT(a,0,o)}var TT=function(e){var t=0;if(e)for(var n in e){var r=e[n].length;r>65535&&rT(9),t+=r+4}return t},ET=function(e,t,n,r,i,a,o,s){var c=r.length,l=n.extra,u=s&&s.length,d=TT(l);yT(e,t,o==null?67324752:33639248),t+=4,o!=null&&(e[t++]=20,e[t++]=n.os),e[t]=20,t+=2,e[t++]=n.flag<<1|(a<0&&8),e[t++]=i&&8,e[t++]=n.compression&255,e[t++]=n.compression>>8;var f=new Date(n.mtime==null?Date.now():n.mtime),p=f.getFullYear()-1980;if((p<0||p>119)&&rT(10),yT(e,t,p<<25|f.getMonth()+1<<21|f.getDate()<<16|f.getHours()<<11|f.getMinutes()<<5|f.getSeconds()>>1),t+=4,a!=-1&&(yT(e,t,n.crc),yT(e,t+4,a<0?-a-2:a),yT(e,t+8,n.size)),yT(e,t+12,c),yT(e,t+14,d),t+=16,o!=null&&(yT(e,t,u),yT(e,t+6,n.attrs),yT(e,t+10,o),t+=14),e.set(r,t),t+=c,d)for(var m in l){var h=l[m],g=h.length;yT(e,t,+m),yT(e,t+2,g),e.set(h,t+4),t+=4+g}return u&&(e.set(s,t),t+=u),t},DT=function(e,t,n,r,i){yT(e,t,101010256),yT(e,t+8,n),yT(e,t+10,n),yT(e,t+12,r),yT(e,t+16,i)};function OT(e,t){t||={};var n={},r=[];xT(e,``,n,t);var i=0,a=0;for(var o in n){var s=n[o],c=s[0],l=s[1],u=l.level==0?0:8,d=wT(o),f=d.length,p=l.comment,m=p&&wT(p),h=m&&m.length,g=TT(l.extra);f>65535&&rT(11);var _=u?bT(c,l):c,v=_.length,y=gT();y.p(c),r.push(vT(l,{size:c.length,crc:y.d(),c:_,f:d,m,u:f!=o.length||m&&p.length!=h,o:i,compression:u})),i+=30+f+g+v,a+=76+2*(f+g)+(h||0)+v}for(var b=new Pw(a+22),x=i,S=a-i,C=0;C<r.length;++C){var d=r[C];ET(b,d.o,d,d.f,d.u,d.c.length);var w=30+d.f.length+TT(d.extra);b.set(d.c,d.o+w),ET(b,i,d,d.f,d.u,d.c.length,d.o,d.m),i+=16+w+(d.m?d.m.length:0)}return DT(b,i,r.length,S,x),b}var kT=e=>Number(e.toFixed(4)).toString(),AT=e=>e.replace(/[&<>"']/g,e=>({"&":`&amp;`,"<":`&lt;`,">":`&gt;`,'"':`&quot;`,"'":`&apos;`})[e]);function jT(e,t,n=!0){let r=[],i=new Map(e.pieces.map(e=>[e.id,e]));for(let e of t.placements){let t=i.get(e.pieceId);for(let n of t.cutPaths)r.push({points:n.points.map(n=>Tw(n,t,e)),closed:!0,layer:n.isRegistration?`REGISTRATION_PINS`:`CUT_OUTLINE`});if(n)for(let n of t.etchPaths)r.push({points:n.points.map(n=>Tw(n,t,e)),closed:!!n.closed,layer:`ETCH_LABELS`})}return r}function MT(e,t,n=!0){let{sheetWidth:r,sheetHeight:i}=e.settings,a=jT(e,t,n),o={CUT_OUTLINE:`#ff0000`,REGISTRATION_PINS:`#00a000`,ETCH_LABELS:`#0000ff`};return`<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="${kT(r)}mm" height="${kT(i)}mm" viewBox="0 0 ${kT(r)} ${kT(i)}">\n<title>${AT(e.model.name)} · Sheet ${t.sheetIndex+1}</title>\n<desc>All dimensions in millimeters. Cut lines are kerf compensated. Blue paths are engraving, red and green are cutting. No bed border is exported.</desc>\n<g transform="translate(0 ${kT(i)}) scale(1 -1)" fill="none" stroke-width="0.1" stroke-linecap="round" stroke-linejoin="round">\n${[`CUT_OUTLINE`,`REGISTRATION_PINS`,`ETCH_LABELS`].map(e=>`<g id="${e}" inkscape:groupmode="layer" inkscape:label="${e}" stroke="${o[e]}">\n${a.filter(t=>t.layer===e).map(e=>`<path d="${e.points.map((e,t)=>`${t?`L`:`M`}${kT(e.x)} ${kT(e.y)}`).join(` `)}${e.closed?` Z`:``}"/>`).join(`
+}`,BC=class{constructor(){this.texture=null,this.mesh=null,this.depthNear=0,this.depthFar=0}init(e,t){if(this.texture===null){let n=new R_(e.texture);(e.depthNear!==t.depthNear||e.depthFar!==t.depthFar)&&(this.depthNear=e.depthNear,this.depthFar=e.depthFar),this.texture=n}}getMesh(e){if(this.texture!==null&&this.mesh===null){let t=e.cameras[0].viewport,n=new _y({vertexShader:RC,fragmentShader:zC,uniforms:{depthColor:{value:this.texture},depthWidth:{value:t.z},depthHeight:{value:t.w}}});this.mesh=new p_(new cy(20,20),n)}return this.mesh}reset(){this.texture=null,this.mesh=null}getDepthTexture(){return this.texture}},VC=class extends mm{constructor(e,t){super();let n=this,r=null,i=1,a=null,o=`local-floor`,s=1,c=null,l=null,u=null,d=null,f=null,p=null,m=typeof XRWebGLBinding<`u`,h=new BC,g={},_=t.getContextAttributes(),v=null,y=null,b=[],x=[],S=new Z,C=null,w=null,T=new nb;T.viewport=new sh;let E=new nb;E.viewport=new sh;let D=[T,E],O=new lb,k=null,A=null;this.cameraAutoUpdate=!0,this.enabled=!1,this.isPresenting=!1,this.getController=function(e){let t=b[e];return t===void 0&&(t=new Hh,b[e]=t),t.getTargetRaySpace()},this.getControllerGrip=function(e){let t=b[e];return t===void 0&&(t=new Hh,b[e]=t),t.getGripSpace()},this.getHand=function(e){let t=b[e];return t===void 0&&(t=new Hh,b[e]=t),t.getHandSpace()};function j(e){let t=x.indexOf(e.inputSource);if(t===-1)return;let n=b[t];n!==void 0&&(n.update(e.inputSource,e.frame,c||a),n.dispatchEvent({type:e.type,data:e.inputSource}))}function M(){r.removeEventListener(`select`,j),r.removeEventListener(`selectstart`,j),r.removeEventListener(`selectend`,j),r.removeEventListener(`squeeze`,j),r.removeEventListener(`squeezestart`,j),r.removeEventListener(`squeezeend`,j),r.removeEventListener(`end`,M),r.removeEventListener(`inputsourceschange`,N);for(let e=0;e<b.length;e++){let t=x[e];t!==null&&(x[e]=null,b[e].disconnect(t))}k=null,A=null,h.reset();for(let e in g)delete g[e];if(e.setRenderTarget(v),f=null,d=null,u=null,r=null,y=null,R.stop(),n.isPresenting=!1,e.setPixelRatio(C),e.setSize(S.width,S.height,!1),w!==null){let e=w.camera;e.fov=w.fov,e.zoom=w.zoom,e.updateProjectionMatrix(),w=null}n.dispatchEvent({type:`sessionend`})}this.setFramebufferScaleFactor=function(e){i=e,n.isPresenting===!0&&Y(`WebXRManager: Cannot change framebuffer scale while presenting.`)},this.setReferenceSpaceType=function(e){o=e,n.isPresenting===!0&&Y(`WebXRManager: Cannot change reference space type while presenting.`)},this.getReferenceSpace=function(){return c||a},this.setReferenceSpace=function(e){c=e},this.getBaseLayer=function(){return d===null?f:d},this.getBinding=function(){return u===null&&m&&(u=new XRWebGLBinding(r,t)),u},this.getFrame=function(){return p},this.getSession=function(){return r},this.setSession=async function(l){if(r=l,r!==null){if(v=e.getRenderTarget(),r.addEventListener(`select`,j),r.addEventListener(`selectstart`,j),r.addEventListener(`selectend`,j),r.addEventListener(`squeeze`,j),r.addEventListener(`squeezestart`,j),r.addEventListener(`squeezeend`,j),r.addEventListener(`end`,M),r.addEventListener(`inputsourceschange`,N),_.xrCompatible!==!0&&await t.makeXRCompatible(),C=e.getPixelRatio(),e.getSize(S),m&&`createProjectionLayer`in XRWebGLBinding.prototype){let n=null,a=null,o=null;_.depth&&(o=_.stencil?t.DEPTH24_STENCIL8:t.DEPTH_COMPONENT24,n=_.stencil?ep:$f,a=_.stencil?qf:Hf);let s={colorFormat:t.RGBA8,depthFormat:o,scaleFactor:i};u=this.getBinding(),d=u.createProjectionLayer(s),r.updateRenderState({layers:[d]}),e.setPixelRatio(1),e.setSize(d.textureWidth,d.textureHeight,!1),y=new lh(d.textureWidth,d.textureHeight,{format:Qf,type:Lf,depthTexture:new I_(d.textureWidth,d.textureHeight,a,void 0,void 0,void 0,void 0,void 0,void 0,n),stencilBuffer:_.stencil,colorSpace:e.outputColorSpace,samples:_.antialias?4:0,resolveDepthBuffer:d.ignoreDepthValues===!1,resolveStencilBuffer:d.ignoreDepthValues===!1,storeMultisampledDepthBuffer:d.ignoreDepthValues===!1,storeMultisampledStencilBuffer:d.ignoreDepthValues===!1})}else{let n={antialias:_.antialias,alpha:!0,depth:_.depth,stencil:_.stencil,framebufferScaleFactor:i};f=new XRWebGLLayer(r,t,n),r.updateRenderState({baseLayer:f}),e.setPixelRatio(1),e.setSize(f.framebufferWidth,f.framebufferHeight,!1),y=new lh(f.framebufferWidth,f.framebufferHeight,{format:Qf,type:Lf,colorSpace:e.outputColorSpace,stencilBuffer:_.stencil,resolveDepthBuffer:f.ignoreDepthValues===!1,resolveStencilBuffer:f.ignoreDepthValues===!1,storeMultisampledDepthBuffer:f.ignoreDepthValues===!1,storeMultisampledStencilBuffer:f.ignoreDepthValues===!1})}y.isXRRenderTarget=!0,this.setFoveation(s),c=null,a=await r.requestReferenceSpace(o),R.setContext(r),R.start(),n.isPresenting=!0,n.dispatchEvent({type:`sessionstart`})}},this.getEnvironmentBlendMode=function(){if(r!==null)return r.environmentBlendMode},this.getDepthTexture=function(){return h.getDepthTexture()};function N(e){for(let t=0;t<e.removed.length;t++){let n=e.removed[t],r=x.indexOf(n);r>=0&&(x[r]=null,b[r].disconnect(n))}for(let t=0;t<e.added.length;t++){let n=e.added[t],r=x.indexOf(n);if(r===-1){for(let e=0;e<b.length;e++)if(e>=x.length){x.push(n),r=e;break}else if(x[e]===null){x[e]=n,r=e;break}if(r===-1)break}let i=b[r];i&&i.connect(n)}}let P=new Q,F=new Q;function I(e,t,n){P.setFromMatrixPosition(t.matrixWorld),F.setFromMatrixPosition(n.matrixWorld);let r=P.distanceTo(F),i=t.projectionMatrix.elements,a=n.projectionMatrix.elements,o=i[14]/(i[10]-1),s=i[14]/(i[10]+1),c=(i[9]+1)/i[5],l=(i[9]-1)/i[5],u=(i[8]-1)/i[0],d=(a[8]+1)/a[0],f=o*u,p=o*d,m=r/(-u+d),h=m*-u;if(t.matrixWorld.decompose(e.position,e.quaternion,e.scale),e.translateX(h),e.translateZ(m),e.matrixWorld.compose(e.position,e.quaternion,e.scale),e.matrixWorldInverse.copy(e.matrixWorld).invert(),i[10]===-1)e.projectionMatrix.copy(t.projectionMatrix),e.projectionMatrixInverse.copy(t.projectionMatrixInverse);else{let t=o+m,n=s+m,i=f-h,a=p+(r-h),u=c*s/n*t,d=l*s/n*t;e.projectionMatrix.makePerspective(i,a,u,d,t,n),e.projectionMatrixInverse.copy(e.projectionMatrix).invert()}}function L(e,t){t===null?e.matrixWorld.copy(e.matrix):e.matrixWorld.multiplyMatrices(t.matrixWorld,e.matrix),e.matrixWorldInverse.copy(e.matrixWorld).invert()}this.updateCamera=function(e){if(r===null)return;let t=e.near,n=e.far;h.texture!==null&&(h.depthNear>0&&(t=h.depthNear),h.depthFar>0&&(n=h.depthFar)),O.near=E.near=T.near=t,O.far=E.far=T.far=n,(k!==O.near||A!==O.far)&&(r.updateRenderState({depthNear:O.near,depthFar:O.far}),k=O.near,A=O.far),O.layers.mask=e.layers.mask|6,T.layers.mask=O.layers.mask&-5,E.layers.mask=O.layers.mask&-3;let i=e.parent,a=O.cameras;L(O,i);for(let e=0;e<a.length;e++)L(a[e],i);a.length===2?I(O,T,E):O.projectionMatrix.copy(T.projectionMatrix),w===null&&e.isPerspectiveCamera&&(w={camera:e,fov:e.fov,zoom:e.zoom}),ee(e,O,i)};function ee(e,t,n){n===null?e.matrix.copy(t.matrixWorld):(e.matrix.copy(n.matrixWorld),e.matrix.invert(),e.matrix.multiply(t.matrixWorld)),e.matrix.decompose(e.position,e.quaternion,e.scale),e.updateMatrixWorld(!0),e.projectionMatrix.copy(t.projectionMatrix),e.projectionMatrixInverse.copy(t.projectionMatrixInverse),e.isPerspectiveCamera&&(e.fov=vm*2*Math.atan(1/e.projectionMatrix.elements[5]),e.zoom=1)}this.getCamera=function(){return O},this.getFoveation=function(){if(!(d===null&&f===null))return s},this.setFoveation=function(e){s=e,d!==null&&(d.fixedFoveation=e),f!==null&&f.fixedFoveation!==void 0&&(f.fixedFoveation=e)},this.hasDepthSensing=function(){return h.texture!==null},this.getDepthSensingMesh=function(){return h.getMesh(O)},this.getCameraTexture=function(e){return g[e]};let te=null;function ne(t,i){if(l=i.getViewerPose(c||a),p=i,l!==null){let t=l.views;f!==null&&(e.setRenderTargetFramebuffer(y,f.framebuffer),e.setRenderTarget(y));let i=!1;t.length!==O.cameras.length&&(O.cameras.length=0,i=!0);for(let n=0;n<t.length;n++){let r=t[n],a=null;if(f!==null)a=f.getViewport(r);else{let t=u.getViewSubImage(d,r);a=t.viewport,n===0&&(e.setRenderTargetTextures(y,t.colorTexture,t.depthStencilTexture),e.setRenderTarget(y))}let o=D[n];o===void 0&&(o=new nb,o.layers.enable(n),o.viewport=new sh,D[n]=o),o.matrix.fromArray(r.transform.matrix),o.matrix.decompose(o.position,o.quaternion,o.scale),o.projectionMatrix.fromArray(r.projectionMatrix),o.projectionMatrixInverse.copy(o.projectionMatrix).invert(),o.viewport.set(a.x,a.y,a.width,a.height),n===0&&(O.matrix.copy(o.matrix),O.matrix.decompose(O.position,O.quaternion,O.scale)),i===!0&&O.cameras.push(o)}let a=r.enabledFeatures;if(a&&a.includes(`depth-sensing`)&&r.depthUsage==`gpu-optimized`&&m){u=n.getBinding();let e=u.getDepthInformation(t[0]);e&&e.isValid&&e.texture&&h.init(e,r.renderState)}if(a&&a.includes(`camera-access`)&&m){e.state.unbindTexture(),u=n.getBinding();for(let e=0;e<t.length;e++){let n=t[e].camera;if(n){let e=g[n];e||(e=new R_,g[n]=e);let t=u.getCameraImage(n);e.sourceTexture=t}}}}for(let e=0;e<b.length;e++){let t=x[e],n=b[e];t!==null&&n!==void 0&&n.update(t,i,c||a)}te&&te(t,i),i.detectedPlanes&&n.dispatchEvent({type:`planesdetected`,data:i}),p=null}let R=new Mb;R.setAnimationLoop(ne),this.setAnimationLoop=function(e){te=e},this.dispose=function(){}}},HC=new fh,UC=new Gm;UC.set(-1,0,0,0,1,0,0,0,1);function WC(e,t){function n(e,t){e.matrixAutoUpdate===!0&&e.updateMatrix(),t.value.copy(e.matrix)}function r(t,n){n.color.getRGB(t.fogColor.value,py(e)),n.isFog?(t.fogNear.value=n.near,t.fogFar.value=n.far):n.isFogExp2&&(t.fogDensity.value=n.density)}function i(e,t,n,r,i){t.isNodeMaterial?t.uniformsNeedUpdate=!1:t.isMeshBasicMaterial?a(e,t):t.isMeshLambertMaterial?(a(e,t),t.envMap&&(e.envMapIntensity.value=t.envMapIntensity)):t.isMeshToonMaterial?(a(e,t),d(e,t)):t.isMeshPhongMaterial?(a(e,t),u(e,t),t.envMap&&(e.envMapIntensity.value=t.envMapIntensity)):t.isMeshStandardMaterial?(a(e,t),f(e,t),t.isMeshPhysicalMaterial&&p(e,t,i)):t.isMeshMatcapMaterial?(a(e,t),m(e,t)):t.isMeshDepthMaterial?a(e,t):t.isMeshDistanceMaterial?(a(e,t),h(e,t)):t.isMeshNormalMaterial?a(e,t):t.isLineBasicMaterial?(o(e,t),t.isLineDashedMaterial&&s(e,t)):t.isPointsMaterial?c(e,t,n,r):t.isSpriteMaterial?l(e,t):t.isShadowMaterial?(e.color.value.copy(t.color),e.opacity.value=t.opacity):t.isShaderMaterial&&(t.uniformsNeedUpdate=!1)}function a(e,r){e.opacity.value=r.opacity,r.color&&e.diffuse.value.copy(r.color),r.emissive&&e.emissive.value.copy(r.emissive).multiplyScalar(r.emissiveIntensity),r.map&&(e.map.value=r.map,n(r.map,e.mapTransform)),r.alphaMap&&(e.alphaMap.value=r.alphaMap,n(r.alphaMap,e.alphaMapTransform)),r.bumpMap&&(e.bumpMap.value=r.bumpMap,n(r.bumpMap,e.bumpMapTransform),e.bumpScale.value=r.bumpScale,r.side===1&&(e.bumpScale.value*=-1)),r.normalMap&&(e.normalMap.value=r.normalMap,n(r.normalMap,e.normalMapTransform),e.normalScale.value.copy(r.normalScale),r.side===1&&e.normalScale.value.negate()),r.displacementMap&&(e.displacementMap.value=r.displacementMap,n(r.displacementMap,e.displacementMapTransform),e.displacementScale.value=r.displacementScale,e.displacementBias.value=r.displacementBias),r.emissiveMap&&(e.emissiveMap.value=r.emissiveMap,n(r.emissiveMap,e.emissiveMapTransform)),r.specularMap&&(e.specularMap.value=r.specularMap,n(r.specularMap,e.specularMapTransform)),r.alphaTest>0&&(e.alphaTest.value=r.alphaTest);let i=t.get(r),a=i.envMap,o=i.envMapRotation;a&&(e.envMap.value=a,e.envMapRotation.value.setFromMatrix4(HC.makeRotationFromEuler(o)).transpose(),a.isCubeTexture&&a.isRenderTargetTexture===!1&&e.envMapRotation.value.premultiply(UC),e.reflectivity.value=r.reflectivity,e.ior.value=r.ior,e.refractionRatio.value=r.refractionRatio),r.lightMap&&(e.lightMap.value=r.lightMap,e.lightMapIntensity.value=r.lightMapIntensity,n(r.lightMap,e.lightMapTransform)),r.aoMap&&(e.aoMap.value=r.aoMap,e.aoMapIntensity.value=r.aoMapIntensity,n(r.aoMap,e.aoMapTransform))}function o(e,t){e.diffuse.value.copy(t.color),e.opacity.value=t.opacity,t.map&&(e.map.value=t.map,n(t.map,e.mapTransform))}function s(e,t){e.dashSize.value=t.dashSize,e.totalSize.value=t.dashSize+t.gapSize,e.scale.value=t.scale}function c(e,t,r,i){e.diffuse.value.copy(t.color),e.opacity.value=t.opacity,e.size.value=t.size*r,e.scale.value=i*.5,t.map&&(e.map.value=t.map,n(t.map,e.uvTransform)),t.alphaMap&&(e.alphaMap.value=t.alphaMap,n(t.alphaMap,e.alphaMapTransform)),t.alphaTest>0&&(e.alphaTest.value=t.alphaTest)}function l(e,t){e.diffuse.value.copy(t.color),e.opacity.value=t.opacity,e.rotation.value=t.rotation,t.map&&(e.map.value=t.map,n(t.map,e.mapTransform)),t.alphaMap&&(e.alphaMap.value=t.alphaMap,n(t.alphaMap,e.alphaMapTransform)),t.alphaTest>0&&(e.alphaTest.value=t.alphaTest)}function u(e,t){e.specular.value.copy(t.specular),e.shininess.value=Math.max(t.shininess,1e-4)}function d(e,t){t.gradientMap&&(e.gradientMap.value=t.gradientMap)}function f(e,t){e.metalness.value=t.metalness,t.metalnessMap&&(e.metalnessMap.value=t.metalnessMap,n(t.metalnessMap,e.metalnessMapTransform)),e.roughness.value=t.roughness,t.roughnessMap&&(e.roughnessMap.value=t.roughnessMap,n(t.roughnessMap,e.roughnessMapTransform)),t.envMap&&(e.envMapIntensity.value=t.envMapIntensity)}function p(e,t,r){e.ior.value=t.ior,t.sheen>0&&(e.sheenColor.value.copy(t.sheenColor).multiplyScalar(t.sheen),e.sheenRoughness.value=t.sheenRoughness,t.sheenColorMap&&(e.sheenColorMap.value=t.sheenColorMap,n(t.sheenColorMap,e.sheenColorMapTransform)),t.sheenRoughnessMap&&(e.sheenRoughnessMap.value=t.sheenRoughnessMap,n(t.sheenRoughnessMap,e.sheenRoughnessMapTransform))),t.clearcoat>0&&(e.clearcoat.value=t.clearcoat,e.clearcoatRoughness.value=t.clearcoatRoughness,t.clearcoatMap&&(e.clearcoatMap.value=t.clearcoatMap,n(t.clearcoatMap,e.clearcoatMapTransform)),t.clearcoatRoughnessMap&&(e.clearcoatRoughnessMap.value=t.clearcoatRoughnessMap,n(t.clearcoatRoughnessMap,e.clearcoatRoughnessMapTransform)),t.clearcoatNormalMap&&(e.clearcoatNormalMap.value=t.clearcoatNormalMap,n(t.clearcoatNormalMap,e.clearcoatNormalMapTransform),e.clearcoatNormalScale.value.copy(t.clearcoatNormalScale),t.side===1&&e.clearcoatNormalScale.value.negate())),t.dispersion>0&&(e.dispersion.value=t.dispersion),t.retroreflectivity>0&&(e.retroreflectivity.value=t.retroreflectivity),t.iridescence>0&&(e.iridescence.value=t.iridescence,e.iridescenceIOR.value=t.iridescenceIOR,e.iridescenceThicknessMinimum.value=t.iridescenceThicknessRange[0],e.iridescenceThicknessMaximum.value=t.iridescenceThicknessRange[1],t.iridescenceMap&&(e.iridescenceMap.value=t.iridescenceMap,n(t.iridescenceMap,e.iridescenceMapTransform)),t.iridescenceThicknessMap&&(e.iridescenceThicknessMap.value=t.iridescenceThicknessMap,n(t.iridescenceThicknessMap,e.iridescenceThicknessMapTransform))),t.transmission>0&&(e.transmission.value=t.transmission,e.transmissionSamplerMap.value=r.texture,e.transmissionSamplerSize.value.set(r.width,r.height),t.transmissionMap&&(e.transmissionMap.value=t.transmissionMap,n(t.transmissionMap,e.transmissionMapTransform)),e.thickness.value=t.thickness,t.thicknessMap&&(e.thicknessMap.value=t.thicknessMap,n(t.thicknessMap,e.thicknessMapTransform)),e.attenuationDistance.value=t.attenuationDistance,e.attenuationColor.value.copy(t.attenuationColor)),t.anisotropy>0&&(e.anisotropyVector.value.set(t.anisotropy*Math.cos(t.anisotropyRotation),t.anisotropy*Math.sin(t.anisotropyRotation)),t.anisotropyMap&&(e.anisotropyMap.value=t.anisotropyMap,n(t.anisotropyMap,e.anisotropyMapTransform))),e.specularIntensity.value=t.specularIntensity,e.specularColor.value.copy(t.specularColor),t.specularColorMap&&(e.specularColorMap.value=t.specularColorMap,n(t.specularColorMap,e.specularColorMapTransform)),t.specularIntensityMap&&(e.specularIntensityMap.value=t.specularIntensityMap,n(t.specularIntensityMap,e.specularIntensityMapTransform))}function m(e,t){t.matcap&&(e.matcap.value=t.matcap)}function h(e,n){let r=t.get(n).light;e.referencePosition.value.setFromMatrixPosition(r.matrixWorld),e.nearDistance.value=r.shadow.camera.near,e.farDistance.value=r.shadow.camera.far}return{refreshFogUniforms:r,refreshMaterialUniforms:i}}function GC(e,t,n,r){let i={},a={},o=[],s=e.getParameter(e.MAX_UNIFORM_BUFFER_BINDINGS);function c(e,t){let n=t.program;r.uniformBlockBinding(e,n)}function l(e,n){let o=i[e.id];o===void 0&&(g(e),o=u(e),i[e.id]=o,e.addEventListener(`dispose`,v));let s=n.program;r.updateUBOMapping(e,s);let c=t.render.frame;a[e.id]!==c&&(f(e),a[e.id]=c)}function u(t){let n=d();t.__bindingPointIndex=n;let r=e.createBuffer(),i=t.__size,a=t.usage;return e.bindBuffer(e.UNIFORM_BUFFER,r),e.bufferData(e.UNIFORM_BUFFER,i,a),e.bindBuffer(e.UNIFORM_BUFFER,null),e.bindBufferBase(e.UNIFORM_BUFFER,n,r),r}function d(){for(let e=0;e<s;e++)if(o.indexOf(e)===-1)return o.push(e),e;return X(`WebGLRenderer: Maximum number of simultaneously usable uniforms groups reached.`),0}function f(t){let n=i[t.id],r=t.uniforms,a=t.__cache;e.bindBuffer(e.UNIFORM_BUFFER,n);for(let e=0,t=r.length;e<t;e++){let t=r[e];if(Array.isArray(t))for(let n=0,r=t.length;n<r;n++)p(t[n],e,n,a);else p(t,e,0,a)}e.bindBuffer(e.UNIFORM_BUFFER,null)}function p(t,n,r,i){if(h(t,n,r,i)===!0){let n=t.__offset,r=t.value;if(Array.isArray(r)){let e=0;for(let n=0;n<r.length;n++){let i=r[n],a=_(i);m(i,t.__data,e),typeof i!=`number`&&typeof i!=`boolean`&&!i.isMatrix3&&!ArrayBuffer.isView(i)&&(e+=a.storage/Float32Array.BYTES_PER_ELEMENT)}}else m(r,t.__data,0);e.bufferSubData(e.UNIFORM_BUFFER,n,t.__data)}}function m(e,t,n){typeof e==`number`||typeof e==`boolean`?t[0]=e:e.isMatrix3?(t[0]=e.elements[0],t[1]=e.elements[1],t[2]=e.elements[2],t[3]=0,t[4]=e.elements[3],t[5]=e.elements[4],t[6]=e.elements[5],t[7]=0,t[8]=e.elements[6],t[9]=e.elements[7],t[10]=e.elements[8],t[11]=0):ArrayBuffer.isView(e)?t.set(new e.constructor(e.buffer,e.byteOffset,t.length)):e.toArray(t,n)}function h(e,t,n,r){let i=e.value,a=t+`_`+n;if(r[a]===void 0)return typeof i==`number`||typeof i==`boolean`?r[a]=i:ArrayBuffer.isView(i)?r[a]=i.slice():r[a]=i.clone(),!0;{let e=r[a];if(typeof i==`number`||typeof i==`boolean`){if(e!==i)return r[a]=i,!0}else if(ArrayBuffer.isView(i))return!0;else if(e.equals(i)===!1)return e.copy(i),!0}return!1}function g(e){let t=e.uniforms,n=0;for(let e=0,r=t.length;e<r;e++){let r=Array.isArray(t[e])?t[e]:[t[e]];for(let e=0,t=r.length;e<t;e++){let t=r[e],i=Array.isArray(t.value)?t.value:[t.value];for(let e=0,r=i.length;e<r;e++){let r=i[e],a=_(r),o=n%16,s=o%a.boundary,c=o+s;n+=s,c!==0&&16-c<a.storage&&(n+=16-c),t.__data=new Float32Array(a.storage/Float32Array.BYTES_PER_ELEMENT),t.__offset=n,n+=a.storage}}}let r=n%16;return r>0&&(n+=16-r),e.__size=n,e.__cache={},this}function _(e){let t={boundary:0,storage:0};return typeof e==`number`||typeof e==`boolean`?(t.boundary=4,t.storage=4):e.isVector2?(t.boundary=8,t.storage=8):e.isVector3||e.isColor?(t.boundary=16,t.storage=12):e.isVector4?(t.boundary=16,t.storage=16):e.isMatrix3?(t.boundary=48,t.storage=48):e.isMatrix4?(t.boundary=64,t.storage=64):e.isTexture?Y(`WebGLRenderer: Texture samplers can not be part of an uniforms group.`):ArrayBuffer.isView(e)?(t.boundary=16,t.storage=e.byteLength):Y(`WebGLRenderer: Unsupported uniform value type.`,e),t}function v(t){let n=t.target;n.removeEventListener(`dispose`,v);let r=o.indexOf(n.__bindingPointIndex);o.splice(r,1),e.deleteBuffer(i[n.id]),delete i[n.id],delete a[n.id]}function y(){for(let t in i)e.deleteBuffer(i[t]);o=[],i={},a={}}return{bind:c,update:l,dispose:y}}var KC=new Uint16Array([12469,15057,12620,14925,13266,14620,13807,14376,14323,13990,14545,13625,14713,13328,14840,12882,14931,12528,14996,12233,15039,11829,15066,11525,15080,11295,15085,10976,15082,10705,15073,10495,13880,14564,13898,14542,13977,14430,14158,14124,14393,13732,14556,13410,14702,12996,14814,12596,14891,12291,14937,11834,14957,11489,14958,11194,14943,10803,14921,10506,14893,10278,14858,9960,14484,14039,14487,14025,14499,13941,14524,13740,14574,13468,14654,13106,14743,12678,14818,12344,14867,11893,14889,11509,14893,11180,14881,10751,14852,10428,14812,10128,14765,9754,14712,9466,14764,13480,14764,13475,14766,13440,14766,13347,14769,13070,14786,12713,14816,12387,14844,11957,14860,11549,14868,11215,14855,10751,14825,10403,14782,10044,14729,9651,14666,9352,14599,9029,14967,12835,14966,12831,14963,12804,14954,12723,14936,12564,14917,12347,14900,11958,14886,11569,14878,11247,14859,10765,14828,10401,14784,10011,14727,9600,14660,9289,14586,8893,14508,8533,15111,12234,15110,12234,15104,12216,15092,12156,15067,12010,15028,11776,14981,11500,14942,11205,14902,10752,14861,10393,14812,9991,14752,9570,14682,9252,14603,8808,14519,8445,14431,8145,15209,11449,15208,11451,15202,11451,15190,11438,15163,11384,15117,11274,15055,10979,14994,10648,14932,10343,14871,9936,14803,9532,14729,9218,14645,8742,14556,8381,14461,8020,14365,7603,15273,10603,15272,10607,15267,10619,15256,10631,15231,10614,15182,10535,15118,10389,15042,10167,14963,9787,14883,9447,14800,9115,14710,8665,14615,8318,14514,7911,14411,7507,14279,7198,15314,9675,15313,9683,15309,9712,15298,9759,15277,9797,15229,9773,15166,9668,15084,9487,14995,9274,14898,8910,14800,8539,14697,8234,14590,7790,14479,7409,14367,7067,14178,6621,15337,8619,15337,8631,15333,8677,15325,8769,15305,8871,15264,8940,15202,8909,15119,8775,15022,8565,14916,8328,14804,8009,14688,7614,14569,7287,14448,6888,14321,6483,14088,6171,15350,7402,15350,7419,15347,7480,15340,7613,15322,7804,15287,7973,15229,8057,15148,8012,15046,7846,14933,7611,14810,7357,14682,7069,14552,6656,14421,6316,14251,5948,14007,5528,15356,5942,15356,5977,15353,6119,15348,6294,15332,6551,15302,6824,15249,7044,15171,7122,15070,7050,14949,6861,14818,6611,14679,6349,14538,6067,14398,5651,14189,5311,13935,4958,15359,4123,15359,4153,15356,4296,15353,4646,15338,5160,15311,5508,15263,5829,15188,6042,15088,6094,14966,6001,14826,5796,14678,5543,14527,5287,14377,4985,14133,4586,13869,4257,15360,1563,15360,1642,15358,2076,15354,2636,15341,3350,15317,4019,15273,4429,15203,4732,15105,4911,14981,4932,14836,4818,14679,4621,14517,4386,14359,4156,14083,3795,13808,3437,15360,122,15360,137,15358,285,15355,636,15344,1274,15322,2177,15281,2765,15215,3223,15120,3451,14995,3569,14846,3567,14681,3466,14511,3305,14344,3121,14037,2800,13753,2467,15360,0,15360,1,15359,21,15355,89,15346,253,15325,479,15287,796,15225,1148,15133,1492,15008,1749,14856,1882,14685,1886,14506,1783,14324,1608,13996,1398,13702,1183]),qC=null;function JC(){return qC===null&&(qC=new g_(KC,16,16,rp,Wf),qC.name=`DFG_LUT`,qC.minFilter=Pf,qC.magFilter=Pf,qC.wrapS=kf,qC.wrapT=kf,qC.generateMipmaps=!1,qC.needsUpdate=!0),qC}var YC=class{constructor(e={}){let{canvas:t=om(),context:n=null,depth:r=!0,stencil:i=!1,alpha:a=!1,antialias:o=!1,premultipliedAlpha:s=!0,preserveDrawingBuffer:c=!1,powerPreference:l=`default`,failIfMajorPerformanceCaveat:u=!1,reversedDepthBuffer:d=!1,outputBufferType:f=Lf}=e;this.isWebGLRenderer=!0;let p;if(n!==null){if(typeof WebGLRenderingContext<`u`&&n instanceof WebGLRenderingContext)throw Error(`THREE.WebGLRenderer: WebGL 1 is not supported since r163.`);p=n.getContextAttributes().alpha}else p=a;let m=f,h=new Set([ap,ip,np]),g=new Set([Lf,Hf,Bf,qf,Gf,Kf]),_=new Uint32Array(4),v=new Int32Array(4),y=new Q,b=null,x=null,S=[],C=[],w=null;this.domElement=t,this.debug={checkShaderErrors:!0,diagnostics:{keywords:!1},onShaderError:null},this.autoClear=!0,this.autoClearColor=!0,this.autoClearDepth=!0,this.autoClearStencil=!0,this.sortObjects=!0,this.clippingPlanes=[],this.localClippingEnabled=!1,this.toneMapping=0,this.toneMappingExposure=1,this.transmissionResolutionScale=1;let T=this,E=!1,D=null,O=null,k=null,A=null;this._outputColorSpace=Xp;let j=0,M=0,N=null,P=-1,F=null,I=new sh,L=new sh,ee=null,te=new qh(0),ne=0,R=t.width,z=t.height,B=1,re=null,V=null,ie=new sh(0,0,R,z),ae=new sh(0,0,R,z),oe=!1,se=new b_,ce=!1,le=!1,ue=new fh,de=new Q,fe=new sh,pe={background:null,fog:null,environment:null,overrideMaterial:null,isScene:!0},me=!1;function he(){return N===null?B:1}let H=n;function ge(e,n){return t.getContext(e,n)}let _e,ve,U,ye,W,be,xe,Se,Ce,we,Te,Ee,De,Oe,ke,Ae,je,Me,Ne,Pe,Fe,Ie,Le;try{let e={alpha:!0,depth:r,stencil:i,antialias:o,premultipliedAlpha:s,preserveDrawingBuffer:c,powerPreference:l,failIfMajorPerformanceCaveat:u};if(`setAttribute`in t&&t.setAttribute(`data-engine`,`three.js r186`),t.addEventListener(`webglcontextlost`,ze,!1),t.addEventListener(`webglcontextrestored`,Be,!1),t.addEventListener(`webglcontextcreationerror`,K,!1),H===null){let t=`webgl2`;if(H=ge(t,e),H===null)throw ge(t)?Error(`THREE.WebGLRenderer: Error creating WebGL context with your selected attributes.`):Error(`THREE.WebGLRenderer: Error creating WebGL context.`)}Re()}catch(e){throw t.removeEventListener(`webglcontextlost`,ze,!1),t.removeEventListener(`webglcontextrestored`,Be,!1),t.removeEventListener(`webglcontextcreationerror`,K,!1),X(`WebGLRenderer: `+e.message),e}function Re(){_e=new px(H),_e.init(),Fe=new LC(H,_e),ve=new Hb(H,_e,e,Fe),U=new FC(H,_e),ve.reversedDepthBuffer&&d&&U.buffers.depth.setReversed(!0),O=H.createFramebuffer(),k=H.createFramebuffer(),A=H.createFramebuffer(),ye=new gx(H),W=new hC,be=new IC(H,_e,U,W,ve,Fe,ye),xe=new fx(T),Se=new Nb(H),Ie=new Bb(H,Se),Ce=new mx(H,Se,ye,Ie),we=new vx(H,Ce,Se,Ie,ye),Me=new _x(H,ve,be),ke=new Ub(W),Te=new mC(T,xe,_e,ve,Ie,ke),Ee=new WC(T,W),De=new yC,Oe=new EC(_e),je=new zb(T,xe,U,we,p,s),Ae=new PC(T,we,ve),Le=new GC(H,ye,ve,U),Ne=new Vb(H,_e,ye),Pe=new hx(H,_e,ye),ye.programs=Te.programs,T.capabilities=ve,T.extensions=_e,T.properties=W,T.renderLists=De,T.shadowMap=Ae,T.state=U,T.info=ye}m!==1009&&(w=new bx(m,t.width,t.height,o,r,i));let G=new VC(T,H);this.xr=G,this.getContext=function(){return H},this.getContextAttributes=function(){return H.getContextAttributes()},this.forceContextLoss=function(){let e=_e.get(`WEBGL_lose_context`);e&&e.loseContext()},this.forceContextRestore=function(){let e=_e.get(`WEBGL_lose_context`);e&&e.restoreContext()},this.getPixelRatio=function(){return B},this.setPixelRatio=function(e){e!==void 0&&(B=e,this.setSize(R,z,!1))},this.getSize=function(e){return e.set(R,z)},this.setSize=function(e,n,r=!0){if(G.isPresenting){Y(`WebGLRenderer: Can't change size while VR device is presenting.`);return}R=e,z=n,t.width=Math.floor(e*B),t.height=Math.floor(n*B),r===!0&&(t.style.width=e+`px`,t.style.height=n+`px`),w!==null&&w.setSize(t.width,t.height),this.setViewport(0,0,e,n)},this.getDrawingBufferSize=function(e){return e.set(R*B,z*B).floor()},this.setDrawingBufferSize=function(e,n,r){R=e,z=n,B=r,t.width=Math.floor(e*r),t.height=Math.floor(n*r),this.setViewport(0,0,e,n)},this.setEffects=function(e){if(m===1009){X(`WebGLRenderer: setEffects() requires outputBufferType set to HalfFloatType or FloatType.`);return}if(e){for(let t=0;t<e.length;t++)if(e[t].isOutputPass===!0){Y(`WebGLRenderer: OutputPass is not needed in setEffects(). Tone mapping and color space conversion are applied automatically.`);break}}w.setEffects(e||[])},this.getCurrentViewport=function(e){return e.copy(I)},this.getViewport=function(e){return e.copy(ie)},this.setViewport=function(e,t,n,r){e.isVector4?ie.set(e.x,e.y,e.z,e.w):ie.set(e,t,n,r),U.viewport(I.copy(ie).multiplyScalar(B).round())},this.getScissor=function(e){return e.copy(ae)},this.setScissor=function(e,t,n,r){e.isVector4?ae.set(e.x,e.y,e.z,e.w):ae.set(e,t,n,r),U.scissor(L.copy(ae).multiplyScalar(B).round())},this.getScissorTest=function(){return oe},this.setScissorTest=function(e){U.setScissorTest(oe=e)},this.setOpaqueSort=function(e){re=e},this.setTransparentSort=function(e){V=e},this.getClearColor=function(e){return e.copy(je.getClearColor())},this.setClearColor=function(){je.setClearColor(...arguments)},this.getClearAlpha=function(){return je.getClearAlpha()},this.setClearAlpha=function(){je.setClearAlpha(...arguments)},this.clear=function(e=!0,t=!0,n=!0){let r=0;if(e){let e=!1;if(N!==null){let t=N.texture.format;e=h.has(t)}if(e){let e=N.texture.type,t=g.has(e),n=je.getClearColor(),r=je.getClearAlpha(),i=n.r,a=n.g,o=n.b;t?(_[0]=i,_[1]=a,_[2]=o,_[3]=r,H.clearBufferuiv(H.COLOR,0,_)):(v[0]=i,v[1]=a,v[2]=o,v[3]=r,H.clearBufferiv(H.COLOR,0,v))}else r|=H.COLOR_BUFFER_BIT}t&&(r|=H.DEPTH_BUFFER_BIT,this.state.buffers.depth.setMask(!0)),n&&(r|=H.STENCIL_BUFFER_BIT,this.state.buffers.stencil.setMask(4294967295)),r!==0&&H.clear(r)},this.clearColor=function(){this.clear(!0,!1,!1)},this.clearDepth=function(){this.clear(!1,!0,!1)},this.clearStencil=function(){this.clear(!1,!1,!0)},this.setNodesHandler=function(e){e.setRenderer(this),D=e},this.dispose=function(){t.removeEventListener(`webglcontextlost`,ze,!1),t.removeEventListener(`webglcontextrestored`,Be,!1),t.removeEventListener(`webglcontextcreationerror`,K,!1),je.dispose(),De.dispose(),Oe.dispose(),W.dispose(),xe.dispose(),we.dispose(),Ie.dispose(),Le.dispose(),Te.dispose(),G.dispose(),G.removeEventListener(`sessionstart`,qe),G.removeEventListener(`sessionend`,Je),Ye.stop()};function ze(e){e.preventDefault(),lm(`WebGLRenderer: Context Lost.`),E=!0}function Be(){lm(`WebGLRenderer: Context Restored.`),E=!1;let e=ye.autoReset,t=Ae.enabled,n=Ae.autoUpdate,r=Ae.needsUpdate,i=Ae.type;Re(),ye.autoReset=e,Ae.enabled=t,Ae.autoUpdate=n,Ae.needsUpdate=r,Ae.type=i}function K(e){X(`WebGLRenderer: A WebGL context could not be created. Reason: `,e.statusMessage)}function Ve(e){let t=e.target;t.removeEventListener(`dispose`,Ve),He(t)}function He(e){Ue(e),W.remove(e)}function Ue(e){let t=W.get(e).programs;t!==void 0&&(t.forEach(function(e){Te.releaseProgram(e)}),e.isShaderMaterial&&Te.releaseShaderCache(e))}this.renderBufferDirect=function(e,t,n,r,i,a){t===null&&(t=pe);let o=i.isMesh&&i.matrixWorld.determinantAffine()<0,s=at(e,t,n,r,i);U.setMaterial(r,o);let c=n.index,l=1;if(r.wireframe===!0){if(c=Ce.getWireframeAttribute(n),c===void 0)return;l=2}let u=n.drawRange,d=n.attributes.position,f=u.start*l,p=(u.start+u.count)*l;a!==null&&(f=Math.max(f,a.start*l),p=Math.min(p,(a.start+a.count)*l)),c===null?d!=null&&(f=Math.max(f,0),p=Math.min(p,d.count)):(f=Math.max(f,0),p=Math.min(p,c.count));let m=p-f;if(m<0||m===1/0)return;Ie.setup(i,r,s,n,c);let h,g=Ne;if(c!==null&&(h=Se.get(c),g=Pe,g.setIndex(h)),i.isMesh)r.wireframe===!0?(U.setLineWidth(r.wireframeLinewidth*he()),g.setMode(H.LINES)):g.setMode(H.TRIANGLES);else if(i.isLine){let e=r.linewidth;e===void 0&&(e=1),U.setLineWidth(e*he()),i.isLineSegments?g.setMode(H.LINES):i.isLineLoop?g.setMode(H.LINE_LOOP):g.setMode(H.LINE_STRIP)}else i.isPoints?g.setMode(H.POINTS):i.isSprite&&g.setMode(H.TRIANGLES);if(i.isBatchedMesh)if(_e.get(`WEBGL_multi_draw`))g.renderMultiDraw(i._multiDrawStarts,i._multiDrawCounts,i._multiDrawCount);else{let e=i._multiDrawStarts,t=i._multiDrawCounts,n=i._multiDrawCount,a=c?Se.get(c).bytesPerElement:1,o=W.get(r).currentProgram.getUniforms();for(let r=0;r<n;r++)o.setValue(H,`_gl_DrawID`,r),g.render(e[r]/a,t[r])}else if(i.isInstancedMesh)g.renderInstances(f,m,i.count);else if(n.isInstancedBufferGeometry){let e=n._maxInstanceCount===void 0?1/0:n._maxInstanceCount,t=Math.min(n.instanceCount,e);g.renderInstances(f,m,t)}else g.render(f,m)};function We(e,t,n,r){D!==null&&e.isNodeMaterial&&D.setObject(r,e),ce===!0&&ke.setState(e,n,!1),e.transparent===!0&&e.side===2&&e.forceSinglePass===!1?(e.side=1,e.needsUpdate=!0,tt(e,t,r),e.side=0,e.needsUpdate=!0,tt(e,t,r),e.side=2):tt(e,t,r)}this.compile=function(e,t,n=null){n===null&&(n=e),D!==null&&D.renderStart(e,t,n),x=Oe.get(n),x.init(t),C.push(x),n.traverseVisible(function(e){e.isLight&&e.layers.test(t.layers)&&(x.pushLight(e),e.castShadow&&x.pushShadow(e))}),e!==n&&e.traverseVisible(function(e){e.isLight&&e.layers.test(t.layers)&&(x.pushLight(e),e.castShadow&&x.pushShadow(e))}),x.setupLights(),D!==null&&D.updateLights(x.state.lightsArray),le=this.localClippingEnabled,ce=ke.init(this.clippingPlanes,le),ce===!0&&ke.setGlobalState(this.clippingPlanes,t),D!==null&&Ae.render(x.state.shadowsArray,n,t);let r=new Set;return e.traverse(function(e){if(!(e.isMesh||e.isPoints||e.isLine||e.isSprite))return;let i=e.material;if(i)if(Array.isArray(i))for(let a=0;a<i.length;a++){let o=i[a];We(o,n,t,e),r.add(o)}else We(i,n,t,e),r.add(i)}),x=C.pop(),D!==null&&D.renderEnd(),r},this.compileAsync=function(e,t,n=null){let r=this.compile(e,t,n);return new Promise(t=>{function n(){if(r.forEach(function(e){let t=W.get(e).currentProgram;(t===void 0||t.isReady())&&r.delete(e)}),r.size===0){t(e);return}setTimeout(n,10)}_e.get(`KHR_parallel_shader_compile`)===null?setTimeout(n,10):n()})};let Ge=null;function Ke(e){Ge&&Ge(e)}function qe(){Ye.stop()}function Je(){Ye.start()}let Ye=new Mb;Ye.setAnimationLoop(Ke),typeof self<`u`&&Ye.setContext(self),this.setAnimationLoop=function(e){Ge=e,G.setAnimationLoop(e),e===null?Ye.stop():Ye.start()},G.addEventListener(`sessionstart`,qe),G.addEventListener(`sessionend`,Je),this.render=function(e,t){if(t!==void 0&&t.isCamera!==!0){X(`WebGLRenderer.render: camera is not an instance of THREE.Camera.`);return}if(E===!0)return;D!==null&&D.renderStart(e,t);let n=G.enabled===!0&&G.isPresenting===!0,r=w!==null&&(N===null||n)&&w.begin(T,N);if(e.matrixWorldAutoUpdate===!0&&e.updateMatrixWorld(),t.parent===null&&t.matrixWorldAutoUpdate===!0&&t.updateMatrixWorld(),G.enabled===!0&&G.isPresenting===!0&&(w===null||w.isCompositing()===!1)&&(G.cameraAutoUpdate===!0&&G.updateCamera(t),t=G.getCamera()),e.isScene===!0&&e.onBeforeRender(T,e,t,N),x=Oe.get(e,C.length),x.init(t),x.state.textureUnits=be.getTextureUnits(),C.push(x),ue.multiplyMatrices(t.projectionMatrix,t.matrixWorldInverse),se.setFromProjectionMatrix(ue,nm,t.reversedDepth),le=this.localClippingEnabled,ce=ke.init(this.clippingPlanes,le),b=De.get(e,S.length),b.init(),S.push(b),G.enabled===!0&&G.isPresenting===!0){let e=T.xr.getDepthSensingMesh();e!==null&&Xe(e,t,-1/0,T.sortObjects)}Xe(e,t,0,T.sortObjects),b.finish(),D!==null&&D.updateLights(x.state.lightsArray),T.sortObjects===!0&&b.sort(re,V),me=G.enabled===!1||G.isPresenting===!1||G.hasDepthSensing()===!1,me&&je.addToRenderList(b,e),this.info.render.frame++,this.info.autoReset===!0&&this.info.reset(),ce===!0&&ke.beginShadows();let i=x.state.shadowsArray;if(Ae.render(i,e,t),ce===!0&&ke.endShadows(),(r&&w.hasRenderPass())===!1){let n=b.opaque,r=b.transmissive;if(x.setupLights(),t.isArrayCamera){let i=t.cameras;if(r.length>0)for(let t=0,a=i.length;t<a;t++){let a=i[t];Qe(n,r,e,a)}me&&je.render(e);for(let t=0,n=i.length;t<n;t++){let n=i[t];Ze(b,e,n,n.viewport)}}else r.length>0&&Qe(n,r,e,t),me&&je.render(e),Ze(b,e,t)}N!==null&&M===0&&(be.updateMultisampleRenderTarget(N),be.updateRenderTargetMipmap(N)),r&&w.end(T),e.isScene===!0&&e.onAfterRender(T,e,t),Ie.resetDefaultState(),P=-1,F=null,C.pop(),C.length>0?(x=C[C.length-1],be.setTextureUnits(x.state.textureUnits),ce===!0&&ke.setGlobalState(T.clippingPlanes,x.state.camera)):x=null,S.pop(),b=S.length>0?S[S.length-1]:null,D!==null&&D.renderEnd()};function Xe(e,t,n,r){if(e.visible===!1)return;if(e.layers.test(t.layers)){if(e.isGroup)n=e.renderOrder;else if(e.isLOD)e.autoUpdate===!0&&e.update(t);else if(e.isLightProbeGrid)x.pushLightProbeGrid(e);else if(e.isLight)x.pushLight(e),e.castShadow&&x.pushShadow(e);else if(e.isSprite){if(!e.frustumCulled||e.intersectsFrustum(se)){r&&fe.setFromMatrixPosition(e.matrixWorld).applyMatrix4(ue);let i=we.update(e),a=e.material;a.visible&&b.push(e,i,a,n,fe.z,null,t)}}else if((e.isMesh||e.isLine||e.isPoints)&&(!e.frustumCulled||e.intersectsFrustum(se))){let i=we.update(e),a=e.material;if(r&&(e.boundingSphere===void 0?(i.boundingSphere===null&&i.computeBoundingSphere(),fe.copy(i.boundingSphere.center)):(e.boundingSphere===null&&e.computeBoundingSphere(),fe.copy(e.boundingSphere.center)),fe.applyMatrix4(e.matrixWorld).applyMatrix4(ue)),Array.isArray(a)){let r=i.groups;for(let o=0,s=r.length;o<s;o++){let s=r[o],c=a[s.materialIndex];c&&c.visible&&b.push(e,i,c,n,fe.z,s,t)}}else a.visible&&b.push(e,i,a,n,fe.z,null,t)}}let i=e.children;for(let e=0,a=i.length;e<a;e++)Xe(i[e],t,n,r)}function Ze(e,t,n,r){let{opaque:i,transmissive:a,transparent:o}=e;x.setupLightsView(n),ce===!0&&ke.setGlobalState(T.clippingPlanes,n),r&&U.viewport(I.copy(r)),i.length>0&&$e(i,t,n),a.length>0&&$e(a,t,n),o.length>0&&$e(o,t,n),U.buffers.depth.setTest(!0),U.buffers.depth.setMask(!0),U.buffers.color.setMask(!0),U.setPolygonOffset(!1)}function Qe(e,t,n,r){if((n.isScene===!0?n.overrideMaterial:null)!==null)return;if(x.state.transmissionRenderTarget[r.id]===void 0){let e=_e.has(`EXT_color_buffer_half_float`)||_e.has(`EXT_color_buffer_float`);x.state.transmissionRenderTarget[r.id]=new lh(1,1,{generateMipmaps:!0,type:e?Wf:Lf,minFilter:If,samples:Math.max(4,ve.samples),stencilBuffer:i,resolveDepthBuffer:!1,resolveStencilBuffer:!1,storeMultisampledDepthBuffer:!1,storeMultisampledStencilBuffer:!1,colorSpace:Xm.workingColorSpace})}let a=x.state.transmissionRenderTarget[r.id],o=r.viewport||I;a.setSize(o.z*T.transmissionResolutionScale,o.w*T.transmissionResolutionScale);let s=T.getRenderTarget(),c=T.getActiveCubeFace(),l=T.getActiveMipmapLevel();T.setRenderTarget(a),T.getClearColor(te),ne=T.getClearAlpha(),ne<1&&T.setClearColor(16777215,.5),T.clear(),me&&je.render(n);let u=T.toneMapping;T.toneMapping=0;let d=r.viewport;if(r.viewport!==void 0&&(r.viewport=void 0),x.setupLightsView(r),ce===!0&&ke.setGlobalState(T.clippingPlanes,r),$e(e,n,r),be.updateMultisampleRenderTarget(a),be.updateRenderTargetMipmap(a),_e.has(`WEBGL_multisampled_render_to_texture`)===!1){let e=!1;for(let i=0,a=t.length;i<a;i++){let{object:a,geometry:o,material:s,group:c}=t[i];if(s.side===2&&a.layers.test(r.layers)){let t=s.side;s.side=1,s.needsUpdate=!0,et(a,n,r,o,s,c),s.side=t,s.needsUpdate=!0,e=!0}}e===!0&&(be.updateMultisampleRenderTarget(a),be.updateRenderTargetMipmap(a))}T.setRenderTarget(s,c,l),T.setClearColor(te,ne),d!==void 0&&(r.viewport=d),T.toneMapping=u}function $e(e,t,n){let r=t.isScene===!0?t.overrideMaterial:null;for(let i=0,a=e.length;i<a;i++){let a=e[i],{object:o,geometry:s,group:c}=a,l=a.material;l.allowOverride===!0&&r!==null&&(l=r),o.layers.test(n.layers)&&et(o,t,n,s,l,c)}}function et(e,t,n,r,i,a){D!==null&&i.isNodeMaterial&&D.setObject(e,i),e.onBeforeRender(T,t,n,r,i,a),e.modelViewMatrix.multiplyMatrices(n.matrixWorldInverse,e.matrixWorld),e.normalMatrix.getNormalMatrix(e.modelViewMatrix),i.onBeforeRender(T,t,n,r,e,a),i.transparent===!0&&i.side===2&&i.forceSinglePass===!1?(i.side=1,i.needsUpdate=!0,T.renderBufferDirect(n,t,r,i,e,a),i.side=0,i.needsUpdate=!0,T.renderBufferDirect(n,t,r,i,e,a),i.side=2):T.renderBufferDirect(n,t,r,i,e,a),e.onAfterRender(T,t,n,r,i,a)}function tt(e,t,n){t.isScene!==!0&&(t=pe);let r=W.get(e),i=x.state.lights,a=x.state.shadowsArray,o=i.state.version,s=Te.getParameters(e,i.state,a,t,n,x.state.lightProbeGridArray),c=Te.getProgramCacheKey(s),l=r.programs;r.environment=e.isMeshStandardMaterial||e.isMeshLambertMaterial||e.isMeshPhongMaterial?t.environment:null,r.fog=t.fog;let u=e.isMeshStandardMaterial||e.isMeshLambertMaterial&&!e.envMap||e.isMeshPhongMaterial&&!e.envMap;r.envMap=xe.get(e.envMap||r.environment,u),r.envMapRotation=r.environment!==null&&e.envMap===null?t.environmentRotation:e.envMapRotation,l===void 0&&(e.addEventListener(`dispose`,Ve),l=new Map,r.programs=l);let d=l.get(c);if(d!==void 0){if(r.currentProgram===d&&r.lightsStateVersion===o)return rt(e,s),d}else s.uniforms=Te.getUniforms(e),D!==null&&e.isNodeMaterial&&D.build(e,n,s),e.onBeforeCompile(s,T),d=Te.acquireProgram(s,c),l.set(c,d),r.uniforms=s.uniforms;let f=r.uniforms;return(!e.isShaderMaterial&&!e.isRawShaderMaterial||e.clipping===!0)&&(f.clippingPlanes=ke.uniform),rt(e,s),r.needsLights=st(e),r.lightsStateVersion=o,r.needsLights&&(f.ambientLightColor.value=i.state.ambient,f.lightProbe.value=i.state.probe,f.sunLights.value=i.state.sun,f.sunLightShadows.value=i.state.sunShadow,f.directionalLights.value=i.state.directional,f.directionalLightShadows.value=i.state.directionalShadow,f.spotLights.value=i.state.spot,f.spotLightShadows.value=i.state.spotShadow,f.rectAreaLights.value=i.state.rectArea,f.ltc_1.value=i.state.rectAreaLTC1,f.ltc_2.value=i.state.rectAreaLTC2,f.pointLights.value=i.state.point,f.pointLightShadows.value=i.state.pointShadow,f.hemisphereLights.value=i.state.hemi,f.sunShadowMatrix.value=i.state.sunShadowMatrix,f.sunShadowCascade.value=i.state.sunShadowCascade,f.directionalShadowMatrix.value=i.state.directionalShadowMatrix,f.spotLightMatrix.value=i.state.spotLightMatrix,f.spotLightMap.value=i.state.spotLightMap,f.pointShadowMatrix.value=i.state.pointShadowMatrix),r.lightProbeGrid=x.state.lightProbeGridArray.length>0,r.currentProgram=d,r.uniformsList=null,d}function nt(e){if(e.uniformsList===null){let t=e.currentProgram.getUniforms();e.uniformsList=DS.seqWithValue(t.seq,e.uniforms)}return e.uniformsList}function rt(e,t){let n=W.get(e);n.outputColorSpace=t.outputColorSpace,n.batching=t.batching,n.batchingColor=t.batchingColor,n.instancing=t.instancing,n.instancingColor=t.instancingColor,n.instancingMorph=t.instancingMorph,n.skinning=t.skinning,n.morphTargets=t.morphTargets,n.morphNormals=t.morphNormals,n.morphColors=t.morphColors,n.morphTargetsCount=t.morphTargetsCount,n.numClippingPlanes=t.numClippingPlanes,n.numIntersection=t.numClipIntersection,n.vertexAlphas=t.vertexAlphas,n.vertexTangents=t.vertexTangents,n.toneMapping=t.toneMapping}function it(e,t){if(e.length===0)return null;if(e.length===1)return e[0].texture===null?null:e[0];y.setFromMatrixPosition(t.matrixWorld);for(let t=0,n=e.length;t<n;t++){let n=e[t];if(n.texture!==null&&n.boundingBox.containsPoint(y))return n}return null}function at(e,t,n,r,i){t.isScene!==!0&&(t=pe),be.resetTextureUnits();let a=t.fog,o=r.isMeshStandardMaterial||r.isMeshLambertMaterial||r.isMeshPhongMaterial?t.environment:null,s=N===null?T.outputColorSpace:N.isXRRenderTarget===!0?N.texture.colorSpace:Xm.workingColorSpace,c=r.isMeshStandardMaterial||r.isMeshLambertMaterial&&!r.envMap||r.isMeshPhongMaterial&&!r.envMap,l=xe.get(r.envMap||o,c),u=r.vertexColors===!0&&!!n.attributes.color&&n.attributes.color.itemSize===4,d=!!n.attributes.tangent&&(!!r.normalMap||r.anisotropy>0),f=!!n.morphAttributes.position,p=!!n.morphAttributes.normal,m=!!n.morphAttributes.color,h=0;r.toneMapped&&(N===null||N.isXRRenderTarget===!0)&&(h=T.toneMapping);let g=n.morphAttributes.position||n.morphAttributes.normal||n.morphAttributes.color,_=g===void 0?0:g.length,v=W.get(r),y=x.state.lights;if(ce===!0&&(le===!0||e!==F)){let t=e===F&&r.id===P;ke.setState(r,e,t)}let b=!1;r.version===v.__version?v.needsLights&&v.lightsStateVersion!==y.state.version?b=!0:v.outputColorSpace===s?i.isBatchedMesh&&v.batching===!1||!i.isBatchedMesh&&v.batching===!0||i.isBatchedMesh&&v.batchingColor===!0&&i._colorsTexture===null||i.isBatchedMesh&&v.batchingColor===!1&&i._colorsTexture!==null||i.isInstancedMesh&&v.instancing===!1||!i.isInstancedMesh&&v.instancing===!0||i.isSkinnedMesh&&v.skinning===!1||!i.isSkinnedMesh&&v.skinning===!0||i.isInstancedMesh&&v.instancingColor===!0&&i.instanceColor===null||i.isInstancedMesh&&v.instancingColor===!1&&i.instanceColor!==null||i.isInstancedMesh&&v.instancingMorph===!0&&i.morphTexture===null||i.isInstancedMesh&&v.instancingMorph===!1&&i.morphTexture!==null?b=!0:v.envMap===l?r.fog===!0&&v.fog!==a||v.numClippingPlanes!==void 0&&(v.numClippingPlanes!==ke.numPlanes||v.numIntersection!==ke.numIntersection)?b=!0:v.vertexAlphas===u&&v.vertexTangents===d&&v.morphTargets===f&&v.morphNormals===p&&v.morphColors===m&&v.toneMapping===h&&v.morphTargetsCount===_?!!v.lightProbeGrid!=x.state.lightProbeGridArray.length>0&&(b=!0):b=!0:b=!0:b=!0:(b=!0,v.__version=r.version);let S=v.currentProgram;b===!0&&(S=tt(r,t,i),D&&r.isNodeMaterial&&D.onUpdateProgram(r,S,v));let C=!1,w=!1,E=!1,O=S.getUniforms(),k=v.uniforms;if(U.useProgram(S.program)&&(C=!0,w=!0,E=!0),r.id!==P&&(P=r.id,w=!0),v.needsLights){let e=it(x.state.lightProbeGridArray,i);v.lightProbeGrid!==e&&(v.lightProbeGrid=e,w=!0)}if(C||F!==e){U.buffers.depth.getReversed()&&e.reversedDepth!==!0&&(e._reversedDepth=!0,e.updateProjectionMatrix()),O.setValue(H,`projectionMatrix`,e.projectionMatrix),O.setValue(H,`viewMatrix`,e.matrixWorldInverse);let t=O.map.cameraPosition;t!==void 0&&t.setValue(H,de.setFromMatrixPosition(e.matrixWorld)),ve.logarithmicDepthBuffer&&O.setValue(H,`logDepthBufFC`,2/(Math.log(e.far+1)/Math.LN2)),(r.isMeshPhongMaterial||r.isMeshToonMaterial||r.isMeshLambertMaterial||r.isMeshBasicMaterial||r.isMeshStandardMaterial||r.isShaderMaterial)&&O.setValue(H,`isOrthographic`,e.isOrthographicCamera===!0),F!==e&&(F=e,w=!0,E=!0)}if(v.needsLights&&(y.state.sunShadowMap.length>0&&O.setValue(H,`sunShadowMap`,y.state.sunShadowMap,be),y.state.directionalShadowMap.length>0&&O.setValue(H,`directionalShadowMap`,y.state.directionalShadowMap,be),y.state.spotShadowMap.length>0&&O.setValue(H,`spotShadowMap`,y.state.spotShadowMap,be),y.state.pointShadowMap.length>0&&O.setValue(H,`pointShadowMap`,y.state.pointShadowMap,be)),i.isSkinnedMesh){O.setOptional(H,i,`bindMatrix`),O.setOptional(H,i,`bindMatrixInverse`);let e=i.skeleton;e&&(e.boneTexture===null&&e.computeBoneTexture(),O.setValue(H,`boneTexture`,e.boneTexture,be))}i.isBatchedMesh&&(O.setOptional(H,i,`batchingTexture`),O.setValue(H,`batchingTexture`,i._matricesTexture,be),O.setOptional(H,i,`batchingIdTexture`),O.setValue(H,`batchingIdTexture`,i._indirectTexture,be),O.setOptional(H,i,`batchingColorTexture`),i._colorsTexture!==null&&O.setValue(H,`batchingColorTexture`,i._colorsTexture,be));let A=n.morphAttributes;if((A.position!==void 0||A.normal!==void 0||A.color!==void 0)&&Me.update(i,n,S),(w||v.receiveShadow!==i.receiveShadow)&&(v.receiveShadow=i.receiveShadow,O.setValue(H,`receiveShadow`,i.receiveShadow)),(r.isMeshStandardMaterial||r.isMeshLambertMaterial||r.isMeshPhongMaterial)&&r.envMap===null&&t.environment!==null&&(k.envMapIntensity.value=t.environmentIntensity),k.dfgLUT!==void 0&&(k.dfgLUT.value=JC()),w){if(O.setValue(H,`toneMappingExposure`,T.toneMappingExposure),v.needsLights&&ot(k,E),a&&r.fog===!0&&Ee.refreshFogUniforms(k,a),Ee.refreshMaterialUniforms(k,r,B,z,x.state.transmissionRenderTarget[e.id]),v.needsLights&&v.lightProbeGrid){let e=v.lightProbeGrid;k.probesSH.value=e.texture,k.probesMin.value.copy(e.boundingBox.min),k.probesMax.value.copy(e.boundingBox.max),k.probesResolution.value.copy(e.resolution)}DS.upload(H,nt(v),k,be)}if(r.isShaderMaterial&&r.uniformsNeedUpdate===!0&&(DS.upload(H,nt(v),k,be),r.uniformsNeedUpdate=!1),r.isSpriteMaterial&&O.setValue(H,`center`,i.center),O.setValue(H,`modelViewMatrix`,i.modelViewMatrix),O.setValue(H,`normalMatrix`,i.normalMatrix),O.setValue(H,`modelMatrix`,i.matrixWorld),r.uniformsGroups!==void 0){let e=r.uniformsGroups;for(let t=0,n=e.length;t<n;t++){let n=e[t];Le.update(n,S),Le.bind(n,S)}}return S}function ot(e,t){e.ambientLightColor.needsUpdate=t,e.lightProbe.needsUpdate=t,e.sunLights.needsUpdate=t,e.sunLightShadows.needsUpdate=t,e.directionalLights.needsUpdate=t,e.directionalLightShadows.needsUpdate=t,e.pointLights.needsUpdate=t,e.pointLightShadows.needsUpdate=t,e.spotLights.needsUpdate=t,e.spotLightShadows.needsUpdate=t,e.rectAreaLights.needsUpdate=t,e.hemisphereLights.needsUpdate=t}function st(e){return e.isMeshLambertMaterial||e.isMeshToonMaterial||e.isMeshPhongMaterial||e.isMeshStandardMaterial||e.isShadowMaterial||e.isShaderMaterial&&e.lights===!0}this.getActiveCubeFace=function(){return j},this.getActiveMipmapLevel=function(){return M},this.getRenderTarget=function(){return N},this.setRenderTargetTextures=function(e,t,n){let r=W.get(e);r.__autoAllocateDepthBuffer=e.resolveDepthBuffer===!1,r.__autoAllocateDepthBuffer===!1&&(r.__useRenderToTexture=!1),W.get(e.texture).__webglTexture=t,W.get(e.depthTexture).__webglTexture=r.__autoAllocateDepthBuffer?void 0:n,r.__hasExternalTextures=!0},this.setRenderTargetFramebuffer=function(e,t){let n=W.get(e);n.__webglFramebuffer=t,n.__useDefaultFramebuffer=t===void 0},this.setRenderTarget=function(e,t=0,n=0){N=e,j=t,M=n;let r=null,i=!1,a=!1;if(e){let o=W.get(e);if(o.__useDefaultFramebuffer!==void 0){U.bindFramebuffer(H.FRAMEBUFFER,o.__webglFramebuffer),I.copy(e.viewport),L.copy(e.scissor),ee=e.scissorTest,U.viewport(I),U.scissor(L),U.setScissorTest(ee),P=-1;return}else if(o.__webglFramebuffer===void 0)be.setupRenderTarget(e);else if(o.__hasExternalTextures)be.rebindTextures(e,W.get(e.texture).__webglTexture,W.get(e.depthTexture).__webglTexture);else if(e.depthBuffer){let t=e.depthTexture;if(o.__boundDepthTexture!==t){if(t!==null&&W.has(t)&&(e.width!==t.image.width||e.height!==t.image.height))throw Error(`THREE.WebGLRenderer: Attached DepthTexture is initialized to the incorrect size.`);be.setupDepthRenderbuffer(e)}}let s=e.texture;(s.isData3DTexture||s.isDataArrayTexture||s.isCompressedArrayTexture)&&(a=!0);let c=W.get(e).__webglFramebuffer;e.isWebGLCubeRenderTarget?(r=Array.isArray(c[t])?c[t][n]:c[t],i=!0):r=e.samples>0&&be.useMultisampledRTT(e)===!1?W.get(e).__webglMultisampledFramebuffer:Array.isArray(c)?c[n]:c,I.copy(e.viewport),L.copy(e.scissor),ee=e.scissorTest}else I.copy(ie).multiplyScalar(B).floor(),L.copy(ae).multiplyScalar(B).floor(),ee=oe;if(n!==0&&(r=O),U.bindFramebuffer(H.FRAMEBUFFER,r)&&U.drawBuffers(e,r),U.viewport(I),U.scissor(L),U.setScissorTest(ee),i){let r=W.get(e.texture);H.framebufferTexture2D(H.FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_CUBE_MAP_POSITIVE_X+t,r.__webglTexture,n)}else if(a){let r=t;for(let t=0;t<e.textures.length;t++){let i=W.get(e.textures[t]);H.framebufferTextureLayer(H.FRAMEBUFFER,H.COLOR_ATTACHMENT0+t,i.__webglTexture,n,r)}}else if(e!==null&&n!==0){let t=W.get(e.texture);H.framebufferTexture2D(H.FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_2D,t.__webglTexture,n)}P=-1};function ct(e){let t=W.get(e);return(t.__readFormat!==e.format||t.__readType!==e.type)&&(t.__readFormat=e.format,t.__readType=e.type,t.__formatReadable=ve.textureFormatReadable(e.format),t.__typeReadable=ve.textureTypeReadable(e.type)),t}this.readRenderTargetPixels=function(e,t,n,r,i,a,o,s=0){if(!(e&&e.isWebGLRenderTarget)){X(`WebGLRenderer.readRenderTargetPixels: renderTarget is not THREE.WebGLRenderTarget.`);return}let c=W.get(e).__webglFramebuffer;if(e.isWebGLCubeRenderTarget&&o!==void 0&&(c=c[o]),c){U.bindFramebuffer(H.FRAMEBUFFER,c);try{let o=e.textures[s],c=o.format,l=o.type;e.textures.length>1&&H.readBuffer(H.COLOR_ATTACHMENT0+s);let u=ct(o);if(u.__formatReadable===!1){X(`WebGLRenderer.readRenderTargetPixels: renderTarget is not in RGBA or implementation defined format.`);return}if(u.__typeReadable===!1){X(`WebGLRenderer.readRenderTargetPixels: renderTarget is not in UnsignedByteType or implementation defined type.`);return}t>=0&&t<=e.width-r&&n>=0&&n<=e.height-i&&H.readPixels(t,n,r,i,Fe.convert(c),Fe.convert(l),a)}finally{let e=N===null?null:W.get(N).__webglFramebuffer;U.bindFramebuffer(H.FRAMEBUFFER,e)}}},this.readRenderTargetPixelsAsync=async function(e,t,n,r,i,a,o,s=0){if(!(e&&e.isWebGLRenderTarget))throw Error(`THREE.WebGLRenderer.readRenderTargetPixels: renderTarget is not THREE.WebGLRenderTarget.`);let c=W.get(e).__webglFramebuffer;if(e.isWebGLCubeRenderTarget&&o!==void 0&&(c=c[o]),c)if(t>=0&&t<=e.width-r&&n>=0&&n<=e.height-i){U.bindFramebuffer(H.FRAMEBUFFER,c);let o=e.textures[s],l=o.format,u=o.type;e.textures.length>1&&H.readBuffer(H.COLOR_ATTACHMENT0+s);let d=ct(o);if(d.__formatReadable===!1)throw Error(`THREE.WebGLRenderer.readRenderTargetPixelsAsync: renderTarget is not in RGBA or implementation defined format.`);if(d.__typeReadable===!1)throw Error(`THREE.WebGLRenderer.readRenderTargetPixelsAsync: renderTarget is not in UnsignedByteType or implementation defined type.`);let f=H.createBuffer();H.bindBuffer(H.PIXEL_PACK_BUFFER,f),H.bufferData(H.PIXEL_PACK_BUFFER,a.byteLength,H.STREAM_READ),H.readPixels(t,n,r,i,Fe.convert(l),Fe.convert(u),0),H.bindBuffer(H.PIXEL_PACK_BUFFER,null);let p=N===null?null:W.get(N).__webglFramebuffer;U.bindFramebuffer(H.FRAMEBUFFER,p);let m=H.fenceSync(H.SYNC_GPU_COMMANDS_COMPLETE,0);return H.flush(),await fm(H,m,4),H.bindBuffer(H.PIXEL_PACK_BUFFER,f),H.getBufferSubData(H.PIXEL_PACK_BUFFER,0,a),H.bindBuffer(H.PIXEL_PACK_BUFFER,null),H.deleteBuffer(f),H.deleteSync(m),a}else throw Error(`THREE.WebGLRenderer.readRenderTargetPixelsAsync: requested read bounds are out of range.`)},this.copyFramebufferToTexture=function(e,t=null,n=0){let r=2**-n,i=Math.floor(e.image.width*r),a=Math.floor(e.image.height*r),o=t===null?0:t.x,s=t===null?0:t.y;be.setTexture2D(e,0),H.copyTexSubImage2D(H.TEXTURE_2D,n,0,0,o,s,i,a),U.unbindTexture()},this.copyTextureToTexture=function(e,t,n=null,r=null,i=0,a=0){let o,s,c,l,u,d,f,p,m,h=e.isCompressedTexture?e.mipmaps[a]:e.image;if(n!==null)o=n.max.x-n.min.x,s=n.max.y-n.min.y,c=n.isBox3?n.max.z-n.min.z:1,l=n.min.x,u=n.min.y,d=n.isBox3?n.min.z:0;else{let t=2**-i;o=Math.floor(h.width*t),s=Math.floor(h.height*t),c=e.isDataArrayTexture?h.depth:e.isData3DTexture?Math.floor(h.depth*t):1,l=0,u=0,d=0}r===null?(f=0,p=0,m=0):(f=r.x,p=r.y,m=r.z);let g=Fe.convert(t.format),_=Fe.convert(t.type),v;t.isData3DTexture?(be.setTexture3D(t,0),v=H.TEXTURE_3D):t.isDataArrayTexture||t.isCompressedArrayTexture?(be.setTexture2DArray(t,0),v=H.TEXTURE_2D_ARRAY):(be.setTexture2D(t,0),v=H.TEXTURE_2D),U.activeTexture(H.TEXTURE0),U.pixelStorei(H.UNPACK_FLIP_Y_WEBGL,t.flipY),U.pixelStorei(H.UNPACK_PREMULTIPLY_ALPHA_WEBGL,t.premultiplyAlpha),U.pixelStorei(H.UNPACK_ALIGNMENT,t.unpackAlignment);let y=U.getParameter(H.UNPACK_ROW_LENGTH),b=U.getParameter(H.UNPACK_IMAGE_HEIGHT),x=U.getParameter(H.UNPACK_SKIP_PIXELS),S=U.getParameter(H.UNPACK_SKIP_ROWS),C=U.getParameter(H.UNPACK_SKIP_IMAGES);U.pixelStorei(H.UNPACK_ROW_LENGTH,h.width),U.pixelStorei(H.UNPACK_IMAGE_HEIGHT,h.height),U.pixelStorei(H.UNPACK_SKIP_PIXELS,l),U.pixelStorei(H.UNPACK_SKIP_ROWS,u),U.pixelStorei(H.UNPACK_SKIP_IMAGES,d);let w=e.isDataArrayTexture||e.isData3DTexture,T=t.isDataArrayTexture||t.isData3DTexture;if(e.isDepthTexture){let n=W.get(e),r=W.get(t),h=W.get(n.__renderTarget),g=W.get(r.__renderTarget);U.bindFramebuffer(H.READ_FRAMEBUFFER,h.__webglFramebuffer),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,g.__webglFramebuffer);for(let n=0;n<c;n++)w&&(H.framebufferTextureLayer(H.READ_FRAMEBUFFER,H.COLOR_ATTACHMENT0,W.get(e).__webglTexture,i,d+n),H.framebufferTextureLayer(H.DRAW_FRAMEBUFFER,H.COLOR_ATTACHMENT0,W.get(t).__webglTexture,a,m+n)),H.blitFramebuffer(l,u,o,s,f,p,o,s,H.DEPTH_BUFFER_BIT,H.NEAREST);U.bindFramebuffer(H.READ_FRAMEBUFFER,null),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,null)}else if(i!==0||e.isRenderTargetTexture||W.has(e)){let n=W.get(e),r=W.get(t);U.bindFramebuffer(H.READ_FRAMEBUFFER,k),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,A);for(let e=0;e<c;e++)w?H.framebufferTextureLayer(H.READ_FRAMEBUFFER,H.COLOR_ATTACHMENT0,n.__webglTexture,i,d+e):H.framebufferTexture2D(H.READ_FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_2D,n.__webglTexture,i),T?H.framebufferTextureLayer(H.DRAW_FRAMEBUFFER,H.COLOR_ATTACHMENT0,r.__webglTexture,a,m+e):H.framebufferTexture2D(H.DRAW_FRAMEBUFFER,H.COLOR_ATTACHMENT0,H.TEXTURE_2D,r.__webglTexture,a),i===0?T?H.copyTexSubImage3D(v,a,f,p,m+e,l,u,o,s):H.copyTexSubImage2D(v,a,f,p,l,u,o,s):H.blitFramebuffer(l,u,o,s,f,p,o,s,H.COLOR_BUFFER_BIT,H.NEAREST);U.bindFramebuffer(H.READ_FRAMEBUFFER,null),U.bindFramebuffer(H.DRAW_FRAMEBUFFER,null)}else T?e.isDataTexture||e.isData3DTexture?H.texSubImage3D(v,a,f,p,m,o,s,c,g,_,h.data):t.isCompressedArrayTexture?H.compressedTexSubImage3D(v,a,f,p,m,o,s,c,g,h.data):H.texSubImage3D(v,a,f,p,m,o,s,c,g,_,h):e.isDataTexture?H.texSubImage2D(H.TEXTURE_2D,a,f,p,o,s,g,_,h.data):e.isCompressedTexture?H.compressedTexSubImage2D(H.TEXTURE_2D,a,f,p,h.width,h.height,g,h.data):H.texSubImage2D(H.TEXTURE_2D,a,f,p,o,s,g,_,h);U.pixelStorei(H.UNPACK_ROW_LENGTH,y),U.pixelStorei(H.UNPACK_IMAGE_HEIGHT,b),U.pixelStorei(H.UNPACK_SKIP_PIXELS,x),U.pixelStorei(H.UNPACK_SKIP_ROWS,S),U.pixelStorei(H.UNPACK_SKIP_IMAGES,C),a===0&&t.generateMipmaps&&H.generateMipmap(v),U.unbindTexture()},this.initRenderTarget=function(e){W.get(e).__webglFramebuffer===void 0&&be.setupRenderTarget(e)},this.initTexture=function(e){e.isCubeTexture?be.setTextureCube(e,0):e.isData3DTexture?be.setTexture3D(e,0):e.isDataArrayTexture||e.isCompressedArrayTexture?be.setTexture2DArray(e,0):be.setTexture2D(e,0),U.unbindTexture()},this.resetState=function(){j=0,M=0,N=null,U.reset(),Ie.reset()},typeof __THREE_DEVTOOLS__<`u`&&__THREE_DEVTOOLS__.dispatchEvent(new CustomEvent(`observe`,{detail:this}))}get coordinateSystem(){return nm}get outputColorSpace(){return this._outputColorSpace}set outputColorSpace(e){this._outputColorSpace=e;let t=this.getContext();t.drawingBufferColorSpace=Xm._getDrawingBufferColorSpace(e),t.unpackColorSpace=Xm._getUnpackColorSpace()}},XC={type:`change`},ZC={type:`start`},QC={type:`end`},$C=new e_,ew=new qg,tw=Math.cos(70*Vm.DEG2RAD),nw=new Q,rw=2*Math.PI,iw={NONE:-1,ROTATE:0,DOLLY:1,PAN:2,TOUCH_ROTATE:3,TOUCH_PAN:4,TOUCH_DOLLY_PAN:5,TOUCH_DOLLY_ROTATE:6},aw=1e-6,ow=class extends kb{constructor(e,t=null){super(e,t),this.state=iw.NONE,this.target=new Q,this.cursor=new Q,this.minDistance=0,this.maxDistance=1/0,this.minZoom=0,this.maxZoom=1/0,this.minTargetRadius=0,this.maxTargetRadius=1/0,this.minPolarAngle=0,this.maxPolarAngle=Math.PI,this.minAzimuthAngle=-1/0,this.maxAzimuthAngle=1/0,this.enableDamping=!1,this.dampingFactor=.05,this.enableZoom=!0,this.zoomSpeed=1,this.enableRotate=!0,this.rotateSpeed=1,this.keyRotateSpeed=1,this.enablePan=!0,this.panSpeed=1,this.screenSpacePanning=!0,this.keyPanSpeed=7,this.zoomToCursor=!1,this.autoRotate=!1,this.autoRotateSpeed=2,this.keys={LEFT:`ArrowLeft`,UP:`ArrowUp`,RIGHT:`ArrowRight`,BOTTOM:`ArrowDown`},this.mouseButtons={LEFT:Ef.ROTATE,MIDDLE:Ef.DOLLY,RIGHT:Ef.PAN},this.touches={ONE:Df.ROTATE,TWO:Df.DOLLY_PAN},this.target0=this.target.clone(),this.position0=this.object.position.clone(),this.zoom0=this.object.zoom,this._cursorStyle=`auto`,this._domElementKeyEvents=null,this._lastPosition=new Q,this._lastQuaternion=new Hm,this._lastTargetPosition=new Q,this._quat=new Hm().setFromUnitVectors(e.up,new Q(0,1,0)),this._quatInverse=this._quat.clone().invert(),this._spherical=new Eb,this._sphericalDelta=new Eb,this._scale=1,this._panOffset=new Q,this._rotateStart=new Z,this._rotateEnd=new Z,this._rotateDelta=new Z,this._panStart=new Z,this._panEnd=new Z,this._panDelta=new Z,this._dollyStart=new Z,this._dollyEnd=new Z,this._dollyDelta=new Z,this._dollyDirection=new Q,this._mouse=new Z,this._performCursorZoom=!1,this._pointers=[],this._pointerPositions={},this._controlActive=!1,this._onPointerMove=cw.bind(this),this._onPointerDown=sw.bind(this),this._onPointerUp=lw.bind(this),this._onContextMenu=gw.bind(this),this._onMouseWheel=fw.bind(this),this._onKeyDown=pw.bind(this),this._onTouchStart=mw.bind(this),this._onTouchMove=hw.bind(this),this._onMouseDown=uw.bind(this),this._onMouseMove=dw.bind(this),this._interceptControlDown=_w.bind(this),this._interceptControlUp=vw.bind(this),this.domElement!==null&&this.connect(this.domElement),this.update()}set cursorStyle(e){this._cursorStyle=e,e===`grab`?this.domElement.style.cursor=`grab`:this.domElement.style.cursor=`auto`}get cursorStyle(){return this._cursorStyle}connect(e){super.connect(e),this.domElement.addEventListener(`pointerdown`,this._onPointerDown),this.domElement.addEventListener(`pointercancel`,this._onPointerUp),this.domElement.addEventListener(`contextmenu`,this._onContextMenu),this.domElement.addEventListener(`wheel`,this._onMouseWheel,{passive:!1}),this.domElement.getRootNode().addEventListener(`keydown`,this._interceptControlDown,{passive:!0,capture:!0}),this.domElement.style.touchAction=`none`}disconnect(){this.state=iw.NONE,this.domElement.removeEventListener(`pointerdown`,this._onPointerDown),this.domElement.ownerDocument.removeEventListener(`pointermove`,this._onPointerMove),this.domElement.ownerDocument.removeEventListener(`pointerup`,this._onPointerUp),this.domElement.removeEventListener(`pointercancel`,this._onPointerUp),this.domElement.removeEventListener(`wheel`,this._onMouseWheel),this.domElement.removeEventListener(`contextmenu`,this._onContextMenu),this.stopListenToKeyEvents();let e=this.domElement.getRootNode();e.removeEventListener(`keydown`,this._interceptControlDown,{capture:!0}),e.removeEventListener(`keyup`,this._interceptControlUp,{capture:!0}),this._controlActive=!1,this._pointers.length=0,this._pointerPositions={},this.domElement.style.touchAction=``,this.domElement.style.cursor=`auto`}dispose(){this.disconnect()}getPolarAngle(){return this._spherical.phi}getAzimuthalAngle(){return this._spherical.theta}getDistance(){return this.object.position.distanceTo(this.target)}listenToKeyEvents(e){e.addEventListener(`keydown`,this._onKeyDown),this._domElementKeyEvents=e}stopListenToKeyEvents(){this._domElementKeyEvents!==null&&(this._domElementKeyEvents.removeEventListener(`keydown`,this._onKeyDown),this._domElementKeyEvents=null)}saveState(){this.target0.copy(this.target),this.position0.copy(this.object.position),this.zoom0=this.object.zoom}reset(){this.target.copy(this.target0),this.object.position.copy(this.position0),this.object.zoom=this.zoom0,this.object.updateProjectionMatrix(),this.dispatchEvent(XC),this.update(),this.state=iw.NONE}pan(e,t){this._pan(e,t),this.update()}dollyIn(e){this._dollyIn(e),this.update()}dollyOut(e){this._dollyOut(e),this.update()}rotateLeft(e){this._rotateLeft(e),this.update()}rotateUp(e){this._rotateUp(e),this.update()}update(e=null){let t=this.object.position;nw.copy(t).sub(this.target),nw.applyQuaternion(this._quat),this._spherical.setFromVector3(nw),this.autoRotate&&this.state===iw.NONE&&this._rotateLeft(this._getAutoRotationAngle(e)),this.enableDamping?(this._spherical.theta+=this._sphericalDelta.theta*this.dampingFactor,this._spherical.phi+=this._sphericalDelta.phi*this.dampingFactor):(this._spherical.theta+=this._sphericalDelta.theta,this._spherical.phi+=this._sphericalDelta.phi);let n=this.minAzimuthAngle,r=this.maxAzimuthAngle;isFinite(n)&&isFinite(r)&&(n<-Math.PI?n+=rw:n>Math.PI&&(n-=rw),r<-Math.PI?r+=rw:r>Math.PI&&(r-=rw),n<=r?this._spherical.theta=Math.max(n,Math.min(r,this._spherical.theta)):this._spherical.theta=this._spherical.theta>(n+r)/2?Math.max(n,this._spherical.theta):Math.min(r,this._spherical.theta)),this._spherical.phi=Math.max(this.minPolarAngle,Math.min(this.maxPolarAngle,this._spherical.phi)),this._spherical.makeSafe(),this.enableDamping===!0?this.target.addScaledVector(this._panOffset,this.dampingFactor):this.target.add(this._panOffset),this.target.sub(this.cursor),this.target.clampLength(this.minTargetRadius,this.maxTargetRadius),this.target.add(this.cursor);let i=!1;if(this.zoomToCursor&&this._performCursorZoom||this.object.isOrthographicCamera)this._spherical.radius=this._clampDistance(this._spherical.radius);else{let e=this._spherical.radius;this._spherical.radius=this._clampDistance(this._spherical.radius*this._scale),i=e!=this._spherical.radius}if(nw.setFromSpherical(this._spherical),nw.applyQuaternion(this._quatInverse),t.copy(this.target).add(nw),this.object.lookAt(this.target),this.enableDamping===!0?(this._sphericalDelta.theta*=1-this.dampingFactor,this._sphericalDelta.phi*=1-this.dampingFactor,this._panOffset.multiplyScalar(1-this.dampingFactor)):(this._sphericalDelta.set(0,0,0),this._panOffset.set(0,0,0)),this.zoomToCursor&&this._performCursorZoom){let e=null;if(this.object.isPerspectiveCamera){let t=nw.length();e=this._clampDistance(t*this._scale);let n=t-e;this.object.position.addScaledVector(this._dollyDirection,n),this.object.updateMatrixWorld(),i=!!n}else if(this.object.isOrthographicCamera){let t=new Q(this._mouse.x,this._mouse.y,0);t.unproject(this.object);let n=this.object.zoom;this.object.zoom=Math.max(this.minZoom,Math.min(this.maxZoom,this.object.zoom/this._scale)),this.object.updateProjectionMatrix(),i=n!==this.object.zoom;let r=new Q(this._mouse.x,this._mouse.y,0);r.unproject(this.object),this.object.position.sub(r).add(t),this.object.updateMatrixWorld(),e=nw.length()}else console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - zoom to cursor disabled.`),this.zoomToCursor=!1;e!==null&&(this.screenSpacePanning?this.target.set(0,0,-1).transformDirection(this.object.matrix).multiplyScalar(e).add(this.object.position):($C.origin.copy(this.object.position),$C.direction.set(0,0,-1).transformDirection(this.object.matrix),Math.abs(this.object.up.dot($C.direction))<tw?this.object.lookAt(this.target):(ew.setFromNormalAndCoplanarPoint(this.object.up,this.target),$C.intersectPlane(ew,this.target))))}else if(this.object.isOrthographicCamera){let e=this.object.zoom;this.object.zoom=Math.max(this.minZoom,Math.min(this.maxZoom,this.object.zoom/this._scale)),e!==this.object.zoom&&(this.object.updateProjectionMatrix(),i=!0)}return this._scale=1,this._performCursorZoom=!1,i||this._lastPosition.distanceToSquared(this.object.position)>aw||8*(1-this._lastQuaternion.dot(this.object.quaternion))>aw||this._lastTargetPosition.distanceToSquared(this.target)>aw?(this.dispatchEvent(XC),this._lastPosition.copy(this.object.position),this._lastQuaternion.copy(this.object.quaternion),this._lastTargetPosition.copy(this.target),!0):!1}_getAutoRotationAngle(e){return e===null?rw/60/60*this.autoRotateSpeed:rw/60*this.autoRotateSpeed*e}_getZoomScale(e){let t=Math.abs(e*.01);return .95**(this.zoomSpeed*t)}_rotateLeft(e){this._sphericalDelta.theta-=e}_rotateUp(e){this._sphericalDelta.phi-=e}_panLeft(e,t){nw.setFromMatrixColumn(t,0),nw.multiplyScalar(-e),this._panOffset.add(nw)}_panUp(e,t){this.screenSpacePanning===!0?nw.setFromMatrixColumn(t,1):(nw.setFromMatrixColumn(t,0),nw.crossVectors(this.object.up,nw)),nw.multiplyScalar(e),this._panOffset.add(nw)}_pan(e,t){let n=this.domElement;if(this.object.isPerspectiveCamera){let r=this.object.position;nw.copy(r).sub(this.target);let i=nw.length();i*=Math.tan(this.object.fov/2*Math.PI/180),this._panLeft(2*e*i/n.clientHeight,this.object.matrix),this._panUp(2*t*i/n.clientHeight,this.object.matrix)}else this.object.isOrthographicCamera?(this._panLeft(e*(this.object.right-this.object.left)/this.object.zoom/n.clientWidth,this.object.matrix),this._panUp(t*(this.object.top-this.object.bottom)/this.object.zoom/n.clientHeight,this.object.matrix)):(console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - pan disabled.`),this.enablePan=!1)}_dollyOut(e){this.object.isPerspectiveCamera||this.object.isOrthographicCamera?this._scale/=e:(console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.`),this.enableZoom=!1)}_dollyIn(e){this.object.isPerspectiveCamera||this.object.isOrthographicCamera?this._scale*=e:(console.warn(`WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.`),this.enableZoom=!1)}_updateZoomParameters(e,t){if(!this.zoomToCursor)return;this._performCursorZoom=!0;let n=this.domElement.getBoundingClientRect(),r=e-n.left,i=t-n.top,a=n.width,o=n.height;this._mouse.x=r/a*2-1,this._mouse.y=-(i/o)*2+1,this._dollyDirection.set(this._mouse.x,this._mouse.y,1).unproject(this.object).sub(this.object.position).normalize()}_clampDistance(e){return Math.max(this.minDistance,Math.min(this.maxDistance,e))}_handleMouseDownRotate(e){this._rotateStart.set(e.clientX,e.clientY)}_handleMouseDownDolly(e){this._updateZoomParameters(e.clientX,e.clientX),this._dollyStart.set(e.clientX,e.clientY)}_handleMouseDownPan(e){this._panStart.set(e.clientX,e.clientY)}_handleMouseMoveRotate(e){this._rotateEnd.set(e.clientX,e.clientY),this._rotateDelta.subVectors(this._rotateEnd,this._rotateStart).multiplyScalar(this.rotateSpeed);let t=this.domElement;this._rotateLeft(rw*this._rotateDelta.x/t.clientHeight),this._rotateUp(rw*this._rotateDelta.y/t.clientHeight),this._rotateStart.copy(this._rotateEnd),this.update()}_handleMouseMoveDolly(e){this._dollyEnd.set(e.clientX,e.clientY),this._dollyDelta.subVectors(this._dollyEnd,this._dollyStart),this._dollyDelta.y>0?this._dollyOut(this._getZoomScale(this._dollyDelta.y)):this._dollyDelta.y<0&&this._dollyIn(this._getZoomScale(this._dollyDelta.y)),this._dollyStart.copy(this._dollyEnd),this.update()}_handleMouseMovePan(e){this._panEnd.set(e.clientX,e.clientY),this._panDelta.subVectors(this._panEnd,this._panStart).multiplyScalar(this.panSpeed),this._pan(this._panDelta.x,this._panDelta.y),this._panStart.copy(this._panEnd),this.update()}_handleMouseWheel(e){this._updateZoomParameters(e.clientX,e.clientY),e.deltaY<0?this._dollyIn(this._getZoomScale(e.deltaY)):e.deltaY>0&&this._dollyOut(this._getZoomScale(e.deltaY)),this.update()}_handleKeyDown(e){let t=!1;switch(e.code){case this.keys.UP:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateUp(rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(0,this.keyPanSpeed),t=!0;break;case this.keys.BOTTOM:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateUp(-rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(0,-this.keyPanSpeed),t=!0;break;case this.keys.LEFT:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateLeft(rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(this.keyPanSpeed,0),t=!0;break;case this.keys.RIGHT:e.ctrlKey||e.metaKey||e.shiftKey?this.enableRotate&&this._rotateLeft(-rw*this.keyRotateSpeed/this.domElement.clientHeight):this.enablePan&&this._pan(-this.keyPanSpeed,0),t=!0;break}t&&(e.preventDefault(),this.update())}_handleTouchStartRotate(e){if(this._pointers.length===1)this._rotateStart.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._rotateStart.set(n,r)}}_handleTouchStartPan(e){if(this._pointers.length===1)this._panStart.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._panStart.set(n,r)}}_handleTouchStartDolly(e){let t=this._getSecondPointerPosition(e),n=e.pageX-t.x,r=e.pageY-t.y,i=Math.sqrt(n*n+r*r);this._dollyStart.set(0,i)}_handleTouchStartDollyPan(e){this.enableZoom&&this._handleTouchStartDolly(e),this.enablePan&&this._handleTouchStartPan(e)}_handleTouchStartDollyRotate(e){this.enableZoom&&this._handleTouchStartDolly(e),this.enableRotate&&this._handleTouchStartRotate(e)}_handleTouchMoveRotate(e){if(this._pointers.length==1)this._rotateEnd.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._rotateEnd.set(n,r)}this._rotateDelta.subVectors(this._rotateEnd,this._rotateStart).multiplyScalar(this.rotateSpeed);let t=this.domElement;this._rotateLeft(rw*this._rotateDelta.x/t.clientHeight),this._rotateUp(rw*this._rotateDelta.y/t.clientHeight),this._rotateStart.copy(this._rotateEnd)}_handleTouchMovePan(e){if(this._pointers.length===1)this._panEnd.set(e.pageX,e.pageY);else{let t=this._getSecondPointerPosition(e),n=.5*(e.pageX+t.x),r=.5*(e.pageY+t.y);this._panEnd.set(n,r)}this._panDelta.subVectors(this._panEnd,this._panStart).multiplyScalar(this.panSpeed),this._pan(this._panDelta.x,this._panDelta.y),this._panStart.copy(this._panEnd)}_handleTouchMoveDolly(e){let t=this._getSecondPointerPosition(e),n=e.pageX-t.x,r=e.pageY-t.y,i=Math.sqrt(n*n+r*r);this._dollyEnd.set(0,i),this._dollyDelta.set(0,(this._dollyEnd.y/this._dollyStart.y)**+this.zoomSpeed),this._dollyOut(this._dollyDelta.y),this._dollyStart.copy(this._dollyEnd);let a=(e.pageX+t.x)*.5,o=(e.pageY+t.y)*.5;this._updateZoomParameters(a,o)}_handleTouchMoveDollyPan(e){this.enableZoom&&this._handleTouchMoveDolly(e),this.enablePan&&this._handleTouchMovePan(e)}_handleTouchMoveDollyRotate(e){this.enableZoom&&this._handleTouchMoveDolly(e),this.enableRotate&&this._handleTouchMoveRotate(e)}_addPointer(e){this._pointers.push(e.pointerId)}_removePointer(e){delete this._pointerPositions[e.pointerId];for(let t=0;t<this._pointers.length;t++)if(this._pointers[t]==e.pointerId){this._pointers.splice(t,1);return}}_isTrackingPointer(e){for(let t=0;t<this._pointers.length;t++)if(this._pointers[t]==e.pointerId)return!0;return!1}_trackPointer(e){let t=this._pointerPositions[e.pointerId];t===void 0&&(t=new Z,this._pointerPositions[e.pointerId]=t),t.set(e.pageX,e.pageY)}_getSecondPointerPosition(e){let t=e.pointerId===this._pointers[0]?this._pointers[1]:this._pointers[0];return this._pointerPositions[t]}_customWheelEvent(e){let t=e.deltaMode,n={clientX:e.clientX,clientY:e.clientY,deltaY:e.deltaY};switch(t){case 1:n.deltaY*=16;break;case 2:n.deltaY*=100;break}return e.ctrlKey&&!this._controlActive&&(n.deltaY*=10),n}};function sw(e){this.enabled!==!1&&(this._pointers.length===0&&(this.domElement.setPointerCapture(e.pointerId),this.domElement.ownerDocument.addEventListener(`pointermove`,this._onPointerMove),this.domElement.ownerDocument.addEventListener(`pointerup`,this._onPointerUp)),!this._isTrackingPointer(e)&&(this._addPointer(e),e.pointerType===`touch`?this._onTouchStart(e):this._onMouseDown(e),this._cursorStyle===`grab`&&(this.domElement.style.cursor=`grabbing`)))}function cw(e){this.enabled!==!1&&(e.pointerType===`touch`?this._onTouchMove(e):this._onMouseMove(e))}function lw(e){switch(this._removePointer(e),this._pointers.length){case 0:this.domElement.releasePointerCapture(e.pointerId),this.domElement.ownerDocument.removeEventListener(`pointermove`,this._onPointerMove),this.domElement.ownerDocument.removeEventListener(`pointerup`,this._onPointerUp),this.dispatchEvent(QC),this.state=iw.NONE,this._cursorStyle===`grab`&&(this.domElement.style.cursor=`grab`);break;case 1:let t=this._pointers[0],n=this._pointerPositions[t];this._onTouchStart({pointerId:t,pageX:n.x,pageY:n.y});break}}function uw(e){let t;switch(e.button){case 0:t=this.mouseButtons.LEFT;break;case 1:t=this.mouseButtons.MIDDLE;break;case 2:t=this.mouseButtons.RIGHT;break;default:t=-1}switch(t){case Ef.DOLLY:if(this.enableZoom===!1)return;this._handleMouseDownDolly(e),this.state=iw.DOLLY;break;case Ef.ROTATE:if(e.ctrlKey||e.metaKey||e.shiftKey){if(this.enablePan===!1)return;this._handleMouseDownPan(e),this.state=iw.PAN}else{if(this.enableRotate===!1)return;this._handleMouseDownRotate(e),this.state=iw.ROTATE}break;case Ef.PAN:if(e.ctrlKey||e.metaKey||e.shiftKey){if(this.enableRotate===!1)return;this._handleMouseDownRotate(e),this.state=iw.ROTATE}else{if(this.enablePan===!1)return;this._handleMouseDownPan(e),this.state=iw.PAN}break;default:this.state=iw.NONE}this.state!==iw.NONE&&this.dispatchEvent(ZC)}function dw(e){switch(this.state){case iw.ROTATE:if(this.enableRotate===!1)return;this._handleMouseMoveRotate(e);break;case iw.DOLLY:if(this.enableZoom===!1)return;this._handleMouseMoveDolly(e);break;case iw.PAN:if(this.enablePan===!1)return;this._handleMouseMovePan(e);break}}function fw(e){this.enabled===!1||this.enableZoom===!1||this.state!==iw.NONE||(e.preventDefault(),this.dispatchEvent(ZC),this._handleMouseWheel(this._customWheelEvent(e)),this.dispatchEvent(QC))}function pw(e){this.enabled!==!1&&this._handleKeyDown(e)}function mw(e){switch(this._trackPointer(e),this._pointers.length){case 1:switch(this.touches.ONE){case Df.ROTATE:if(this.enableRotate===!1)return;this._handleTouchStartRotate(e),this.state=iw.TOUCH_ROTATE;break;case Df.PAN:if(this.enablePan===!1)return;this._handleTouchStartPan(e),this.state=iw.TOUCH_PAN;break;default:this.state=iw.NONE}break;case 2:switch(this.touches.TWO){case Df.DOLLY_PAN:if(this.enableZoom===!1&&this.enablePan===!1)return;this._handleTouchStartDollyPan(e),this.state=iw.TOUCH_DOLLY_PAN;break;case Df.DOLLY_ROTATE:if(this.enableZoom===!1&&this.enableRotate===!1)return;this._handleTouchStartDollyRotate(e),this.state=iw.TOUCH_DOLLY_ROTATE;break;default:this.state=iw.NONE}break;default:this.state=iw.NONE}this.state!==iw.NONE&&this.dispatchEvent(ZC)}function hw(e){switch(this._trackPointer(e),this.state){case iw.TOUCH_ROTATE:if(this.enableRotate===!1)return;this._handleTouchMoveRotate(e),this.update();break;case iw.TOUCH_PAN:if(this.enablePan===!1)return;this._handleTouchMovePan(e),this.update();break;case iw.TOUCH_DOLLY_PAN:if(this.enableZoom===!1&&this.enablePan===!1)return;this._handleTouchMoveDollyPan(e),this.update();break;case iw.TOUCH_DOLLY_ROTATE:if(this.enableZoom===!1&&this.enableRotate===!1)return;this._handleTouchMoveDollyRotate(e),this.update();break;default:this.state=iw.NONE}}function gw(e){this.enabled!==!1&&e.preventDefault()}function _w(e){e.key===`Control`&&(this._controlActive=!0,this.domElement.getRootNode().addEventListener(`keyup`,this._interceptControlUp,{passive:!0,capture:!0}))}function vw(e){e.key===`Control`&&(this._controlActive=!1,this.domElement.getRootNode().removeEventListener(`keyup`,this._interceptControlUp,{passive:!0,capture:!0}))}function yw(e){return e.assemblyPaths.filter(e=>!e.isHole).map(t=>{let n=new xv(t.points.map(e=>new Z(e.x,e.y)));for(let t of e.assemblyPaths.filter(e=>e.isHole))n.holes.push(new bv(t.points.map(e=>new Z(e.x,e.y))));return n})}function bw(e,t){let n=new ay(yw(e),{depth:t,bevelEnabled:!1,curveSegments:2,steps:1});return n.translate(0,0,-t/2),e.axis===`X`?n.applyMatrix4(new fh().makeBasis(new Q(0,1,0),new Q(0,0,1),new Q(1,0,0))):e.axis===`Y`&&n.rotateX(Math.PI/2),n}function xw(e){let t=(0,C.useRef)(null),n=(0,C.useRef)(e);n.current=e;let r=(0,C.useRef)(null),[i,a]=(0,C.useState)(``);return(0,C.useEffect)(()=>{let e=t.current,i;try{i=new YC({antialias:!0,alpha:!1,powerPreference:`high-performance`})}catch{a(`3D preview needs WebGL. The sheet layout and cut-file exports are still available.`);return}i.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75)),i.setClearColor(2239280),i.outputColorSpace=Xp,i.toneMapping=4,i.toneMappingExposure=1.4,i.domElement.setAttribute(`aria-label`,`Interactive 3D assembly. Drag to orbit, scroll to zoom, shift-drag to pan. Click a part to select it.`),i.domElement.tabIndex=0,e.appendChild(i.domElement);let o=new Yh,s=new Bh;o.add(s);let c=new nb(34,1,.1,3e4);c.up.set(0,0,1);let l=new ow(c,i.domElement);l.enableDamping=!0,l.dampingFactor=.09,l.screenSpacePanning=!0,l.maxDistance=2e4,o.add(new Wy(16774358,6846337,2.3));let u=new ab(16773588,3.4);u.position.set(150,-300,450),o.add(u);let d=new ab(14085631,2.3);d.position.set(-300,200,300),o.add(d);let f=new Db(2e3,100,5924717,3621963);f.rotation.x=Math.PI/2,f.position.z=-.15,o.add(f);let p=new Ob(70);o.add(p);let m=()=>{let e=n.current,t=e.result,r=[...t?.dimensions||[220,180,250]];t?.settings.mode===`stacked`&&(r[t.settings.stackedAxis===`X`?0:t.settings.stackedAxis===`Y`?1:2]=t.builtDepth);let i=new Q(r[0]/2,r[1]/2,r[2]/2),a=[...r];if(t){let n=n=>e.explode/100*Math.max(0,n-1)*t.settings.materialThickness*3.5;t.settings.mode===`stacked`?a[t.settings.stackedAxis===`X`?0:t.settings.stackedAxis===`Y`?1:2]+=n(t.layerCount):(a[0]+=n(t.settings.xSliceCount),a[1]+=n(t.settings.ySliceCount))}let o=Math.max(...a)*2.25;e.view===`front`?c.position.copy(i).add(new Q(0,-o,0)):e.view===`top`?c.position.copy(i).add(new Q(0,-o*.002,o)):c.position.copy(i).add(new Q(o*.95,-o,o*.67)),l.target.copy(i),c.near=Math.max(.05,o/1e4),c.far=o*40,c.updateProjectionMatrix(),l.update()};r.current={scene:o,root:s,camera:c,controls:l,renderer:i,reset:m},m();let h=new ResizeObserver(()=>{let t=e.clientWidth,n=e.clientHeight;!t||!n||(i.setSize(t,n),c.aspect=t/n,c.updateProjectionMatrix())});h.observe(e);let g=0,_=()=>{if(g=requestAnimationFrame(_),document.hidden)return;let e=n.current,t=e.result;if(t){let n=(t.settings.xSliceCount-1)/2,r=(t.settings.ySliceCount-1)/2,i=(t.layerCount-1)/2;s.children.forEach((a,o)=>{if(a.userData.ghost){a.visible=e.ghost;return}let s=a.userData.piece;if(!s)return;a.visible=o<e.step;let c=s.axis===`X`?0:s.axis===`Y`?1:2,l=t.settings.mode===`stacked`?i:s.axis===`X`?n:r,u=s.kind===`alignment-pin`?0:e.explode/100*(s.sliceIndex-l)*t.settings.materialThickness*3.5;a.position.set(0,0,0),a.position.setComponent(c,s.worldPosition+u);let d=a.material;if(d){let t=d[0];t.color.set(s.id===e.selected?13102458:s.axis===`Y`?12361841:13941128),t.emissive.set(s.id===e.selected?2437909:0)}})}l.update(),i.render(o,c)};_();let v={x:0,y:0};return i.domElement.addEventListener(`pointerdown`,e=>{v={x:e.clientX,y:e.clientY}}),i.domElement.addEventListener(`pointerup`,e=>{if(Math.hypot(e.clientX-v.x,e.clientY-v.y)>5)return;let t=i.domElement.getBoundingClientRect(),r=new Cb;r.setFromCamera(new Z((e.clientX-t.left)/t.width*2-1,-(e.clientY-t.top)/t.height*2+1),c);let a=r.intersectObjects(s.children.filter(e=>e.visible&&!e.userData.ghost),!1);n.current.onSelect(a[0]?.object.userData.piece?.id||null)}),i.domElement.addEventListener(`keydown`,e=>{e.key.toLowerCase()===`f`&&m()}),()=>{cancelAnimationFrame(g),h.disconnect(),l.dispose(),o.traverse(e=>{(e instanceof p_||e instanceof N_)&&(e.geometry.dispose(),(Array.isArray(e.material)?e.material:[e.material]).forEach(e=>e.dispose()))}),i.dispose(),i.domElement.remove(),r.current=null}},[]),(0,C.useEffect)(()=>{let t=r.current;if(!t||!e.result)return;let{root:n}=t;for(;n.children.length;){let e=n.children[0];n.remove(e),e.traverse(e=>{(e instanceof p_||e instanceof N_)&&(e.geometry.dispose(),(Array.isArray(e.material)?e.material:[e.material]).forEach(e=>e.dispose()))})}let i=e.result,a=document.createElement(`canvas`);a.width=a.height=64;let o=a.getContext(`2d`);o.fillStyle=`#a2875c`,o.fillRect(0,0,64,64);for(let e=0;e<64;e++)o.fillStyle=`rgba(48,31,12,${.08+.1*(1+Math.cos(e*Math.PI/5))/2})`,o.fillRect(e,0,1,64);let s=new F_(a);s.wrapS=s.wrapT=Of,s.repeat.set(.2,2),s.colorSpace=Xp;for(let e of i.pieces){let t=bw(e,i.settings.materialThickness),r=new p_(t,[new yy({color:13941128,roughness:.94,metalness:0,side:2}),new yy({color:9335110,roughness:1,map:s,side:2})]);r.userData.piece=e,n.add(r);let a=new N_(new W_(t,25),new x_({color:6640698,transparent:!0,opacity:.4}));r.add(a)}let c=new Ug;c.setAttribute(`position`,new Og(i.vertices,3)),c.computeVertexNormals();let l=new p_(c,new t_({color:11785936,wireframe:!0,transparent:!0,opacity:.095,depthWrite:!1}));return l.userData.ghost=!0,n.add(l),()=>s.dispose()},[e.result]),(0,C.useEffect)(()=>{r.current?.reset()},[e.view,e.fit,e.result?.model.name,e.result?.dimensions[0],e.result?.dimensions[1],e.result?.dimensions[2],e.result?.settings.mode]),(0,G.jsx)(`div`,{className:`assembly-canvas`,ref:t,children:i&&(0,G.jsx)(`div`,{className:`viewport-error`,children:i})})}function Sw(e,t){return t.x>=e.x-1e-8&&t.y>=e.y-1e-8&&t.x+t.w<=e.x+e.w+1e-8&&t.y+t.h<=e.y+e.h+1e-8}function Cw(e,t){let n=[];for(let r of e){if(t.x>=r.x+r.w-1e-8||t.x+t.w<=r.x+1e-8||t.y>=r.y+r.h-1e-8||t.y+t.h<=r.y+1e-8){n.push(r);continue}t.x>r.x&&n.push({x:r.x,y:r.y,w:t.x-r.x,h:r.h}),t.x+t.w<r.x+r.w&&n.push({x:t.x+t.w,y:r.y,w:r.x+r.w-t.x-t.w,h:r.h}),t.y>r.y&&n.push({x:r.x,y:r.y,w:r.w,h:t.y-r.y}),t.y+t.h<r.y+r.h&&n.push({x:r.x,y:t.y+t.h,w:r.w,h:r.y+r.h-t.y-t.h})}return n.filter((e,t)=>e.w>1e-8&&e.h>1e-8&&!n.some((n,r)=>r!==t&&Sw(n,e)&&(!Sw(e,n)||r<t)))}function ww(e,t){let n=t.sheetWidth-t.sheetMargin*2,r=t.sheetHeight-t.sheetMargin*2,i=[],a=[],o=[...e].sort((e,t)=>t.bounds.width*t.bounds.height-e.bounds.width*e.bounds.height||e.id.localeCompare(t.id));for(let e of o){let o=e.bounds.width+t.partSpacing,s=e.bounds.height+t.partSpacing;if(!(o<=n&&s<=r||t.allowRotation&&s<=n&&o<=r)){a.push(e.id);continue}let c=null,l=e=>{for(let n of i[e].free)for(let r of t.allowRotation?[0,90]:[0]){let t=r===0?o:s,i=r===0?s:o;if(t>n.w+1e-8||i>n.h+1e-8)continue;let a=Math.min(n.w-t,n.h-i),l=Math.max(n.w-t,n.h-i);(!c||a<c.short-1e-8||Math.abs(a-c.short)<1e-8&&l<c.long)&&(c={bin:e,rect:{x:n.x,y:n.y,w:t,h:i},rotation:r,short:a,long:l})}};for(let e=0;e<i.length;e++)l(e);c||(i.push({free:[{x:0,y:0,w:n,h:r}],sheet:{sheetIndex:i.length,placements:[],utilization:0,cutLength:0}}),l(i.length-1));let u=c;if(!u){a.push(e.id);continue}let d=i[u.bin];d.free=Cw(d.free,u.rect),d.sheet.placements.push({pieceId:e.id,x:u.rect.x+t.sheetMargin+t.partSpacing/2,y:u.rect.y+t.sheetMargin+t.partSpacing/2,rotation:u.rotation}),d.sheet.utilization+=e.area/(t.sheetWidth*t.sheetHeight),d.sheet.cutLength+=e.cutLength}return{sheets:i.map(e=>e.sheet),unplaced:a}}function Tw(e,t,n){return n.rotation===90?{x:n.x+t.bounds.maxY-e.y,y:n.y+e.x-t.bounds.minX}:{x:n.x+e.x-t.bounds.minX,y:n.y+e.y-t.bounds.minY}}var Ew=e=>e.map(e=>e.points.map((e,t)=>`${t?`L`:`M`}${e.x},${e.y}`).join(` `)+`Z`).join(` `);function Dw(e){let t=(0,C.useRef)(null),n=(0,C.useRef)(null),r=e.result.settings.sheetWidth,i=e.result.settings.sheetHeight,[a,o]=(0,C.useState)({x:-25,y:-25,w:r+50,h:i+50}),s=(0,C.useRef)(a);s.current=a;let c=()=>o({x:-25,y:-25,w:r+50,h:i+50});(0,C.useEffect)(()=>{c()},[r,i,e.sheetIndex]),(0,C.useEffect)(()=>{e.zoomAction.kind===`fit`?c():o(t=>{let n=e.zoomAction.kind===`in`?.8:1.25;return{x:t.x+t.w*(1-n)/2,y:t.y+t.h*(1-n)/2,w:t.w*n,h:t.h*n}})},[e.zoomAction]),(0,C.useEffect)(()=>{let e=t.current,n=t=>{t.preventDefault();let n=s.current,i=e.getScreenCTM();if(!i)return;let a=new DOMPoint(t.clientX,t.clientY).matrixTransform(i.inverse()),c=Math.exp(Math.max(-150,Math.min(150,t.deltaY))*.002);n.w*c<r/15||n.w*c>r*8||o({x:a.x+(n.x-a.x)*c,y:a.y+(n.y-a.y)*c,w:n.w*c,h:n.h*c})};return e.addEventListener(`wheel`,n,{passive:!1}),()=>e.removeEventListener(`wheel`,n)},[r]);let l=e.result.sheets[e.sheetIndex],u=new Map(e.result.pieces.map(e=>[e.id,e]));if(!l)return null;let d=r>1e3?100:50,f=Array.from({length:Math.floor(r/d)+1},(e,t)=>t*d);return(0,G.jsxs)(`svg`,{ref:t,className:`sheet-svg`,viewBox:`${a.x} ${a.y} ${a.w} ${a.h}`,role:`group`,"aria-label":`Laser sheet ${e.sheetIndex+1}, ${r} by ${i} millimeters. Select a part, or drag empty space to pan.`,onPointerDown:e=>{e.target.closest(`[data-piece]`)||(e.currentTarget.setPointerCapture(e.pointerId),n.current={x:e.clientX,y:e.clientY,bx:a.x,by:a.y})},onPointerMove:e=>{let t=n.current;if(!t)return;let r=e.currentTarget.getScreenCTM();r&&o(n=>({...n,x:t.bx-(e.clientX-t.x)/r.a,y:t.by-(e.clientY-t.y)/r.d}))},onPointerUp:()=>{n.current=null},onPointerCancel:()=>{n.current=null},children:[(0,G.jsx)(`defs`,{children:(0,G.jsx)(`pattern`,{id:`sheet-grid`,width:`25`,height:`25`,patternUnits:`userSpaceOnUse`,children:(0,G.jsx)(`path`,{d:`M25 0H0V25`,stroke:`#dce2e2`,strokeWidth:`.25`,fill:`none`})})}),(0,G.jsx)(`rect`,{x:`0`,y:`0`,width:r,height:i,fill:`#fcfdfb`,stroke:`#879896`,strokeWidth:`1`,vectorEffect:`non-scaling-stroke`}),(0,G.jsx)(`rect`,{x:`0`,y:`0`,width:r,height:i,fill:`url(#sheet-grid)`}),(0,G.jsxs)(`g`,{transform:`translate(0 ${i}) scale(1 -1)`,children:[(0,G.jsx)(`rect`,{x:e.result.settings.sheetMargin,y:e.result.settings.sheetMargin,width:r-2*e.result.settings.sheetMargin,height:i-2*e.result.settings.sheetMargin,fill:`none`,stroke:`#a9b8b3`,strokeWidth:`.8`,strokeDasharray:`4 4`,vectorEffect:`non-scaling-stroke`}),l.placements.map(t=>{let n=u.get(t.pieceId),r=e.selected===n.id,i=e=>e.map(e=>({...e,points:e.points.map(e=>Tw(e,n,t))}));return(0,G.jsxs)(`g`,{"data-piece":n.id,role:`button`,tabIndex:0,"aria-label":`Select part ${n.id}`,className:`sheet-part`,onClick:()=>e.onSelect(n.id),onKeyDown:t=>{(t.key===`Enter`||t.key===` `)&&(t.preventDefault(),e.onSelect(n.id))},children:[(0,G.jsxs)(`title`,{children:[n.id,` · `,n.bounds.width.toFixed(1),` × `,n.bounds.height.toFixed(1),` mm`]}),(0,G.jsx)(`path`,{d:Ew(i(n.cutPaths)),fill:r?`#def0ad`:`#f3eadc`,fillOpacity:r?.8:.65,fillRule:`evenodd`,stroke:`transparent`,strokeWidth:`8`,vectorEffect:`non-scaling-stroke`}),e.raw&&(0,G.jsx)(`path`,{d:Ew(i(n.unmodifiedPaths)),fill:`none`,stroke:`#9eaaa5`,strokeWidth:`.8`,strokeDasharray:`2 3`,vectorEffect:`non-scaling-stroke`}),e.cuts&&(0,G.jsx)(`path`,{d:Ew(i(n.cutPaths.filter(e=>!e.isRegistration))),fill:`none`,stroke:r?`#527817`:`#b8433b`,strokeWidth:r?1.8:1.05,vectorEffect:`non-scaling-stroke`}),e.pins&&(0,G.jsx)(`path`,{d:Ew(i(n.cutPaths.filter(e=>e.isRegistration))),fill:`none`,stroke:`#15965e`,strokeWidth:`1.05`,vectorEffect:`non-scaling-stroke`}),e.labels&&n.etchPaths.map((e,r)=>(0,G.jsx)(`path`,{d:e.points.map((e,r)=>{let i=Tw(e,n,t);return`${r?`L`:`M`}${i.x},${i.y}`}).join(` `),fill:`none`,stroke:`#3869b1`,strokeWidth:`.85`,strokeLinecap:`round`,vectorEffect:`non-scaling-stroke`},r))]},n.id)})]}),f.map(e=>(0,G.jsxs)(`g`,{children:[(0,G.jsx)(`path`,{d:`M${e} -3V-8`,stroke:`#75847f`,strokeWidth:`1`,vectorEffect:`non-scaling-stroke`}),(0,G.jsx)(`text`,{x:e,y:`-12`,fill:`#65766f`,textAnchor:`middle`,fontSize:`9`,fontFamily:`monospace`,children:e})]},e)),(0,G.jsx)(`text`,{x:`0`,y:i+18,fill:`#65766f`,fontSize:`10`,fontFamily:`monospace`,children:`0,0 · mm`})]})}function Ow(e){let t=[1/0,1/0,1/0],n=[-1/0,-1/0,-1/0];for(let r=0;r<e.length;r++){if(!Number.isFinite(e[r]))throw Error(`The mesh contains invalid vertex coordinates.`);let i=r%3;t[i]=Math.min(t[i],e[r]),n[i]=Math.max(n[i],e[r])}let r=n.map((e,n)=>e-t[n]);if(r.some(e=>e<=1e-9||!Number.isFinite(e)))throw Error(`The STL must have volume in all three dimensions.`);return{min:t,max:n,dimensions:r}}function kw(e,t,n){let{min:r,dimensions:i}=Ow(e),a=Math.max(...i)*1e-7,o=new Map,s=new Map,c=new Uint32Array(e.length/3);for(let t=0,n=0;t<e.length;t+=3,n++){let i=[0,1,2].map(n=>Math.round((e[t+n]-r[n])/a)).join(`,`),s=o.get(i);s===void 0&&(s=o.size,o.set(i,s)),c[n]=s}for(let e=0;e<c.length;e+=3)if(!(c[e]===c[e+1]||c[e+1]===c[e+2]||c[e]===c[e+2]))for(let t=0;t<3;t++){let n=c[e+t],r=c[e+(t+1)%3],i=n<r?`${n}:${r}`:`${r}:${n}`;s.set(i,(s.get(i)||0)+1)}let l=0,u=0;for(let e of s.values())e===1&&l++,e>2&&u++;return{name:t,format:n,triangleCount:e.length/9,originalDimensions:i,boundaryEdges:l,nonManifoldEdges:u}}function Aw(e,t){if(e.byteLength>100*1024*1024)throw Error(`This STL is over 100 MB. Simplify the mesh before importing it.`);let n=new DataView(e),r=e.byteLength>=84?n.getUint32(80,!0):0,i=84+r*50,a=new TextDecoder().decode(e.slice(0,Math.min(256,e.byteLength))).trimStart();if(r>1e6&&i<=e.byteLength)throw Error(`Simplify this mesh to fewer than one million triangles.`);let o=r>0&&r<=1e6&&(i===e.byteLength||i<=e.byteLength&&(!/^solid\b/i.test(a)||/[\x00-\x08\x0e-\x1f]/.test(a))),s,c;if(o){s=new Float64Array(r*9);for(let e=0;e<r;e++){let t=84+e*50+12;for(let r=0;r<9;r++)s[e*9+r]=n.getFloat32(t+r*4,!0)}c=`Binary STL`}else{let t=new TextDecoder().decode(e);if(!/^\s*solid\b/i.test(t))throw Error(`This is not a readable binary or ASCII STL file.`);let n=`([+-]?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][+-]?\\d+)?)`,r=RegExp(`\\bvertex\\s+${n}\\s+${n}\\s+${n}`,`gi`),i=[],a;for(;a=r.exec(t);)if(i.push(Number(a[1]),Number(a[2]),Number(a[3])),i.length>9e6)throw Error(`Simplify this mesh to fewer than one million triangles.`);if(i.length<36||i.length%9!=0)throw Error(`The ASCII STL contains incomplete triangles.`);if(t.match(/\bfacet\s+normal\b/gi)?.length!==i.length/9)throw Error(`The ASCII STL facet and vertex counts do not match.`);s=new Float64Array(i),c=`ASCII STL`}return{vertices:s,info:kw(s,t,c)}}var jw={ripple:`Ripple form`,sphere:`Ellipsoid`,torus:`Torus`,cube:`Calibration cube`};function Mw(e){let t=[],n=(e,n,r)=>t.push(...e,...n,...r);if(e===`cube`){let e=[[0,0,0],[100,0,0],[100,100,0],[0,100,0],[0,0,100],[100,0,100],[100,100,100],[0,100,100]];for(let[t,r,i,a]of[[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]])n(e[t],e[r],e[i]),n(e[t],e[i],e[a])}else if(e===`torus`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI*2;return[(76+30*Math.cos(r))*Math.cos(n),(76+30*Math.cos(r))*Math.sin(n),30*Math.sin(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}}else if(e===`sphere`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI;return[100*Math.sin(r)*Math.cos(n),80*Math.sin(r)*Math.sin(n),112*Math.cos(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);r>0&&n(i,a,o),r<35&&n(i,o,s)}}else{let e=(e,t)=>{let n=e/80*Math.PI*2,r=t/44,i=37+49*Math.sin(Math.PI*r)**.75+12*Math.sin(r*Math.PI*2),a=1+.08*Math.sin(3*n-r*5);return[i*a*Math.cos(n),i*a*Math.sin(n)*.84,r*220]};for(let t=0;t<80;t++)for(let r=0;r<44;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}for(let t=0;t<80;t++)n([0,0,0],e(t+1,0),e(t,0)),n([0,0,220],e(t,44),e(t+1,44))}let r=new Float64Array(t);return{vertices:r,info:kw(r,jw[e],`Sample model`)}}var Nw={mode:`interlocking`,targetWidth:220,targetDepth:180,targetHeight:240,keepAspectRatio:!0,scaleAxis:`X`,materialThickness:3.8,laserKerf:.15,slotFitTolerance:.05,leadInChamfer:1.2,xSliceCount:10,ySliceCount:8,slotDepthRatio:.5,stackedAxis:`Z`,alignmentPins:!0,alignmentPinType:`dowel`,pinDiameter:6,pinCount:2,sheetWidth:600,sheetHeight:400,sheetMargin:10,partSpacing:5,allowRotation:!0},Pw=Uint8Array,Fw=Uint16Array,Iw=Int32Array,Lw=new Pw([0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4,5,5,5,5,0,0,0,0]),Rw=new Pw([0,0,0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,9,9,10,10,11,11,12,12,13,13,0,0]),zw=new Pw([16,17,18,0,8,7,9,6,10,5,11,4,12,3,13,2,14,1,15]),Bw=function(e,t){for(var n=new Fw(31),r=0;r<31;++r)n[r]=t+=1<<e[r-1];for(var i=new Iw(n[30]),r=1;r<30;++r)for(var a=n[r];a<n[r+1];++a)i[a]=a-n[r]<<5|r;return{b:n,r:i}},Vw=Bw(Lw,2),Hw=Vw.b,Uw=Vw.r;Hw[28]=258,Uw[258]=28;var Ww=Bw(Rw,0);Ww.b;for(var Gw=Ww.r,Kw=new Fw(32768),qw=0;qw<32768;++qw){var Jw=(qw&43690)>>1|(qw&21845)<<1;Jw=(Jw&52428)>>2|(Jw&13107)<<2,Jw=(Jw&61680)>>4|(Jw&3855)<<4,Kw[qw]=((Jw&65280)>>8|(Jw&255)<<8)>>1}for(var Yw=(function(e,t,n){for(var r=e.length,i=0,a=new Fw(t);i<r;++i)e[i]&&++a[e[i]-1];var o=new Fw(t);for(i=1;i<t;++i)o[i]=o[i-1]+a[i-1]<<1;var s;if(n){s=new Fw(1<<t);var c=15-t;for(i=0;i<r;++i)if(e[i])for(var l=i<<4|e[i],u=t-e[i],d=o[e[i]-1]++<<u,f=d|(1<<u)-1;d<=f;++d)s[Kw[d]>>c]=l}else for(s=new Fw(r),i=0;i<r;++i)e[i]&&(s[i]=Kw[o[e[i]-1]++]>>15-e[i]);return s}),Xw=new Pw(288),qw=0;qw<144;++qw)Xw[qw]=8;for(var qw=144;qw<256;++qw)Xw[qw]=9;for(var qw=256;qw<280;++qw)Xw[qw]=7;for(var qw=280;qw<288;++qw)Xw[qw]=8;for(var Zw=new Pw(32),qw=0;qw<32;++qw)Zw[qw]=5;var Qw=Yw(Xw,9,0),$w=Yw(Zw,5,0),eT=function(e){return(e+7)/8|0},tT=function(e,t,n){return(t==null||t<0)&&(t=0),(n==null||n>e.length)&&(n=e.length),new Pw(e.subarray(t,n))},nT=[`unexpected EOF`,`invalid block type`,`invalid length/literal`,`invalid distance`,`stream finished`,`no stream handler`,,`no callback`,`invalid UTF-8 data`,`extra field too long`,`date not in range 1980-2099`,`filename too long`,`stream finishing`,`invalid zip data`],rT=function(e,t,n){var r=Error(t||nT[e]);if(r.code=e,Error.captureStackTrace&&Error.captureStackTrace(r,rT),!n)throw r;return r},iT=function(e,t,n){n<<=t&7;var r=t/8|0;e[r]|=n,e[r+1]|=n>>8},aT=function(e,t,n){n<<=t&7;var r=t/8|0;e[r]|=n,e[r+1]|=n>>8,e[r+2]|=n>>16},oT=function(e,t){for(var n=[],r=0;r<e.length;++r)e[r]&&n.push({s:r,f:e[r]});var i=n.length,a=n.slice();if(!i)return{t:pT,l:0};if(i==1){var o=new Pw(n[0].s+1);return o[n[0].s]=1,{t:o,l:1}}n.sort(function(e,t){return e.f-t.f}),n.push({s:-1,f:25001});var s=n[0],c=n[1],l=0,u=1,d=2;for(n[0]={s:-1,f:s.f+c.f,l:s,r:c};u!=i-1;)s=n[n[l].f<n[d].f?l++:d++],c=n[l!=u&&n[l].f<n[d].f?l++:d++],n[u++]={s:-1,f:s.f+c.f,l:s,r:c};for(var f=a[0].s,r=1;r<i;++r)a[r].s>f&&(f=a[r].s);var p=new Fw(f+1),m=sT(n[u-1],p,0);if(m>t){var r=0,h=0,g=m-t,_=1<<g;for(a.sort(function(e,t){return p[t.s]-p[e.s]||e.f-t.f});r<i;++r){var v=a[r].s;if(p[v]>t)h+=_-(1<<m-p[v]),p[v]=t;else break}for(h>>=g;h>0;){var y=a[r].s;p[y]<t?h-=1<<t-p[y]++-1:++r}for(;r>=0&&h;--r){var b=a[r].s;p[b]==t&&(--p[b],++h)}m=t}return{t:new Pw(p),l:m}},sT=function(e,t,n){return e.s==-1?Math.max(sT(e.l,t,n+1),sT(e.r,t,n+1)):t[e.s]=n},cT=function(e){for(var t=e.length;t&&!e[--t];);for(var n=new Fw(++t),r=0,i=e[0],a=1,o=function(e){n[r++]=e},s=1;s<=t;++s)if(e[s]==i&&s!=t)++a;else{if(!i&&a>2){for(;a>138;a-=138)o(32754);a>2&&(o(a>10?a-11<<5|28690:a-3<<5|12305),a=0)}else if(a>3){for(o(i),--a;a>6;a-=6)o(8304);a>2&&(o(a-3<<5|8208),a=0)}for(;a--;)o(i);a=1,i=e[s]}return{c:n.subarray(0,r),n:t}},lT=function(e,t){for(var n=0,r=0;r<t.length;++r)n+=e[r]*t[r];return n},uT=function(e,t,n){var r=n.length,i=eT(t+2);e[i]=r&255,e[i+1]=r>>8,e[i+2]=e[i]^255,e[i+3]=e[i+1]^255;for(var a=0;a<r;++a)e[i+a+4]=n[a];return(i+4+r)*8},dT=function(e,t,n,r,i,a,o,s,c,l,u){iT(t,u++,n),++i[256];for(var d=oT(i,15),f=d.t,p=d.l,m=oT(a,15),h=m.t,g=m.l,_=cT(f),v=_.c,y=_.n,b=cT(h),x=b.c,S=b.n,C=new Fw(19),w=0;w<v.length;++w)++C[v[w]&31];for(var w=0;w<x.length;++w)++C[x[w]&31];for(var T=oT(C,7),E=T.t,D=T.l,O=19;O>4&&!E[zw[O-1]];--O);var k=l+5<<3,A=lT(i,Xw)+lT(a,Zw)+o,j=lT(i,f)+lT(a,h)+o+14+3*O+lT(C,E)+2*C[16]+3*C[17]+7*C[18];if(c>=0&&k<=A&&k<=j)return uT(t,u,e.subarray(c,c+l));var M,N,P,F;if(iT(t,u,1+(j<A)),u+=2,j<A){M=Yw(f,p,0),N=f,P=Yw(h,g,0),F=h;var I=Yw(E,D,0);iT(t,u,y-257),iT(t,u+5,S-1),iT(t,u+10,O-4),u+=14;for(var w=0;w<O;++w)iT(t,u+3*w,E[zw[w]]);u+=3*O;for(var L=[v,x],ee=0;ee<2;++ee)for(var te=L[ee],w=0;w<te.length;++w){var ne=te[w]&31;iT(t,u,I[ne]),u+=E[ne],ne>15&&(iT(t,u,te[w]>>5&127),u+=te[w]>>12)}}else M=Qw,N=Xw,P=$w,F=Zw;for(var w=0;w<s;++w){var R=r[w];if(R>255){var ne=R>>18&31;aT(t,u,M[ne+257]),u+=N[ne+257],ne>7&&(iT(t,u,R>>23&31),u+=Lw[ne]);var z=R&31;aT(t,u,P[z]),u+=F[z],z>3&&(aT(t,u,R>>5&8191),u+=Rw[z])}else aT(t,u,M[R]),u+=N[R]}return aT(t,u,M[256]),u+N[256]},fT=new Iw([65540,131080,131088,131104,262176,1048704,1048832,2114560,2117632]),pT=new Pw(0),mT=function(e,t,n,r,i,a){var o=a.z||e.length,s=new Pw(r+o+5*(1+Math.ceil(o/7e3))+i),c=s.subarray(r,s.length-i),l=a.l,u=(a.r||0)&7;if(t){u&&(c[0]=a.r>>3);for(var d=fT[t-1],f=d>>13,p=d&8191,m=(1<<n)-1,h=a.p||new Fw(32768),g=a.h||new Fw(m+1),_=Math.ceil(n/3),v=2*_,y=function(t){return(e[t]^e[t+1]<<_^e[t+2]<<v)&m},b=new Iw(25e3),x=new Fw(288),S=new Fw(32),C=0,w=0,T=a.i||0,E=0,D=a.w||0,O=0;T+2<o;++T){var k=y(T),A=T&32767,j=g[k];if(h[A]=j,g[k]=A,D<=T){var M=o-T;if((C>7e3||E>24576)&&(M>423||!l)){u=dT(e,c,0,b,x,S,w,E,O,T-O,u),E=C=w=0,O=T;for(var N=0;N<286;++N)x[N]=0;for(var N=0;N<30;++N)S[N]=0}var P=2,F=0,I=p,L=A-j&32767;if(M>2&&k==y(T-L))for(var ee=Math.min(f,M)-1,te=Math.min(32767,T),ne=Math.min(258,M);L<=te&&--I&&A!=j;){if(e[T+P]==e[T+P-L]){for(var R=0;R<ne&&e[T+R]==e[T+R-L];++R);if(R>P){if(P=R,F=L,R>ee)break;for(var z=Math.min(L,R-2),B=0,N=0;N<z;++N){var re=T-L+N&32767,V=re-h[re]&32767;V>B&&(B=V,j=re)}}}A=j,j=h[A],L+=A-j&32767}if(F){b[E++]=268435456|Uw[P]<<18|Gw[F];var ie=Uw[P]&31,ae=Gw[F]&31;w+=Lw[ie]+Rw[ae],++x[257+ie],++S[ae],D=T+P,++C}else b[E++]=e[T],++x[e[T]]}}for(T=Math.max(T,D);T<o;++T)b[E++]=e[T],++x[e[T]];u=dT(e,c,l,b,x,S,w,E,O,T-O,u),l||(a.r=u&7|c[u/8|0]<<3,u-=7,a.h=g,a.p=h,a.i=T,a.w=D)}else{for(var T=a.w||0;T<o+l;T+=65535){var oe=T+65535;oe>=o&&(c[u/8|0]=l,oe=o),u=uT(c,u+1,e.subarray(T,oe))}a.i=o}return tT(s,0,r+eT(u)+i)},hT=(function(){for(var e=new Int32Array(256),t=0;t<256;++t){for(var n=t,r=9;--r;)n=(n&1&&-306674912)^n>>>1;e[t]=n}return e})(),gT=function(){var e=-1;return{p:function(t){for(var n=e,r=0;r<t.length;++r)n=hT[n&255^t[r]]^n>>>8;e=n},d:function(){return~e}}},_T=function(e,t,n,r,i){if(!i&&(i={l:1},t.dictionary)){var a=t.dictionary.subarray(-32768),o=new Pw(a.length+e.length);o.set(a),o.set(e,a.length),e=o,i.w=a.length}return mT(e,t.level==null?6:t.level,t.mem==null?i.l?Math.ceil(Math.max(8,Math.min(13,Math.log(e.length)))*1.5):20:12+t.mem,n,r,i)},vT=function(e,t){var n={};for(var r in e)n[r]=e[r];for(var r in t)n[r]=t[r];return n},yT=function(e,t,n){for(;n;++t)e[t]=n,n>>>=8};function bT(e,t){return _T(e,t||{},0,0)}var xT=function(e,t,n,r){for(var i in e){var a=e[i],o=t+i,s=r;Array.isArray(a)&&(s=vT(r,a[1]),a=a[0]),ArrayBuffer.isView(a)?n[o]=[a,s]:(n[o+=`/`]=[new Pw(0),s],xT(a,o,n,r))}},ST=typeof TextEncoder<`u`&&new TextEncoder,CT=typeof TextDecoder<`u`&&new TextDecoder;try{CT.decode(pT,{stream:!0})}catch{}function wT(e,t){if(t){for(var n=new Pw(e.length),r=0;r<e.length;++r)n[r]=e.charCodeAt(r);return n}if(ST)return ST.encode(e);for(var i=e.length,a=new Pw(e.length+(e.length>>1)),o=0,s=function(e){a[o++]=e},r=0;r<i;++r){if(o+5>a.length){var c=new Pw(o+8+(i-r<<1));c.set(a),a=c}var l=e.charCodeAt(r);l<128||t?s(l):l<2048?(s(192|l>>6),s(128|l&63)):l>55295&&l<57344?(l=65536+(l&1047552)|e.charCodeAt(++r)&1023,s(240|l>>18),s(128|l>>12&63),s(128|l>>6&63),s(128|l&63)):(s(224|l>>12),s(128|l>>6&63),s(128|l&63))}return tT(a,0,o)}var TT=function(e){var t=0;if(e)for(var n in e){var r=e[n].length;r>65535&&rT(9),t+=r+4}return t},ET=function(e,t,n,r,i,a,o,s){var c=r.length,l=n.extra,u=s&&s.length,d=TT(l);yT(e,t,o==null?67324752:33639248),t+=4,o!=null&&(e[t++]=20,e[t++]=n.os),e[t]=20,t+=2,e[t++]=n.flag<<1|(a<0&&8),e[t++]=i&&8,e[t++]=n.compression&255,e[t++]=n.compression>>8;var f=new Date(n.mtime==null?Date.now():n.mtime),p=f.getFullYear()-1980;if((p<0||p>119)&&rT(10),yT(e,t,p<<25|f.getMonth()+1<<21|f.getDate()<<16|f.getHours()<<11|f.getMinutes()<<5|f.getSeconds()>>1),t+=4,a!=-1&&(yT(e,t,n.crc),yT(e,t+4,a<0?-a-2:a),yT(e,t+8,n.size)),yT(e,t+12,c),yT(e,t+14,d),t+=16,o!=null&&(yT(e,t,u),yT(e,t+6,n.attrs),yT(e,t+10,o),t+=14),e.set(r,t),t+=c,d)for(var m in l){var h=l[m],g=h.length;yT(e,t,+m),yT(e,t+2,g),e.set(h,t+4),t+=4+g}return u&&(e.set(s,t),t+=u),t},DT=function(e,t,n,r,i){yT(e,t,101010256),yT(e,t+8,n),yT(e,t+10,n),yT(e,t+12,r),yT(e,t+16,i)};function OT(e,t){t||={};var n={},r=[];xT(e,``,n,t);var i=0,a=0;for(var o in n){var s=n[o],c=s[0],l=s[1],u=l.level==0?0:8,d=wT(o),f=d.length,p=l.comment,m=p&&wT(p),h=m&&m.length,g=TT(l.extra);f>65535&&rT(11);var _=u?bT(c,l):c,v=_.length,y=gT();y.p(c),r.push(vT(l,{size:c.length,crc:y.d(),c:_,f:d,m,u:f!=o.length||m&&p.length!=h,o:i,compression:u})),i+=30+f+g+v,a+=76+2*(f+g)+(h||0)+v}for(var b=new Pw(a+22),x=i,S=a-i,C=0;C<r.length;++C){var d=r[C];ET(b,d.o,d,d.f,d.u,d.c.length);var w=30+d.f.length+TT(d.extra);b.set(d.c,d.o+w),ET(b,i,d,d.f,d.u,d.c.length,d.o,d.m),i+=16+w+(d.m?d.m.length:0)}return DT(b,i,r.length,S,x),b}var kT={R2000:{prefix:`  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1015
+  9
+$ACADMAINTVER
+ 70
+6
+  9
+$DWGCODEPAGE
+  3
+ANSI_1252
+  9
+$INSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$EXTMIN
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$EXTMAX
+ 10
+__WIDTH__
+ 20
+__HEIGHT__
+ 30
+0.0
+  9
+$LIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$LIMMAX
+ 10
+__WIDTH__
+ 20
+__HEIGHT__
+  9
+$ORTHOMODE
+ 70
+0
+  9
+$REGENMODE
+ 70
+1
+  9
+$FILLMODE
+ 70
+0
+  9
+$QTEXTMODE
+ 70
+0
+  9
+$MIRRTEXT
+ 70
+1
+  9
+$LTSCALE
+ 40
+1.0
+  9
+$ATTMODE
+ 70
+1
+  9
+$TEXTSIZE
+ 40
+2.5
+  9
+$TRACEWID
+ 40
+1.0
+  9
+$TEXTSTYLE
+  7
+Standard
+  9
+$CLAYER
+  8
+0
+  9
+$CELTYPE
+  6
+ByLayer
+  9
+$CECOLOR
+ 62
+256
+  9
+$CELTSCALE
+ 40
+1.0
+  9
+$DISPSILH
+ 70
+0
+  9
+$DIMSCALE
+ 40
+1.0
+  9
+$DIMASZ
+ 40
+2.5
+  9
+$DIMEXO
+ 40
+0.625
+  9
+$DIMDLI
+ 40
+3.75
+  9
+$DIMRND
+ 40
+0.0
+  9
+$DIMDLE
+ 40
+0.0
+  9
+$DIMEXE
+ 40
+1.25
+  9
+$DIMTP
+ 40
+0.0
+  9
+$DIMTM
+ 40
+0.0
+  9
+$DIMTXT
+ 40
+2.5
+  9
+$DIMCEN
+ 40
+2.5
+  9
+$DIMTSZ
+ 40
+0.0
+  9
+$DIMTOL
+ 70
+0
+  9
+$DIMLIM
+ 70
+0
+  9
+$DIMTIH
+ 70
+0
+  9
+$DIMTOH
+ 70
+0
+  9
+$DIMSE1
+ 70
+0
+  9
+$DIMSE2
+ 70
+0
+  9
+$DIMTAD
+ 70
+1
+  9
+$DIMZIN
+ 70
+8
+  9
+$DIMBLK
+  1
+
+  9
+$DIMASO
+ 70
+1
+  9
+$DIMSHO
+ 70
+1
+  9
+$DIMPOST
+  1
+
+  9
+$DIMAPOST
+  1
+
+  9
+$DIMALT
+ 70
+0
+  9
+$DIMALTD
+ 70
+3
+  9
+$DIMALTF
+ 40
+0.03937007874
+  9
+$DIMLFAC
+ 40
+1.0
+  9
+$DIMTOFL
+ 70
+1
+  9
+$DIMTVP
+ 40
+0.0
+  9
+$DIMTIX
+ 70
+0
+  9
+$DIMSOXD
+ 70
+0
+  9
+$DIMSAH
+ 70
+0
+  9
+$DIMBLK1
+  1
+
+  9
+$DIMBLK2
+  1
+
+  9
+$DIMSTYLE
+  2
+ISO-25
+  9
+$DIMCLRD
+ 70
+0
+  9
+$DIMCLRE
+ 70
+0
+  9
+$DIMCLRT
+ 70
+0
+  9
+$DIMTFAC
+ 40
+1.0
+  9
+$DIMGAP
+ 40
+0.625
+  9
+$DIMJUST
+ 70
+0
+  9
+$DIMSD1
+ 70
+0
+  9
+$DIMSD2
+ 70
+0
+  9
+$DIMTOLJ
+ 70
+0
+  9
+$DIMTZIN
+ 70
+8
+  9
+$DIMALTZ
+ 70
+0
+  9
+$DIMALTTZ
+ 70
+0
+  9
+$DIMUPT
+ 70
+0
+  9
+$DIMDEC
+ 70
+2
+  9
+$DIMTDEC
+ 70
+2
+  9
+$DIMALTU
+ 70
+2
+  9
+$DIMALTTD
+ 70
+3
+  9
+$DIMTXSTY
+  7
+Standard
+  9
+$DIMAUNIT
+ 70
+0
+  9
+$DIMADEC
+ 70
+0
+  9
+$DIMALTRND
+ 40
+0.0
+  9
+$DIMAZIN
+ 70
+0
+  9
+$DIMDSEP
+ 70
+44
+  9
+$DIMATFIT
+ 70
+3
+  9
+$DIMFRAC
+ 70
+0
+  9
+$DIMLDRBLK
+  1
+
+  9
+$DIMLUNIT
+ 70
+2
+  9
+$DIMLWD
+ 70
+-2
+  9
+$DIMLWE
+ 70
+-2
+  9
+$DIMTMOVE
+ 70
+0
+  9
+$LUNITS
+ 70
+2
+  9
+$LUPREC
+ 70
+4
+  9
+$SKETCHINC
+ 40
+1.0
+  9
+$FILLETRAD
+ 40
+10.0
+  9
+$AUNITS
+ 70
+0
+  9
+$AUPREC
+ 70
+2
+  9
+$MENU
+  1
+.
+  9
+$ELEVATION
+ 40
+0.0
+  9
+$PELEVATION
+ 40
+0.0
+  9
+$THICKNESS
+ 40
+0.0
+  9
+$LIMCHECK
+ 70
+0
+  9
+$CHAMFERA
+ 40
+0.0
+  9
+$CHAMFERB
+ 40
+0.0
+  9
+$CHAMFERC
+ 40
+0.0
+  9
+$CHAMFERD
+ 40
+0.0
+  9
+$SKPOLY
+ 70
+0
+  9
+$TDCREATE
+ 40
+2451545.0
+  9
+$TDUCREATE
+ 40
+2458532.153996898
+  9
+$TDUPDATE
+ 40
+2461322.4770370373
+  9
+$TDUUPDATE
+ 40
+2458532.1544311
+  9
+$TDINDWG
+ 40
+0.0
+  9
+$TDUSRTIMER
+ 40
+0.0
+  9
+$USRTIMER
+ 70
+1
+  9
+$ANGBASE
+ 50
+0.0
+  9
+$ANGDIR
+ 70
+0
+  9
+$PDMODE
+ 70
+0
+  9
+$PDSIZE
+ 40
+0.0
+  9
+$PLINEWID
+ 40
+0.0
+  9
+$SPLFRAME
+ 70
+0
+  9
+$SPLINETYPE
+ 70
+6
+  9
+$SPLINESEGS
+ 70
+8
+  9
+$HANDSEED
+  5
+__HANDSEED__
+  9
+$SURFTAB1
+ 70
+6
+  9
+$SURFTAB2
+ 70
+6
+  9
+$SURFTYPE
+ 70
+6
+  9
+$SURFU
+ 70
+6
+  9
+$SURFV
+ 70
+6
+  9
+$UCSBASE
+  2
+
+  9
+$UCSNAME
+  2
+
+  9
+$UCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$UCSORTHOREF
+  2
+
+  9
+$UCSORTHOVIEW
+ 70
+0
+  9
+$UCSORGTOP
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGBOTTOM
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGLEFT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGRIGHT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGFRONT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSORGBACK
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSBASE
+  2
+
+  9
+$PUCSNAME
+  2
+
+  9
+$PUCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$PUCSORTHOREF
+  2
+
+  9
+$PUCSORTHOVIEW
+ 70
+0
+  9
+$PUCSORGTOP
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGBOTTOM
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGLEFT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGRIGHT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGFRONT
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSORGBACK
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$USERI1
+ 70
+0
+  9
+$USERI2
+ 70
+0
+  9
+$USERI3
+ 70
+0
+  9
+$USERI4
+ 70
+0
+  9
+$USERI5
+ 70
+0
+  9
+$USERR1
+ 40
+0.0
+  9
+$USERR2
+ 40
+0.0
+  9
+$USERR3
+ 40
+0.0
+  9
+$USERR4
+ 40
+0.0
+  9
+$USERR5
+ 40
+0.0
+  9
+$WORLDVIEW
+ 70
+1
+  9
+$SHADEDGE
+ 70
+3
+  9
+$SHADEDIF
+ 70
+70
+  9
+$TILEMODE
+ 70
+1
+  9
+$MAXACTVP
+ 70
+64
+  9
+$PINSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PLIMCHECK
+ 70
+0
+  9
+$PEXTMIN
+ 10
+1e+20
+ 20
+1e+20
+ 30
+1e+20
+  9
+$PEXTMAX
+ 10
+-1e+20
+ 20
+-1e+20
+ 30
+-1e+20
+  9
+$PLIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$PLIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$UNITMODE
+ 70
+0
+  9
+$VISRETAIN
+ 70
+1
+  9
+$PLINEGEN
+ 70
+0
+  9
+$PSLTSCALE
+ 70
+1
+  9
+$TREEDEPTH
+ 70
+3020
+  9
+$CMLSTYLE
+  2
+Standard
+  9
+$CMLJUST
+ 70
+0
+  9
+$CMLSCALE
+ 40
+20.0
+  9
+$PROXYGRAPHICS
+ 70
+1
+  9
+$MEASUREMENT
+ 70
+1
+  9
+$CELWEIGHT
+370
+-1
+  9
+$ENDCAPS
+280
+0
+  9
+$JOINSTYLE
+280
+0
+  9
+$LWDISPLAY
+290
+0
+  9
+$INSUNITS
+ 70
+4
+  9
+$HYPERLINKBASE
+  1
+
+  9
+$STYLESHEET
+  1
+
+  9
+$XEDIT
+290
+1
+  9
+$CEPSNTYPE
+380
+0
+  9
+$PSTYLEMODE
+290
+1
+  9
+$FINGERPRINTGUID
+  2
+{34807180-CBF2-433D-9211-47064BA86549}
+  9
+$VERSIONGUID
+  2
+{0299E4D6-69F6-48C8-AA76-373525E14E96}
+  9
+$EXTNAMES
+290
+1
+  9
+$PSVPSCALE
+ 40
+0.0
+  9
+$OLESTARTUP
+290
+0
+  0
+ENDSEC
+  0
+SECTION
+  2
+CLASSES
+  0
+CLASS
+  1
+ACDBDICTIONARYWDFLT
+  2
+AcDbDictionaryWithDefault
+  3
+ObjectDBX Classes
+ 90
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+SUN
+  2
+AcDbSun
+  3
+SCENEOE
+ 90
+1153
+280
+0
+281
+0
+  0
+CLASS
+  1
+VISUALSTYLE
+  2
+AcDbVisualStyle
+  3
+ObjectDBX Classes
+ 90
+4095
+280
+0
+281
+0
+  0
+CLASS
+  1
+MATERIAL
+  2
+AcDbMaterial
+  3
+ObjectDBX Classes
+ 90
+1153
+280
+0
+281
+0
+  0
+CLASS
+  1
+SCALE
+  2
+AcDbScale
+  3
+ObjectDBX Classes
+ 90
+1153
+280
+0
+281
+0
+  0
+CLASS
+  1
+TABLESTYLE
+  2
+AcDbTableStyle
+  3
+ObjectDBX Classes
+ 90
+4095
+280
+0
+281
+0
+  0
+CLASS
+  1
+MLEADERSTYLE
+  2
+AcDbMLeaderStyle
+  3
+ACDB_MLEADERSTYLE_CLASS
+ 90
+4095
+280
+0
+281
+0
+  0
+CLASS
+  1
+DICTIONARYVAR
+  2
+AcDbDictionaryVar
+  3
+ObjectDBX Classes
+ 90
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+CELLSTYLEMAP
+  2
+AcDbCellStyleMap
+  3
+ObjectDBX Classes
+ 90
+1152
+280
+0
+281
+0
+  0
+CLASS
+  1
+MENTALRAYRENDERSETTINGS
+  2
+AcDbMentalRayRenderSettings
+  3
+SCENEOE
+ 90
+1024
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBDETAILVIEWSTYLE
+  2
+AcDbDetailViewStyle
+  3
+ObjectDBX Classes
+ 90
+1025
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBSECTIONVIEWSTYLE
+  2
+AcDbSectionViewStyle
+  3
+ObjectDBX Classes
+ 90
+1025
+280
+0
+281
+0
+  0
+CLASS
+  1
+RASTERVARIABLES
+  2
+AcDbRasterVariables
+  3
+ISM
+ 90
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+ACDBPLACEHOLDER
+  2
+AcDbPlaceHolder
+  3
+ObjectDBX Classes
+ 90
+0
+280
+0
+281
+0
+  0
+CLASS
+  1
+LAYOUT
+  2
+AcDbLayout
+  3
+ObjectDBX Classes
+ 90
+0
+280
+0
+281
+0
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+VPORT
+  5
+8
+330
+0
+100
+AcDbSymbolTable
+ 70
+1
+  0
+VPORT
+  5
+2F
+330
+8
+100
+AcDbSymbolTableRecord
+100
+AcDbViewportTableRecord
+  2
+*Active
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 11
+1.0
+ 21
+1.0
+ 12
+__CENTER_X__
+ 22
+__CENTER_Y__
+ 13
+0.0
+ 23
+0.0
+ 14
+0.5
+ 24
+0.5
+ 15
+0.5
+ 25
+0.5
+ 16
+0.0
+ 26
+0.0
+ 36
+1.0
+ 17
+0.0
+ 27
+0.0
+ 37
+0.0
+ 40
+__VIEW_HEIGHT__
+ 41
+1.34
+ 42
+50.0
+ 43
+0.0
+ 44
+0.0
+ 50
+0.0
+ 51
+0.0
+ 71
+0
+ 72
+1000
+ 73
+1
+ 74
+3
+ 75
+0
+ 76
+0
+ 77
+0
+ 78
+0
+281
+0
+ 65
+1
+110
+0.0
+120
+0.0
+130
+0.0
+111
+1.0
+121
+0.0
+131
+0.0
+112
+0.0
+122
+1.0
+132
+0.0
+ 79
+0
+146
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LTYPE
+  5
+2
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+LTYPE
+  5
+24
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+ByBlock
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+25
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+ByLayer
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+26
+330
+2
+100
+AcDbSymbolTableRecord
+100
+AcDbLinetypeTableRecord
+  2
+Continuous
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+  5
+1
+330
+0
+100
+AcDbSymbolTable
+ 70
+5
+  0
+LAYER
+  5
+27
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+0
+ 70
+0
+ 62
+7
+  6
+Continuous
+370
+-3
+390
+13
+  0
+LAYER
+  5
+28
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+Defpoints
+ 70
+0
+ 62
+7
+  6
+Continuous
+290
+0
+370
+-3
+390
+13
+  0
+LAYER
+  5
+30
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+CUT_OUTLINE
+ 70
+0
+ 62
+1
+  6
+Continuous
+370
+-3
+390
+13
+  0
+LAYER
+  5
+31
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+ETCH_LABELS
+ 70
+0
+ 62
+5
+  6
+Continuous
+370
+-3
+390
+13
+  0
+LAYER
+  5
+32
+330
+1
+100
+AcDbSymbolTableRecord
+100
+AcDbLayerTableRecord
+  2
+REGISTRATION_PINS
+ 70
+0
+ 62
+3
+  6
+Continuous
+370
+-3
+390
+13
+  0
+ENDTAB
+  0
+TABLE
+  2
+STYLE
+  5
+5
+330
+0
+100
+AcDbSymbolTable
+ 70
+1
+  0
+STYLE
+  5
+29
+330
+5
+100
+AcDbSymbolTableRecord
+100
+AcDbTextStyleTableRecord
+  2
+Standard
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+2.5
+  3
+txt
+  4
+
+  0
+ENDTAB
+  0
+TABLE
+  2
+VIEW
+  5
+7
+330
+0
+100
+AcDbSymbolTable
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+UCS
+  5
+6
+330
+0
+100
+AcDbSymbolTable
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+APPID
+  5
+3
+330
+0
+100
+AcDbSymbolTable
+ 70
+3
+  0
+APPID
+  5
+2A
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+ACAD
+ 70
+0
+  0
+APPID
+  5
+33
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+HATCHBACKGROUNDCOLOR
+ 70
+0
+  0
+APPID
+  5
+34
+330
+3
+100
+AcDbSymbolTableRecord
+100
+AcDbRegAppTableRecord
+  2
+EZDXF
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+DIMSTYLE
+  5
+4
+330
+0
+100
+AcDbSymbolTable
+ 70
+1
+100
+AcDbDimStyleTable
+  0
+DIMSTYLE
+105
+2B
+330
+4
+100
+AcDbSymbolTableRecord
+100
+AcDbDimStyleTableRecord
+  2
+Standard
+ 70
+0
+  3
+
+  4
+
+ 40
+1.0
+ 41
+2.5
+ 42
+0.625
+ 43
+3.75
+ 44
+1.25
+ 45
+0.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+140
+2.5
+141
+2.5
+142
+0.0
+143
+0.03937007874
+144
+1.0
+145
+0.0
+146
+1.0
+147
+0.625
+148
+0.0
+ 71
+0
+ 72
+0
+ 73
+0
+ 74
+0
+ 75
+0
+ 76
+0
+ 77
+1
+ 78
+8
+ 79
+3
+170
+0
+171
+3
+172
+1
+173
+0
+174
+0
+175
+0
+176
+0
+177
+0
+178
+0
+179
+2
+271
+2
+272
+2
+273
+2
+274
+3
+275
+0
+276
+0
+277
+2
+278
+44
+279
+0
+280
+0
+281
+0
+282
+0
+283
+0
+284
+8
+285
+0
+286
+0
+288
+0
+289
+3
+371
+-2
+372
+-2
+  0
+ENDTAB
+  0
+TABLE
+  2
+BLOCK_RECORD
+  5
+9
+330
+0
+100
+AcDbSymbolTable
+ 70
+2
+  0
+BLOCK_RECORD
+  5
+17
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Model_Space
+340
+1A
+  0
+BLOCK_RECORD
+  5
+1B
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*Paper_Space
+340
+1E
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+BLOCK
+  5
+18
+330
+17
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Model_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Model_Space
+  1
+
+  0
+ENDBLK
+  5
+19
+330
+17
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+1C
+330
+1B
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*Paper_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*Paper_Space
+  1
+
+  0
+ENDBLK
+  5
+1D
+330
+1B
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+`,suffix:`  0
+ENDSEC
+  0
+SECTION
+  2
+OBJECTS
+  0
+DICTIONARY
+  5
+A
+330
+0
+100
+AcDbDictionary
+281
+1
+  3
+ACAD_COLOR
+350
+B
+  3
+ACAD_GROUP
+350
+C
+  3
+ACAD_LAYOUT
+350
+D
+  3
+ACAD_MATERIAL
+350
+E
+  3
+ACAD_MLEADERSTYLE
+350
+F
+  3
+ACAD_MLINESTYLE
+350
+10
+  3
+ACAD_PLOTSETTINGS
+350
+11
+  3
+ACAD_PLOTSTYLENAME
+350
+12
+  3
+ACAD_SCALELIST
+350
+14
+  3
+ACAD_TABLESTYLE
+350
+15
+  3
+ACAD_VISUALSTYLE
+350
+16
+  3
+EZDXF_META
+350
+2D
+  0
+DICTIONARY
+  5
+B
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+C
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+D
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Model
+350
+1A
+  3
+Layout1
+350
+1E
+  0
+DICTIONARY
+  5
+E
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+ByBlock
+350
+1F
+  3
+ByLayer
+350
+20
+  3
+Global
+350
+21
+  0
+DICTIONARY
+  5
+F
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Standard
+350
+2C
+  0
+DICTIONARY
+  5
+10
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Standard
+350
+22
+  0
+DICTIONARY
+  5
+11
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+ACDBDICTIONARYWDFLT
+  5
+12
+330
+A
+100
+AcDbDictionary
+281
+1
+  3
+Normal
+350
+13
+100
+AcDbDictionaryWithDefault
+340
+13
+  0
+ACDBPLACEHOLDER
+  5
+13
+330
+12
+  0
+DICTIONARY
+  5
+14
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+15
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+DICTIONARY
+  5
+16
+330
+A
+100
+AcDbDictionary
+281
+1
+  0
+LAYOUT
+  5
+1A
+330
+D
+100
+AcDbPlotSettings
+  1
+
+  4
+A3
+  6
+
+ 40
+7.5
+ 41
+20.0
+ 42
+7.5
+ 43
+20.0
+ 44
+420.0
+ 45
+297.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+0.0
+140
+0.0
+141
+0.0
+142
+1.0
+143
+1.0
+ 70
+1024
+ 72
+1
+ 73
+0
+ 74
+5
+  7
+
+ 75
+16
+ 76
+0
+ 77
+2
+ 78
+300
+147
+1.0
+148
+0.0
+149
+0.0
+100
+AcDbLayout
+  1
+Model
+ 70
+1
+ 71
+0
+ 10
+0.0
+ 20
+0.0
+ 11
+__WIDTH__
+ 21
+__HEIGHT__
+ 12
+0.0
+ 22
+0.0
+ 32
+0.0
+ 14
+0.0
+ 24
+0.0
+ 34
+0.0
+ 15
+__WIDTH__
+ 25
+__HEIGHT__
+ 35
+0.0
+146
+0.0
+ 13
+0.0
+ 23
+0.0
+ 33
+0.0
+ 16
+1.0
+ 26
+0.0
+ 36
+0.0
+ 17
+0.0
+ 27
+1.0
+ 37
+0.0
+ 76
+1
+330
+17
+  0
+LAYOUT
+  5
+1E
+330
+D
+100
+AcDbPlotSettings
+  1
+
+  4
+A3
+  6
+
+ 40
+7.5
+ 41
+20.0
+ 42
+7.5
+ 43
+20.0
+ 44
+420.0
+ 45
+297.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+ 49
+0.0
+140
+0.0
+141
+0.0
+142
+1.0
+143
+1.0
+ 70
+0
+ 72
+1
+ 73
+0
+ 74
+5
+  7
+
+ 75
+16
+ 76
+0
+ 77
+2
+ 78
+300
+147
+1.0
+148
+0.0
+149
+0.0
+100
+AcDbLayout
+  1
+Layout1
+ 70
+1
+ 71
+1
+ 10
+0.0
+ 20
+0.0
+ 11
+420.0
+ 21
+297.0
+ 12
+0.0
+ 22
+0.0
+ 32
+0.0
+ 14
+1e+20
+ 24
+1e+20
+ 34
+1e+20
+ 15
+-1e+20
+ 25
+-1e+20
+ 35
+-1e+20
+146
+0.0
+ 13
+0.0
+ 23
+0.0
+ 33
+0.0
+ 16
+1.0
+ 26
+0.0
+ 36
+0.0
+ 17
+0.0
+ 27
+1.0
+ 37
+0.0
+ 76
+1
+330
+1B
+  0
+MATERIAL
+  5
+1F
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+ByBlock
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MATERIAL
+  5
+20
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+ByLayer
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MATERIAL
+  5
+21
+102
+{ACAD_REACTORS
+330
+E
+102
+}
+330
+E
+100
+AcDbMaterial
+  1
+Global
+  2
+
+ 70
+0
+ 40
+1.0
+ 71
+1
+ 41
+1.0
+ 91
+-1023410177
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 44
+0.5
+ 73
+0
+ 45
+1.0
+ 46
+1.0
+ 77
+1
+  4
+
+ 78
+1
+ 79
+1
+170
+1
+ 48
+1.0
+171
+1
+  6
+
+172
+1
+173
+1
+174
+1
+140
+1.0
+141
+1.0
+175
+1
+  7
+
+176
+1
+177
+1
+178
+1
+143
+1.0
+179
+1
+  8
+
+270
+1
+271
+1
+272
+1
+145
+1.0
+146
+1.0
+273
+1
+  9
+
+274
+1
+275
+1
+276
+1
+ 42
+1.0
+ 72
+1
+  3
+
+ 73
+1
+ 74
+1
+ 75
+1
+ 94
+63
+  0
+MLINESTYLE
+  5
+22
+102
+{ACAD_REACTORS
+330
+10
+102
+}
+330
+10
+100
+AcDbMlineStyle
+  2
+Standard
+ 70
+0
+  3
+
+ 62
+256
+ 51
+90.0
+ 52
+90.0
+ 71
+2
+ 49
+0.5
+ 62
+256
+  6
+BYLAYER
+ 49
+-0.5
+ 62
+256
+  6
+BYLAYER
+  0
+MLEADERSTYLE
+  5
+2C
+102
+{ACAD_REACTORS
+330
+F
+102
+}
+330
+F
+100
+AcDbMLeaderStyle
+179
+2
+170
+2
+171
+1
+172
+0
+ 90
+2
+ 40
+0.0
+ 41
+0.0
+173
+1
+ 91
+-1056964608
+ 92
+-2
+290
+1
+ 42
+2.0
+291
+1
+ 43
+8.0
+  3
+Standard
+ 44
+4.0
+300
+
+342
+29
+174
+1
+175
+1
+176
+0
+178
+1
+ 93
+-1056964608
+ 45
+4.0
+292
+0
+297
+0
+ 46
+4.0
+ 94
+-1056964608
+ 47
+1.0
+ 49
+1.0
+140
+1.0
+294
+1
+141
+0.0
+177
+0
+142
+1.0
+295
+0
+296
+0
+143
+3.75
+271
+0
+272
+9
+273
+9
+  0
+DICTIONARY
+  5
+2D
+330
+A
+100
+AcDbDictionary
+280
+1
+281
+1
+  3
+CREATED_BY_EZDXF
+350
+2E
+  3
+WRITTEN_BY_EZDXF
+350
+35
+  0
+DICTIONARYVAR
+  5
+2E
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+1.4.4 @ 2026-10-08T15:26:56.225666+00:00
+  0
+DICTIONARYVAR
+  5
+35
+330
+2D
+100
+DictionaryVariables
+280
+0
+  1
+1.4.4 @ 2026-10-08T15:26:56.226262+00:00
+  0
+ENDSEC
+  0
+EOF
+`,modelHandle:`17`},R12:{prefix:`  0
+SECTION
+  2
+HEADER
+  9
+$ACADVER
+  1
+AC1009
+  9
+$DWGCODEPAGE
+  3
+ANSI_1252
+  9
+$INSBASE
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$EXTMIN
+ 10
+1e+20
+ 20
+1e+20
+ 30
+1e+20
+  9
+$EXTMAX
+ 10
+-1e+20
+ 20
+-1e+20
+ 30
+-1e+20
+  9
+$LIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$LIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$ORTHOMODE
+ 70
+0
+  9
+$REGENMODE
+ 70
+1
+  9
+$FILLMODE
+ 70
+0
+  9
+$DRAGMODE
+ 70
+2
+  9
+$QTEXTMODE
+ 70
+0
+  9
+$MIRRTEXT
+ 70
+1
+  9
+$OSMODE
+ 70
+20583
+  9
+$LTSCALE
+ 40
+1.0
+  9
+$ATTMODE
+ 70
+1
+  9
+$TEXTSIZE
+ 40
+2.5
+  9
+$TRACEWID
+ 40
+1.0
+  9
+$TEXTSTYLE
+  7
+Standard
+  9
+$CLAYER
+  8
+0
+  9
+$CELTYPE
+  6
+ByLayer
+  9
+$CECOLOR
+ 62
+256
+  9
+$DIMSCALE
+ 40
+1.0
+  9
+$DIMASZ
+ 40
+2.5
+  9
+$DIMEXO
+ 40
+0.625
+  9
+$DIMDLI
+ 40
+3.75
+  9
+$DIMRND
+ 40
+0.0
+  9
+$DIMDLE
+ 40
+0.0
+  9
+$DIMEXE
+ 40
+1.25
+  9
+$DIMTP
+ 40
+0.0
+  9
+$DIMTM
+ 40
+0.0
+  9
+$DIMTXT
+ 40
+2.5
+  9
+$DIMCEN
+ 40
+2.5
+  9
+$DIMTSZ
+ 40
+0.0
+  9
+$DIMTOL
+ 70
+0
+  9
+$DIMLIM
+ 70
+0
+  9
+$DIMTIH
+ 70
+0
+  9
+$DIMTOH
+ 70
+0
+  9
+$DIMSE1
+ 70
+0
+  9
+$DIMSE2
+ 70
+0
+  9
+$DIMTAD
+ 70
+1
+  9
+$DIMZIN
+ 70
+8
+  9
+$DIMBLK
+  1
+
+  9
+$DIMASO
+ 70
+1
+  9
+$DIMSHO
+ 70
+1
+  9
+$DIMPOST
+  1
+
+  9
+$DIMAPOST
+  1
+
+  9
+$DIMALT
+ 70
+0
+  9
+$DIMALTD
+ 70
+3
+  9
+$DIMALTF
+ 40
+0.03937007874
+  9
+$DIMLFAC
+ 40
+1.0
+  9
+$DIMTOFL
+ 70
+1
+  9
+$DIMTVP
+ 40
+0.0
+  9
+$DIMTIX
+ 70
+0
+  9
+$DIMSOXD
+ 70
+0
+  9
+$DIMSAH
+ 70
+0
+  9
+$DIMBLK1
+  1
+
+  9
+$DIMBLK2
+  1
+
+  9
+$DIMSTYLE
+  2
+ISO-25
+  9
+$DIMCLRD
+ 70
+0
+  9
+$DIMCLRE
+ 70
+0
+  9
+$DIMCLRT
+ 70
+0
+  9
+$DIMTFAC
+ 40
+1.0
+  9
+$DIMGAP
+ 40
+0.625
+  9
+$COORDS
+ 70
+1
+  9
+$ATTDIA
+ 70
+0
+  9
+$ATTREQ
+ 70
+1
+  9
+$HANDLING
+ 70
+1
+  9
+$LUNITS
+ 70
+2
+  9
+$LUPREC
+ 70
+4
+  9
+$SKETCHINC
+ 40
+1.0
+  9
+$FILLETRAD
+ 40
+10.0
+  9
+$AUNITS
+ 70
+0
+  9
+$AUPREC
+ 70
+2
+  9
+$MENU
+  1
+.
+  9
+$ELEVATION
+ 40
+0.0
+  9
+$PELEVATION
+ 40
+0.0
+  9
+$THICKNESS
+ 40
+0.0
+  9
+$LIMCHECK
+ 70
+0
+  9
+$CHAMFERA
+ 40
+0.0
+  9
+$CHAMFERB
+ 40
+0.0
+  9
+$SKPOLY
+ 70
+0
+  9
+$TDCREATE
+ 40
+2451545.0
+  9
+$TDUPDATE
+ 40
+2461322.4770370373
+  9
+$TDINDWG
+ 40
+0.0
+  9
+$TDUSRTIMER
+ 40
+0.0
+  9
+$USRTIMER
+ 70
+1
+  9
+$ANGBASE
+ 50
+0.0
+  9
+$ANGDIR
+ 70
+0
+  9
+$PDMODE
+ 70
+0
+  9
+$PDSIZE
+ 40
+0.0
+  9
+$PLINEWID
+ 40
+0.0
+  9
+$SPLFRAME
+ 70
+0
+  9
+$SPLINETYPE
+ 70
+6
+  9
+$SPLINESEGS
+ 70
+8
+  9
+$HANDSEED
+  5
+__HANDSEED__
+  9
+$SURFTAB1
+ 70
+6
+  9
+$SURFTAB2
+ 70
+6
+  9
+$SURFTYPE
+ 70
+6
+  9
+$SURFU
+ 70
+6
+  9
+$SURFV
+ 70
+6
+  9
+$UCSNAME
+  2
+
+  9
+$UCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$UCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$PUCSNAME
+  2
+
+  9
+$PUCSORG
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSXDIR
+ 10
+1.0
+ 20
+0.0
+ 30
+0.0
+  9
+$PUCSYDIR
+ 10
+0.0
+ 20
+1.0
+ 30
+0.0
+  9
+$USERI1
+ 70
+0
+  9
+$USERI2
+ 70
+0
+  9
+$USERI3
+ 70
+0
+  9
+$USERI4
+ 70
+0
+  9
+$USERI5
+ 70
+0
+  9
+$USERR1
+ 40
+0.0
+  9
+$USERR2
+ 40
+0.0
+  9
+$USERR3
+ 40
+0.0
+  9
+$USERR4
+ 40
+0.0
+  9
+$USERR5
+ 40
+0.0
+  9
+$WORLDVIEW
+ 70
+1
+  9
+$SHADEDGE
+ 70
+3
+  9
+$SHADEDIF
+ 70
+70
+  9
+$TILEMODE
+ 70
+1
+  9
+$MAXACTVP
+ 70
+64
+  9
+$PLIMCHECK
+ 70
+0
+  9
+$PEXTMIN
+ 10
+1e+20
+ 20
+1e+20
+ 30
+1e+20
+  9
+$PEXTMAX
+ 10
+-1e+20
+ 20
+-1e+20
+ 30
+-1e+20
+  9
+$PLIMMIN
+ 10
+0.0
+ 20
+0.0
+  9
+$PLIMMAX
+ 10
+420.0
+ 20
+297.0
+  9
+$UNITMODE
+ 70
+0
+  9
+$VISRETAIN
+ 70
+1
+  9
+$PLINEGEN
+ 70
+0
+  9
+$PSLTSCALE
+ 70
+1
+  0
+ENDSEC
+  0
+SECTION
+  2
+TABLES
+  0
+TABLE
+  2
+VPORT
+ 70
+1
+  0
+VPORT
+  5
+2D
+  2
+*Active
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 11
+1.0
+ 21
+1.0
+ 12
+__CENTER_X__
+ 22
+__CENTER_Y__
+ 13
+0.0
+ 23
+0.0
+ 14
+0.5
+ 24
+0.5
+ 15
+0.5
+ 25
+0.5
+ 16
+0.0
+ 26
+0.0
+ 36
+1.0
+ 17
+0.0
+ 27
+0.0
+ 37
+0.0
+ 40
+__VIEW_HEIGHT__
+ 41
+1.34
+ 42
+50.0
+ 43
+0.0
+ 44
+0.0
+ 50
+0.0
+ 51
+0.0
+ 71
+0
+ 72
+1000
+ 73
+1
+ 74
+3
+ 75
+0
+ 76
+0
+ 77
+0
+ 78
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LTYPE
+ 70
+3
+  0
+LTYPE
+  5
+24
+  2
+ByBlock
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+25
+  2
+ByLayer
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+LTYPE
+  5
+26
+  2
+Continuous
+ 70
+0
+  3
+
+ 72
+65
+ 73
+0
+ 40
+0.0
+  0
+ENDTAB
+  0
+TABLE
+  2
+LAYER
+ 70
+5
+  0
+LAYER
+  5
+27
+  2
+0
+ 70
+0
+ 62
+7
+  6
+Continuous
+  0
+LAYER
+  5
+28
+  2
+Defpoints
+ 70
+0
+ 62
+7
+  6
+Continuous
+  0
+LAYER
+  5
+2E
+  2
+CUT_OUTLINE
+ 70
+0
+ 62
+1
+  6
+Continuous
+  0
+LAYER
+  5
+2F
+  2
+ETCH_LABELS
+ 70
+0
+ 62
+5
+  6
+Continuous
+  0
+LAYER
+  5
+30
+  2
+REGISTRATION_PINS
+ 70
+0
+ 62
+3
+  6
+Continuous
+  0
+ENDTAB
+  0
+TABLE
+  2
+STYLE
+ 70
+1
+  0
+STYLE
+  5
+29
+  2
+Standard
+ 70
+0
+ 40
+0.0
+ 41
+1.0
+ 50
+0.0
+ 71
+0
+ 42
+2.5
+  3
+txt
+  4
+
+  0
+ENDTAB
+  0
+TABLE
+  2
+VIEW
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+UCS
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+APPID
+ 70
+3
+  0
+APPID
+  5
+2A
+  2
+ACAD
+ 70
+0
+  0
+APPID
+  5
+31
+  2
+HATCHBACKGROUNDCOLOR
+ 70
+0
+  0
+APPID
+  5
+32
+  2
+EZDXF
+ 70
+0
+  0
+ENDTAB
+  0
+TABLE
+  2
+DIMSTYLE
+ 70
+1
+  0
+DIMSTYLE
+105
+2B
+  2
+Standard
+ 70
+0
+  3
+
+  4
+
+  5
+
+  6
+
+  7
+
+ 40
+1.0
+ 41
+2.5
+ 42
+0.625
+ 43
+3.75
+ 44
+1.25
+ 45
+0.0
+ 46
+0.0
+ 47
+0.0
+ 48
+0.0
+140
+2.5
+141
+2.5
+142
+0.0
+143
+0.03937007874
+144
+1.0
+145
+0.0
+146
+1.0
+147
+0.625
+ 71
+0
+ 72
+0
+ 73
+0
+ 74
+0
+ 75
+0
+ 76
+0
+ 77
+1
+ 78
+8
+170
+0
+171
+3
+172
+1
+173
+0
+174
+0
+175
+0
+176
+0
+177
+0
+178
+0
+  0
+ENDTAB
+  0
+ENDSEC
+  0
+SECTION
+  2
+BLOCKS
+  0
+BLOCK
+  5
+18
+  8
+0
+  2
+$Model_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+$Model_Space
+  1
+
+1001
+EZDXF
+1000
+CREATED_BY_EZDXF
+1000
+1.4.4 @ 2026-10-08T15:26:56.230375+00:00
+1000
+WRITTEN_BY_EZDXF
+1000
+1.4.4 @ 2026-10-08T15:26:56.231072+00:00
+  0
+ENDBLK
+  5
+19
+  8
+0
+  0
+BLOCK
+  5
+1C
+  8
+0
+  2
+$Paper_Space
+ 70
+0
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+$Paper_Space
+  1
+
+  0
+ENDBLK
+  5
+1D
+  8
+0
+  0
+ENDSEC
+  0
+SECTION
+  2
+ENTITIES
+`,suffix:`  0
+ENDSEC
+  0
+EOF
+`,modelHandle:`17`}},AT=e=>Number(e.toFixed(4)).toString();function jT(e,t,n,r=!1,i=!0){let a=kT[r?`R12`:`R2000`],o=[],s=4096,c=()=>(s++).toString(16).toUpperCase(),l=(e,t)=>{o.push(String(e).padStart(3,` `),typeof t==`number`?AT(t):t)},u={CUT_OUTLINE:1,ETCH_LABELS:5,REGISTRATION_PINS:3},d=(e,t,n)=>{l(0,e),l(5,c()),r||(l(330,a.modelHandle),l(100,`AcDbEntity`)),l(8,t),l(62,u[t]),r||l(100,n)};for(let t of e)if(!(t.points.length<2)){if(t.points.some(e=>!Number.isFinite(e.x)||!Number.isFinite(e.y)))throw Error(`DXF contains a non-finite coordinate.`);if(i&&!r){let e=t.closed?t.points.length:t.points.length-1;for(let n=0;n<e;n++){let e=t.points[n],r=t.points[(n+1)%t.points.length];Math.hypot(e.x-r.x,e.y-r.y)<1e-8||(d(`LINE`,t.layer,`AcDbLine`),l(10,e.x),l(20,e.y),l(30,0),l(11,r.x),l(21,r.y),l(31,0))}}else if(r){d(`POLYLINE`,t.layer,``),l(66,1),l(10,0),l(20,0),l(30,0),l(70,+!!t.closed);for(let e of t.points)d(`VERTEX`,t.layer,``),l(10,e.x),l(20,e.y),l(30,0),l(70,0);d(`SEQEND`,t.layer,``)}else{d(`LWPOLYLINE`,t.layer,`AcDbPolyline`),l(90,t.points.length),l(70,+!!t.closed),l(43,0);for(let e of t.points)l(10,e.x),l(20,e.y)}}let f=e=>e.replaceAll(`__WIDTH__`,AT(t)).replaceAll(`__HEIGHT__`,AT(n)).replaceAll(`__VIEW_HEIGHT__`,AT(Math.max(t,n))).replaceAll(`__CENTER_X__`,AT(t/2)).replaceAll(`__CENTER_Y__`,AT(n/2)).replaceAll(`__HANDSEED__`,s.toString(16).toUpperCase());return(f(a.prefix)+(o.length?o.join(`
+`)+`
+`:``)+f(a.suffix)).replace(/\r?\n/g,`\r
+`)}var MT=e=>Number(e.toFixed(4)).toString(),NT=e=>e.replace(/[&<>"']/g,e=>({"&":`&amp;`,"<":`&lt;`,">":`&gt;`,'"':`&quot;`,"'":`&apos;`})[e]);function PT(e,t,n=!0){let r=[],i=new Map(e.pieces.map(e=>[e.id,e]));for(let e of t.placements){let t=i.get(e.pieceId);for(let n of t.cutPaths)r.push({points:n.points.map(n=>Tw(n,t,e)),closed:!0,layer:n.isRegistration?`REGISTRATION_PINS`:`CUT_OUTLINE`});if(n)for(let n of t.etchPaths)r.push({points:n.points.map(n=>Tw(n,t,e)),closed:!!n.closed,layer:`ETCH_LABELS`})}return r}function FT(e,t,n=!0){let{sheetWidth:r,sheetHeight:i}=e.settings,a=PT(e,t,n),o={CUT_OUTLINE:`#ff0000`,REGISTRATION_PINS:`#00a000`,ETCH_LABELS:`#0000ff`};return`<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="${MT(r)}mm" height="${MT(i)}mm" viewBox="0 0 ${MT(r)} ${MT(i)}">\n<title>${NT(e.model.name)} · Sheet ${t.sheetIndex+1}</title>\n<desc>All dimensions in millimeters. Cut lines are kerf compensated. Blue paths are engraving, red and green are cutting. No bed border is exported.</desc>\n<g transform="translate(0 ${MT(i)}) scale(1 -1)" fill="none" stroke-width="0.1" stroke-linecap="round" stroke-linejoin="round">\n${[`CUT_OUTLINE`,`REGISTRATION_PINS`,`ETCH_LABELS`].map(e=>`<g id="${e}" inkscape:groupmode="layer" inkscape:label="${e}" stroke="${o[e]}">\n${a.filter(t=>t.layer===e).map(e=>`<path d="${e.points.map((e,t)=>`${t?`L`:`M`}${MT(e.x)} ${MT(e.y)}`).join(` `)}${e.closed?` Z`:``}"/>`).join(`
 `)}\n</g>`).join(`
-`)}\n</g>\n</svg>\n`}function NT(e,t,n=!0,r=!1){let i=[],a=(e,t)=>{i.push(String(e),typeof t==`number`?kT(t):t)},o=32,s=()=>(o++).toString(16).toUpperCase(),c=e=>{a(0,`SECTION`),a(2,e)},l=()=>a(0,`ENDSEC`);c(`HEADER`),a(9,`$ACADVER`),a(1,r?`AC1009`:`AC1015`),r||(a(9,`$INSUNITS`),a(70,4),a(9,`$MEASUREMENT`),a(70,1),a(9,`$HANDSEED`),a(5,`FFFFFF`)),a(9,`$LUNITS`),a(70,2),a(9,`$LUPREC`),a(70,4),a(9,`$EXTMIN`),a(10,0),a(20,0),a(30,0),a(9,`$EXTMAX`),a(10,e.settings.sheetWidth),a(20,e.settings.sheetHeight),a(30,0),l(),c(`TABLES`);let u=(e,t,n)=>{a(0,`TABLE`),a(2,e),r||(a(5,t),a(330,`0`),a(100,`AcDbSymbolTable`)),a(70,n)};u(`LTYPE`,`2`,1),a(0,`LTYPE`),r||(a(5,`3`),a(330,`2`),a(100,`AcDbSymbolTableRecord`),a(100,`AcDbLinetypeTableRecord`)),a(2,`CONTINUOUS`),a(70,0),a(3,`Solid line`),a(72,65),a(73,0),a(40,0),a(0,`ENDTAB`),u(`LAYER`,`4`,4);for(let[e,[t,n]]of[[`0`,7],[`CUT_OUTLINE`,1],[`ETCH_LABELS`,5],[`REGISTRATION_PINS`,3]].entries())a(0,`LAYER`),r||(a(5,(5+e).toString(16)),a(330,`4`),a(100,`AcDbSymbolTableRecord`),a(100,`AcDbLayerTableRecord`)),a(2,t),a(70,0),a(62,n),a(6,`CONTINUOUS`),r||a(370,-3);if(a(0,`ENDTAB`),u(`STYLE`,`A`,1),a(0,`STYLE`),r||(a(5,`B`),a(330,`A`),a(100,`AcDbSymbolTableRecord`),a(100,`AcDbTextStyleTableRecord`)),a(2,`STANDARD`),a(70,0),a(40,0),a(41,1),a(50,0),a(71,0),a(42,2.5),a(3,`txt`),a(4,``),a(0,`ENDTAB`),!r){u(`BLOCK_RECORD`,`C`,2);for(let[e,t]of[[`D`,`*Model_Space`],[`E`,`*Paper_Space`]])a(0,`BLOCK_RECORD`),a(5,e),a(330,`C`),a(100,`AcDbSymbolTableRecord`),a(100,`AcDbBlockTableRecord`),a(2,t);a(0,`ENDTAB`)}if(l(),c(`BLOCKS`),!r)for(let[e,t,n]of[[`F`,`D`,`*Model_Space`],[`11`,`E`,`*Paper_Space`]])a(0,`BLOCK`),a(5,e),a(330,t),a(100,`AcDbEntity`),a(8,`0`),a(100,`AcDbBlockBegin`),a(2,n),a(70,0),a(10,0),a(20,0),a(30,0),a(3,n),a(1,``),a(0,`ENDBLK`),a(5,e===`F`?`10`:`12`),a(330,t),a(100,`AcDbEntity`),a(8,`0`),a(100,`AcDbBlockEnd`);l(),c(`ENTITIES`);for(let i of jT(e,t,n))if(!(i.points.length<2))if(r){a(0,`POLYLINE`),a(8,i.layer),a(66,1),a(10,0),a(20,0),a(30,0),a(70,+!!i.closed);for(let e of i.points)a(0,`VERTEX`),a(8,i.layer),a(10,e.x),a(20,e.y),a(30,0);a(0,`SEQEND`),a(8,i.layer)}else{a(0,`LWPOLYLINE`),a(5,s()),a(330,`D`),a(100,`AcDbEntity`),a(8,i.layer),a(100,`AcDbPolyline`),a(90,i.points.length),a(70,+!!i.closed),a(43,0);for(let e of i.points)a(10,e.x),a(20,e.y)}return l(),a(0,`EOF`),i.join(`\r
-`)+`\r
-`}function PT(e,t=!0,n=!1){let r=new Set(e.unplaced),i=e.pieces.filter(e=>r.has(e.id));if(!i.length)throw Error(`There are no unplaced parts to export.`);let a=Math.max(5,e.settings.partSpacing),o=0,s=0,c=i.map(e=>{let t={pieceId:e.id,x:o,y:0,rotation:0};return o+=e.bounds.width+a,s=Math.max(s,e.bounds.height),t}),l={sheetIndex:e.sheets.length,placements:c,utilization:0,cutLength:i.reduce((e,t)=>e+t.cutLength,0)};return NT({...e,settings:{...e.settings,sheetWidth:o-a,sheetHeight:s}},l,t,n)}function FT(e){let t=e.settings,n=e.issues.map(e=>`${e.severity.toUpperCase()}: ${e.message}${e.partIds?.length?` (${e.partIds.join(`, `)})`:``}`).join(`
-`);return`SLICE LAB — ASSEMBLY GUIDE\n\nModel: ${e.model.name}\nDimensions X × Y × Z: ${e.dimensions.map(kT).join(` × `)} mm\nMode: ${t.mode}\nMaterial thickness: ${kT(t.materialThickness)} mm\nKerf: ${kT(t.laserKerf)} mm\nFinished slot width: ${kT(t.materialThickness+t.slotFitTolerance)} mm\nSlot centerline width: ${kT(t.materialThickness+t.slotFitTolerance-t.laserKerf)} mm\n${t.mode===`stacked`?`Stack: ${e.layerCount} layers along ${t.stackedAxis}, built depth ${kT(e.builtDepth)} mm\nPins: ${e.pins.length} through-holes, finished diameter ${kT(t.pinDiameter)} mm\n`:``}\nASSEMBLY\n${t.mode===`interlocking`?`1. Sort X and Y ribs by their etched IDs. X-01 / Y-01 are at the lowest coordinate on their respective axes.
+`)}\n</g>\n</svg>\n`}function IT(e,t,n=!0,r=!1,i=!0){return jT(PT(e,t,n),e.settings.sheetWidth,e.settings.sheetHeight,r,i)}function LT(e,t=!0,n=!1,r=!0){let i=new Set(e.unplaced),a=e.pieces.filter(e=>i.has(e.id));if(!a.length)throw Error(`There are no unplaced parts to export.`);let o=Math.max(5,e.settings.partSpacing),s=0,c=0,l=a.map(e=>{let t={pieceId:e.id,x:s,y:0,rotation:0};return s+=e.bounds.width+o,c=Math.max(c,e.bounds.height),t}),u={sheetIndex:e.sheets.length,placements:l,utilization:0,cutLength:a.reduce((e,t)=>e+t.cutLength,0)};return IT({...e,settings:{...e.settings,sheetWidth:s-o,sheetHeight:c}},u,t,n,r)}function RT(e){let t=e.settings,n=e.issues.map(e=>`${e.severity.toUpperCase()}: ${e.message}${e.partIds?.length?` (${e.partIds.join(`, `)})`:``}`).join(`
+`);return`SLICE LAB — ASSEMBLY GUIDE\n\nModel: ${e.model.name}\nDimensions X × Y × Z: ${e.dimensions.map(MT).join(` × `)} mm\nMode: ${t.mode}\nMaterial thickness: ${MT(t.materialThickness)} mm\nKerf: ${MT(t.laserKerf)} mm\nFinished slot width: ${MT(t.materialThickness+t.slotFitTolerance)} mm\nSlot centerline width: ${MT(t.materialThickness+t.slotFitTolerance-t.laserKerf)} mm\n${t.mode===`stacked`?`Stack: ${e.layerCount} layers along ${t.stackedAxis}, built depth ${MT(e.builtDepth)} mm\nPins: ${e.pins.length} ${t.alignmentPinType===`material`?`cut-material pins, ${MT(t.pinDiameter)} mm wide × ${MT(t.materialThickness)} mm thick; matching rectangular slots`:`round dowels, finished hole diameter ${MT(t.pinDiameter)} mm`}\n`:``}\nASSEMBLY\n${t.mode===`interlocking`?`1. Sort X and Y ribs by their etched IDs. X-01 / Y-01 are at the lowest coordinate on their respective axes.
 2. Orient all ribs upright (+Z). X ribs have downward slots; Y ribs have upward slots.
 3. Loosely position the X ribs, then lower Y ribs into matching X slots. Work from the center outward.
 4. Keep the assembly loose until all ribs are seated. Use the 3D preview to match disconnected sub-parts.
 5. Use the joint table in assembly.csv to find mating parts.
-`:`1. Sort layers by their etched IDs (lowest number first).
+`:`1. Sort layers by their etched IDs (lowest number first). For cut-material pins, cut the P-parts from the same stock and insert them from layer 1; the wide stop heads seat below the stack.
 2. Orient every layer as in the 3D preview; keep the same face upwards.
-3. Slide layers onto registration dowels, where available, and bond progressively.
+3. Slide layers onto the registration pins, where available, and bond progressively.
 4. Glue detached or unpinned pieces in the positions shown in the preview.
-`}\nLASER FILES\nEach sheet is a separate DXF and SVG at 1:1 millimeter scale. Origin is bottom-left.\nCUT_OUTLINE / red: through cuts.\nREGISTRATION_PINS / green: through cuts, preferably before the outer outlines.\nETCH_LABELS / blue: vector engraving, preferably before all through cuts.\nThe bed rectangle and gray raw contours are never exported.\nPaths are already kerf compensated. Disable additional kerf compensation in CAM.\nAutoCAD 2000 DXF declares millimeters. R12 files use millimeter coordinates but do not declare INSUNITS; import those explicitly in mm.\nSVG has physical dimensions in mm. Labels are strokes, with no font dependency.\nCheck CAM layer settings and cut a small fit sample before cutting all sheets.\n\n${n?`MODEL NOTES\n${n}\n`:``}`}function IT(e,t=!0,n=!1){let r={};return e.sheets.forEach(i=>{let a=`sheet-${String(i.sheetIndex+1).padStart(2,`0`)}`;r[`${a}.dxf`]=wT(NT(e,i,t,n)),r[`${a}.svg`]=wT(MT(e,i,t))}),r[`README.txt`]=wT(FT(e)),r[`assembly.csv`]=wT([`part_id,axis,slice_number,position_mm,sheet,rotation_degrees,mating_parts`,...e.pieces.map(t=>{let n=e.sheets.find(e=>e.placements.some(e=>e.pieceId===t.id)),r=n?.placements.find(e=>e.pieceId===t.id);return`${t.id},${t.axis},${t.sliceIndex+1},${kT(t.worldPosition)},${n?n.sheetIndex+1:`UNPLACED`},${r?.rotation??0},${[...new Set(t.joints)].join(`;`)}`})].join(`
+`}\nLASER FILES\nEach sheet is a separate DXF and SVG at 1:1 millimeter scale. Origin is bottom-left.\nCUT_OUTLINE / red: through cuts.\nREGISTRATION_PINS / green: through cuts, preferably before the outer outlines.\nETCH_LABELS / blue: vector engraving, preferably before all through cuts.\nThe bed rectangle and gray raw contours are never exported.\nPaths are already kerf compensated. Disable additional kerf compensation in CAM.\nComplete AutoCAD 2000 DXF includes model/paper layouts and millimeter units. The default compatibility output uses LINE entities; joined polylines remain optional. In Illustrator choose Original Size, millimeters, and Model layout. R12 files use millimeter coordinates but do not declare INSUNITS; import those explicitly in mm.\nSVG has physical dimensions in mm. Labels are strokes, with no font dependency.\nCheck CAM layer settings and cut a small fit sample before cutting all sheets.\n\n${n?`MODEL NOTES\n${n}\n`:``}`}function zT(e,t=!0,n=!1,r=!0){let i={};return e.sheets.forEach(a=>{let o=`sheet-${String(a.sheetIndex+1).padStart(2,`0`)}`;i[`${o}.dxf`]=wT(IT(e,a,t,n,r)),i[`${o}.svg`]=wT(FT(e,a,t))}),i[`README.txt`]=wT(RT(e)),i[`assembly.csv`]=wT([`part_id,axis,slice_number,position_mm,sheet,rotation_degrees,mating_parts,part_type`,...e.pieces.map(t=>{let n=e.sheets.find(e=>e.placements.some(e=>e.pieceId===t.id)),r=n?.placements.find(e=>e.pieceId===t.id);return`${t.id},${t.axis},${t.sliceIndex+1},${MT(t.worldPosition)},${n?n.sheetIndex+1:`UNPLACED`},${r?.rotation??0},${[...new Set(t.joints)].join(`;`)},${t.kind===`alignment-pin`?`material_pin`:`slice`}`})].join(`
 `)+`
-`),OT(r,{level:6})}var LT=c(o(((e,t)=>{(function(){"use strict";var e={};e.version=`6.4.2.2`,e.use_lines=!0,e.use_xyz=!1;var n=!1;t!==void 0&&t.exports?(t.exports=e,n=!0):(typeof define==`function`&&define.amd&&define(e),typeof document<`u`?window.ClipperLib=e:self.ClipperLib=e);var r;if(n){var i=`chrome`;r=`Netscape`}else{var i=navigator.userAgent.toString().toLowerCase();r=navigator.appName}var a={};i.indexOf(`chrome`)!=-1&&i.indexOf(`chromium`)==-1?a.chrome=1:a.chrome=0,i.indexOf(`chromium`)==-1?a.chromium=0:a.chromium=1,i.indexOf(`safari`)!=-1&&i.indexOf(`chrome`)==-1&&i.indexOf(`chromium`)==-1?a.safari=1:a.safari=0,i.indexOf(`firefox`)==-1?a.firefox=0:a.firefox=1,i.indexOf(`firefox/17`)==-1?a.firefox17=0:a.firefox17=1,i.indexOf(`firefox/15`)==-1?a.firefox15=0:a.firefox15=1,i.indexOf(`firefox/3`)==-1?a.firefox3=0:a.firefox3=1,i.indexOf(`opera`)==-1?a.opera=0:a.opera=1,i.indexOf(`msie 10`)==-1?a.msie10=0:a.msie10=1,i.indexOf(`msie 9`)==-1?a.msie9=0:a.msie9=1,i.indexOf(`msie 8`)==-1?a.msie8=0:a.msie8=1,i.indexOf(`msie 7`)==-1?a.msie7=0:a.msie7=1,i.indexOf(`msie `)==-1?a.msie=0:a.msie=1,e.biginteger_used=null;var o,s=!0;function c(t,n,r){e.biginteger_used=1,t!=null&&(typeof t==`number`&&n===void 0?this.fromInt(t):typeof t==`number`?this.fromNumber(t,n,r):n==null&&typeof t!=`string`?this.fromString(t,256):this.fromString(t,n))}function l(){return new c(null,void 0,void 0)}function u(e,t,n,r,i,a){for(;--a>=0;){var o=t*this[e++]+n[r]+i;i=Math.floor(o/67108864),n[r++]=o&67108863}return i}function d(e,t,n,r,i,a){for(var o=t&32767,s=t>>15;--a>=0;){var c=this[e]&32767,l=this[e++]>>15,u=s*c+l*o;c=o*c+((u&32767)<<15)+n[r]+(i&1073741823),i=(c>>>30)+(u>>>15)+s*l+(i>>>30),n[r++]=c&1073741823}return i}function f(e,t,n,r,i,a){for(var o=t&16383,s=t>>14;--a>=0;){var c=this[e]&16383,l=this[e++]>>14,u=s*c+l*o;c=o*c+((u&16383)<<14)+n[r]+i,i=(c>>28)+(u>>14)+s*l,n[r++]=c&268435455}return i}s&&r==`Microsoft Internet Explorer`?(c.prototype.am=d,o=30):s&&r!=`Netscape`?(c.prototype.am=u,o=26):(c.prototype.am=f,o=28),c.prototype.DB=o,c.prototype.DM=(1<<o)-1,c.prototype.DV=1<<o;var p=52;c.prototype.FV=2**p,c.prototype.F1=p-o,c.prototype.F2=2*o-p;var m=`0123456789abcdefghijklmnopqrstuvwxyz`,h=[],g=48,_;for(_=0;_<=9;++_)h[g++]=_;for(g=97,_=10;_<36;++_)h[g++]=_;for(g=65,_=10;_<36;++_)h[g++]=_;function v(e){return m.charAt(e)}function y(e,t){return h[e.charCodeAt(t)]??-1}function b(e){for(var t=this.t-1;t>=0;--t)e[t]=this[t];e.t=this.t,e.s=this.s}function x(e){this.t=1,this.s=e<0?-1:0,e>0?this[0]=e:e<-1?this[0]=e+this.DV:this.t=0}function S(e){var t=l();return t.fromInt(e),t}function C(e,t){var n;if(t==16)n=4;else if(t==8)n=3;else if(t==256)n=8;else if(t==2)n=1;else if(t==32)n=5;else if(t==4)n=2;else{this.fromRadix(e,t);return}this.t=0,this.s=0;for(var r=e.length,i=!1,a=0;--r>=0;){var o=n==8?e[r]&255:y(e,r);if(o<0){e.charAt(r)==`-`&&(i=!0);continue}i=!1,a==0?this[this.t++]=o:a+n>this.DB?(this[this.t-1]|=(o&(1<<this.DB-a)-1)<<a,this[this.t++]=o>>this.DB-a):this[this.t-1]|=o<<a,a+=n,a>=this.DB&&(a-=this.DB)}n==8&&e[0]&128&&(this.s=-1,a>0&&(this[this.t-1]|=(1<<this.DB-a)-1<<a)),this.clamp(),i&&c.ZERO.subTo(this,this)}function w(){for(var e=this.s&this.DM;this.t>0&&this[this.t-1]==e;)--this.t}function T(e){if(this.s<0)return`-`+this.negate().toString(e);var t;if(e==16)t=4;else if(e==8)t=3;else if(e==2)t=1;else if(e==32)t=5;else if(e==4)t=2;else return this.toRadix(e);var n=(1<<t)-1,r,i=!1,a=``,o=this.t,s=this.DB-o*this.DB%t;if(o-- >0)for(s<this.DB&&(r=this[o]>>s)>0&&(i=!0,a=v(r));o>=0;)s<t?(r=(this[o]&(1<<s)-1)<<t-s,r|=this[--o]>>(s+=this.DB-t)):(r=this[o]>>(s-=t)&n,s<=0&&(s+=this.DB,--o)),r>0&&(i=!0),i&&(a+=v(r));return i?a:`0`}function E(){var e=l();return c.ZERO.subTo(this,e),e}function D(){return this.s<0?this.negate():this}function O(e){var t=this.s-e.s;if(t!=0)return t;var n=this.t;if(t=n-e.t,t!=0)return this.s<0?-t:t;for(;--n>=0;)if((t=this[n]-e[n])!=0)return t;return 0}function k(e){var t=1,n;return(n=e>>>16)!=0&&(e=n,t+=16),(n=e>>8)!=0&&(e=n,t+=8),(n=e>>4)!=0&&(e=n,t+=4),(n=e>>2)!=0&&(e=n,t+=2),(n=e>>1)!=0&&(e=n,t+=1),t}function A(){return this.t<=0?0:this.DB*(this.t-1)+k(this[this.t-1]^this.s&this.DM)}function j(e,t){var n;for(n=this.t-1;n>=0;--n)t[n+e]=this[n];for(n=e-1;n>=0;--n)t[n]=0;t.t=this.t+e,t.s=this.s}function M(e,t){for(var n=e;n<this.t;++n)t[n-e]=this[n];t.t=Math.max(this.t-e,0),t.s=this.s}function N(e,t){var n=e%this.DB,r=this.DB-n,i=(1<<r)-1,a=Math.floor(e/this.DB),o=this.s<<n&this.DM,s;for(s=this.t-1;s>=0;--s)t[s+a+1]=this[s]>>r|o,o=(this[s]&i)<<n;for(s=a-1;s>=0;--s)t[s]=0;t[a]=o,t.t=this.t+a+1,t.s=this.s,t.clamp()}function P(e,t){t.s=this.s;var n=Math.floor(e/this.DB);if(n>=this.t){t.t=0;return}var r=e%this.DB,i=this.DB-r,a=(1<<r)-1;t[0]=this[n]>>r;for(var o=n+1;o<this.t;++o)t[o-n-1]|=(this[o]&a)<<i,t[o-n]=this[o]>>r;r>0&&(t[this.t-n-1]|=(this.s&a)<<i),t.t=this.t-n,t.clamp()}function F(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]-e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r-=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r-=e[n],t[n++]=r&this.DM,r>>=this.DB;r-=e.s}t.s=r<0?-1:0,r<-1?t[n++]=this.DV+r:r>0&&(t[n++]=r),t.t=n,t.clamp()}function I(e,t){var n=this.abs(),r=e.abs(),i=n.t;for(t.t=i+r.t;--i>=0;)t[i]=0;for(i=0;i<r.t;++i)t[i+n.t]=n.am(0,r[i],t,i,0,n.t);t.s=0,t.clamp(),this.s!=e.s&&c.ZERO.subTo(t,t)}function L(e){for(var t=this.abs(),n=e.t=2*t.t;--n>=0;)e[n]=0;for(n=0;n<t.t-1;++n){var r=t.am(n,t[n],e,2*n,0,1);(e[n+t.t]+=t.am(n+1,2*t[n],e,2*n+1,r,t.t-n-1))>=t.DV&&(e[n+t.t]-=t.DV,e[n+t.t+1]=1)}e.t>0&&(e[e.t-1]+=t.am(n,t[n],e,2*n,0,1)),e.s=0,e.clamp()}function ee(e,t,n){var r=e.abs();if(!(r.t<=0)){var i=this.abs();if(i.t<r.t){t?.fromInt(0),n!=null&&this.copyTo(n);return}n??=l();var a=l(),o=this.s,s=e.s,u=this.DB-k(r[r.t-1]);u>0?(r.lShiftTo(u,a),i.lShiftTo(u,n)):(r.copyTo(a),i.copyTo(n));var d=a.t,f=a[d-1];if(f!=0){var p=f*(1<<this.F1)+(d>1?a[d-2]>>this.F2:0),m=this.FV/p,h=(1<<this.F1)/p,g=1<<this.F2,_=n.t,v=_-d,y=t??l();for(a.dlShiftTo(v,y),n.compareTo(y)>=0&&(n[n.t++]=1,n.subTo(y,n)),c.ONE.dlShiftTo(d,y),y.subTo(a,a);a.t<d;)a[a.t++]=0;for(;--v>=0;){var b=n[--_]==f?this.DM:Math.floor(n[_]*m+(n[_-1]+g)*h);if((n[_]+=a.am(0,b,n,v,0,d))<b)for(a.dlShiftTo(v,y),n.subTo(y,n);n[_]<--b;)n.subTo(y,n)}t!=null&&(n.drShiftTo(d,t),o!=s&&c.ZERO.subTo(t,t)),n.t=d,n.clamp(),u>0&&n.rShiftTo(u,n),o<0&&c.ZERO.subTo(n,n)}}}function te(e){var t=l();return this.abs().divRemTo(e,null,t),this.s<0&&t.compareTo(c.ZERO)>0&&e.subTo(t,t),t}function ne(e){this.m=e}function R(e){return e.s<0||e.compareTo(this.m)>=0?e.mod(this.m):e}function z(e){return e}function B(e){e.divRemTo(this.m,null,e)}function re(e,t,n){e.multiplyTo(t,n),this.reduce(n)}function V(e,t){e.squareTo(t),this.reduce(t)}ne.prototype.convert=R,ne.prototype.revert=z,ne.prototype.reduce=B,ne.prototype.mulTo=re,ne.prototype.sqrTo=V;function ie(){if(this.t<1)return 0;var e=this[0];if(!(e&1))return 0;var t=e&3;return t=t*(2-(e&15)*t)&15,t=t*(2-(e&255)*t)&255,t=t*(2-((e&65535)*t&65535))&65535,t=t*(2-e*t%this.DV)%this.DV,t>0?this.DV-t:-t}function ae(e){this.m=e,this.mp=e.invDigit(),this.mpl=this.mp&32767,this.mph=this.mp>>15,this.um=(1<<e.DB-15)-1,this.mt2=2*e.t}function oe(e){var t=l();return e.abs().dlShiftTo(this.m.t,t),t.divRemTo(this.m,null,t),e.s<0&&t.compareTo(c.ZERO)>0&&this.m.subTo(t,t),t}function se(e){var t=l();return e.copyTo(t),this.reduce(t),t}function ce(e){for(;e.t<=this.mt2;)e[e.t++]=0;for(var t=0;t<this.m.t;++t){var n=e[t]&32767,r=n*this.mpl+((n*this.mph+(e[t]>>15)*this.mpl&this.um)<<15)&e.DM;for(n=t+this.m.t,e[n]+=this.m.am(0,r,e,t,0,this.m.t);e[n]>=e.DV;)e[n]-=e.DV,e[++n]++}e.clamp(),e.drShiftTo(this.m.t,e),e.compareTo(this.m)>=0&&e.subTo(this.m,e)}function le(e,t){e.squareTo(t),this.reduce(t)}function ue(e,t,n){e.multiplyTo(t,n),this.reduce(n)}ae.prototype.convert=oe,ae.prototype.revert=se,ae.prototype.reduce=ce,ae.prototype.mulTo=ue,ae.prototype.sqrTo=le;function de(){return(this.t>0?this[0]&1:this.s)==0}function fe(e,t){if(e>4294967295||e<1)return c.ONE;var n=l(),r=l(),i=t.convert(this),a=k(e)-1;for(i.copyTo(n);--a>=0;)if(t.sqrTo(n,r),(e&1<<a)>0)t.mulTo(r,i,n);else{var o=n;n=r,r=o}return t.revert(n)}function pe(e,t){var n=e<256||t.isEven()?new ne(t):new ae(t);return this.exp(e,n)}c.prototype.copyTo=b,c.prototype.fromInt=x,c.prototype.fromString=C,c.prototype.clamp=w,c.prototype.dlShiftTo=j,c.prototype.drShiftTo=M,c.prototype.lShiftTo=N,c.prototype.rShiftTo=P,c.prototype.subTo=F,c.prototype.multiplyTo=I,c.prototype.squareTo=L,c.prototype.divRemTo=ee,c.prototype.invDigit=ie,c.prototype.isEven=de,c.prototype.exp=fe,c.prototype.toString=T,c.prototype.negate=E,c.prototype.abs=D,c.prototype.compareTo=O,c.prototype.bitLength=A,c.prototype.mod=te,c.prototype.modPowInt=pe,c.ZERO=S(0),c.ONE=S(1);function me(){var e=l();return this.copyTo(e),e}function he(){if(this.s<0){if(this.t==1)return this[0]-this.DV;if(this.t==0)return-1}else if(this.t==1)return this[0];else if(this.t==0)return 0;return(this[1]&(1<<32-this.DB)-1)<<this.DB|this[0]}function H(){return this.t==0?this.s:this[0]<<24>>24}function ge(){return this.t==0?this.s:this[0]<<16>>16}function _e(e){return Math.floor(Math.LN2*this.DB/Math.log(e))}function ve(){return this.s<0?-1:this.t<=0||this.t==1&&this[0]<=0?0:1}function U(e){if(e??=10,this.signum()==0||e<2||e>36)return`0`;var t=this.chunkSize(e),n=e**+t,r=S(n),i=l(),a=l(),o=``;for(this.divRemTo(r,i,a);i.signum()>0;)o=(n+a.intValue()).toString(e).substr(1)+o,i.divRemTo(r,i,a);return a.intValue().toString(e)+o}function ye(e,t){this.fromInt(0),t??=10;for(var n=this.chunkSize(t),r=t**+n,i=!1,a=0,o=0,s=0;s<e.length;++s){var l=y(e,s);if(l<0){e.charAt(s)==`-`&&this.signum()==0&&(i=!0);continue}o=t*o+l,++a>=n&&(this.dMultiply(r),this.dAddOffset(o,0),a=0,o=0)}a>0&&(this.dMultiply(t**+a),this.dAddOffset(o,0)),i&&c.ZERO.subTo(this,this)}function W(e,t,n){if(typeof t==`number`)if(e<2)this.fromInt(1);else for(this.fromNumber(e,n),this.testBit(e-1)||this.bitwiseTo(c.ONE.shiftLeft(e-1),De,this),this.isEven()&&this.dAddOffset(1,0);!this.isProbablePrime(t);)this.dAddOffset(2,0),this.bitLength()>e&&this.subTo(c.ONE.shiftLeft(e-1),this);else{var r=[],i=e&7;r.length=(e>>3)+1,t.nextBytes(r),i>0?r[0]&=(1<<i)-1:r[0]=0,this.fromString(r,256)}}function be(){var e=this.t,t=[];t[0]=this.s;var n=this.DB-e*this.DB%8,r,i=0;if(e-- >0)for(n<this.DB&&(r=this[e]>>n)!=(this.s&this.DM)>>n&&(t[i++]=r|this.s<<this.DB-n);e>=0;)n<8?(r=(this[e]&(1<<n)-1)<<8-n,r|=this[--e]>>(n+=this.DB-8)):(r=this[e]>>(n-=8)&255,n<=0&&(n+=this.DB,--e)),r&128&&(r|=-256),i==0&&(this.s&128)!=(r&128)&&++i,(i>0||r!=this.s)&&(t[i++]=r);return t}function xe(e){return this.compareTo(e)==0}function Se(e){return this.compareTo(e)<0?this:e}function Ce(e){return this.compareTo(e)>0?this:e}function we(e,t,n){var r,i,a=Math.min(e.t,this.t);for(r=0;r<a;++r)n[r]=t(this[r],e[r]);if(e.t<this.t){for(i=e.s&this.DM,r=a;r<this.t;++r)n[r]=t(this[r],i);n.t=this.t}else{for(i=this.s&this.DM,r=a;r<e.t;++r)n[r]=t(i,e[r]);n.t=e.t}n.s=t(this.s,e.s),n.clamp()}function Te(e,t){return e&t}function Ee(e){var t=l();return this.bitwiseTo(e,Te,t),t}function De(e,t){return e|t}function Oe(e){var t=l();return this.bitwiseTo(e,De,t),t}function ke(e,t){return e^t}function Ae(e){var t=l();return this.bitwiseTo(e,ke,t),t}function je(e,t){return e&~t}function Me(e){var t=l();return this.bitwiseTo(e,je,t),t}function Ne(){for(var e=l(),t=0;t<this.t;++t)e[t]=this.DM&~this[t];return e.t=this.t,e.s=~this.s,e}function Pe(e){var t=l();return e<0?this.rShiftTo(-e,t):this.lShiftTo(e,t),t}function Fe(e){var t=l();return e<0?this.lShiftTo(-e,t):this.rShiftTo(e,t),t}function Ie(e){if(e==0)return-1;var t=0;return e&65535||(e>>=16,t+=16),e&255||(e>>=8,t+=8),e&15||(e>>=4,t+=4),e&3||(e>>=2,t+=2),e&1||++t,t}function Le(){for(var e=0;e<this.t;++e)if(this[e]!=0)return e*this.DB+Ie(this[e]);return this.s<0?this.t*this.DB:-1}function Re(e){for(var t=0;e!=0;)e&=e-1,++t;return t}function G(){for(var e=0,t=this.s&this.DM,n=0;n<this.t;++n)e+=Re(this[n]^t);return e}function ze(e){var t=Math.floor(e/this.DB);return t>=this.t?this.s!=0:(this[t]&1<<e%this.DB)!=0}function Be(e,t){var n=c.ONE.shiftLeft(e);return this.bitwiseTo(n,t,n),n}function K(e){return this.changeBit(e,De)}function Ve(e){return this.changeBit(e,je)}function He(e){return this.changeBit(e,ke)}function Ue(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]+e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r+=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r+=e[n],t[n++]=r&this.DM,r>>=this.DB;r+=e.s}t.s=r<0?-1:0,r>0?t[n++]=r:r<-1&&(t[n++]=this.DV+r),t.t=n,t.clamp()}function We(e){var t=l();return this.addTo(e,t),t}function Ge(e){var t=l();return this.subTo(e,t),t}function Ke(e){var t=l();return this.multiplyTo(e,t),t}function qe(){var e=l();return this.squareTo(e),e}function Je(e){var t=l();return this.divRemTo(e,t,null),t}function Ye(e){var t=l();return this.divRemTo(e,null,t),t}function Xe(e){var t=l(),n=l();return this.divRemTo(e,t,n),[t,n]}function Ze(e){this[this.t]=this.am(0,e-1,this,0,0,this.t),++this.t,this.clamp()}function Qe(e,t){if(e!=0){for(;this.t<=t;)this[this.t++]=0;for(this[t]+=e;this[t]>=this.DV;)this[t]-=this.DV,++t>=this.t&&(this[this.t++]=0),++this[t]}}function $e(){}function et(e){return e}function tt(e,t,n){e.multiplyTo(t,n)}function nt(e,t){e.squareTo(t)}$e.prototype.convert=et,$e.prototype.revert=et,$e.prototype.mulTo=tt,$e.prototype.sqrTo=nt;function rt(e){return this.exp(e,new $e)}function it(e,t,n){var r=Math.min(this.t+e.t,t);for(n.s=0,n.t=r;r>0;)n[--r]=0;var i;for(i=n.t-this.t;r<i;++r)n[r+this.t]=this.am(0,e[r],n,r,0,this.t);for(i=Math.min(e.t,t);r<i;++r)this.am(0,e[r],n,r,0,t-r);n.clamp()}function at(e,t,n){--t;var r=n.t=this.t+e.t-t;for(n.s=0;--r>=0;)n[r]=0;for(r=Math.max(t-this.t,0);r<e.t;++r)n[this.t+r-t]=this.am(t-r,e[r],n,0,0,this.t+r-t);n.clamp(),n.drShiftTo(1,n)}function ot(e){this.r2=l(),this.q3=l(),c.ONE.dlShiftTo(2*e.t,this.r2),this.mu=this.r2.divide(e),this.m=e}function st(e){if(e.s<0||e.t>2*this.m.t)return e.mod(this.m);if(e.compareTo(this.m)<0)return e;var t=l();return e.copyTo(t),this.reduce(t),t}function ct(e){return e}function lt(e){for(e.drShiftTo(this.m.t-1,this.r2),e.t>this.m.t+1&&(e.t=this.m.t+1,e.clamp()),this.mu.multiplyUpperTo(this.r2,this.m.t+1,this.q3),this.m.multiplyLowerTo(this.q3,this.m.t+1,this.r2);e.compareTo(this.r2)<0;)e.dAddOffset(1,this.m.t+1);for(e.subTo(this.r2,e);e.compareTo(this.m)>=0;)e.subTo(this.m,e)}function ut(e,t){e.squareTo(t),this.reduce(t)}function dt(e,t,n){e.multiplyTo(t,n),this.reduce(n)}ot.prototype.convert=st,ot.prototype.revert=ct,ot.prototype.reduce=lt,ot.prototype.mulTo=dt,ot.prototype.sqrTo=ut;function ft(e,t){var n=e.bitLength(),r,i=S(1),a;if(n<=0)return i;r=n<18?1:n<48?3:n<144?4:n<768?5:6,a=n<8?new ne(t):t.isEven()?new ot(t):new ae(t);var o=[],s=3,c=r-1,u=(1<<r)-1;if(o[1]=a.convert(this),r>1){var d=l();for(a.sqrTo(o[1],d);s<=u;)o[s]=l(),a.mulTo(d,o[s-2],o[s]),s+=2}var f=e.t-1,p,m=!0,h=l(),g;for(n=k(e[f])-1;f>=0;){for(n>=c?p=e[f]>>n-c&u:(p=(e[f]&(1<<n+1)-1)<<c-n,f>0&&(p|=e[f-1]>>this.DB+n-c)),s=r;!(p&1);)p>>=1,--s;if((n-=s)<0&&(n+=this.DB,--f),m)o[p].copyTo(i),m=!1;else{for(;s>1;)a.sqrTo(i,h),a.sqrTo(h,i),s-=2;s>0?a.sqrTo(i,h):(g=i,i=h,h=g),a.mulTo(h,o[p],i)}for(;f>=0&&!(e[f]&1<<n);)a.sqrTo(i,h),g=i,i=h,h=g,--n<0&&(n=this.DB-1,--f)}return a.revert(i)}function pt(e){var t=this.s<0?this.negate():this.clone(),n=e.s<0?e.negate():e.clone();if(t.compareTo(n)<0){var r=t;t=n,n=r}var i=t.getLowestSetBit(),a=n.getLowestSetBit();if(a<0)return t;for(i<a&&(a=i),a>0&&(t.rShiftTo(a,t),n.rShiftTo(a,n));t.signum()>0;)(i=t.getLowestSetBit())>0&&t.rShiftTo(i,t),(i=n.getLowestSetBit())>0&&n.rShiftTo(i,n),t.compareTo(n)>=0?(t.subTo(n,t),t.rShiftTo(1,t)):(n.subTo(t,n),n.rShiftTo(1,n));return a>0&&n.lShiftTo(a,n),n}function mt(e){if(e<=0)return 0;var t=this.DV%e,n=this.s<0?e-1:0;if(this.t>0)if(t==0)n=this[0]%e;else for(var r=this.t-1;r>=0;--r)n=(t*n+this[r])%e;return n}function ht(e){var t=e.isEven();if(this.isEven()&&t||e.signum()==0)return c.ZERO;for(var n=e.clone(),r=this.clone(),i=S(1),a=S(0),o=S(0),s=S(1);n.signum()!=0;){for(;n.isEven();)n.rShiftTo(1,n),t?((!i.isEven()||!a.isEven())&&(i.addTo(this,i),a.subTo(e,a)),i.rShiftTo(1,i)):a.isEven()||a.subTo(e,a),a.rShiftTo(1,a);for(;r.isEven();)r.rShiftTo(1,r),t?((!o.isEven()||!s.isEven())&&(o.addTo(this,o),s.subTo(e,s)),o.rShiftTo(1,o)):s.isEven()||s.subTo(e,s),s.rShiftTo(1,s);n.compareTo(r)>=0?(n.subTo(r,n),t&&i.subTo(o,i),a.subTo(s,a)):(r.subTo(n,r),t&&o.subTo(i,o),s.subTo(a,s))}if(r.compareTo(c.ONE)!=0)return c.ZERO;if(s.compareTo(e)>=0)return s.subtract(e);if(s.signum()<0)s.addTo(e,s);else return s;return s.signum()<0?s.add(e):s}var gt=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997],_t=(1<<26)/gt[gt.length-1];function vt(e){var t,n=this.abs();if(n.t==1&&n[0]<=gt[gt.length-1]){for(t=0;t<gt.length;++t)if(n[0]==gt[t])return!0;return!1}if(n.isEven())return!1;for(t=1;t<gt.length;){for(var r=gt[t],i=t+1;i<gt.length&&r<_t;)r*=gt[i++];for(r=n.modInt(r);t<i;)if(r%gt[t++]==0)return!1}return n.millerRabin(e)}function yt(e){var t=this.subtract(c.ONE),n=t.getLowestSetBit();if(n<=0)return!1;var r=t.shiftRight(n);e=e+1>>1,e>gt.length&&(e=gt.length);for(var i=l(),a=0;a<e;++a){i.fromInt(gt[Math.floor(Math.random()*gt.length)]);var o=i.modPow(r,this);if(o.compareTo(c.ONE)!=0&&o.compareTo(t)!=0){for(var s=1;s++<n&&o.compareTo(t)!=0;)if(o=o.modPowInt(2,this),o.compareTo(c.ONE)==0)return!1;if(o.compareTo(t)!=0)return!1}}return!0}c.prototype.chunkSize=_e,c.prototype.toRadix=U,c.prototype.fromRadix=ye,c.prototype.fromNumber=W,c.prototype.bitwiseTo=we,c.prototype.changeBit=Be,c.prototype.addTo=Ue,c.prototype.dMultiply=Ze,c.prototype.dAddOffset=Qe,c.prototype.multiplyLowerTo=it,c.prototype.multiplyUpperTo=at,c.prototype.modInt=mt,c.prototype.millerRabin=yt,c.prototype.clone=me,c.prototype.intValue=he,c.prototype.byteValue=H,c.prototype.shortValue=ge,c.prototype.signum=ve,c.prototype.toByteArray=be,c.prototype.equals=xe,c.prototype.min=Se,c.prototype.max=Ce,c.prototype.and=Ee,c.prototype.or=Oe,c.prototype.xor=Ae,c.prototype.andNot=Me,c.prototype.not=Ne,c.prototype.shiftLeft=Pe,c.prototype.shiftRight=Fe,c.prototype.getLowestSetBit=Le,c.prototype.bitCount=G,c.prototype.testBit=ze,c.prototype.setBit=K,c.prototype.clearBit=Ve,c.prototype.flipBit=He,c.prototype.add=We,c.prototype.subtract=Ge,c.prototype.multiply=Ke,c.prototype.divide=Je,c.prototype.remainder=Ye,c.prototype.divideAndRemainder=Xe,c.prototype.modPow=ft,c.prototype.modInverse=ht,c.prototype.pow=rt,c.prototype.gcd=pt,c.prototype.isProbablePrime=vt,c.prototype.square=qe;var bt=c;bt.prototype.IsNegative=function(){return this.compareTo(bt.ZERO)==-1},bt.op_Equality=function(e,t){return e.compareTo(t)==0},bt.op_Inequality=function(e,t){return e.compareTo(t)!=0},bt.op_GreaterThan=function(e,t){return e.compareTo(t)>0},bt.op_LessThan=function(e,t){return e.compareTo(t)<0},bt.op_Addition=function(e,t){return new bt(e,void 0,void 0).add(new bt(t,void 0,void 0))},bt.op_Subtraction=function(e,t){return new bt(e,void 0,void 0).subtract(new bt(t,void 0,void 0))},bt.Int128Mul=function(e,t){return new bt(e,void 0,void 0).multiply(new bt(t,void 0,void 0))},bt.op_Division=function(e,t){return e.divide(t)},bt.prototype.ToDouble=function(){return parseFloat(this.toString())};var xt=function(e,t){var n;if(Object.getOwnPropertyNames===void 0){for(n in t.prototype)(e.prototype[n]===void 0||e.prototype[n]===Object.prototype[n])&&(e.prototype[n]=t.prototype[n]);for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}else{for(var r=Object.getOwnPropertyNames(t.prototype),i=0;i<r.length;i++)Object.getOwnPropertyDescriptor(e.prototype,r[i])===void 0&&Object.defineProperty(e.prototype,r[i],Object.getOwnPropertyDescriptor(t.prototype,r[i]));for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}};e.Path=function(){return[]},e.Path.prototype.push=Array.prototype.push,e.Paths=function(){return[]},e.Paths.prototype.push=Array.prototype.push,e.DoublePoint=function(){var e=arguments;this.X=0,this.Y=0,e.length===1?(this.X=e[0].X,this.Y=e[0].Y):e.length===2&&(this.X=e[0],this.Y=e[1])},e.DoublePoint0=function(){this.X=0,this.Y=0},e.DoublePoint0.prototype=e.DoublePoint.prototype,e.DoublePoint1=function(e){this.X=e.X,this.Y=e.Y},e.DoublePoint1.prototype=e.DoublePoint.prototype,e.DoublePoint2=function(e,t){this.X=e,this.Y=t},e.DoublePoint2.prototype=e.DoublePoint.prototype,e.PolyNode=function(){this.m_Parent=null,this.m_polygon=new e.Path,this.m_Index=0,this.m_jointype=0,this.m_endtype=0,this.m_Childs=[],this.IsOpen=!1},e.PolyNode.prototype.IsHoleNode=function(){for(var e=!0,t=this.m_Parent;t!==null;)e=!e,t=t.m_Parent;return e},e.PolyNode.prototype.ChildCount=function(){return this.m_Childs.length},e.PolyNode.prototype.Contour=function(){return this.m_polygon},e.PolyNode.prototype.AddChild=function(e){var t=this.m_Childs.length;this.m_Childs.push(e),e.m_Parent=this,e.m_Index=t},e.PolyNode.prototype.GetNext=function(){return this.m_Childs.length>0?this.m_Childs[0]:this.GetNextSiblingUp()},e.PolyNode.prototype.GetNextSiblingUp=function(){return this.m_Parent===null?null:this.m_Index===this.m_Parent.m_Childs.length-1?this.m_Parent.GetNextSiblingUp():this.m_Parent.m_Childs[this.m_Index+1]},e.PolyNode.prototype.Childs=function(){return this.m_Childs},e.PolyNode.prototype.Parent=function(){return this.m_Parent},e.PolyNode.prototype.IsHole=function(){return this.IsHoleNode()},e.PolyTree=function(){this.m_AllPolys=[],e.PolyNode.call(this)},e.PolyTree.prototype.Clear=function(){for(var e=0,t=this.m_AllPolys.length;e<t;e++)this.m_AllPolys[e]=null;this.m_AllPolys.length=0,this.m_Childs.length=0},e.PolyTree.prototype.GetFirst=function(){return this.m_Childs.length>0?this.m_Childs[0]:null},e.PolyTree.prototype.Total=function(){var e=this.m_AllPolys.length;return e>0&&this.m_Childs[0]!==this.m_AllPolys[0]&&e--,e},xt(e.PolyTree,e.PolyNode),e.Math_Abs_Int64=e.Math_Abs_Int32=e.Math_Abs_Double=function(e){return Math.abs(e)},e.Math_Max_Int32_Int32=function(e,t){return Math.max(e,t)},a.msie||a.opera||a.safari?e.Cast_Int32=function(e){return e|0}:e.Cast_Int32=function(e){return~~e},Number.toInteger===void 0&&(Number.toInteger=null),a.chrome?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):~~e}:a.firefox&&typeof Number.toInteger==`function`?e.Cast_Int64=function(e){return Number.toInteger(e)}:a.msie7||a.msie8?e.Cast_Int64=function(e){return parseInt(e,10)}:a.msie?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):e|0}:e.Cast_Int64=function(e){return e<0?Math.ceil(e):Math.floor(e)},e.Clear=function(e){e.length=0},e.PI=3.141592653589793,e.PI2=2*3.141592653589793,e.IntPoint=function(){var t=arguments,n=t.length;if(this.X=0,this.Y=0,e.use_xyz)if(this.Z=0,n===3)this.X=t[0],this.Y=t[1],this.Z=t[2];else if(n===2)this.X=t[0],this.Y=t[1],this.Z=0;else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y),this.Z=0}else{var i=t[0];i.Z===void 0&&(i.Z=0),this.X=i.X,this.Y=i.Y,this.Z=i.Z}else this.X=0,this.Y=0,this.Z=0;else if(n===2)this.X=t[0],this.Y=t[1];else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y)}else{var i=t[0];this.X=i.X,this.Y=i.Y}else this.X=0,this.Y=0},e.IntPoint.op_Equality=function(e,t){return e.X===t.X&&e.Y===t.Y},e.IntPoint.op_Inequality=function(e,t){return e.X!==t.X||e.Y!==t.Y},e.IntPoint0=function(){this.X=0,this.Y=0,e.use_xyz&&(this.Z=0)},e.IntPoint0.prototype=e.IntPoint.prototype,e.IntPoint1=function(t){this.X=t.X,this.Y=t.Y,e.use_xyz&&(t.Z===void 0?this.Z=0:this.Z=t.Z)},e.IntPoint1.prototype=e.IntPoint.prototype,e.IntPoint1dp=function(t){this.X=e.Clipper.Round(t.X),this.Y=e.Clipper.Round(t.Y),e.use_xyz&&(this.Z=0)},e.IntPoint1dp.prototype=e.IntPoint.prototype,e.IntPoint2=function(t,n,r){this.X=t,this.Y=n,e.use_xyz&&(r===void 0?this.Z=0:this.Z=r)},e.IntPoint2.prototype=e.IntPoint.prototype,e.IntRect=function(){var e=arguments,t=e.length;if(t===4)this.left=e[0],this.top=e[1],this.right=e[2],this.bottom=e[3];else if(t===1){var n=e[0];this.left=n.left,this.top=n.top,this.right=n.right,this.bottom=n.bottom}else this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0=function(){this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0.prototype=e.IntRect.prototype,e.IntRect1=function(e){this.left=e.left,this.top=e.top,this.right=e.right,this.bottom=e.bottom},e.IntRect1.prototype=e.IntRect.prototype,e.IntRect4=function(e,t,n,r){this.left=e,this.top=t,this.right=n,this.bottom=r},e.IntRect4.prototype=e.IntRect.prototype,e.ClipType={ctIntersection:0,ctUnion:1,ctDifference:2,ctXor:3},e.PolyType={ptSubject:0,ptClip:1},e.PolyFillType={pftEvenOdd:0,pftNonZero:1,pftPositive:2,pftNegative:3},e.JoinType={jtSquare:0,jtRound:1,jtMiter:2},e.EndType={etOpenSquare:0,etOpenRound:1,etOpenButt:2,etClosedLine:3,etClosedPolygon:4},e.EdgeSide={esLeft:0,esRight:1},e.Direction={dRightToLeft:0,dLeftToRight:1},e.TEdge=function(){this.Bot=new e.IntPoint0,this.Curr=new e.IntPoint0,this.Top=new e.IntPoint0,this.Delta=new e.IntPoint0,this.Dx=0,this.PolyTyp=e.PolyType.ptSubject,this.Side=e.EdgeSide.esLeft,this.WindDelta=0,this.WindCnt=0,this.WindCnt2=0,this.OutIdx=0,this.Next=null,this.Prev=null,this.NextInLML=null,this.NextInAEL=null,this.PrevInAEL=null,this.NextInSEL=null,this.PrevInSEL=null},e.IntersectNode=function(){this.Edge1=null,this.Edge2=null,this.Pt=new e.IntPoint0},e.MyIntersectNodeSort=function(){},e.MyIntersectNodeSort.Compare=function(e,t){var n=t.Pt.Y-e.Pt.Y;return n>0?1:n<0?-1:0},e.LocalMinima=function(){this.Y=0,this.LeftBound=null,this.RightBound=null,this.Next=null},e.Scanbeam=function(){this.Y=0,this.Next=null},e.Maxima=function(){this.X=0,this.Next=null,this.Prev=null},e.OutRec=function(){this.Idx=0,this.IsHole=!1,this.IsOpen=!1,this.FirstLeft=null,this.Pts=null,this.BottomPt=null,this.PolyNode=null},e.OutPt=function(){this.Idx=0,this.Pt=new e.IntPoint0,this.Next=null,this.Prev=null},e.Join=function(){this.OutPt1=null,this.OutPt2=null,this.OffPt=new e.IntPoint0},e.ClipperBase=function(){this.m_MinimaList=null,this.m_CurrentLM=null,this.m_edges=[],this.m_UseFullRange=!1,this.m_HasOpenPaths=!1,this.PreserveCollinear=!1,this.m_Scanbeam=null,this.m_PolyOuts=null,this.m_ActiveEdges=null},e.ClipperBase.horizontal=-9007199254740992,e.ClipperBase.Skip=-2,e.ClipperBase.Unassigned=-1,e.ClipperBase.tolerance=1e-20,e.ClipperBase.loRange=47453132,e.ClipperBase.hiRange=0xfffffffffffff,e.ClipperBase.near_zero=function(t){return t>-e.ClipperBase.tolerance&&t<e.ClipperBase.tolerance},e.ClipperBase.IsHorizontal=function(e){return e.Delta.Y===0},e.ClipperBase.prototype.PointIsVertex=function(t,n){var r=n;do{if(e.IntPoint.op_Equality(r.Pt,t))return!0;r=r.Next}while(r!==n);return!1},e.ClipperBase.prototype.PointOnLineSegment=function(e,t,n,r){return r?e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&bt.op_Equality(bt.Int128Mul(e.X-t.X,n.Y-t.Y),bt.Int128Mul(n.X-t.X,e.Y-t.Y)):e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&(e.X-t.X)*(n.Y-t.Y)===(n.X-t.X)*(e.Y-t.Y)},e.ClipperBase.prototype.PointOnPolygon=function(e,t,n){for(var r=t;;){if(this.PointOnLineSegment(e,r.Pt,r.Next.Pt,n))return!0;if(r=r.Next,r===t)break}return!1},e.ClipperBase.prototype.SlopesEqual=e.ClipperBase.SlopesEqual=function(){var t=arguments,n=t.length,r,i,a,o,s,c,l;return n===3?(r=t[0],i=t[1],l=t[2],l?bt.op_Equality(bt.Int128Mul(r.Delta.Y,i.Delta.X),bt.Int128Mul(r.Delta.X,i.Delta.Y)):e.Cast_Int64(r.Delta.Y*i.Delta.X)===e.Cast_Int64(r.Delta.X*i.Delta.Y)):n===4?(a=t[0],o=t[1],s=t[2],l=t[3],l?bt.op_Equality(bt.Int128Mul(a.Y-o.Y,o.X-s.X),bt.Int128Mul(a.X-o.X,o.Y-s.Y)):e.Cast_Int64((a.Y-o.Y)*(o.X-s.X))-e.Cast_Int64((a.X-o.X)*(o.Y-s.Y))===0):(a=t[0],o=t[1],s=t[2],c=t[3],l=t[4],l?bt.op_Equality(bt.Int128Mul(a.Y-o.Y,s.X-c.X),bt.Int128Mul(a.X-o.X,s.Y-c.Y)):e.Cast_Int64((a.Y-o.Y)*(s.X-c.X))-e.Cast_Int64((a.X-o.X)*(s.Y-c.Y))===0)},e.ClipperBase.SlopesEqual3=function(t,n,r){return r?bt.op_Equality(bt.Int128Mul(t.Delta.Y,n.Delta.X),bt.Int128Mul(t.Delta.X,n.Delta.Y)):e.Cast_Int64(t.Delta.Y*n.Delta.X)===e.Cast_Int64(t.Delta.X*n.Delta.Y)},e.ClipperBase.SlopesEqual4=function(t,n,r,i){return i?bt.op_Equality(bt.Int128Mul(t.Y-n.Y,n.X-r.X),bt.Int128Mul(t.X-n.X,n.Y-r.Y)):e.Cast_Int64((t.Y-n.Y)*(n.X-r.X))-e.Cast_Int64((t.X-n.X)*(n.Y-r.Y))===0},e.ClipperBase.SlopesEqual5=function(t,n,r,i,a){return a?bt.op_Equality(bt.Int128Mul(t.Y-n.Y,r.X-i.X),bt.Int128Mul(t.X-n.X,r.Y-i.Y)):e.Cast_Int64((t.Y-n.Y)*(r.X-i.X))-e.Cast_Int64((t.X-n.X)*(r.Y-i.Y))===0},e.ClipperBase.prototype.Clear=function(){this.DisposeLocalMinimaList();for(var t=0,n=this.m_edges.length;t<n;++t){for(var r=0,i=this.m_edges[t].length;r<i;++r)this.m_edges[t][r]=null;e.Clear(this.m_edges[t])}e.Clear(this.m_edges),this.m_UseFullRange=!1,this.m_HasOpenPaths=!1},e.ClipperBase.prototype.DisposeLocalMinimaList=function(){for(;this.m_MinimaList!==null;){var e=this.m_MinimaList.Next;this.m_MinimaList=null,this.m_MinimaList=e}this.m_CurrentLM=null},e.ClipperBase.prototype.RangeTest=function(t,n){n.Value?(t.X>e.ClipperBase.hiRange||t.Y>e.ClipperBase.hiRange||-t.X>e.ClipperBase.hiRange||-t.Y>e.ClipperBase.hiRange)&&e.Error(`Coordinate outside allowed range in RangeTest().`):(t.X>e.ClipperBase.loRange||t.Y>e.ClipperBase.loRange||-t.X>e.ClipperBase.loRange||-t.Y>e.ClipperBase.loRange)&&(n.Value=!0,this.RangeTest(t,n))},e.ClipperBase.prototype.InitEdge=function(t,n,r,i){t.Next=n,t.Prev=r,t.Curr.X=i.X,t.Curr.Y=i.Y,e.use_xyz&&(t.Curr.Z=i.Z),t.OutIdx=-1},e.ClipperBase.prototype.InitEdge2=function(t,n){t.Curr.Y>=t.Next.Curr.Y?(t.Bot.X=t.Curr.X,t.Bot.Y=t.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Curr.Z),t.Top.X=t.Next.Curr.X,t.Top.Y=t.Next.Curr.Y,e.use_xyz&&(t.Top.Z=t.Next.Curr.Z)):(t.Top.X=t.Curr.X,t.Top.Y=t.Curr.Y,e.use_xyz&&(t.Top.Z=t.Curr.Z),t.Bot.X=t.Next.Curr.X,t.Bot.Y=t.Next.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Next.Curr.Z)),this.SetDx(t),t.PolyTyp=n},e.ClipperBase.prototype.FindNextLocMin=function(t){for(var n;;){for(;e.IntPoint.op_Inequality(t.Bot,t.Prev.Bot)||e.IntPoint.op_Equality(t.Curr,t.Top);)t=t.Next;if(t.Dx!==e.ClipperBase.horizontal&&t.Prev.Dx!==e.ClipperBase.horizontal)break;for(;t.Prev.Dx===e.ClipperBase.horizontal;)t=t.Prev;for(n=t;t.Dx===e.ClipperBase.horizontal;)t=t.Next;if(t.Top.Y!==t.Prev.Bot.Y){n.Prev.Bot.X<t.Bot.X&&(t=n);break}}return t},e.ClipperBase.prototype.ProcessBound=function(t,n){var r,i=t,a;if(i.OutIdx===e.ClipperBase.Skip){if(t=i,n){for(;t.Top.Y===t.Next.Bot.Y;)t=t.Next;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Prev}else{for(;t.Top.Y===t.Prev.Bot.Y;)t=t.Prev;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Next}if(t===i)i=n?t.Next:t.Prev;else{t=n?i.Next:i.Prev;var o=new e.LocalMinima;o.Next=null,o.Y=t.Bot.Y,o.LeftBound=null,o.RightBound=t,t.WindDelta=0,i=this.ProcessBound(t,n),this.InsertLocalMinima(o)}return i}if(t.Dx===e.ClipperBase.horizontal&&(r=n?t.Prev:t.Next,r.Dx===e.ClipperBase.horizontal?r.Bot.X!==t.Bot.X&&r.Top.X!==t.Bot.X&&this.ReverseHorizontal(t):r.Bot.X!==t.Bot.X&&this.ReverseHorizontal(t)),r=t,n){for(;i.Top.Y===i.Next.Bot.Y&&i.Next.OutIdx!==e.ClipperBase.Skip;)i=i.Next;if(i.Dx===e.ClipperBase.horizontal&&i.Next.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Prev.Dx===e.ClipperBase.horizontal;)a=a.Prev;a.Prev.Top.X>i.Next.Top.X&&(i=a.Prev)}for(;t!==i;)t.NextInLML=t.Next,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),t=t.Next;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),i=i.Next}else{for(;i.Top.Y===i.Prev.Bot.Y&&i.Prev.OutIdx!==e.ClipperBase.Skip;)i=i.Prev;if(i.Dx===e.ClipperBase.horizontal&&i.Prev.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Next.Dx===e.ClipperBase.horizontal;)a=a.Next;(a.Next.Top.X===i.Prev.Top.X||a.Next.Top.X>i.Prev.Top.X)&&(i=a.Next)}for(;t!==i;)t.NextInLML=t.Prev,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),t=t.Prev;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),i=i.Prev}return i},e.ClipperBase.prototype.AddPath=function(t,n,r){e.use_lines?!r&&n===e.PolyType.ptClip&&e.Error(`AddPath: Open paths must be subject.`):r||e.Error(`AddPath: Open paths have been disabled.`);var i=t.length-1;if(r)for(;i>0&&e.IntPoint.op_Equality(t[i],t[0]);)--i;for(;i>0&&e.IntPoint.op_Equality(t[i],t[i-1]);)--i;if(r&&i<2||!r&&i<1)return!1;for(var a=[],o=0;o<=i;o++)a.push(new e.TEdge);var s=!0;a[1].Curr.X=t[1].X,a[1].Curr.Y=t[1].Y,e.use_xyz&&(a[1].Curr.Z=t[1].Z);var c={Value:this.m_UseFullRange};this.RangeTest(t[0],c),this.m_UseFullRange=c.Value,c.Value=this.m_UseFullRange,this.RangeTest(t[i],c),this.m_UseFullRange=c.Value,this.InitEdge(a[0],a[1],a[i],t[0]),this.InitEdge(a[i],a[0],a[i-1],t[i]);for(var o=i-1;o>=1;--o)c.Value=this.m_UseFullRange,this.RangeTest(t[o],c),this.m_UseFullRange=c.Value,this.InitEdge(a[o],a[o+1],a[o-1],t[o]);for(var l=a[0],u=l,d=l;;){if(u.Curr===u.Next.Curr&&(r||u.Next!==l)){if(u===u.Next)break;u===l&&(l=u.Next),u=this.RemoveEdge(u),d=u;continue}if(u.Prev===u.Next)break;if(r&&e.ClipperBase.SlopesEqual4(u.Prev.Curr,u.Curr,u.Next.Curr,this.m_UseFullRange)&&(!this.PreserveCollinear||!this.Pt2IsBetweenPt1AndPt3(u.Prev.Curr,u.Curr,u.Next.Curr))){u===l&&(l=u.Next),u=this.RemoveEdge(u),u=u.Prev,d=u;continue}if(u=u.Next,u===d||!r&&u.Next===l)break}if(!r&&u===u.Next||r&&u.Prev===u.Next)return!1;r||(this.m_HasOpenPaths=!0,l.Prev.OutIdx=e.ClipperBase.Skip),u=l;do this.InitEdge2(u,n),u=u.Next,s&&u.Curr.Y!==l.Curr.Y&&(s=!1);while(u!==l);if(s){if(r)return!1;u.Prev.OutIdx=e.ClipperBase.Skip;var f=new e.LocalMinima;for(f.Next=null,f.Y=u.Bot.Y,f.LeftBound=null,f.RightBound=u,f.RightBound.Side=e.EdgeSide.esRight,f.RightBound.WindDelta=0;u.Bot.X!==u.Prev.Top.X&&this.ReverseHorizontal(u),u.Next.OutIdx!==e.ClipperBase.Skip;)u.NextInLML=u.Next,u=u.Next;return this.InsertLocalMinima(f),this.m_edges.push(a),!0}this.m_edges.push(a);var p,m=null;for(e.IntPoint.op_Equality(u.Prev.Bot,u.Prev.Top)&&(u=u.Next);u=this.FindNextLocMin(u),u!==m;){m===null&&(m=u);var f=new e.LocalMinima;f.Next=null,f.Y=u.Bot.Y,u.Dx<u.Prev.Dx?(f.LeftBound=u.Prev,f.RightBound=u,p=!1):(f.LeftBound=u,f.RightBound=u.Prev,p=!0),f.LeftBound.Side=e.EdgeSide.esLeft,f.RightBound.Side=e.EdgeSide.esRight,r?f.LeftBound.Next===f.RightBound?f.LeftBound.WindDelta=-1:f.LeftBound.WindDelta=1:f.LeftBound.WindDelta=0,f.RightBound.WindDelta=-f.LeftBound.WindDelta,u=this.ProcessBound(f.LeftBound,p),u.OutIdx===e.ClipperBase.Skip&&(u=this.ProcessBound(u,p));var h=this.ProcessBound(f.RightBound,!p);h.OutIdx===e.ClipperBase.Skip&&(h=this.ProcessBound(h,!p)),f.LeftBound.OutIdx===e.ClipperBase.Skip?f.LeftBound=null:f.RightBound.OutIdx===e.ClipperBase.Skip&&(f.RightBound=null),this.InsertLocalMinima(f),p||(u=h)}return!0},e.ClipperBase.prototype.AddPaths=function(e,t,n){for(var r=!1,i=0,a=e.length;i<a;++i)this.AddPath(e[i],t,n)&&(r=!0);return r},e.ClipperBase.prototype.Pt2IsBetweenPt1AndPt3=function(t,n,r){return e.IntPoint.op_Equality(t,r)||e.IntPoint.op_Equality(t,n)||e.IntPoint.op_Equality(r,n)?!1:t.X===r.X?n.Y>t.Y==n.Y<r.Y:n.X>t.X==n.X<r.X},e.ClipperBase.prototype.RemoveEdge=function(e){e.Prev.Next=e.Next,e.Next.Prev=e.Prev;var t=e.Next;return e.Prev=null,t},e.ClipperBase.prototype.SetDx=function(t){t.Delta.X=t.Top.X-t.Bot.X,t.Delta.Y=t.Top.Y-t.Bot.Y,t.Delta.Y===0?t.Dx=e.ClipperBase.horizontal:t.Dx=t.Delta.X/t.Delta.Y},e.ClipperBase.prototype.InsertLocalMinima=function(e){if(this.m_MinimaList===null)this.m_MinimaList=e;else if(e.Y>=this.m_MinimaList.Y)e.Next=this.m_MinimaList,this.m_MinimaList=e;else{for(var t=this.m_MinimaList;t.Next!==null&&e.Y<t.Next.Y;)t=t.Next;e.Next=t.Next,t.Next=e}},e.ClipperBase.prototype.PopLocalMinima=function(e,t){return t.v=this.m_CurrentLM,this.m_CurrentLM!==null&&this.m_CurrentLM.Y===e?(this.m_CurrentLM=this.m_CurrentLM.Next,!0):!1},e.ClipperBase.prototype.ReverseHorizontal=function(t){var n=t.Top.X;t.Top.X=t.Bot.X,t.Bot.X=n,e.use_xyz&&(n=t.Top.Z,t.Top.Z=t.Bot.Z,t.Bot.Z=n)},e.ClipperBase.prototype.Reset=function(){if(this.m_CurrentLM=this.m_MinimaList,this.m_CurrentLM!==null){this.m_Scanbeam=null;for(var t=this.m_MinimaList;t!==null;){this.InsertScanbeam(t.Y);var n=t.LeftBound;n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),n=t.RightBound,n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),t=t.Next}this.m_ActiveEdges=null}},e.ClipperBase.prototype.InsertScanbeam=function(t){if(this.m_Scanbeam===null)this.m_Scanbeam=new e.Scanbeam,this.m_Scanbeam.Next=null,this.m_Scanbeam.Y=t;else if(t>this.m_Scanbeam.Y){var n=new e.Scanbeam;n.Y=t,n.Next=this.m_Scanbeam,this.m_Scanbeam=n}else{for(var r=this.m_Scanbeam;r.Next!==null&&t<=r.Next.Y;)r=r.Next;if(t===r.Y)return;var i=new e.Scanbeam;i.Y=t,i.Next=r.Next,r.Next=i}},e.ClipperBase.prototype.PopScanbeam=function(e){return this.m_Scanbeam===null?(e.v=0,!1):(e.v=this.m_Scanbeam.Y,this.m_Scanbeam=this.m_Scanbeam.Next,!0)},e.ClipperBase.prototype.LocalMinimaPending=function(){return this.m_CurrentLM!==null},e.ClipperBase.prototype.CreateOutRec=function(){var t=new e.OutRec;return t.Idx=e.ClipperBase.Unassigned,t.IsHole=!1,t.IsOpen=!1,t.FirstLeft=null,t.Pts=null,t.BottomPt=null,t.PolyNode=null,this.m_PolyOuts.push(t),t.Idx=this.m_PolyOuts.length-1,t},e.ClipperBase.prototype.DisposeOutRec=function(e){var t=this.m_PolyOuts[e];t.Pts=null,t=null,this.m_PolyOuts[e]=null},e.ClipperBase.prototype.UpdateEdgeIntoAEL=function(t){t.NextInLML===null&&e.Error(`UpdateEdgeIntoAEL: invalid call`);var n=t.PrevInAEL,r=t.NextInAEL;return t.NextInLML.OutIdx=t.OutIdx,n===null?this.m_ActiveEdges=t.NextInLML:n.NextInAEL=t.NextInLML,r!==null&&(r.PrevInAEL=t.NextInLML),t.NextInLML.Side=t.Side,t.NextInLML.WindDelta=t.WindDelta,t.NextInLML.WindCnt=t.WindCnt,t.NextInLML.WindCnt2=t.WindCnt2,t=t.NextInLML,t.Curr.X=t.Bot.X,t.Curr.Y=t.Bot.Y,t.PrevInAEL=n,t.NextInAEL=r,e.ClipperBase.IsHorizontal(t)||this.InsertScanbeam(t.Top.Y),t},e.ClipperBase.prototype.SwapPositionsInAEL=function(e,t){if(!(e.NextInAEL===e.PrevInAEL||t.NextInAEL===t.PrevInAEL)){if(e.NextInAEL===t){var n=t.NextInAEL;n!==null&&(n.PrevInAEL=e);var r=e.PrevInAEL;r!==null&&(r.NextInAEL=t),t.PrevInAEL=r,t.NextInAEL=e,e.PrevInAEL=t,e.NextInAEL=n}else if(t.NextInAEL===e){var i=e.NextInAEL;i!==null&&(i.PrevInAEL=t);var a=t.PrevInAEL;a!==null&&(a.NextInAEL=e),e.PrevInAEL=a,e.NextInAEL=t,t.PrevInAEL=e,t.NextInAEL=i}else{var o=e.NextInAEL,s=e.PrevInAEL;e.NextInAEL=t.NextInAEL,e.NextInAEL!==null&&(e.NextInAEL.PrevInAEL=e),e.PrevInAEL=t.PrevInAEL,e.PrevInAEL!==null&&(e.PrevInAEL.NextInAEL=e),t.NextInAEL=o,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=t),t.PrevInAEL=s,t.PrevInAEL!==null&&(t.PrevInAEL.NextInAEL=t)}e.PrevInAEL===null?this.m_ActiveEdges=e:t.PrevInAEL===null&&(this.m_ActiveEdges=t)}},e.ClipperBase.prototype.DeleteFromAEL=function(e){var t=e.PrevInAEL,n=e.NextInAEL;t===null&&n===null&&e!==this.m_ActiveEdges||(t===null?this.m_ActiveEdges=n:t.NextInAEL=n,n!==null&&(n.PrevInAEL=t),e.NextInAEL=null,e.PrevInAEL=null)},e.Clipper=function(t){t===void 0&&(t=0),this.m_PolyOuts=null,this.m_ClipType=e.ClipType.ctIntersection,this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=null,this.m_IntersectNodeComparer=null,this.m_ExecuteLocked=!1,this.m_ClipFillType=e.PolyFillType.pftEvenOdd,this.m_SubjFillType=e.PolyFillType.pftEvenOdd,this.m_Joins=null,this.m_GhostJoins=null,this.m_UsingPolyTree=!1,this.ReverseSolution=!1,this.StrictlySimple=!1,e.ClipperBase.call(this),this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=[],this.m_IntersectNodeComparer=e.MyIntersectNodeSort.Compare,this.m_ExecuteLocked=!1,this.m_UsingPolyTree=!1,this.m_PolyOuts=[],this.m_Joins=[],this.m_GhostJoins=[],this.ReverseSolution=(1&t)!=0,this.StrictlySimple=(2&t)!=0,this.PreserveCollinear=(4&t)!=0,e.use_xyz&&(this.ZFillFunction=null)},e.Clipper.ioReverseSolution=1,e.Clipper.ioStrictlySimple=2,e.Clipper.ioPreserveCollinear=4,e.Clipper.prototype.Clear=function(){this.m_edges.length!==0&&(this.DisposeAllPolyPts(),e.ClipperBase.prototype.Clear.call(this))},e.Clipper.prototype.InsertMaxima=function(t){var n=new e.Maxima;if(n.X=t,this.m_Maxima===null)this.m_Maxima=n,this.m_Maxima.Next=null,this.m_Maxima.Prev=null;else if(t<this.m_Maxima.X)n.Next=this.m_Maxima,n.Prev=null,this.m_Maxima=n;else{for(var r=this.m_Maxima;r.Next!==null&&t>=r.Next.X;)r=r.Next;if(t===r.X)return;n.Next=r.Next,n.Prev=r,r.Next!==null&&(r.Next.Prev=n),r.Next=n}},e.Clipper.prototype.Execute=function(){var t=arguments,n=t.length,r=t[1]instanceof e.PolyTree;if(n===4&&!r){var i=t[0],a=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_HasOpenPaths&&e.Error(`Error: PolyTree struct is needed for open path clipping.`),this.m_ExecuteLocked=!0,e.Clear(a),this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!1;try{var c=this.ExecuteInternal();c&&this.BuildResult(a)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===4&&r){var i=t[0],l=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_ExecuteLocked=!0,this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!0;try{var c=this.ExecuteInternal();c&&this.BuildResult2(l)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===2&&!r){var i=t[0],a=t[1];return this.Execute(i,a,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}else if(n===2&&r){var i=t[0],l=t[1];return this.Execute(i,l,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}},e.Clipper.prototype.FixHoleLinkage=function(e){if(!(e.FirstLeft===null||e.IsHole!==e.FirstLeft.IsHole&&e.FirstLeft.Pts!==null)){for(var t=e.FirstLeft;t!==null&&(t.IsHole===e.IsHole||t.Pts===null);)t=t.FirstLeft;e.FirstLeft=t}},e.Clipper.prototype.ExecuteInternal=function(){try{this.Reset(),this.m_SortedEdges=null,this.m_Maxima=null;var e={},t={};if(!this.PopScanbeam(e))return!1;for(this.InsertLocalMinimaIntoAEL(e.v);this.PopScanbeam(t)||this.LocalMinimaPending();){if(this.ProcessHorizontals(),this.m_GhostJoins.length=0,!this.ProcessIntersections(t.v))return!1;this.ProcessEdgesAtTopOfScanbeam(t.v),e.v=t.v,this.InsertLocalMinimaIntoAEL(e.v)}var n,r,i;for(r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],!(n.Pts===null||n.IsOpen)&&(n.IsHole^this.ReverseSolution)==this.Area$1(n)>0&&this.ReversePolyPtLinks(n.Pts);for(this.JoinCommonEdges(),r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],n.Pts!==null&&(n.IsOpen?this.FixupOutPolyline(n):this.FixupOutPolygon(n));return this.StrictlySimple&&this.DoSimplePolygons(),!0}finally{this.m_Joins.length=0,this.m_GhostJoins.length=0}},e.Clipper.prototype.DisposeAllPolyPts=function(){for(var t=0,n=this.m_PolyOuts.length;t<n;++t)this.DisposeOutRec(t);e.Clear(this.m_PolyOuts)},e.Clipper.prototype.AddJoin=function(t,n,r){var i=new e.Join;i.OutPt1=t,i.OutPt2=n,i.OffPt.X=r.X,i.OffPt.Y=r.Y,e.use_xyz&&(i.OffPt.Z=r.Z),this.m_Joins.push(i)},e.Clipper.prototype.AddGhostJoin=function(t,n){var r=new e.Join;r.OutPt1=t,r.OffPt.X=n.X,r.OffPt.Y=n.Y,e.use_xyz&&(r.OffPt.Z=n.Z),this.m_GhostJoins.push(r)},e.Clipper.prototype.SetZ=function(t,n,r){if(this.ZFillFunction!==null){if(t.Z!==0||this.ZFillFunction===null)return;e.IntPoint.op_Equality(t,n.Bot)?t.Z=n.Bot.Z:e.IntPoint.op_Equality(t,n.Top)?t.Z=n.Top.Z:e.IntPoint.op_Equality(t,r.Bot)?t.Z=r.Bot.Z:e.IntPoint.op_Equality(t,r.Top)?t.Z=r.Top.Z:this.ZFillFunction(n.Bot,n.Top,r.Bot,r.Top,t)}},e.Clipper.prototype.InsertLocalMinimaIntoAEL=function(t){for(var n={},r,i;this.PopLocalMinima(t,n);){r=n.v.LeftBound,i=n.v.RightBound;var a=null;if(r===null?(this.InsertEdgeIntoAEL(i,null),this.SetWindingCount(i),this.IsContributing(i)&&(a=this.AddOutPt(i,i.Bot))):i===null?(this.InsertEdgeIntoAEL(r,null),this.SetWindingCount(r),this.IsContributing(r)&&(a=this.AddOutPt(r,r.Bot)),this.InsertScanbeam(r.Top.Y)):(this.InsertEdgeIntoAEL(r,null),this.InsertEdgeIntoAEL(i,r),this.SetWindingCount(r),i.WindCnt=r.WindCnt,i.WindCnt2=r.WindCnt2,this.IsContributing(r)&&(a=this.AddLocalMinPoly(r,i,r.Bot)),this.InsertScanbeam(r.Top.Y)),i!==null&&(e.ClipperBase.IsHorizontal(i)?(i.NextInLML!==null&&this.InsertScanbeam(i.NextInLML.Top.Y),this.AddEdgeToSEL(i)):this.InsertScanbeam(i.Top.Y)),!(r===null||i===null)){if(a!==null&&e.ClipperBase.IsHorizontal(i)&&this.m_GhostJoins.length>0&&i.WindDelta!==0)for(var o=0,s=this.m_GhostJoins.length;o<s;o++){var c=this.m_GhostJoins[o];this.HorzSegmentsOverlap(c.OutPt1.Pt.X,c.OffPt.X,i.Bot.X,i.Top.X)&&this.AddJoin(c.OutPt1,a,c.OffPt)}if(r.OutIdx>=0&&r.PrevInAEL!==null&&r.PrevInAEL.Curr.X===r.Bot.X&&r.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(r.PrevInAEL.Curr,r.PrevInAEL.Top,r.Curr,r.Top,this.m_UseFullRange)&&r.WindDelta!==0&&r.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(r.PrevInAEL,r.Bot);this.AddJoin(a,l,r.Top)}if(r.NextInAEL!==i){if(i.OutIdx>=0&&i.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(i.PrevInAEL.Curr,i.PrevInAEL.Top,i.Curr,i.Top,this.m_UseFullRange)&&i.WindDelta!==0&&i.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(i.PrevInAEL,i.Bot);this.AddJoin(a,l,i.Top)}var u=r.NextInAEL;if(u!==null)for(;u!==i;)this.IntersectEdges(i,u,r.Curr),u=u.NextInAEL}}}},e.Clipper.prototype.InsertEdgeIntoAEL=function(e,t){if(this.m_ActiveEdges===null)e.PrevInAEL=null,e.NextInAEL=null,this.m_ActiveEdges=e;else if(t===null&&this.E2InsertsBeforeE1(this.m_ActiveEdges,e))e.PrevInAEL=null,e.NextInAEL=this.m_ActiveEdges,this.m_ActiveEdges.PrevInAEL=e,this.m_ActiveEdges=e;else{for(t===null&&(t=this.m_ActiveEdges);t.NextInAEL!==null&&!this.E2InsertsBeforeE1(t.NextInAEL,e);)t=t.NextInAEL;e.NextInAEL=t.NextInAEL,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=e),e.PrevInAEL=t,t.NextInAEL=e}},e.Clipper.prototype.E2InsertsBeforeE1=function(t,n){return n.Curr.X===t.Curr.X?n.Top.Y>t.Top.Y?n.Top.X<e.Clipper.TopX(t,n.Top.Y):t.Top.X>e.Clipper.TopX(n,t.Top.Y):n.Curr.X<t.Curr.X},e.Clipper.prototype.IsEvenOddFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType===e.PolyFillType.pftEvenOdd:this.m_ClipFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsEvenOddAltFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_ClipFillType===e.PolyFillType.pftEvenOdd:this.m_SubjFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsContributing=function(t){var n,r;switch(t.PolyTyp===e.PolyType.ptSubject?(n=this.m_SubjFillType,r=this.m_ClipFillType):(n=this.m_ClipFillType,r=this.m_SubjFillType),n){case e.PolyFillType.pftEvenOdd:if(t.WindDelta===0&&t.WindCnt!==1)return!1;break;case e.PolyFillType.pftNonZero:if(Math.abs(t.WindCnt)!==1)return!1;break;case e.PolyFillType.pftPositive:if(t.WindCnt!==1)return!1;break;default:if(t.WindCnt!==-1)return!1;break}switch(this.m_ClipType){case e.ClipType.ctIntersection:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctUnion:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}case e.ClipType.ctDifference:if(t.PolyTyp===e.PolyType.ptSubject)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctXor:if(t.WindDelta===0)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else return!0}return!0},e.Clipper.prototype.SetWindingCount=function(t){for(var n=t.PrevInAEL;n!==null&&(n.PolyTyp!==t.PolyTyp||n.WindDelta===0);)n=n.PrevInAEL;if(n===null){var r=t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType:this.m_ClipFillType;t.WindDelta===0?t.WindCnt=r===e.PolyFillType.pftNegative?-1:1:t.WindCnt=t.WindDelta,t.WindCnt2=0,n=this.m_ActiveEdges}else if(t.WindDelta===0&&this.m_ClipType!==e.ClipType.ctUnion)t.WindCnt=1,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;else if(this.IsEvenOddFillType(t)){if(t.WindDelta===0){for(var i=!0,a=n.PrevInAEL;a!==null;)a.PolyTyp===n.PolyTyp&&a.WindDelta!==0&&(i=!i),a=a.PrevInAEL;t.WindCnt=+!i}else t.WindCnt=t.WindDelta;t.WindCnt2=n.WindCnt2,n=n.NextInAEL}else n.WindCnt*n.WindDelta<0?Math.abs(n.WindCnt)>1?n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta:t.WindCnt=t.WindDelta===0?1:t.WindDelta:t.WindDelta===0?t.WindCnt=n.WindCnt<0?n.WindCnt-1:n.WindCnt+1:n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;if(this.IsEvenOddAltFillType(t))for(;n!==t;)n.WindDelta!==0&&(t.WindCnt2=+(t.WindCnt2===0)),n=n.NextInAEL;else for(;n!==t;)t.WindCnt2+=n.WindDelta,n=n.NextInAEL},e.Clipper.prototype.AddEdgeToSEL=function(e){this.m_SortedEdges===null?(this.m_SortedEdges=e,e.PrevInSEL=null,e.NextInSEL=null):(e.NextInSEL=this.m_SortedEdges,e.PrevInSEL=null,this.m_SortedEdges.PrevInSEL=e,this.m_SortedEdges=e)},e.Clipper.prototype.PopEdgeFromSEL=function(e){if(e.v=this.m_SortedEdges,e.v===null)return!1;var t=e.v;return this.m_SortedEdges=e.v.NextInSEL,this.m_SortedEdges!==null&&(this.m_SortedEdges.PrevInSEL=null),t.NextInSEL=null,t.PrevInSEL=null,!0},e.Clipper.prototype.CopyAELToSEL=function(){var e=this.m_ActiveEdges;for(this.m_SortedEdges=e;e!==null;)e.PrevInSEL=e.PrevInAEL,e.NextInSEL=e.NextInAEL,e=e.NextInAEL},e.Clipper.prototype.SwapPositionsInSEL=function(e,t){if(!(e.NextInSEL===null&&e.PrevInSEL===null)&&!(t.NextInSEL===null&&t.PrevInSEL===null)){if(e.NextInSEL===t){var n=t.NextInSEL;n!==null&&(n.PrevInSEL=e);var r=e.PrevInSEL;r!==null&&(r.NextInSEL=t),t.PrevInSEL=r,t.NextInSEL=e,e.PrevInSEL=t,e.NextInSEL=n}else if(t.NextInSEL===e){var n=e.NextInSEL;n!==null&&(n.PrevInSEL=t);var r=t.PrevInSEL;r!==null&&(r.NextInSEL=e),e.PrevInSEL=r,e.NextInSEL=t,t.PrevInSEL=e,t.NextInSEL=n}else{var n=e.NextInSEL,r=e.PrevInSEL;e.NextInSEL=t.NextInSEL,e.NextInSEL!==null&&(e.NextInSEL.PrevInSEL=e),e.PrevInSEL=t.PrevInSEL,e.PrevInSEL!==null&&(e.PrevInSEL.NextInSEL=e),t.NextInSEL=n,t.NextInSEL!==null&&(t.NextInSEL.PrevInSEL=t),t.PrevInSEL=r,t.PrevInSEL!==null&&(t.PrevInSEL.NextInSEL=t)}e.PrevInSEL===null?this.m_SortedEdges=e:t.PrevInSEL===null&&(this.m_SortedEdges=t)}},e.Clipper.prototype.AddLocalMaxPoly=function(e,t,n){this.AddOutPt(e,n),t.WindDelta===0&&this.AddOutPt(t,n),e.OutIdx===t.OutIdx?(e.OutIdx=-1,t.OutIdx=-1):e.OutIdx<t.OutIdx?this.AppendPolygon(e,t):this.AppendPolygon(t,e)},e.Clipper.prototype.AddLocalMinPoly=function(t,n,r){var i,a,o;if(e.ClipperBase.IsHorizontal(n)||t.Dx>n.Dx?(i=this.AddOutPt(t,r),n.OutIdx=t.OutIdx,t.Side=e.EdgeSide.esLeft,n.Side=e.EdgeSide.esRight,a=t,o=a.PrevInAEL===n?n.PrevInAEL:a.PrevInAEL):(i=this.AddOutPt(n,r),t.OutIdx=n.OutIdx,t.Side=e.EdgeSide.esRight,n.Side=e.EdgeSide.esLeft,a=n,o=a.PrevInAEL===t?t.PrevInAEL:a.PrevInAEL),o!==null&&o.OutIdx>=0&&o.Top.Y<r.Y&&a.Top.Y<r.Y){var s=e.Clipper.TopX(o,r.Y),c=e.Clipper.TopX(a,r.Y);if(s===c&&a.WindDelta!==0&&o.WindDelta!==0&&e.ClipperBase.SlopesEqual5(new e.IntPoint2(s,r.Y),o.Top,new e.IntPoint2(c,r.Y),a.Top,this.m_UseFullRange)){var l=this.AddOutPt(o,r);this.AddJoin(i,l,a.Top)}}return i},e.Clipper.prototype.AddOutPt=function(t,n){if(t.OutIdx<0){var r=this.CreateOutRec();r.IsOpen=t.WindDelta===0;var i=new e.OutPt;return r.Pts=i,i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=i,i.Prev=i,r.IsOpen||this.SetHoleState(t,r),t.OutIdx=r.Idx,i}else{var r=this.m_PolyOuts[t.OutIdx],a=r.Pts,o=t.Side===e.EdgeSide.esLeft;if(o&&e.IntPoint.op_Equality(n,a.Pt))return a;if(!o&&e.IntPoint.op_Equality(n,a.Prev.Pt))return a.Prev;var i=new e.OutPt;return i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=a,i.Prev=a.Prev,i.Prev.Next=i,a.Prev=i,o&&(r.Pts=i),i}},e.Clipper.prototype.GetLastOutPt=function(t){var n=this.m_PolyOuts[t.OutIdx];return t.Side===e.EdgeSide.esLeft?n.Pts:n.Pts.Prev},e.Clipper.prototype.SwapPoints=function(t,n){var r=new e.IntPoint1(t.Value);t.Value.X=n.Value.X,t.Value.Y=n.Value.Y,e.use_xyz&&(t.Value.Z=n.Value.Z),n.Value.X=r.X,n.Value.Y=r.Y,e.use_xyz&&(n.Value.Z=r.Z)},e.Clipper.prototype.HorzSegmentsOverlap=function(e,t,n,r){var i;return e>t&&(i=e,e=t,t=i),n>r&&(i=n,n=r,r=i),e<r&&n<t},e.Clipper.prototype.SetHoleState=function(e,t){for(var n=e.PrevInAEL,r=null;n!==null;)n.OutIdx>=0&&n.WindDelta!==0&&(r===null?r=n:r.OutIdx===n.OutIdx&&(r=null)),n=n.PrevInAEL;r===null?(t.FirstLeft=null,t.IsHole=!1):(t.FirstLeft=this.m_PolyOuts[r.OutIdx],t.IsHole=!t.FirstLeft.IsHole)},e.Clipper.prototype.GetDx=function(t,n){return t.Y===n.Y?e.ClipperBase.horizontal:(n.X-t.X)/(n.Y-t.Y)},e.Clipper.prototype.FirstIsBottomPt=function(t,n){for(var r=t.Prev;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Prev;var i=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=t.Next;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Next;var a=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=n.Prev;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Prev;var o=Math.abs(this.GetDx(n.Pt,r.Pt));for(r=n.Next;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Next;var s=Math.abs(this.GetDx(n.Pt,r.Pt));return Math.max(i,a)===Math.max(o,s)&&Math.min(i,a)===Math.min(o,s)?this.Area(t)>0:i>=o&&i>=s||a>=o&&a>=s},e.Clipper.prototype.GetBottomPt=function(t){for(var n=null,r=t.Next;r!==t;)r.Pt.Y>t.Pt.Y?(t=r,n=null):r.Pt.Y===t.Pt.Y&&r.Pt.X<=t.Pt.X&&(r.Pt.X<t.Pt.X?(n=null,t=r):r.Next!==t&&r.Prev!==t&&(n=r)),r=r.Next;if(n!==null)for(;n!==r;)for(this.FirstIsBottomPt(r,n)||(t=n),n=n.Next;e.IntPoint.op_Inequality(n.Pt,t.Pt);)n=n.Next;return t},e.Clipper.prototype.GetLowermostRec=function(e,t){e.BottomPt===null&&(e.BottomPt=this.GetBottomPt(e.Pts)),t.BottomPt===null&&(t.BottomPt=this.GetBottomPt(t.Pts));var n=e.BottomPt,r=t.BottomPt;return n.Pt.Y>r.Pt.Y?e:n.Pt.Y<r.Pt.Y?t:n.Pt.X<r.Pt.X?e:n.Pt.X>r.Pt.X||n.Next===n?t:r.Next===r||this.FirstIsBottomPt(n,r)?e:t},e.Clipper.prototype.OutRec1RightOfOutRec2=function(e,t){do if(e=e.FirstLeft,e===t)return!0;while(e!==null);return!1},e.Clipper.prototype.GetOutRec=function(e){for(var t=this.m_PolyOuts[e];t!==this.m_PolyOuts[t.Idx];)t=this.m_PolyOuts[t.Idx];return t},e.Clipper.prototype.AppendPolygon=function(t,n){var r=this.m_PolyOuts[t.OutIdx],i=this.m_PolyOuts[n.OutIdx],a=this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i),o=r.Pts,s=o.Prev,c=i.Pts,l=c.Prev;t.Side===e.EdgeSide.esLeft?n.Side===e.EdgeSide.esLeft?(this.ReversePolyPtLinks(c),c.Next=o,o.Prev=c,s.Next=l,l.Prev=s,r.Pts=l):(l.Next=o,o.Prev=l,c.Prev=s,s.Next=c,r.Pts=c):n.Side===e.EdgeSide.esRight?(this.ReversePolyPtLinks(c),s.Next=l,l.Prev=s,c.Next=o,o.Prev=c):(s.Next=c,c.Prev=s,o.Prev=l,l.Next=o),r.BottomPt=null,a===i&&(i.FirstLeft!==r&&(r.FirstLeft=i.FirstLeft),r.IsHole=i.IsHole),i.Pts=null,i.BottomPt=null,i.FirstLeft=r;var u=t.OutIdx,d=n.OutIdx;t.OutIdx=-1,n.OutIdx=-1;for(var f=this.m_ActiveEdges;f!==null;){if(f.OutIdx===d){f.OutIdx=u,f.Side=t.Side;break}f=f.NextInAEL}i.Idx=r.Idx},e.Clipper.prototype.ReversePolyPtLinks=function(e){if(e!==null){var t=e,n;do n=t.Next,t.Next=t.Prev,t.Prev=n,t=n;while(t!==e)}},e.Clipper.SwapSides=function(e,t){var n=e.Side;e.Side=t.Side,t.Side=n},e.Clipper.SwapPolyIndexes=function(e,t){var n=e.OutIdx;e.OutIdx=t.OutIdx,t.OutIdx=n},e.Clipper.prototype.IntersectEdges=function(t,n,r){var i=t.OutIdx>=0,a=n.OutIdx>=0;if(e.use_xyz&&this.SetZ(r,t,n),e.use_lines&&(t.WindDelta===0||n.WindDelta===0)){if(t.WindDelta===0&&n.WindDelta===0)return;t.PolyTyp===n.PolyTyp&&t.WindDelta!==n.WindDelta&&this.m_ClipType===e.ClipType.ctUnion?t.WindDelta===0?a&&(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):i&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)):t.PolyTyp!==n.PolyTyp&&(t.WindDelta===0&&Math.abs(n.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||n.WindCnt2===0)?(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):n.WindDelta===0&&Math.abs(t.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||t.WindCnt2===0)&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)));return}if(t.PolyTyp===n.PolyTyp)if(this.IsEvenOddFillType(t)){var o=t.WindCnt;t.WindCnt=n.WindCnt,n.WindCnt=o}else t.WindCnt+n.WindDelta===0?t.WindCnt=-t.WindCnt:t.WindCnt+=n.WindDelta,n.WindCnt-t.WindDelta===0?n.WindCnt=-n.WindCnt:n.WindCnt-=t.WindDelta;else this.IsEvenOddFillType(n)?t.WindCnt2=+(t.WindCnt2===0):t.WindCnt2+=n.WindDelta,this.IsEvenOddFillType(t)?n.WindCnt2=+(n.WindCnt2===0):n.WindCnt2-=t.WindDelta;var s,c,l,u;t.PolyTyp===e.PolyType.ptSubject?(s=this.m_SubjFillType,l=this.m_ClipFillType):(s=this.m_ClipFillType,l=this.m_SubjFillType),n.PolyTyp===e.PolyType.ptSubject?(c=this.m_SubjFillType,u=this.m_ClipFillType):(c=this.m_ClipFillType,u=this.m_SubjFillType);var d,f;switch(s){case e.PolyFillType.pftPositive:d=t.WindCnt;break;case e.PolyFillType.pftNegative:d=-t.WindCnt;break;default:d=Math.abs(t.WindCnt);break}switch(c){case e.PolyFillType.pftPositive:f=n.WindCnt;break;case e.PolyFillType.pftNegative:f=-n.WindCnt;break;default:f=Math.abs(n.WindCnt);break}if(i&&a)d!==0&&d!==1||f!==0&&f!==1||t.PolyTyp!==n.PolyTyp&&this.m_ClipType!==e.ClipType.ctXor?this.AddLocalMaxPoly(t,n,r):(this.AddOutPt(t,r),this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(i)(f===0||f===1)&&(this.AddOutPt(t,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(a)(d===0||d===1)&&(this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if((d===0||d===1)&&(f===0||f===1)){var p,m;switch(l){case e.PolyFillType.pftPositive:p=t.WindCnt2;break;case e.PolyFillType.pftNegative:p=-t.WindCnt2;break;default:p=Math.abs(t.WindCnt2);break}switch(u){case e.PolyFillType.pftPositive:m=n.WindCnt2;break;case e.PolyFillType.pftNegative:m=-n.WindCnt2;break;default:m=Math.abs(n.WindCnt2);break}if(t.PolyTyp!==n.PolyTyp)this.AddLocalMinPoly(t,n,r);else if(d===1&&f===1)switch(this.m_ClipType){case e.ClipType.ctIntersection:p>0&&m>0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctUnion:p<=0&&m<=0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctDifference:(t.PolyTyp===e.PolyType.ptClip&&p>0&&m>0||t.PolyTyp===e.PolyType.ptSubject&&p<=0&&m<=0)&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctXor:this.AddLocalMinPoly(t,n,r);break}else e.Clipper.SwapSides(t,n)}},e.Clipper.prototype.DeleteFromSEL=function(e){var t=e.PrevInSEL,n=e.NextInSEL;t===null&&n===null&&e!==this.m_SortedEdges||(t===null?this.m_SortedEdges=n:t.NextInSEL=n,n!==null&&(n.PrevInSEL=t),e.NextInSEL=null,e.PrevInSEL=null)},e.Clipper.prototype.ProcessHorizontals=function(){for(var e={};this.PopEdgeFromSEL(e);)this.ProcessHorizontal(e.v)},e.Clipper.prototype.GetHorzDirection=function(t,n){t.Bot.X<t.Top.X?(n.Left=t.Bot.X,n.Right=t.Top.X,n.Dir=e.Direction.dLeftToRight):(n.Left=t.Top.X,n.Right=t.Bot.X,n.Dir=e.Direction.dRightToLeft)},e.Clipper.prototype.ProcessHorizontal=function(t){var n={Dir:null,Left:null,Right:null};this.GetHorzDirection(t,n);for(var r=n.Dir,i=n.Left,a=n.Right,o=t.WindDelta===0,s=t,c=null;s.NextInLML!==null&&e.ClipperBase.IsHorizontal(s.NextInLML);)s=s.NextInLML;s.NextInLML===null&&(c=this.GetMaximaPair(s));var l=this.m_Maxima;if(l!==null)if(r===e.Direction.dLeftToRight){for(;l!==null&&l.X<=t.Bot.X;)l=l.Next;l!==null&&l.X>=s.Top.X&&(l=null)}else{for(;l.Next!==null&&l.Next.X<t.Bot.X;)l=l.Next;l.X<=s.Top.X&&(l=null)}for(var u=null;;){for(var d=t===s,f=this.GetNextInAEL(t,r);f!==null;){if(l!==null)if(r===e.Direction.dLeftToRight)for(;l!==null&&l.X<f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Next;else for(;l!==null&&l.X>f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Prev;if(r===e.Direction.dLeftToRight&&f.Curr.X>a||r===e.Direction.dRightToLeft&&f.Curr.X<i||f.Curr.X===t.Top.X&&t.NextInLML!==null&&f.Dx<t.NextInLML.Dx)break;if(t.OutIdx>=0&&!o){e.use_xyz&&(r===e.Direction.dLeftToRight?this.SetZ(f.Curr,t,f):this.SetZ(f.Curr,f,t)),u=this.AddOutPt(t,f.Curr);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Bot)}if(f===c&&d){t.OutIdx>=0&&this.AddLocalMaxPoly(t,c,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(c);return}if(r===e.Direction.dLeftToRight){var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(t,f,h)}else{var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(f,t,h)}var g=this.GetNextInAEL(f,r);this.SwapPositionsInAEL(t,f),f=g}if(t.NextInLML===null||!e.ClipperBase.IsHorizontal(t.NextInLML))break;t=this.UpdateEdgeIntoAEL(t),t.OutIdx>=0&&this.AddOutPt(t,t.Bot),n={Dir:r,Left:i,Right:a},this.GetHorzDirection(t,n),r=n.Dir,i=n.Left,a=n.Right}if(t.OutIdx>=0&&u===null){u=this.GetLastOutPt(t);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Top)}if(t.NextInLML!==null)if(t.OutIdx>=0){if(u=this.AddOutPt(t,t.Top),t=this.UpdateEdgeIntoAEL(t),t.WindDelta===0)return;var _=t.PrevInAEL,g=t.NextInAEL;if(_!==null&&_.Curr.X===t.Bot.X&&_.Curr.Y===t.Bot.Y&&_.WindDelta===0&&_.OutIdx>=0&&_.Curr.Y>_.Top.Y&&e.ClipperBase.SlopesEqual3(t,_,this.m_UseFullRange)){var m=this.AddOutPt(_,t.Bot);this.AddJoin(u,m,t.Top)}else if(g!==null&&g.Curr.X===t.Bot.X&&g.Curr.Y===t.Bot.Y&&g.WindDelta!==0&&g.OutIdx>=0&&g.Curr.Y>g.Top.Y&&e.ClipperBase.SlopesEqual3(t,g,this.m_UseFullRange)){var m=this.AddOutPt(g,t.Bot);this.AddJoin(u,m,t.Top)}}else t=this.UpdateEdgeIntoAEL(t);else t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t)},e.Clipper.prototype.GetNextInAEL=function(t,n){return n===e.Direction.dLeftToRight?t.NextInAEL:t.PrevInAEL},e.Clipper.prototype.IsMinima=function(e){return e!==null&&e.Prev.NextInLML!==e&&e.Next.NextInLML!==e},e.Clipper.prototype.IsMaxima=function(e,t){return e!==null&&e.Top.Y===t&&e.NextInLML===null},e.Clipper.prototype.IsIntermediate=function(e,t){return e.Top.Y===t&&e.NextInLML!==null},e.Clipper.prototype.GetMaximaPair=function(t){return e.IntPoint.op_Equality(t.Next.Top,t.Top)&&t.Next.NextInLML===null?t.Next:e.IntPoint.op_Equality(t.Prev.Top,t.Top)&&t.Prev.NextInLML===null?t.Prev:null},e.Clipper.prototype.GetMaximaPairEx=function(t){var n=this.GetMaximaPair(t);return n===null||n.OutIdx===e.ClipperBase.Skip||n.NextInAEL===n.PrevInAEL&&!e.ClipperBase.IsHorizontal(n)?null:n},e.Clipper.prototype.ProcessIntersections=function(t){if(this.m_ActiveEdges===null)return!0;try{if(this.BuildIntersectList(t),this.m_IntersectList.length===0)return!0;if(this.m_IntersectList.length===1||this.FixupIntersectionOrder())this.ProcessIntersectList();else return!1}catch{this.m_SortedEdges=null,this.m_IntersectList.length=0,e.Error(`ProcessIntersections error`)}return this.m_SortedEdges=null,!0},e.Clipper.prototype.BuildIntersectList=function(t){if(this.m_ActiveEdges!==null){var n=this.m_ActiveEdges;for(this.m_SortedEdges=n;n!==null;)n.PrevInSEL=n.PrevInAEL,n.NextInSEL=n.NextInAEL,n.Curr.X=e.Clipper.TopX(n,t),n=n.NextInAEL;for(var r=!0;r&&this.m_SortedEdges!==null;){for(r=!1,n=this.m_SortedEdges;n.NextInSEL!==null;){var i=n.NextInSEL,a=new e.IntPoint0;if(n.Curr.X>i.Curr.X){this.IntersectPoint(n,i,a),a.Y<t&&(a=new e.IntPoint2(e.Clipper.TopX(n,t),t));var o=new e.IntersectNode;o.Edge1=n,o.Edge2=i,o.Pt.X=a.X,o.Pt.Y=a.Y,e.use_xyz&&(o.Pt.Z=a.Z),this.m_IntersectList.push(o),this.SwapPositionsInSEL(n,i),r=!0}else n=i}if(n.PrevInSEL!==null)n.PrevInSEL.NextInSEL=null;else break}this.m_SortedEdges=null}},e.Clipper.prototype.EdgesAdjacent=function(e){return e.Edge1.NextInSEL===e.Edge2||e.Edge1.PrevInSEL===e.Edge2},e.Clipper.IntersectNodeSort=function(e,t){return t.Pt.Y-e.Pt.Y},e.Clipper.prototype.FixupIntersectionOrder=function(){this.m_IntersectList.sort(this.m_IntersectNodeComparer),this.CopyAELToSEL();for(var e=this.m_IntersectList.length,t=0;t<e;t++){if(!this.EdgesAdjacent(this.m_IntersectList[t])){for(var n=t+1;n<e&&!this.EdgesAdjacent(this.m_IntersectList[n]);)n++;if(n===e)return!1;var r=this.m_IntersectList[t];this.m_IntersectList[t]=this.m_IntersectList[n],this.m_IntersectList[n]=r}this.SwapPositionsInSEL(this.m_IntersectList[t].Edge1,this.m_IntersectList[t].Edge2)}return!0},e.Clipper.prototype.ProcessIntersectList=function(){for(var e=0,t=this.m_IntersectList.length;e<t;e++){var n=this.m_IntersectList[e];this.IntersectEdges(n.Edge1,n.Edge2,n.Pt),this.SwapPositionsInAEL(n.Edge1,n.Edge2)}this.m_IntersectList.length=0};var St=function(e){return e<0?Math.ceil(e-.5):Math.round(e)},Ct=function(e){return e<0?Math.ceil(e-.5):Math.floor(e+.5)},wt=function(e){return e<0?-Math.round(Math.abs(e)):Math.round(e)},Tt=function(e){return e<0?(e-=.5,e<-2147483648?Math.ceil(e):e|0):(e+=.5,e>2147483647?Math.floor(e):e|0)};a.msie?e.Clipper.Round=St:a.chromium?e.Clipper.Round=wt:a.safari?e.Clipper.Round=Tt:e.Clipper.Round=Ct,e.Clipper.TopX=function(t,n){return n===t.Top.Y?t.Top.X:t.Bot.X+e.Clipper.Round(t.Dx*(n-t.Bot.Y))},e.Clipper.prototype.IntersectPoint=function(t,n,r){r.X=0,r.Y=0;var i,a;if(t.Dx===n.Dx){r.Y=t.Curr.Y,r.X=e.Clipper.TopX(t,r.Y);return}if(t.Delta.X===0)r.X=t.Bot.X,e.ClipperBase.IsHorizontal(n)?r.Y=n.Bot.Y:(a=n.Bot.Y-n.Bot.X/n.Dx,r.Y=e.Clipper.Round(r.X/n.Dx+a));else if(n.Delta.X===0)r.X=n.Bot.X,e.ClipperBase.IsHorizontal(t)?r.Y=t.Bot.Y:(i=t.Bot.Y-t.Bot.X/t.Dx,r.Y=e.Clipper.Round(r.X/t.Dx+i));else{i=t.Bot.X-t.Bot.Y*t.Dx,a=n.Bot.X-n.Bot.Y*n.Dx;var o=(a-i)/(t.Dx-n.Dx);r.Y=e.Clipper.Round(o),Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.Round(t.Dx*o+i):r.X=e.Clipper.Round(n.Dx*o+a)}if(r.Y<t.Top.Y||r.Y<n.Top.Y){if(t.Top.Y>n.Top.Y)return r.Y=t.Top.Y,r.X=e.Clipper.TopX(n,t.Top.Y),r.X<t.Top.X;r.Y=n.Top.Y,Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.TopX(t,r.Y):r.X=e.Clipper.TopX(n,r.Y)}r.Y>t.Curr.Y&&(r.Y=t.Curr.Y,Math.abs(t.Dx)>Math.abs(n.Dx)?r.X=e.Clipper.TopX(n,r.Y):r.X=e.Clipper.TopX(t,r.Y))},e.Clipper.prototype.ProcessEdgesAtTopOfScanbeam=function(t){for(var n=this.m_ActiveEdges;n!==null;){var r=this.IsMaxima(n,t);if(r){var i=this.GetMaximaPairEx(n);r=i===null||!e.ClipperBase.IsHorizontal(i)}if(r){this.StrictlySimple&&this.InsertMaxima(n.Top.X);var a=n.PrevInAEL;this.DoMaxima(n),n=a===null?this.m_ActiveEdges:a.NextInAEL}else{if(this.IsIntermediate(n,t)&&e.ClipperBase.IsHorizontal(n.NextInLML)?(n=this.UpdateEdgeIntoAEL(n),n.OutIdx>=0&&this.AddOutPt(n,n.Bot),this.AddEdgeToSEL(n)):(n.Curr.X=e.Clipper.TopX(n,t),n.Curr.Y=t),e.use_xyz&&(n.Top.Y===t?n.Curr.Z=n.Top.Z:n.Bot.Y===t?n.Curr.Z=n.Bot.Z:n.Curr.Z=0),this.StrictlySimple){var a=n.PrevInAEL;if(n.OutIdx>=0&&n.WindDelta!==0&&a!==null&&a.OutIdx>=0&&a.Curr.X===n.Curr.X&&a.WindDelta!==0){var o=new e.IntPoint1(n.Curr);e.use_xyz&&this.SetZ(o,a,n);var s=this.AddOutPt(a,o),c=this.AddOutPt(n,o);this.AddJoin(s,c,o)}}n=n.NextInAEL}}for(this.ProcessHorizontals(),this.m_Maxima=null,n=this.m_ActiveEdges;n!==null;){if(this.IsIntermediate(n,t)){var s=null;n.OutIdx>=0&&(s=this.AddOutPt(n,n.Top)),n=this.UpdateEdgeIntoAEL(n);var a=n.PrevInAEL,l=n.NextInAEL;if(a!==null&&a.Curr.X===n.Bot.X&&a.Curr.Y===n.Bot.Y&&s!==null&&a.OutIdx>=0&&a.Curr.Y===a.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,a.Curr,a.Top,this.m_UseFullRange)&&n.WindDelta!==0&&a.WindDelta!==0){var c=this.AddOutPt(ePrev2,n.Bot);this.AddJoin(s,c,n.Top)}else if(l!==null&&l.Curr.X===n.Bot.X&&l.Curr.Y===n.Bot.Y&&s!==null&&l.OutIdx>=0&&l.Curr.Y===l.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,l.Curr,l.Top,this.m_UseFullRange)&&n.WindDelta!==0&&l.WindDelta!==0){var c=this.AddOutPt(l,n.Bot);this.AddJoin(s,c,n.Top)}}n=n.NextInAEL}},e.Clipper.prototype.DoMaxima=function(t){var n=this.GetMaximaPairEx(t);if(n===null){t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t);return}for(var r=t.NextInAEL;r!==null&&r!==n;)this.IntersectEdges(t,r,t.Top),this.SwapPositionsInAEL(t,r),r=t.NextInAEL;t.OutIdx===-1&&n.OutIdx===-1?(this.DeleteFromAEL(t),this.DeleteFromAEL(n)):t.OutIdx>=0&&n.OutIdx>=0?(t.OutIdx>=0&&this.AddLocalMaxPoly(t,n,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(n)):e.use_lines&&t.WindDelta===0?(t.OutIdx>=0&&(this.AddOutPt(t,t.Top),t.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(t),n.OutIdx>=0&&(this.AddOutPt(n,t.Top),n.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(n)):e.Error(`DoMaxima error`)},e.Clipper.ReversePaths=function(e){for(var t=0,n=e.length;t<n;t++)e[t].reverse()},e.Clipper.Orientation=function(t){return e.Clipper.Area(t)>=0},e.Clipper.prototype.PointCount=function(e){if(e===null)return 0;var t=0,n=e;do t++,n=n.Next;while(n!==e);return t},e.Clipper.prototype.BuildResult=function(t){e.Clear(t);for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];if(i.Pts!==null){var a=i.Pts.Prev,o=this.PointCount(a);if(!(o<2)){for(var s=Array(o),c=0;c<o;c++)s[c]=a.Pt,a=a.Prev;t.push(s)}}}},e.Clipper.prototype.BuildResult2=function(t){t.Clear();for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n],a=this.PointCount(i.Pts);if(!(i.IsOpen&&a<2||!i.IsOpen&&a<3)){this.FixHoleLinkage(i);var o=new e.PolyNode;t.m_AllPolys.push(o),i.PolyNode=o,o.m_polygon.length=a;for(var s=i.Pts.Prev,c=0;c<a;c++)o.m_polygon[c]=s.Pt,s=s.Prev}}for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];i.PolyNode!==null&&(i.IsOpen?(i.PolyNode.IsOpen=!0,t.AddChild(i.PolyNode)):i.FirstLeft!==null&&i.FirstLeft.PolyNode!==null?i.FirstLeft.PolyNode.AddChild(i.PolyNode):t.AddChild(i.PolyNode))}},e.Clipper.prototype.FixupOutPolyline=function(t){for(var n=t.Pts,r=n.Prev;n!==r;)if(n=n.Next,e.IntPoint.op_Equality(n.Pt,n.Prev.Pt)){n===r&&(r=n.Prev);var i=n.Prev;i.Next=n.Next,n.Next.Prev=i,n=i}n===n.Prev&&(t.Pts=null)},e.Clipper.prototype.FixupOutPolygon=function(t){var n=null;t.BottomPt=null;for(var r=t.Pts,i=this.PreserveCollinear||this.StrictlySimple;;){if(r.Prev===r||r.Prev===r.Next){t.Pts=null;return}if(e.IntPoint.op_Equality(r.Pt,r.Next.Pt)||e.IntPoint.op_Equality(r.Pt,r.Prev.Pt)||e.ClipperBase.SlopesEqual4(r.Prev.Pt,r.Pt,r.Next.Pt,this.m_UseFullRange)&&(!i||!this.Pt2IsBetweenPt1AndPt3(r.Prev.Pt,r.Pt,r.Next.Pt)))n=null,r.Prev.Next=r.Next,r.Next.Prev=r.Prev,r=r.Prev;else if(r===n)break;else n===null&&(n=r),r=r.Next}t.Pts=r},e.Clipper.prototype.DupOutPt=function(t,n){var r=new e.OutPt;return r.Pt.X=t.Pt.X,r.Pt.Y=t.Pt.Y,e.use_xyz&&(r.Pt.Z=t.Pt.Z),r.Idx=t.Idx,n?(r.Next=t.Next,r.Prev=t,t.Next.Prev=r,t.Next=r):(r.Prev=t.Prev,r.Next=t,t.Prev.Next=r,t.Prev=r),r},e.Clipper.prototype.GetOverlap=function(e,t,n,r,i){return e<t?n<r?(i.Left=Math.max(e,n),i.Right=Math.min(t,r)):(i.Left=Math.max(e,r),i.Right=Math.min(t,n)):n<r?(i.Left=Math.max(t,n),i.Right=Math.min(e,r)):(i.Left=Math.max(t,r),i.Right=Math.min(e,n)),i.Left<i.Right},e.Clipper.prototype.JoinHorz=function(t,n,r,i,a,o){var s=t.Pt.X>n.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight,c=r.Pt.X>i.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight;if(s===c)return!1;if(s===e.Direction.dLeftToRight){for(;t.Next.Pt.X<=a.X&&t.Next.Pt.X>=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,!o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,!o))}else{for(;t.Next.Pt.X>=a.X&&t.Next.Pt.X<=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;!o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,o))}if(c===e.Direction.dLeftToRight){for(;r.Next.Pt.X<=a.X&&r.Next.Pt.X>=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,!o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,!o))}else{for(;r.Next.Pt.X>=a.X&&r.Next.Pt.X<=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;!o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,o))}return s===e.Direction.dLeftToRight===o?(t.Prev=r,r.Next=t,n.Next=i,i.Prev=n):(t.Next=r,r.Prev=t,n.Prev=i,i.Next=n),!0},e.Clipper.prototype.JoinPoints=function(t,n,r){var i=t.OutPt1,a=new e.OutPt,o=t.OutPt2,s=new e.OutPt,c=t.OutPt1.Pt.Y===t.OffPt.Y;if(c&&e.IntPoint.op_Equality(t.OffPt,t.OutPt1.Pt)&&e.IntPoint.op_Equality(t.OffPt,t.OutPt2.Pt)){if(n!==r)return!1;for(a=t.OutPt1.Next;a!==i&&e.IntPoint.op_Equality(a.Pt,t.OffPt);)a=a.Next;var l=a.Pt.Y>t.OffPt.Y;for(s=t.OutPt2.Next;s!==o&&e.IntPoint.op_Equality(s.Pt,t.OffPt);)s=s.Next;return l===s.Pt.Y>t.OffPt.Y?!1:l?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}else if(c){for(a=i;i.Prev.Pt.Y===i.Pt.Y&&i.Prev!==a&&i.Prev!==o;)i=i.Prev;for(;a.Next.Pt.Y===a.Pt.Y&&a.Next!==i&&a.Next!==o;)a=a.Next;if(a.Next===i||a.Next===o)return!1;for(s=o;o.Prev.Pt.Y===o.Pt.Y&&o.Prev!==s&&o.Prev!==a;)o=o.Prev;for(;s.Next.Pt.Y===s.Pt.Y&&s.Next!==o&&s.Next!==i;)s=s.Next;if(s.Next===o||s.Next===i)return!1;var u={Left:null,Right:null};if(!this.GetOverlap(i.Pt.X,a.Pt.X,o.Pt.X,s.Pt.X,u))return!1;var d=u.Left,f=u.Right,p=new e.IntPoint0,m;return i.Pt.X>=d&&i.Pt.X<=f?(p.X=i.Pt.X,p.Y=i.Pt.Y,e.use_xyz&&(p.Z=i.Pt.Z),m=i.Pt.X>a.Pt.X):o.Pt.X>=d&&o.Pt.X<=f?(p.X=o.Pt.X,p.Y=o.Pt.Y,e.use_xyz&&(p.Z=o.Pt.Z),m=o.Pt.X>s.Pt.X):a.Pt.X>=d&&a.Pt.X<=f?(p.X=a.Pt.X,p.Y=a.Pt.Y,e.use_xyz&&(p.Z=a.Pt.Z),m=a.Pt.X>i.Pt.X):(p.X=s.Pt.X,p.Y=s.Pt.Y,e.use_xyz&&(p.Z=s.Pt.Z),m=s.Pt.X>o.Pt.X),t.OutPt1=i,t.OutPt2=o,this.JoinHorz(i,a,o,s,p,m)}else{for(a=i.Next;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Next;var h=a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange);if(h){for(a=i.Prev;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Prev;if(a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange))return!1}for(s=o.Next;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Next;var g=s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange);if(g){for(s=o.Prev;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Prev;if(s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange))return!1}return a===i||s===o||a===s||n===r&&h===g?!1:h?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}},e.Clipper.GetBounds=function(t){for(var n=0,r=t.length;n<r&&t[n].length===0;)n++;if(n===r)return new e.IntRect(0,0,0,0);var i=new e.IntRect;for(i.left=t[n][0].X,i.right=i.left,i.top=t[n][0].Y,i.bottom=i.top;n<r;n++)for(var a=0,o=t[n].length;a<o;a++)t[n][a].X<i.left?i.left=t[n][a].X:t[n][a].X>i.right&&(i.right=t[n][a].X),t[n][a].Y<i.top?i.top=t[n][a].Y:t[n][a].Y>i.bottom&&(i.bottom=t[n][a].Y);return i},e.Clipper.prototype.GetBounds2=function(t){var n=t,r=new e.IntRect;for(r.left=t.Pt.X,r.right=t.Pt.X,r.top=t.Pt.Y,r.bottom=t.Pt.Y,t=t.Next;t!==n;)t.Pt.X<r.left&&(r.left=t.Pt.X),t.Pt.X>r.right&&(r.right=t.Pt.X),t.Pt.Y<r.top&&(r.top=t.Pt.Y),t.Pt.Y>r.bottom&&(r.bottom=t.Pt.Y),t=t.Next;return r},e.Clipper.PointInPolygon=function(e,t){var n=0,r=t.length;if(r<3)return 0;for(var i=t[0],a=1;a<=r;++a){var o=a===r?t[0]:t[a];if(o.Y===e.Y&&(o.X===e.X||i.Y===e.Y&&o.X>e.X==i.X<e.X))return-1;if(i.Y<e.Y!=o.Y<e.Y){if(i.X>=e.X)if(o.X>e.X)n=1-n;else{var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}else if(o.X>e.X){var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}}i=o}return n},e.Clipper.prototype.PointInPolygon=function(e,t){var n=0,r=t,i=e.X,a=e.Y,o=t.Pt.X,s=t.Pt.Y;do{t=t.Next;var c=t.Pt.X,l=t.Pt.Y;if(l===a&&(c===i||s===a&&c>i==o<i))return-1;if(s<a!=l<a){if(o>=i)if(c>i)n=1-n;else{var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}else if(c>i){var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}}o=c,s=l}while(r!==t);return n},e.Clipper.prototype.Poly2ContainsPoly1=function(e,t){var n=e;do{var r=this.PointInPolygon(n.Pt,t);if(r>=0)return r>0;n=n.Next}while(n!==e);return!0},e.Clipper.prototype.FixupFirstLefts1=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&this.Poly2ContainsPoly1(r.Pts,n.Pts)&&(r.FirstLeft=n)},e.Clipper.prototype.FixupFirstLefts2=function(t,n){for(var r=n.FirstLeft,i,a,o=0,s=this.m_PolyOuts.length;o<s;o++)i=this.m_PolyOuts[o],!(i.Pts===null||i===n||i===t)&&(a=e.Clipper.ParseFirstLeft(i.FirstLeft),!(a!==r&&a!==t&&a!==n)&&(this.Poly2ContainsPoly1(i.Pts,t.Pts)?i.FirstLeft=t:this.Poly2ContainsPoly1(i.Pts,n.Pts)?i.FirstLeft=n:(i.FirstLeft===t||i.FirstLeft===n)&&(i.FirstLeft=r)))},e.Clipper.prototype.FixupFirstLefts3=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&(r.FirstLeft=n)},e.Clipper.ParseFirstLeft=function(e){for(;e!==null&&e.Pts===null;)e=e.FirstLeft;return e},e.Clipper.prototype.JoinCommonEdges=function(){for(var e=0,t=this.m_Joins.length;e<t;e++){var n=this.m_Joins[e],r=this.GetOutRec(n.OutPt1.Idx),i=this.GetOutRec(n.OutPt2.Idx);if(!(r.Pts===null||i.Pts===null)&&!(r.IsOpen||i.IsOpen)){var a=r===i?r:this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i);this.JoinPoints(n,r,i)&&(r===i?(r.Pts=n.OutPt1,r.BottomPt=null,i=this.CreateOutRec(),i.Pts=n.OutPt2,this.UpdateOutPtIdxs(i),this.Poly2ContainsPoly1(i.Pts,r.Pts)?(i.IsHole=!r.IsHole,i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts2(i,r),(i.IsHole^this.ReverseSolution)==this.Area$1(i)>0&&this.ReversePolyPtLinks(i.Pts)):this.Poly2ContainsPoly1(r.Pts,i.Pts)?(i.IsHole=r.IsHole,r.IsHole=!i.IsHole,i.FirstLeft=r.FirstLeft,r.FirstLeft=i,this.m_UsingPolyTree&&this.FixupFirstLefts2(r,i),(r.IsHole^this.ReverseSolution)==this.Area$1(r)>0&&this.ReversePolyPtLinks(r.Pts)):(i.IsHole=r.IsHole,i.FirstLeft=r.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(r,i))):(i.Pts=null,i.BottomPt=null,i.Idx=r.Idx,r.IsHole=a.IsHole,a===i&&(r.FirstLeft=i.FirstLeft),i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts3(i,r)))}}},e.Clipper.prototype.UpdateOutPtIdxs=function(e){var t=e.Pts;do t.Idx=e.Idx,t=t.Prev;while(t!==e.Pts)},e.Clipper.prototype.DoSimplePolygons=function(){for(var t=0;t<this.m_PolyOuts.length;){var n=this.m_PolyOuts[t++],r=n.Pts;if(!(r===null||n.IsOpen))do{for(var i=r.Next;i!==n.Pts;){if(e.IntPoint.op_Equality(r.Pt,i.Pt)&&i.Next!==r&&i.Prev!==r){var a=r.Prev,o=i.Prev;r.Prev=o,o.Next=r,i.Prev=a,a.Next=i,n.Pts=r;var s=this.CreateOutRec();s.Pts=i,this.UpdateOutPtIdxs(s),this.Poly2ContainsPoly1(s.Pts,n.Pts)?(s.IsHole=!n.IsHole,s.FirstLeft=n,this.m_UsingPolyTree&&this.FixupFirstLefts2(s,n)):this.Poly2ContainsPoly1(n.Pts,s.Pts)?(s.IsHole=n.IsHole,n.IsHole=!s.IsHole,s.FirstLeft=n.FirstLeft,n.FirstLeft=s,this.m_UsingPolyTree&&this.FixupFirstLefts2(n,s)):(s.IsHole=n.IsHole,s.FirstLeft=n.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(n,s)),i=r}i=i.Next}r=r.Next}while(r!==n.Pts)}},e.Clipper.Area=function(e){if(!Array.isArray(e))return 0;var t=e.length;if(t<3)return 0;for(var n=0,r=0,i=t-1;r<t;++r)n+=(e[i].X+e[r].X)*(e[i].Y-e[r].Y),i=r;return-n*.5},e.Clipper.prototype.Area=function(e){var t=e;if(e===null)return 0;var n=0;do n+=(e.Prev.Pt.X+e.Pt.X)*(e.Prev.Pt.Y-e.Pt.Y),e=e.Next;while(e!==t);return n*.5},e.Clipper.prototype.Area$1=function(e){return this.Area(e.Pts)},e.Clipper.SimplifyPolygon=function(t,n){var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPath(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.SimplifyPolygons=function(t,n){n===void 0&&(n=e.PolyFillType.pftEvenOdd);var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPaths(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.DistanceSqrd=function(e,t){var n=e.X-t.X,r=e.Y-t.Y;return n*n+r*r},e.Clipper.DistanceFromLineSqrd=function(e,t,n){var r=t.Y-n.Y,i=n.X-t.X,a=r*t.X+i*t.Y;return a=r*e.X+i*e.Y-a,a*a/(r*r+i*i)},e.Clipper.SlopesNearCollinear=function(t,n,r,i){return Math.abs(t.X-n.X)>Math.abs(t.Y-n.Y)?t.X>n.X==t.X<r.X?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.X>t.X==n.X<r.X?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i:t.Y>n.Y==t.Y<r.Y?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.Y>t.Y==n.Y<r.Y?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i},e.Clipper.PointsAreClose=function(e,t,n){var r=e.X-t.X,i=e.Y-t.Y;return r*r+i*i<=n},e.Clipper.ExcludeOp=function(e){var t=e.Prev;return t.Next=e.Next,e.Next.Prev=t,t.Idx=0,t},e.Clipper.CleanPolygon=function(t,n){n===void 0&&(n=1.415);var r=t.length;if(r===0)return[];for(var i=Array(r),a=0;a<r;++a)i[a]=new e.OutPt;for(var a=0;a<r;++a)i[a].Pt=t[a],i[a].Next=i[(a+1)%r],i[a].Next.Prev=i[a],i[a].Idx=0;for(var o=n*n,s=i[0];s.Idx===0&&s.Next!==s.Prev;)e.Clipper.PointsAreClose(s.Pt,s.Prev.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):e.Clipper.PointsAreClose(s.Prev.Pt,s.Next.Pt,o)?(e.Clipper.ExcludeOp(s.Next),s=e.Clipper.ExcludeOp(s),r-=2):e.Clipper.SlopesNearCollinear(s.Prev.Pt,s.Pt,s.Next.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):(s.Idx=1,s=s.Next);r<3&&(r=0);for(var c=Array(r),a=0;a<r;++a)c[a]=new e.IntPoint1(s.Pt),s=s.Next;return i=null,c},e.Clipper.CleanPolygons=function(t,n){for(var r=Array(t.length),i=0,a=t.length;i<a;i++)r[i]=e.Clipper.CleanPolygon(t[i],n);return r},e.Clipper.Minkowski=function(t,n,r,i){var a=+!!i,o=t.length,s=n.length,c=[];if(r)for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X+p.X,n[l].Y+p.Y);c.push(u)}else for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X-p.X,n[l].Y-p.Y);c.push(u)}for(var m=[],l=0;l<s-1+a;l++)for(var d=0;d<o;d++){var h=[];h.push(c[l%s][d%o]),h.push(c[(l+1)%s][d%o]),h.push(c[(l+1)%s][(d+1)%o]),h.push(c[l%s][(d+1)%o]),e.Clipper.Orientation(h)||h.reverse(),m.push(h)}return m},e.Clipper.MinkowskiSum=function(t,n,r){if(n[0]instanceof Array){for(var i=n,a=new e.Paths,o=new e.Clipper,s=0;s<i.length;++s){var c=e.Clipper.Minkowski(t,i[s],!0,r);if(o.AddPaths(c,e.PolyType.ptSubject,!0),r){var l=e.Clipper.TranslatePath(i[s],t[0]);o.AddPath(l,e.PolyType.ptClip,!0)}}return o.Execute(e.ClipType.ctUnion,a,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),a}else{var l=n,i=e.Clipper.Minkowski(t,l,!0,r),o=new e.Clipper;return o.AddPaths(i,e.PolyType.ptSubject,!0),o.Execute(e.ClipType.ctUnion,i,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),i}},e.Clipper.TranslatePath=function(t,n){for(var r=new e.Path,i=0;i<t.length;i++)r.push(new e.IntPoint2(t[i].X+n.X,t[i].Y+n.Y));return r},e.Clipper.MinkowskiDiff=function(t,n){var r=e.Clipper.Minkowski(t,n,!1,!0),i=new e.Clipper;return i.AddPaths(r,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),r},e.Clipper.PolyTreeToPaths=function(t){var n=[];return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntAny,n),n},e.Clipper.AddPolyNodeToPaths=function(t,n,r){var i=!0;switch(n){case e.Clipper.NodeType.ntOpen:return;case e.Clipper.NodeType.ntClosed:i=!t.IsOpen;break;default:break}t.m_polygon.length>0&&i&&r.push(t.m_polygon);for(var a=0,o=t.Childs(),s=o.length,c=o[a];a<s;a++,c=o[a])e.Clipper.AddPolyNodeToPaths(c,n,r)},e.Clipper.OpenPathsFromPolyTree=function(t){for(var n=new e.Paths,r=0,i=t.ChildCount();r<i;r++)t.Childs()[r].IsOpen&&n.push(t.Childs()[r].m_polygon);return n},e.Clipper.ClosedPathsFromPolyTree=function(t){var n=new e.Paths;return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntClosed,n),n},xt(e.Clipper,e.ClipperBase),e.Clipper.NodeType={ntAny:0,ntOpen:1,ntClosed:2},e.ClipperOffset=function(t,n){t===void 0&&(t=2),n===void 0&&(n=e.ClipperOffset.def_arc_tolerance),this.m_destPolys=new e.Paths,this.m_srcPoly=new e.Path,this.m_destPoly=new e.Path,this.m_normals=[],this.m_delta=0,this.m_sinA=0,this.m_sin=0,this.m_cos=0,this.m_miterLim=0,this.m_StepsPerRad=0,this.m_lowest=new e.IntPoint0,this.m_polyNodes=new e.PolyNode,this.MiterLimit=t,this.ArcTolerance=n,this.m_lowest.X=-1},e.ClipperOffset.two_pi=6.28318530717959,e.ClipperOffset.def_arc_tolerance=.25,e.ClipperOffset.prototype.Clear=function(){e.Clear(this.m_polyNodes.Childs()),this.m_lowest.X=-1},e.ClipperOffset.Round=e.Clipper.Round,e.ClipperOffset.prototype.AddPath=function(t,n,r){var i=t.length-1;if(!(i<0)){var a=new e.PolyNode;if(a.m_jointype=n,a.m_endtype=r,r===e.EndType.etClosedLine||r===e.EndType.etClosedPolygon)for(;i>0&&e.IntPoint.op_Equality(t[0],t[i]);)i--;a.m_polygon.push(t[0]);for(var o=0,s=0,c=1;c<=i;c++)e.IntPoint.op_Inequality(a.m_polygon[o],t[c])&&(o++,a.m_polygon.push(t[c]),(t[c].Y>a.m_polygon[s].Y||t[c].Y===a.m_polygon[s].Y&&t[c].X<a.m_polygon[s].X)&&(s=o));if(!(r===e.EndType.etClosedPolygon&&o<2)&&(this.m_polyNodes.AddChild(a),r===e.EndType.etClosedPolygon))if(this.m_lowest.X<0)this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s);else{var l=this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon[this.m_lowest.Y];(a.m_polygon[s].Y>l.Y||a.m_polygon[s].Y===l.Y&&a.m_polygon[s].X<l.X)&&(this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s))}}},e.ClipperOffset.prototype.AddPaths=function(e,t,n){for(var r=0,i=e.length;r<i;r++)this.AddPath(e[r],t,n)},e.ClipperOffset.prototype.FixOrientations=function(){if(this.m_lowest.X>=0&&!e.Clipper.Orientation(this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon))for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];(n.m_endtype===e.EndType.etClosedPolygon||n.m_endtype===e.EndType.etClosedLine&&e.Clipper.Orientation(n.m_polygon))&&n.m_polygon.reverse()}else for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];n.m_endtype===e.EndType.etClosedLine&&!e.Clipper.Orientation(n.m_polygon)&&n.m_polygon.reverse()}},e.ClipperOffset.GetUnitNormal=function(t,n){var r=n.X-t.X,i=n.Y-t.Y;if(r===0&&i===0)return new e.DoublePoint2(0,0);var a=1/Math.sqrt(r*r+i*i);return r*=a,i*=a,new e.DoublePoint2(i,-r)},e.ClipperOffset.prototype.DoOffset=function(t){if(this.m_destPolys=[],this.m_delta=t,e.ClipperBase.near_zero(t)){for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];r.m_endtype===e.EndType.etClosedPolygon&&this.m_destPolys.push(r.m_polygon)}return}this.MiterLimit>2?this.m_miterLim=2/(this.MiterLimit*this.MiterLimit):this.m_miterLim=.5;var i=this.ArcTolerance<=0?e.ClipperOffset.def_arc_tolerance:this.ArcTolerance>Math.abs(t)*e.ClipperOffset.def_arc_tolerance?Math.abs(t)*e.ClipperOffset.def_arc_tolerance:this.ArcTolerance,a=3.14159265358979/Math.acos(1-i/Math.abs(t));this.m_sin=Math.sin(e.ClipperOffset.two_pi/a),this.m_cos=Math.cos(e.ClipperOffset.two_pi/a),this.m_StepsPerRad=a/e.ClipperOffset.two_pi,t<0&&(this.m_sin=-this.m_sin);for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];this.m_srcPoly=r.m_polygon;var o=this.m_srcPoly.length;if(!(o===0||t<=0&&(o<3||r.m_endtype!==e.EndType.etClosedPolygon))){if(this.m_destPoly=[],o===1){if(r.m_jointype===e.JoinType.jtRound)for(var s=1,c=0,l=1;l<=a;l++){this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t)));var u=s;s=s*this.m_cos-this.m_sin*c,c=u*this.m_sin+c*this.m_cos}else for(var s=-1,c=-1,l=0;l<4;++l)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t))),s<0?s=1:c<0?c=1:s=-1;this.m_destPolys.push(this.m_destPoly);continue}this.m_normals.length=0;for(var l=0;l<o-1;l++)this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[l],this.m_srcPoly[l+1]));if(r.m_endtype===e.EndType.etClosedLine||r.m_endtype===e.EndType.etClosedPolygon?this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[o-1],this.m_srcPoly[0])):this.m_normals.push(new e.DoublePoint1(this.m_normals[o-2])),r.m_endtype===e.EndType.etClosedPolygon){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else if(r.m_endtype===e.EndType.etClosedLine){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly),this.m_destPoly=[];for(var f=this.m_normals[o-1],l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-f.X,-f.Y),d=0;for(var l=o-1;l>=0;l--)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else{for(var d=0,l=1;l<o-1;++l)d=this.OffsetPoint(l,d,r.m_jointype);var p;if(r.m_endtype===e.EndType.etOpenButt){var l=o-1;p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X+this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y+this.m_normals[l].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X-this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y-this.m_normals[l].Y*t)),this.m_destPoly.push(p)}else{var l=o-1;d=o-2,this.m_sinA=0,this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l].X,-this.m_normals[l].Y),r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(l,d):this.DoRound(l,d)}for(var l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-this.m_normals[1].X,-this.m_normals[1].Y),d=o-1;for(var l=d-1;l>0;--l)d=this.OffsetPoint(l,d,r.m_jointype);r.m_endtype===e.EndType.etOpenButt?(p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X-this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y-this.m_normals[0].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+this.m_normals[0].Y*t)),this.m_destPoly.push(p)):(d=1,this.m_sinA=0,r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(0,1):this.DoRound(0,1)),this.m_destPolys.push(this.m_destPoly)}}}},e.ClipperOffset.prototype.Execute=function(){var t=arguments;if(t[0]instanceof e.PolyTree){var n=t[0],r=t[1];n.Clear(),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;if(o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.ChildCount()===1&&n.Childs()[0].ChildCount()>0){var s=n.Childs()[0];n.Childs()[0]=s.Childs()[0],n.Childs()[0].m_Parent=n;for(var c=1;c<s.ChildCount();c++)n.AddChild(s.Childs()[c])}else n.Clear()}}else{var n=t[0],r=t[1];e.Clear(n),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.length>0&&n.splice(0,1)}}},e.ClipperOffset.prototype.OffsetPoint=function(t,n,r){if(this.m_sinA=this.m_normals[n].X*this.m_normals[t].Y-this.m_normals[t].X*this.m_normals[n].Y,Math.abs(this.m_sinA*this.m_delta)<1){if(this.m_normals[n].X*this.m_normals[t].X+this.m_normals[t].Y*this.m_normals[n].Y>0)return this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),n}else this.m_sinA>1?this.m_sinA=1:this.m_sinA<-1&&(this.m_sinA=-1);if(this.m_sinA*this.m_delta<0)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),this.m_destPoly.push(new e.IntPoint1(this.m_srcPoly[t])),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)));else switch(r){case e.JoinType.jtMiter:var i=1+(this.m_normals[t].X*this.m_normals[n].X+this.m_normals[t].Y*this.m_normals[n].Y);i>=this.m_miterLim?this.DoMiter(t,n,i):this.DoSquare(t,n);break;case e.JoinType.jtSquare:this.DoSquare(t,n);break;case e.JoinType.jtRound:this.DoRound(t,n);break}return n=t,n},e.ClipperOffset.prototype.DoSquare=function(t,n){var r=Math.tan(Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y)/4);this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[n].X-this.m_normals[n].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[n].Y+this.m_normals[n].X*r)))),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[t].X+this.m_normals[t].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[t].Y-this.m_normals[t].X*r))))},e.ClipperOffset.prototype.DoMiter=function(t,n,r){var i=this.m_delta/r;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+(this.m_normals[n].X+this.m_normals[t].X)*i),e.ClipperOffset.Round(this.m_srcPoly[t].Y+(this.m_normals[n].Y+this.m_normals[t].Y)*i)))},e.ClipperOffset.prototype.DoRound=function(t,n){for(var r=Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y),i=Math.max(e.Cast_Int32(e.ClipperOffset.Round(this.m_StepsPerRad*Math.abs(r))),1),a=this.m_normals[n].X,o=this.m_normals[n].Y,s,c=0;c<i;++c)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+a*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+o*this.m_delta))),s=a,a=a*this.m_cos-this.m_sin*o,o=s*this.m_sin+o*this.m_cos;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)))},e.Error=function(e){try{throw Error(e)}catch(e){alert(e.message)}},e.JS={},e.JS.AreaOfPolygon=function(t,n){return n||=1,e.Clipper.Area(t)/(n*n)},e.JS.AreaOfPolygons=function(t,n){n||=1;for(var r=0,i=0;i<t.length;i++)r+=e.Clipper.Area(t[i]);return r/(n*n)},e.JS.BoundsOfPath=function(t,n){return e.JS.BoundsOfPaths([t],n)},e.JS.BoundsOfPaths=function(t,n){n||=1;var r=e.Clipper.GetBounds(t);return r.left/=n,r.bottom/=n,r.right/=n,r.top/=n,r},e.JS.Clean=function(t,n){if(!(t instanceof Array))return[];var r=t[0]instanceof Array,t=e.JS.Clone(t);if(typeof n!=`number`||n===null)return e.Error(`Delta is not a number in Clean().`),t;if(t.length===0||t.length===1&&t[0].length===0||n<0)return t;r||(t=[t]);for(var i=t.length,a,o,s,c,l,u,d,f=[],p=0;p<i;p++)if(o=t[p],a=o.length,a!==0){if(a<3){s=o,f.push(s);continue}for(s=o,c=n*n,l=o[0],u=1,d=1;d<a;d++)(o[d].X-l.X)*(o[d].X-l.X)+(o[d].Y-l.Y)*(o[d].Y-l.Y)<=c||(s[u]=o[d],l=o[d],u++);l=o[u-1],(o[0].X-l.X)*(o[0].X-l.X)+(o[0].Y-l.Y)*(o[0].Y-l.Y)<=c&&u--,u<a&&s.splice(u,a-u),s.length&&f.push(s)}return!r&&f.length?f=f[0]:!r&&f.length===0?f=[]:r&&f.length===0&&(f=[[]]),f},e.JS.Clone=function(e){if(!(e instanceof Array)||e.length===0)return[];if(e.length===1&&e[0].length===0)return[[]];var t=e[0]instanceof Array;t||(e=[e]);var n=e.length,r,i,a,o,s=Array(n);for(i=0;i<n;i++){for(r=e[i].length,o=Array(r),a=0;a<r;a++)o[a]={X:e[i][a].X,Y:e[i][a].Y};s[i]=o}return t||(s=s[0]),s},e.JS.Lighten=function(t,n){if(!(t instanceof Array))return[];if(typeof n!=`number`||n===null)return e.Error(`Tolerance is not a number in Lighten().`),e.JS.Clone(t);if(t.length===0||t.length===1&&t[0].length===0||n<0)return e.JS.Clone(t);var r=t[0]instanceof Array;r||(t=[t]);var i,a,o,s,c,l,u,d,f,p,m,h,g,_,v,y,b,x=t.length,S=n*n,C=[];for(i=0;i<x;i++)if(o=t[i],l=o.length,l!==0){for(s=0;s<1e6;s++){for(c=[],l=o.length,o[l-1].X!==o[0].X||o[l-1].Y!==o[0].Y?(h=1,o.push({X:o[0].X,Y:o[0].Y}),l=o.length):h=0,m=[],a=0;a<l-2;a++)u=o[a],f=o[a+1],d=o[a+2],y=u.X,b=u.Y,g=d.X-y,_=d.Y-b,(g!==0||_!==0)&&(v=((f.X-y)*g+(f.Y-b)*_)/(g*g+_*_),v>1?(y=d.X,b=d.Y):v>0&&(y+=g*v,b+=_*v)),g=f.X-y,_=f.Y-b,p=g*g+_*_,p<=S&&(m[a+1]=1,a++);for(c.push({X:o[0].X,Y:o[0].Y}),a=1;a<l-1;a++)m[a]||c.push({X:o[a].X,Y:o[a].Y});if(c.push({X:o[l-1].X,Y:o[l-1].Y}),h&&o.pop(),m.length)o=c;else break}l=c.length,c[l-1].X===c[0].X&&c[l-1].Y===c[0].Y&&c.pop(),c.length>2&&C.push(c)}return r||(C=C[0]),C===void 0&&(C=[]),C},e.JS.PerimeterOfPath=function(e,t,n){if(e===void 0)return 0;var r=Math.sqrt,i=0,a,o,s=0,c=0,l=0,u=0,d=e.length;if(d<2)return 0;for(t&&(e[d]=e[0],d++);--d;)a=e[d],s=a.X,c=a.Y,o=e[d-1],l=o.X,u=o.Y,i+=r((s-l)*(s-l)+(c-u)*(c-u));return t&&e.pop(),i/n},e.JS.PerimeterOfPaths=function(t,n,r){r||=1;for(var i=0,a=0;a<t.length;a++)i+=e.JS.PerimeterOfPath(t[a],n,r);return i},e.JS.ScaleDownPath=function(e,t){var n,r;for(t||=1,n=e.length;n--;)r=e[n],r.X/=t,r.Y/=t},e.JS.ScaleDownPaths=function(e,t){var n,r,i;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X/=t,i.Y/=t},e.JS.ScaleUpPath=function(e,t){var n,r,i=Math.round;for(t||=1,n=e.length;n--;)r=e[n],r.X=i(r.X*t),r.Y=i(r.Y*t)},e.JS.ScaleUpPaths=function(e,t){var n,r,i,a=Math.round;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X=a(i.X*t),i.Y=a(i.Y*t)},e.ExPolygons=function(){return[]},e.ExPolygon=function(){this.outer=null,this.holes=null},e.JS.AddOuterPolyNodeToExPolygons=function(t,n){var r=new e.ExPolygon;r.outer=t.Contour();var i=t.Childs(),a=i.length;r.holes=Array(a);var o,s,c,l,u,d;for(c=0;c<a;c++)for(o=i[c],r.holes[c]=o.Contour(),l=0,u=o.Childs(),d=u.length;l<d;l++)s=u[l],e.JS.AddOuterPolyNodeToExPolygons(s,n);n.push(r)},e.JS.ExPolygonsToPaths=function(t){var n,r,i,a,o=new e.Paths;for(n=0,i=t.length;n<i;n++)for(o.push(t[n].outer),r=0,a=t[n].holes.length;r<a;r++)o.push(t[n].holes[r]);return o},e.JS.PolyTreeToExPolygons=function(t){var n=new e.ExPolygons,r,i,a,o;for(i=0,a=t.Childs(),o=a.length;i<o;i++)r=a[i],e.JS.AddOuterPolyNodeToExPolygons(r,n);return n}})()}))(),1),RT=1e4,zT=1e-4;function BT(e){let t=0;for(let n=0,r=e.length-1;n<e.length;r=n++)t+=e[r].x*e[n].y-e[n].x*e[r].y;return t/2}function VT(e){let t=1/0,n=1/0,r=-1/0,i=-1/0;for(let a of e)for(let e of a.points)t=Math.min(t,e.x),n=Math.min(n,e.y),r=Math.max(r,e.x),i=Math.max(i,e.y);return{minX:t,minY:n,maxX:r,maxY:i,width:r-t,height:i-n}}function HT(e){return e.map(e=>e.points.map(e=>({X:Math.round(e.x*RT),Y:Math.round(e.y*RT)})))}function UT(e){let t=[];function n(e){for(let r of e.Childs()){let e=r.IsHole(),i=LT.default.Clipper.CleanPolygon(r.Contour(),1.1).map(e=>({x:e.X/RT,y:e.Y/RT}));i.length>=3&&(BT(i)>0===e&&i.reverse(),t.push({isHole:e,points:i})),n(r)}}return n(e),t}function WT(e,t,n,r=!1){if(!e.length)return[];let i=new LT.default.Clipper;i.StrictlySimple=!0,i.AddPaths(HT(e),LT.default.PolyType.ptSubject,!0),t.length&&i.AddPaths(HT(t),LT.default.PolyType.ptClip,!0);let a=new LT.default.PolyTree,o=r?LT.default.PolyFillType.pftEvenOdd:LT.default.PolyFillType.pftNonZero;return i.Execute(n===`union`?LT.default.ClipType.ctUnion:n===`difference`?LT.default.ClipType.ctDifference:LT.default.ClipType.ctIntersection,a,o,LT.default.PolyFillType.pftNonZero),UT(a)}function GT(e,t){if(!e.length)return[];if(Math.abs(t)<1e-4/10)return e.map(e=>({...e,points:e.points.map(e=>({...e}))}));let n=new LT.default.ClipperOffset(2,.002*RT);n.AddPaths(HT(e),LT.default.JoinType.jtMiter,LT.default.EndType.etClosedPolygon);let r=new LT.default.PolyTree;return n.Execute(r,t*RT),UT(r)}function KT(e,t){let n=!1;for(let r=0,i=t.length-1;r<t.length;i=r++){let a=t[r],o=t[i];a.y>e.y!=o.y>e.y&&e.x<(o.x-a.x)*(e.y-a.y)/(o.y-a.y)+a.x&&(n=!n)}return n}function qT(e,t){let n=!1;for(let r of t)KT(e,r.points)&&(n=!n);return n}function JT(e){let t=e.filter(e=>!e.isHole).map(e=>[e]);for(let n of e.filter(e=>e.isHole)){let e=t.filter(e=>KT(n.points[0],e[0].points));e.sort((e,t)=>Math.abs(BT(e[0].points))-Math.abs(BT(t[0].points))),e[0]&&e[0].push(n)}return t}function YT(e){return e.reduce((e,t)=>e+(t.isHole?-1:1)*Math.abs(BT(t.points)),0)}function XT(e){let t=0;for(let n of e)for(let e=0,r=n.points.length-1;e<n.points.length;r=e++)t+=Math.hypot(n.points[e].x-n.points[r].x,n.points[e].y-n.points[r].y);return t}function ZT(e,t){let n=1/0;for(let r of t)for(let t=0,i=r.points.length-1;t<r.points.length;i=t++){let a=r.points[i],o=r.points[t],s=o.x-a.x,c=o.y-a.y,l=Math.max(0,Math.min(1,((e.x-a.x)*s+(e.y-a.y)*c)/(s*s+c*c||1)));n=Math.min(n,Math.hypot(e.x-a.x-l*s,e.y-a.y-l*c))}return qT(e,t)?n:-n}function QT(e){let t=VT(e),n={point:{x:(t.minX+t.maxX)/2,y:(t.minY+t.maxY)/2},clearance:-1/0};for(let r=0;r<18;r++)for(let i=0;i<18;i++){let a={x:t.minX+(r+.5)*t.width/18,y:t.minY+(i+.5)*t.height/18},o=ZT(a,e);o>n.clearance&&(n={point:a,clearance:o})}let r=Math.max(t.width,t.height)/18;for(let t=0;t<7;t++){let t=n.point;for(let i=-1;i<=1;i++)for(let a=-1;a<=1;a++){let o={x:t.x+i*r,y:t.y+a*r},s=ZT(o,e);s>n.clearance&&(n={point:o,clearance:s})}r/=2}return n}function $T(e,t){return{isHole:!1,points:Array.from({length:96},(n,r)=>({x:e.x+t*Math.cos(r*Math.PI*2/96),y:e.y+t*Math.sin(r*Math.PI*2/96)}))}}function eE(e,t){let n=[];for(let r of e)for(let e=0,i=r.points.length-1;e<r.points.length;i=e++){let a=r.points[i],o=r.points[e];(a.x<=t&&o.x>t||o.x<=t&&a.x>t)&&n.push(a.y+(o.y-a.y)*(t-a.x)/(o.x-a.x))}n.sort((e,t)=>e-t);let r=[];for(let e=0;e+1<n.length;e+=2)n[e+1]-n[e]>1e-4&&r.push([n[e],n[e+1]]);return r}function tE(e,t,n){let r=t===`X`?0:t===`Y`?1:2,i=+(r===0),a=r===2?1:2,o=new Map,s=new Map,c=e=>`${Math.round(e.x/zT)},${Math.round(e.y/zT)}`;for(let t=0;t<e.length;t+=9){let l=[e[t+r]-n,e[t+3+r]-n,e[t+6+r]-n].map(e=>Math.abs(e)<1e-4/10?0:e);if(l.every(e=>e>=0)||l.every(e=>e<0))continue;let u=[];for(let n=0;n<3;n++){let r=(n+1)%3;if(l[n]<0==l[r]<0)continue;let o=l[n]/(l[n]-l[r]);u.push({x:e[t+n*3+i]+o*(e[t+r*3+i]-e[t+n*3+i]),y:e[t+n*3+a]+o*(e[t+r*3+a]-e[t+n*3+a])})}if(u.length!==2)continue;let d=c(u[0]),f=c(u[1]);if(d===f)continue;s.set(d,u[0]),s.set(f,u[1]);let p=d<f?`${d}|${f}`:`${f}|${d}`;o.has(p)?o.delete(p):o.set(p,[d,f])}let l=new Map;for(let[e,t]of o.values())l.has(e)||l.set(e,new Set),l.has(t)||l.set(t,new Set),l.get(e).add(t),l.get(t).add(e);let u=0,d=0;for(let e of l.values())e.size===1&&u++,e.size>2&&d++;let f=new Set,p=[];for(let e of l.keys()){if(f.has(e))continue;let t=[e];f.add(e);for(let e=0;e<t.length;e++)for(let n of l.get(t[e]))f.has(n)||(f.add(n),t.push(n));if(t.some(e=>l.get(e).size!==2))continue;let n=[],r=``,i=e;do{n.push(s.get(i));let e=[...l.get(i)].find(e=>e!==r);r=i,i=e}while(i!==e&&n.length<=t.length);i===e&&n.length>=3&&p.push({isHole:!1,points:n})}return{loops:WT(p,[],`union`,!0),open:u,branches:d}}var nE={0:[[0,0,.6,0,.6,1,0,1,0,0]],1:[[.12,.8,.3,1,.3,0],[.08,0,.52,0]],2:[[0,1,.6,1,.6,.5,0,.5,0,0,.6,0]],3:[[0,1,.6,1,.6,0,0,0],[.15,.5,.6,.5]],4:[[0,1,0,.5,.6,.5],[.6,1,.6,0]],5:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],6:[[.6,1,0,1,0,0,.6,0,.6,.5,0,.5]],7:[[0,1,.6,1,.1,0]],8:[[0,0,.6,0,.6,1,0,1,0,0],[0,.5,.6,.5]],9:[[.6,.5,0,.5,0,1,.6,1,.6,0,0,0]],X:[[0,0,.6,1],[0,1,.6,0]],Y:[[0,1,.3,.5,.6,1],[.3,.5,.3,0]],Z:[[0,1,.6,1,0,0,.6,0]],"-":[[.08,.5,.52,.5]],A:[[0,0,.3,1,.6,0],[.12,.4,.48,.4]],B:[[0,0,0,1,.5,1,.6,.75,.5,.5,0,.5],[.5,.5,.6,.25,.5,0,0,0]],C:[[.6,1,0,1,0,0,.6,0]],D:[[0,0,0,1,.4,1,.6,.8,.6,.2,.4,0,0,0]],E:[[.6,1,0,1,0,0,.6,0],[0,.5,.5,.5]],F:[[.6,1,0,1,0,0],[0,.5,.5,.5]],G:[[.6,1,0,1,0,0,.6,0,.6,.5,.35,.5]],H:[[0,0,0,1],[.6,0,.6,1],[0,.5,.6,.5]],I:[[0,1,.6,1],[.3,1,.3,0],[0,0,.6,0]],J:[[0,1,.6,1,.6,0,0,0,0,.25]],K:[[0,0,0,1],[.6,1,0,.5,.6,0]],L:[[0,1,0,0,.6,0]],M:[[0,0,0,1,.3,.5,.6,1,.6,0]],N:[[0,0,0,1,.6,0,.6,1]],O:[[0,0,.6,0,.6,1,0,1,0,0]],P:[[0,0,0,1,.6,1,.6,.5,0,.5]],Q:[[0,0,.6,0,.6,1,0,1,0,0],[.35,.25,.65,-.05]],R:[[0,0,0,1,.6,1,.6,.5,0,.5],[.25,.5,.6,0]],S:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],T:[[0,1,.6,1],[.3,1,.3,0]],U:[[0,1,0,0,.6,0,.6,1]],V:[[0,1,.3,0,.6,1]],W:[[0,1,.15,0,.3,.5,.45,0,.6,1]]};function rE(e,t,n){let{point:r,clearance:i}=n||QT(t),a=e.length*.85-.25,o=Math.min(3.8,2*Math.max(0,i-.7)/Math.hypot(a,1));if(o<.65)return[];let s=r.x-a*o/2,c=r.y-o/2,l=[];return[...e.toUpperCase()].forEach((e,t)=>{for(let n of nE[e]||nE[`-`]){let e=[];for(let r=0;r<n.length;r+=2)e.push({x:s+(t*.85+n[r])*o,y:c+n[r+1]*o});l.push({points:e})}}),l}function iE(e){for(let[t,[n,r]]of Object.entries({targetWidth:[1,1e4],targetDepth:[1,1e4],targetHeight:[1,1e4],materialThickness:[.1,100],laserKerf:[0,5],slotFitTolerance:[-2,5],leadInChamfer:[0,20],xSliceCount:[1,100],ySliceCount:[1,100],slotDepthRatio:[.1,.9],pinDiameter:[.5,100],pinCount:[1,5],sheetWidth:[20,5e3],sheetHeight:[20,5e3],sheetMargin:[0,500],partSpacing:[0,100]})){let i=e[t];if(typeof i!=`number`||!Number.isFinite(i)||i<n||i>r)throw Error(`${t.replace(/([A-Z])/g,` $1`)} must be between ${n} and ${r}.`)}for(let t of[`xSliceCount`,`ySliceCount`,`pinCount`])if(!Number.isInteger(e[t]))throw Error(`Slice and pin counts must be whole numbers.`);if(![`interlocking`,`stacked`].includes(e.mode)||![`X`,`Y`,`Z`].includes(e.stackedAxis)||![`X`,`Y`,`Z`].includes(e.scaleAxis))throw Error(`Invalid slicing mode or axis.`);if(e.materialThickness+e.slotFitTolerance<=e.laserKerf+1e-4&&e.mode===`interlocking`)throw Error(`The desired slot is smaller than the laser kerf. Increase thickness/tolerance or reduce kerf.`);if(e.alignmentPins&&e.pinDiameter<=e.laserKerf+1e-4&&e.mode===`stacked`)throw Error(`Pin diameter must be larger than the laser kerf.`);if(e.sheetMargin*2>=Math.min(e.sheetWidth,e.sheetHeight))throw Error(`The margin leaves no usable sheet area.`)}function aE(e,t,n,r,i,a,o,s){let c=a/2,l=Math.min(o,(n-t)*.15,(i?n-r:r-t)*.45);return{isHole:!1,points:(i?[[e-c,r],[e+c,r],[e+c,n-l],[e+c+l,n],[e+c+l,s],[e-c-l,s],[e-c-l,n],[e-c,n-l]]:[[e-c-l,s],[e+c+l,s],[e+c+l,t],[e+c,t+l],[e+c,r],[e-c,r],[e-c,t+l],[e-c-l,t]]).map(([e,t])=>({x:e,y:t}))}}function oE(e,t){let n=e[0]?.raw||[];for(let t=1;t<e.length&&n.length;t++)n=WT(n,e[t].raw,`intersection`);let r=GT(n,-(t.pinDiameter/2+Math.max(t.materialThickness,2)));if(!r.length)return[];let i=VT(r),a=[];for(let e=0;e<29;e++)for(let t=0;t<29;t++){let n={x:i.minX+(e+.5)*i.width/29,y:i.minY+(t+.5)*i.height/29};qT(n,r)&&a.push(n)}for(let e of JT(r))a.push(QT(e).point);let o=[];for(;o.length<t.pinCount&&a.length;){let e=-1,n=-1/0;if(a.forEach((i,a)=>{let s=o.length?Math.min(...o.map(e=>Math.hypot(i.x-e.x,i.y-e.y))):ZT(i,r);o.length&&s<t.pinDiameter+2*t.materialThickness||s>n&&(n=s,e=a)}),e<0)break;o.push(a.splice(e,1)[0])}return o}function sE(e,t){let n=performance.now();iE(t);let r=[],i=(e,t,n,i=[])=>{let a=r.find(t=>t.code===e);a||(a={code:e,severity:t,message:n,partIds:[]},r.push(a));for(let e of i)a.partIds.includes(e)||a.partIds.push(e)};(e.info.boundaryEdges||e.info.nonManifoldEdges)&&i(`mesh-topology`,`warning`,`Mesh has ${e.info.boundaryEdges.toLocaleString()} open edges and ${e.info.nonManifoldEdges.toLocaleString()} non-manifold edges. Repair the STL for reliable sections.`);let a=Ow(e.vertices),o=[t.targetWidth,t.targetDepth,t.targetHeight],s=t.scaleAxis===`X`?0:t.scaleAxis===`Y`?1:2,c=t.keepAspectRatio?a.dimensions.map(()=>o[s]/a.dimensions[s]):o.map((e,t)=>e/a.dimensions[t]),l=a.dimensions.map((e,t)=>e*c[t]),u=new Float64Array(e.vertices.length);for(let t=0;t<u.length;t++)u[t]=(e.vertices[t]-a.min[t%3])*c[t%3];let d=[],f=[],p=0,m=0,h=(e,t,n,r=n)=>{let a=`${e}-${String(t+1).padStart(2,`0`)}`,o=tE(u,e,r);(o.open||o.branches)&&i(`open-contours`,`error`,`Some sections have open or branching contours and were omitted. DXF can export the generated parts; repair the STL for complete sections.`,[a]),o.loops.length?d.push({id:a,axis:e,index:t,position:n,raw:o.loops,cuts:[]}):i(`empty-sections`,`warning`,`Some slicing planes have no closed material contour.`,[a])};if(t.mode===`interlocking`){for(let[e,n,r]of[[`X`,t.xSliceCount,l[0]],[`Y`,t.ySliceCount,l[1]]]){let a=r/(n+1);a<t.materialThickness?i(`slice-collision`,`error`,`${e} ribs overlap. Reduce the slice count or material thickness.`):a<t.materialThickness*1.5&&i(`tight-spacing`,`warning`,`${e} ribs are closely spaced. Check the material remaining between slots.`);for(let t=0;t<n;t++)h(e,t,(t+1)*a)}let e=d.filter(e=>e.axis===`X`),n=d.filter(e=>e.axis===`Y`),r=t.materialThickness+t.slotFitTolerance;for(let a of e)for(let e of n){let n=eE(a.raw,e.position),o=eE(e.raw,a.position),s=[];for(let[e,t]of n)for(let[n,r]of o){let i=Math.max(e,n),a=Math.min(t,r);a-i>1e-4&&s.push([i,a])}s.length>1&&i(`multi-span-joints`,`warning`,`Some joints cross hollow or concave regions. Check that each slot is accessible during assembly.`,[a.id,e.id]);for(let n=0;n<s.length;n++){let[o,c]=s[n];if(c-o<=2*t.materialThickness||(c-o)*Math.min(t.slotDepthRatio,1-t.slotDepthRatio)<t.materialThickness){i(`short-joints`,`warning`,`Short intersections were left unslotted to avoid fragile joints.`,[a.id,e.id]);continue}let u=c-(c-o)*t.slotDepthRatio,d=n?s[n-1][1]:-t.materialThickness,p=(c+(n+1<s.length?s[n+1][0]:l[2]+t.materialThickness))/2+zT,m=(o+d)/2-zT;a.cuts.push(aE(e.position,o,c,u,!0,r,t.leadInChamfer,s.length===1?l[2]+1:p)),e.cuts.push(aE(a.position,o,c,u,!1,r,t.leadInChamfer,s.length===1?-1:m)),f.push({a:a.id,b:e.id,x:a.position,y:e.position,z:u})}}}else{let e=t.stackedAxis===`X`?0:t.stackedAxis===`Y`?1:2;if(p=Math.max(1,Math.round(l[e]/t.materialThickness)),m=p*t.materialThickness,p>400)throw Error(`This stack needs more than 400 layers. Increase material thickness or reduce model size.`);for(let n=0;n<p;n++)h(t.stackedAxis,n,(n+.5)*t.materialThickness,(n+.5)*l[e]/p);Math.abs(m-l[e])>.001&&i(`rounded-stack`,`warning`,`Stack depth is rounded to ${m.toFixed(2)} mm (${p} layers × ${t.materialThickness} mm).`)}let g=t.mode===`stacked`&&t.alignmentPins?oE(d,t):[];if(t.mode===`stacked`&&t.alignmentPins&&g.length<t.pinCount&&i(`pin-placement`,`warning`,g.length?`Only ${g.length} pin positions fit through every layer with a material margin.`:`No safe pin position passes through every layer. Pins were omitted; use adhesive or external registration.`),g.length)for(let e of d)e.cuts.push(...g.map(e=>$T(e,t.pinDiameter/2)));let _=[];for(let e of d){let n=JT(e.cuts.length?WT(e.raw,e.cuts,`difference`):e.raw).filter(t=>YT(t)>=2?!0:(i(`micro-islands`,`warning`,`Tiny components below 2 mm² were omitted.`,[e.id]),!1));n.length>1&&i(`split-components`,`warning`,`Disconnected regions are exported as separate labeled parts. Inspect their assembly connections.`,[e.id]),n.length||i(`removed-pieces`,`warning`,`Slots removed all usable material from some slices.`,[e.id]),n.forEach((r,a)=>{let o=n.length>1?`-${a<26?String.fromCharCode(65+a):a+1}`:``,s=e.id+o,c=GT(r,t.laserKerf/2);if(c.filter(e=>e.isHole).length<r.filter(e=>e.isHole).length&&i(`vanishing-holes`,`error`,`A hole is smaller than the kerf and disappeared. Reduce kerf or increase feature size.`,[s]),!c.length){i(`collapsed-path`,`error`,`Kerf compensation removed an entire part.`,[s]);return}for(let e of c)e.isHole&&g.some(t=>KT(t,e.points))&&(e.isRegistration=!0);let l=QT(r),u=l.point,d=JT(e.raw).find(e=>qT(u,e))||e.raw,f=rE(s,r,l);f.length||i(`small-labels`,`warning`,`Some narrow parts have no room for an etched label. Match them using the assembly preview.`,[s]),_.push({id:s,label:s,parentId:e.id,axis:e.axis,sliceIndex:e.index,worldPosition:e.position,unmodifiedPaths:d,assemblyPaths:r,cutPaths:c,etchPaths:f,bounds:VT(c),area:YT(r),cutLength:XT(c),joints:[]})})}let v=[];for(let e of f){let n=_.find(t=>t.parentId===e.a&&qT({x:e.y,y:e.z-.1},t.assemblyPaths)),r=_.find(t=>t.parentId===e.b&&qT({x:e.x,y:e.z+.1},t.assemblyPaths));if(n&&r){n.joints.push(r.id),r.joints.push(n.id),v.push({...e,a:n.id,b:r.id});for(let[i,a,o]of[[n,e.y,-1],[r,e.x,1]])for(let n of[-1,1]){let r={x:a+n*(t.materialThickness+t.slotFitTolerance)/2+n*.7,y:e.z+o*.9},s={x:r.x+n*1.4,y:r.y};ZT(r,i.assemblyPaths)>.2&&ZT(s,i.assemblyPaths)>.2&&i.etchPaths.push({points:[r,s]})}}else i(`incomplete-joints`,`warning`,`Some joints lost their supporting material during slot subtraction.`,[e.a,e.b])}if(t.mode===`interlocking`){let e=_.filter(e=>!e.joints.length).map(e=>e.id);e.length&&i(`unanchored-parts`,`warning`,`Some parts have no usable interlock. They need support or adhesive.`,e);let t=new Set,n=0,r=new Map(_.map(e=>[e.id,e]));for(let e of _){if(t.has(e.id))continue;n++;let i=[e.id];t.add(e.id);for(let e=0;e<i.length;e++)for(let n of r.get(i[e]).joints)t.has(n)||(t.add(n),i.push(n))}n>1&&i(`separate-assemblies`,`warning`,`The joint graph contains ${n} separate assemblies. Review how they are supported.`)}else if(g.length){let e=_.filter(e=>!e.cutPaths.some(e=>e.isRegistration)).map(e=>e.id);e.length&&i(`unpinned-components`,`warning`,`Some stacked components contain no registration pin. Use adhesive and position them by the preview.`,e)}_.length||i(`no-pieces`,`error`,`No usable parts were generated. Try fewer slices, a thicker stack, or a closed mesh.`);let y=ww(_,t);return y.unplaced.length&&i(`oversize-parts`,`error`,`Some parts do not fit the usable sheet area. Increase the sheet size, reduce margins/spacing, or scale the model down.`,y.unplaced),{model:e.info,dimensions:l,vertices:new Float32Array(u),settings:{...t},pieces:_,...y,joints:v,pins:g,issues:r,processingMs:performance.now()-n,layerCount:p,builtDepth:m}}function cE(e){let t=document.modelContext;if(!t?.registerTool)return()=>{};let n=new AbortController,r=[{name:`read_slice_project`,title:`Read slice project`,description:`Read the loaded model, current settings, sheets, parts, and fabrication issues.`,inputSchema:{type:`object`,properties:{},additionalProperties:!1},annotations:{readOnlyHint:!0,untrustedContentHint:!0},execute:()=>e.read()},{name:`configure_slices`,title:`Configure slices`,description:`Change fabrication settings, regenerate parts and sheets, and return the completed result.`,inputSchema:{type:`object`,properties:{mode:{type:`string`,enum:[`interlocking`,`stacked`]},targetWidth:{type:`number`,minimum:1,maximum:1e4},materialThickness:{type:`number`,minimum:.1,maximum:100},laserKerf:{type:`number`,minimum:0,maximum:5},slotFitTolerance:{type:`number`,minimum:-2,maximum:5},xSliceCount:{type:`integer`,minimum:1,maximum:100},ySliceCount:{type:`integer`,minimum:1,maximum:100},stackedAxis:{type:`string`,enum:[`X`,`Y`,`Z`]},alignmentPins:{type:`boolean`},sheetWidth:{type:`number`,minimum:20,maximum:5e3},sheetHeight:{type:`number`,minimum:20,maximum:5e3}},additionalProperties:!1},annotations:{readOnlyHint:!1,untrustedContentHint:!1},execute:e.configure},{name:`export_cut_sheets`,title:`Export cut sheets`,description:`Download files for a completed project. DXF is available with fabrication errors. For DXF, sheetCount + 1 exports unplaced parts without a bed-size limit; this is sheet 1 if no parts fit. SVG and ZIP require resolved fabrication errors. Pending regeneration or processing failures block all downloads.`,inputSchema:{type:`object`,properties:{format:{type:`string`,enum:[`zip`,`svg`,`dxf`]},sheet:{type:`integer`,minimum:1},labels:{type:`boolean`}},required:[`format`],additionalProperties:!1},annotations:{readOnlyHint:!1,untrustedContentHint:!1},execute:e.export}];for(let e of r)try{Promise.resolve(t.registerTool(e,{signal:n.signal})).catch(()=>{})}catch{}return()=>n.abort()}var lE='(function(){var e=Object.create,t=Object.defineProperty,n=Object.getOwnPropertyDescriptor,r=Object.getOwnPropertyNames,i=Object.getPrototypeOf,a=Object.prototype.hasOwnProperty,o=(e,t)=>()=>(t||(e((t={exports:{}}).exports,t),e=null),t.exports),s=(e,i,o,s)=>{if(i&&typeof i==`object`||typeof i==`function`)for(var c=r(i),l=0,u=c.length,d;l<u;l++)d=c[l],!a.call(e,d)&&d!==o&&t(e,d,{get:(e=>i[e]).bind(null,d),enumerable:!(s=n(i,d))||s.enumerable});return e},c=(n,r,a)=>(a=n==null?{}:e(i(n)),s(r||!n||!n.__esModule?t(a,`default`,{value:n,enumerable:!0}):a,n));function l(e){let t=[1/0,1/0,1/0],n=[-1/0,-1/0,-1/0];for(let r=0;r<e.length;r++){if(!Number.isFinite(e[r]))throw Error(`The mesh contains invalid vertex coordinates.`);let i=r%3;t[i]=Math.min(t[i],e[r]),n[i]=Math.max(n[i],e[r])}let r=n.map((e,n)=>e-t[n]);if(r.some(e=>e<=1e-9||!Number.isFinite(e)))throw Error(`The STL must have volume in all three dimensions.`);return{min:t,max:n,dimensions:r}}function u(e,t,n){let{min:r,dimensions:i}=l(e),a=Math.max(...i)*1e-7,o=new Map,s=new Map,c=new Uint32Array(e.length/3);for(let t=0,n=0;t<e.length;t+=3,n++){let i=[0,1,2].map(n=>Math.round((e[t+n]-r[n])/a)).join(`,`),s=o.get(i);s===void 0&&(s=o.size,o.set(i,s)),c[n]=s}for(let e=0;e<c.length;e+=3)if(!(c[e]===c[e+1]||c[e+1]===c[e+2]||c[e]===c[e+2]))for(let t=0;t<3;t++){let n=c[e+t],r=c[e+(t+1)%3],i=n<r?`${n}:${r}`:`${r}:${n}`;s.set(i,(s.get(i)||0)+1)}let u=0,d=0;for(let e of s.values())e===1&&u++,e>2&&d++;return{name:t,format:n,triangleCount:e.length/9,originalDimensions:i,boundaryEdges:u,nonManifoldEdges:d}}function d(e,t){if(e.byteLength>100*1024*1024)throw Error(`This STL is over 100 MB. Simplify the mesh before importing it.`);let n=new DataView(e),r=e.byteLength>=84?n.getUint32(80,!0):0,i=84+r*50,a=new TextDecoder().decode(e.slice(0,Math.min(256,e.byteLength))).trimStart();if(r>1e6&&i<=e.byteLength)throw Error(`Simplify this mesh to fewer than one million triangles.`);let o=r>0&&r<=1e6&&(i===e.byteLength||i<=e.byteLength&&(!/^solid\\b/i.test(a)||/[\\x00-\\x08\\x0e-\\x1f]/.test(a))),s,c;if(o){s=new Float64Array(r*9);for(let e=0;e<r;e++){let t=84+e*50+12;for(let r=0;r<9;r++)s[e*9+r]=n.getFloat32(t+r*4,!0)}c=`Binary STL`}else{let t=new TextDecoder().decode(e);if(!/^\\s*solid\\b/i.test(t))throw Error(`This is not a readable binary or ASCII STL file.`);let n=`([+-]?(?:\\\\d+\\\\.?\\\\d*|\\\\.\\\\d+)(?:[eE][+-]?\\\\d+)?)`,r=RegExp(`\\\\bvertex\\\\s+${n}\\\\s+${n}\\\\s+${n}`,`gi`),i=[],a;for(;a=r.exec(t);)if(i.push(Number(a[1]),Number(a[2]),Number(a[3])),i.length>9e6)throw Error(`Simplify this mesh to fewer than one million triangles.`);if(i.length<36||i.length%9!=0)throw Error(`The ASCII STL contains incomplete triangles.`);if(t.match(/\\bfacet\\s+normal\\b/gi)?.length!==i.length/9)throw Error(`The ASCII STL facet and vertex counts do not match.`);s=new Float64Array(i),c=`ASCII STL`}return{vertices:s,info:u(s,t,c)}}let f={ripple:`Ripple form`,sphere:`Ellipsoid`,torus:`Torus`,cube:`Calibration cube`};function p(e){let t=[],n=(e,n,r)=>t.push(...e,...n,...r);if(e===`cube`){let e=[[0,0,0],[100,0,0],[100,100,0],[0,100,0],[0,0,100],[100,0,100],[100,100,100],[0,100,100]];for(let[t,r,i,a]of[[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]])n(e[t],e[r],e[i]),n(e[t],e[i],e[a])}else if(e===`torus`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI*2;return[(76+30*Math.cos(r))*Math.cos(n),(76+30*Math.cos(r))*Math.sin(n),30*Math.sin(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}}else if(e===`sphere`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI;return[100*Math.sin(r)*Math.cos(n),80*Math.sin(r)*Math.sin(n),112*Math.cos(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);r>0&&n(i,a,o),r<35&&n(i,o,s)}}else{let e=(e,t)=>{let n=e/80*Math.PI*2,r=t/44,i=37+49*Math.sin(Math.PI*r)**.75+12*Math.sin(r*Math.PI*2),a=1+.08*Math.sin(3*n-r*5);return[i*a*Math.cos(n),i*a*Math.sin(n)*.84,r*220]};for(let t=0;t<80;t++)for(let r=0;r<44;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}for(let t=0;t<80;t++)n([0,0,0],e(t+1,0),e(t,0)),n([0,0,220],e(t,44),e(t+1,44))}let r=new Float64Array(t);return{vertices:r,info:u(r,f[e],`Sample model`)}}var m=c(o(((e,t)=>{(function(){"use strict";var e={};e.version=`6.4.2.2`,e.use_lines=!0,e.use_xyz=!1;var n=!1;t!==void 0&&t.exports?(t.exports=e,n=!0):(typeof define==`function`&&define.amd&&define(e),typeof document<`u`?window.ClipperLib=e:self.ClipperLib=e);var r;if(n){var i=`chrome`;r=`Netscape`}else{var i=navigator.userAgent.toString().toLowerCase();r=navigator.appName}var a={};i.indexOf(`chrome`)!=-1&&i.indexOf(`chromium`)==-1?a.chrome=1:a.chrome=0,i.indexOf(`chromium`)==-1?a.chromium=0:a.chromium=1,i.indexOf(`safari`)!=-1&&i.indexOf(`chrome`)==-1&&i.indexOf(`chromium`)==-1?a.safari=1:a.safari=0,i.indexOf(`firefox`)==-1?a.firefox=0:a.firefox=1,i.indexOf(`firefox/17`)==-1?a.firefox17=0:a.firefox17=1,i.indexOf(`firefox/15`)==-1?a.firefox15=0:a.firefox15=1,i.indexOf(`firefox/3`)==-1?a.firefox3=0:a.firefox3=1,i.indexOf(`opera`)==-1?a.opera=0:a.opera=1,i.indexOf(`msie 10`)==-1?a.msie10=0:a.msie10=1,i.indexOf(`msie 9`)==-1?a.msie9=0:a.msie9=1,i.indexOf(`msie 8`)==-1?a.msie8=0:a.msie8=1,i.indexOf(`msie 7`)==-1?a.msie7=0:a.msie7=1,i.indexOf(`msie `)==-1?a.msie=0:a.msie=1,e.biginteger_used=null;var o,s=!0;function c(t,n,r){e.biginteger_used=1,t!=null&&(typeof t==`number`&&n===void 0?this.fromInt(t):typeof t==`number`?this.fromNumber(t,n,r):n==null&&typeof t!=`string`?this.fromString(t,256):this.fromString(t,n))}function l(){return new c(null,void 0,void 0)}function u(e,t,n,r,i,a){for(;--a>=0;){var o=t*this[e++]+n[r]+i;i=Math.floor(o/67108864),n[r++]=o&67108863}return i}function d(e,t,n,r,i,a){for(var o=t&32767,s=t>>15;--a>=0;){var c=this[e]&32767,l=this[e++]>>15,u=s*c+l*o;c=o*c+((u&32767)<<15)+n[r]+(i&1073741823),i=(c>>>30)+(u>>>15)+s*l+(i>>>30),n[r++]=c&1073741823}return i}function f(e,t,n,r,i,a){for(var o=t&16383,s=t>>14;--a>=0;){var c=this[e]&16383,l=this[e++]>>14,u=s*c+l*o;c=o*c+((u&16383)<<14)+n[r]+i,i=(c>>28)+(u>>14)+s*l,n[r++]=c&268435455}return i}s&&r==`Microsoft Internet Explorer`?(c.prototype.am=d,o=30):s&&r!=`Netscape`?(c.prototype.am=u,o=26):(c.prototype.am=f,o=28),c.prototype.DB=o,c.prototype.DM=(1<<o)-1,c.prototype.DV=1<<o;var p=52;c.prototype.FV=2**p,c.prototype.F1=p-o,c.prototype.F2=2*o-p;var m=`0123456789abcdefghijklmnopqrstuvwxyz`,h=[],g=48,_;for(_=0;_<=9;++_)h[g++]=_;for(g=97,_=10;_<36;++_)h[g++]=_;for(g=65,_=10;_<36;++_)h[g++]=_;function v(e){return m.charAt(e)}function y(e,t){return h[e.charCodeAt(t)]??-1}function b(e){for(var t=this.t-1;t>=0;--t)e[t]=this[t];e.t=this.t,e.s=this.s}function x(e){this.t=1,this.s=e<0?-1:0,e>0?this[0]=e:e<-1?this[0]=e+this.DV:this.t=0}function S(e){var t=l();return t.fromInt(e),t}function C(e,t){var n;if(t==16)n=4;else if(t==8)n=3;else if(t==256)n=8;else if(t==2)n=1;else if(t==32)n=5;else if(t==4)n=2;else{this.fromRadix(e,t);return}this.t=0,this.s=0;for(var r=e.length,i=!1,a=0;--r>=0;){var o=n==8?e[r]&255:y(e,r);if(o<0){e.charAt(r)==`-`&&(i=!0);continue}i=!1,a==0?this[this.t++]=o:a+n>this.DB?(this[this.t-1]|=(o&(1<<this.DB-a)-1)<<a,this[this.t++]=o>>this.DB-a):this[this.t-1]|=o<<a,a+=n,a>=this.DB&&(a-=this.DB)}n==8&&e[0]&128&&(this.s=-1,a>0&&(this[this.t-1]|=(1<<this.DB-a)-1<<a)),this.clamp(),i&&c.ZERO.subTo(this,this)}function w(){for(var e=this.s&this.DM;this.t>0&&this[this.t-1]==e;)--this.t}function T(e){if(this.s<0)return`-`+this.negate().toString(e);var t;if(e==16)t=4;else if(e==8)t=3;else if(e==2)t=1;else if(e==32)t=5;else if(e==4)t=2;else return this.toRadix(e);var n=(1<<t)-1,r,i=!1,a=``,o=this.t,s=this.DB-o*this.DB%t;if(o-- >0)for(s<this.DB&&(r=this[o]>>s)>0&&(i=!0,a=v(r));o>=0;)s<t?(r=(this[o]&(1<<s)-1)<<t-s,r|=this[--o]>>(s+=this.DB-t)):(r=this[o]>>(s-=t)&n,s<=0&&(s+=this.DB,--o)),r>0&&(i=!0),i&&(a+=v(r));return i?a:`0`}function E(){var e=l();return c.ZERO.subTo(this,e),e}function D(){return this.s<0?this.negate():this}function O(e){var t=this.s-e.s;if(t!=0)return t;var n=this.t;if(t=n-e.t,t!=0)return this.s<0?-t:t;for(;--n>=0;)if((t=this[n]-e[n])!=0)return t;return 0}function k(e){var t=1,n;return(n=e>>>16)!=0&&(e=n,t+=16),(n=e>>8)!=0&&(e=n,t+=8),(n=e>>4)!=0&&(e=n,t+=4),(n=e>>2)!=0&&(e=n,t+=2),(n=e>>1)!=0&&(e=n,t+=1),t}function A(){return this.t<=0?0:this.DB*(this.t-1)+k(this[this.t-1]^this.s&this.DM)}function j(e,t){var n;for(n=this.t-1;n>=0;--n)t[n+e]=this[n];for(n=e-1;n>=0;--n)t[n]=0;t.t=this.t+e,t.s=this.s}function M(e,t){for(var n=e;n<this.t;++n)t[n-e]=this[n];t.t=Math.max(this.t-e,0),t.s=this.s}function N(e,t){var n=e%this.DB,r=this.DB-n,i=(1<<r)-1,a=Math.floor(e/this.DB),o=this.s<<n&this.DM,s;for(s=this.t-1;s>=0;--s)t[s+a+1]=this[s]>>r|o,o=(this[s]&i)<<n;for(s=a-1;s>=0;--s)t[s]=0;t[a]=o,t.t=this.t+a+1,t.s=this.s,t.clamp()}function P(e,t){t.s=this.s;var n=Math.floor(e/this.DB);if(n>=this.t){t.t=0;return}var r=e%this.DB,i=this.DB-r,a=(1<<r)-1;t[0]=this[n]>>r;for(var o=n+1;o<this.t;++o)t[o-n-1]|=(this[o]&a)<<i,t[o-n]=this[o]>>r;r>0&&(t[this.t-n-1]|=(this.s&a)<<i),t.t=this.t-n,t.clamp()}function F(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]-e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r-=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r-=e[n],t[n++]=r&this.DM,r>>=this.DB;r-=e.s}t.s=r<0?-1:0,r<-1?t[n++]=this.DV+r:r>0&&(t[n++]=r),t.t=n,t.clamp()}function I(e,t){var n=this.abs(),r=e.abs(),i=n.t;for(t.t=i+r.t;--i>=0;)t[i]=0;for(i=0;i<r.t;++i)t[i+n.t]=n.am(0,r[i],t,i,0,n.t);t.s=0,t.clamp(),this.s!=e.s&&c.ZERO.subTo(t,t)}function L(e){for(var t=this.abs(),n=e.t=2*t.t;--n>=0;)e[n]=0;for(n=0;n<t.t-1;++n){var r=t.am(n,t[n],e,2*n,0,1);(e[n+t.t]+=t.am(n+1,2*t[n],e,2*n+1,r,t.t-n-1))>=t.DV&&(e[n+t.t]-=t.DV,e[n+t.t+1]=1)}e.t>0&&(e[e.t-1]+=t.am(n,t[n],e,2*n,0,1)),e.s=0,e.clamp()}function R(e,t,n){var r=e.abs();if(!(r.t<=0)){var i=this.abs();if(i.t<r.t){t?.fromInt(0),n!=null&&this.copyTo(n);return}n??=l();var a=l(),o=this.s,s=e.s,u=this.DB-k(r[r.t-1]);u>0?(r.lShiftTo(u,a),i.lShiftTo(u,n)):(r.copyTo(a),i.copyTo(n));var d=a.t,f=a[d-1];if(f!=0){var p=f*(1<<this.F1)+(d>1?a[d-2]>>this.F2:0),m=this.FV/p,h=(1<<this.F1)/p,g=1<<this.F2,_=n.t,v=_-d,y=t??l();for(a.dlShiftTo(v,y),n.compareTo(y)>=0&&(n[n.t++]=1,n.subTo(y,n)),c.ONE.dlShiftTo(d,y),y.subTo(a,a);a.t<d;)a[a.t++]=0;for(;--v>=0;){var b=n[--_]==f?this.DM:Math.floor(n[_]*m+(n[_-1]+g)*h);if((n[_]+=a.am(0,b,n,v,0,d))<b)for(a.dlShiftTo(v,y),n.subTo(y,n);n[_]<--b;)n.subTo(y,n)}t!=null&&(n.drShiftTo(d,t),o!=s&&c.ZERO.subTo(t,t)),n.t=d,n.clamp(),u>0&&n.rShiftTo(u,n),o<0&&c.ZERO.subTo(n,n)}}}function z(e){var t=l();return this.abs().divRemTo(e,null,t),this.s<0&&t.compareTo(c.ZERO)>0&&e.subTo(t,t),t}function B(e){this.m=e}function V(e){return e.s<0||e.compareTo(this.m)>=0?e.mod(this.m):e}function H(e){return e}function U(e){e.divRemTo(this.m,null,e)}function ee(e,t,n){e.multiplyTo(t,n),this.reduce(n)}function te(e,t){e.squareTo(t),this.reduce(t)}B.prototype.convert=V,B.prototype.revert=H,B.prototype.reduce=U,B.prototype.mulTo=ee,B.prototype.sqrTo=te;function ne(){if(this.t<1)return 0;var e=this[0];if(!(e&1))return 0;var t=e&3;return t=t*(2-(e&15)*t)&15,t=t*(2-(e&255)*t)&255,t=t*(2-((e&65535)*t&65535))&65535,t=t*(2-e*t%this.DV)%this.DV,t>0?this.DV-t:-t}function W(e){this.m=e,this.mp=e.invDigit(),this.mpl=this.mp&32767,this.mph=this.mp>>15,this.um=(1<<e.DB-15)-1,this.mt2=2*e.t}function re(e){var t=l();return e.abs().dlShiftTo(this.m.t,t),t.divRemTo(this.m,null,t),e.s<0&&t.compareTo(c.ZERO)>0&&this.m.subTo(t,t),t}function ie(e){var t=l();return e.copyTo(t),this.reduce(t),t}function ae(e){for(;e.t<=this.mt2;)e[e.t++]=0;for(var t=0;t<this.m.t;++t){var n=e[t]&32767,r=n*this.mpl+((n*this.mph+(e[t]>>15)*this.mpl&this.um)<<15)&e.DM;for(n=t+this.m.t,e[n]+=this.m.am(0,r,e,t,0,this.m.t);e[n]>=e.DV;)e[n]-=e.DV,e[++n]++}e.clamp(),e.drShiftTo(this.m.t,e),e.compareTo(this.m)>=0&&e.subTo(this.m,e)}function oe(e,t){e.squareTo(t),this.reduce(t)}function se(e,t,n){e.multiplyTo(t,n),this.reduce(n)}W.prototype.convert=re,W.prototype.revert=ie,W.prototype.reduce=ae,W.prototype.mulTo=se,W.prototype.sqrTo=oe;function ce(){return(this.t>0?this[0]&1:this.s)==0}function le(e,t){if(e>4294967295||e<1)return c.ONE;var n=l(),r=l(),i=t.convert(this),a=k(e)-1;for(i.copyTo(n);--a>=0;)if(t.sqrTo(n,r),(e&1<<a)>0)t.mulTo(r,i,n);else{var o=n;n=r,r=o}return t.revert(n)}function ue(e,t){var n=e<256||t.isEven()?new B(t):new W(t);return this.exp(e,n)}c.prototype.copyTo=b,c.prototype.fromInt=x,c.prototype.fromString=C,c.prototype.clamp=w,c.prototype.dlShiftTo=j,c.prototype.drShiftTo=M,c.prototype.lShiftTo=N,c.prototype.rShiftTo=P,c.prototype.subTo=F,c.prototype.multiplyTo=I,c.prototype.squareTo=L,c.prototype.divRemTo=R,c.prototype.invDigit=ne,c.prototype.isEven=ce,c.prototype.exp=le,c.prototype.toString=T,c.prototype.negate=E,c.prototype.abs=D,c.prototype.compareTo=O,c.prototype.bitLength=A,c.prototype.mod=z,c.prototype.modPowInt=ue,c.ZERO=S(0),c.ONE=S(1);function de(){var e=l();return this.copyTo(e),e}function fe(){if(this.s<0){if(this.t==1)return this[0]-this.DV;if(this.t==0)return-1}else if(this.t==1)return this[0];else if(this.t==0)return 0;return(this[1]&(1<<32-this.DB)-1)<<this.DB|this[0]}function pe(){return this.t==0?this.s:this[0]<<24>>24}function me(){return this.t==0?this.s:this[0]<<16>>16}function he(e){return Math.floor(Math.LN2*this.DB/Math.log(e))}function ge(){return this.s<0?-1:this.t<=0||this.t==1&&this[0]<=0?0:1}function _e(e){if(e??=10,this.signum()==0||e<2||e>36)return`0`;var t=this.chunkSize(e),n=e**+t,r=S(n),i=l(),a=l(),o=``;for(this.divRemTo(r,i,a);i.signum()>0;)o=(n+a.intValue()).toString(e).substr(1)+o,i.divRemTo(r,i,a);return a.intValue().toString(e)+o}function ve(e,t){this.fromInt(0),t??=10;for(var n=this.chunkSize(t),r=t**+n,i=!1,a=0,o=0,s=0;s<e.length;++s){var l=y(e,s);if(l<0){e.charAt(s)==`-`&&this.signum()==0&&(i=!0);continue}o=t*o+l,++a>=n&&(this.dMultiply(r),this.dAddOffset(o,0),a=0,o=0)}a>0&&(this.dMultiply(t**+a),this.dAddOffset(o,0)),i&&c.ZERO.subTo(this,this)}function ye(e,t,n){if(typeof t==`number`)if(e<2)this.fromInt(1);else for(this.fromNumber(e,n),this.testBit(e-1)||this.bitwiseTo(c.ONE.shiftLeft(e-1),G,this),this.isEven()&&this.dAddOffset(1,0);!this.isProbablePrime(t);)this.dAddOffset(2,0),this.bitLength()>e&&this.subTo(c.ONE.shiftLeft(e-1),this);else{var r=[],i=e&7;r.length=(e>>3)+1,t.nextBytes(r),i>0?r[0]&=(1<<i)-1:r[0]=0,this.fromString(r,256)}}function be(){var e=this.t,t=[];t[0]=this.s;var n=this.DB-e*this.DB%8,r,i=0;if(e-- >0)for(n<this.DB&&(r=this[e]>>n)!=(this.s&this.DM)>>n&&(t[i++]=r|this.s<<this.DB-n);e>=0;)n<8?(r=(this[e]&(1<<n)-1)<<8-n,r|=this[--e]>>(n+=this.DB-8)):(r=this[e]>>(n-=8)&255,n<=0&&(n+=this.DB,--e)),r&128&&(r|=-256),i==0&&(this.s&128)!=(r&128)&&++i,(i>0||r!=this.s)&&(t[i++]=r);return t}function xe(e){return this.compareTo(e)==0}function Se(e){return this.compareTo(e)<0?this:e}function Ce(e){return this.compareTo(e)>0?this:e}function we(e,t,n){var r,i,a=Math.min(e.t,this.t);for(r=0;r<a;++r)n[r]=t(this[r],e[r]);if(e.t<this.t){for(i=e.s&this.DM,r=a;r<this.t;++r)n[r]=t(this[r],i);n.t=this.t}else{for(i=this.s&this.DM,r=a;r<e.t;++r)n[r]=t(i,e[r]);n.t=e.t}n.s=t(this.s,e.s),n.clamp()}function Te(e,t){return e&t}function Ee(e){var t=l();return this.bitwiseTo(e,Te,t),t}function G(e,t){return e|t}function De(e){var t=l();return this.bitwiseTo(e,G,t),t}function K(e,t){return e^t}function Oe(e){var t=l();return this.bitwiseTo(e,K,t),t}function q(e,t){return e&~t}function ke(e){var t=l();return this.bitwiseTo(e,q,t),t}function Ae(){for(var e=l(),t=0;t<this.t;++t)e[t]=this.DM&~this[t];return e.t=this.t,e.s=~this.s,e}function je(e){var t=l();return e<0?this.rShiftTo(-e,t):this.lShiftTo(e,t),t}function Me(e){var t=l();return e<0?this.lShiftTo(-e,t):this.rShiftTo(e,t),t}function Ne(e){if(e==0)return-1;var t=0;return e&65535||(e>>=16,t+=16),e&255||(e>>=8,t+=8),e&15||(e>>=4,t+=4),e&3||(e>>=2,t+=2),e&1||++t,t}function Pe(){for(var e=0;e<this.t;++e)if(this[e]!=0)return e*this.DB+Ne(this[e]);return this.s<0?this.t*this.DB:-1}function Fe(e){for(var t=0;e!=0;)e&=e-1,++t;return t}function Ie(){for(var e=0,t=this.s&this.DM,n=0;n<this.t;++n)e+=Fe(this[n]^t);return e}function Le(e){var t=Math.floor(e/this.DB);return t>=this.t?this.s!=0:(this[t]&1<<e%this.DB)!=0}function Re(e,t){var n=c.ONE.shiftLeft(e);return this.bitwiseTo(n,t,n),n}function ze(e){return this.changeBit(e,G)}function Be(e){return this.changeBit(e,q)}function Ve(e){return this.changeBit(e,K)}function He(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]+e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r+=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r+=e[n],t[n++]=r&this.DM,r>>=this.DB;r+=e.s}t.s=r<0?-1:0,r>0?t[n++]=r:r<-1&&(t[n++]=this.DV+r),t.t=n,t.clamp()}function Ue(e){var t=l();return this.addTo(e,t),t}function We(e){var t=l();return this.subTo(e,t),t}function Ge(e){var t=l();return this.multiplyTo(e,t),t}function Ke(){var e=l();return this.squareTo(e),e}function qe(e){var t=l();return this.divRemTo(e,t,null),t}function Je(e){var t=l();return this.divRemTo(e,null,t),t}function Ye(e){var t=l(),n=l();return this.divRemTo(e,t,n),[t,n]}function Xe(e){this[this.t]=this.am(0,e-1,this,0,0,this.t),++this.t,this.clamp()}function Ze(e,t){if(e!=0){for(;this.t<=t;)this[this.t++]=0;for(this[t]+=e;this[t]>=this.DV;)this[t]-=this.DV,++t>=this.t&&(this[this.t++]=0),++this[t]}}function J(){}function Y(e){return e}function Qe(e,t,n){e.multiplyTo(t,n)}function $e(e,t){e.squareTo(t)}J.prototype.convert=Y,J.prototype.revert=Y,J.prototype.mulTo=Qe,J.prototype.sqrTo=$e;function et(e){return this.exp(e,new J)}function tt(e,t,n){var r=Math.min(this.t+e.t,t);for(n.s=0,n.t=r;r>0;)n[--r]=0;var i;for(i=n.t-this.t;r<i;++r)n[r+this.t]=this.am(0,e[r],n,r,0,this.t);for(i=Math.min(e.t,t);r<i;++r)this.am(0,e[r],n,r,0,t-r);n.clamp()}function nt(e,t,n){--t;var r=n.t=this.t+e.t-t;for(n.s=0;--r>=0;)n[r]=0;for(r=Math.max(t-this.t,0);r<e.t;++r)n[this.t+r-t]=this.am(t-r,e[r],n,0,0,this.t+r-t);n.clamp(),n.drShiftTo(1,n)}function X(e){this.r2=l(),this.q3=l(),c.ONE.dlShiftTo(2*e.t,this.r2),this.mu=this.r2.divide(e),this.m=e}function rt(e){if(e.s<0||e.t>2*this.m.t)return e.mod(this.m);if(e.compareTo(this.m)<0)return e;var t=l();return e.copyTo(t),this.reduce(t),t}function it(e){return e}function at(e){for(e.drShiftTo(this.m.t-1,this.r2),e.t>this.m.t+1&&(e.t=this.m.t+1,e.clamp()),this.mu.multiplyUpperTo(this.r2,this.m.t+1,this.q3),this.m.multiplyLowerTo(this.q3,this.m.t+1,this.r2);e.compareTo(this.r2)<0;)e.dAddOffset(1,this.m.t+1);for(e.subTo(this.r2,e);e.compareTo(this.m)>=0;)e.subTo(this.m,e)}function ot(e,t){e.squareTo(t),this.reduce(t)}function st(e,t,n){e.multiplyTo(t,n),this.reduce(n)}X.prototype.convert=rt,X.prototype.revert=it,X.prototype.reduce=at,X.prototype.mulTo=st,X.prototype.sqrTo=ot;function ct(e,t){var n=e.bitLength(),r,i=S(1),a;if(n<=0)return i;r=n<18?1:n<48?3:n<144?4:n<768?5:6,a=n<8?new B(t):t.isEven()?new X(t):new W(t);var o=[],s=3,c=r-1,u=(1<<r)-1;if(o[1]=a.convert(this),r>1){var d=l();for(a.sqrTo(o[1],d);s<=u;)o[s]=l(),a.mulTo(d,o[s-2],o[s]),s+=2}var f=e.t-1,p,m=!0,h=l(),g;for(n=k(e[f])-1;f>=0;){for(n>=c?p=e[f]>>n-c&u:(p=(e[f]&(1<<n+1)-1)<<c-n,f>0&&(p|=e[f-1]>>this.DB+n-c)),s=r;!(p&1);)p>>=1,--s;if((n-=s)<0&&(n+=this.DB,--f),m)o[p].copyTo(i),m=!1;else{for(;s>1;)a.sqrTo(i,h),a.sqrTo(h,i),s-=2;s>0?a.sqrTo(i,h):(g=i,i=h,h=g),a.mulTo(h,o[p],i)}for(;f>=0&&!(e[f]&1<<n);)a.sqrTo(i,h),g=i,i=h,h=g,--n<0&&(n=this.DB-1,--f)}return a.revert(i)}function lt(e){var t=this.s<0?this.negate():this.clone(),n=e.s<0?e.negate():e.clone();if(t.compareTo(n)<0){var r=t;t=n,n=r}var i=t.getLowestSetBit(),a=n.getLowestSetBit();if(a<0)return t;for(i<a&&(a=i),a>0&&(t.rShiftTo(a,t),n.rShiftTo(a,n));t.signum()>0;)(i=t.getLowestSetBit())>0&&t.rShiftTo(i,t),(i=n.getLowestSetBit())>0&&n.rShiftTo(i,n),t.compareTo(n)>=0?(t.subTo(n,t),t.rShiftTo(1,t)):(n.subTo(t,n),n.rShiftTo(1,n));return a>0&&n.lShiftTo(a,n),n}function ut(e){if(e<=0)return 0;var t=this.DV%e,n=this.s<0?e-1:0;if(this.t>0)if(t==0)n=this[0]%e;else for(var r=this.t-1;r>=0;--r)n=(t*n+this[r])%e;return n}function dt(e){var t=e.isEven();if(this.isEven()&&t||e.signum()==0)return c.ZERO;for(var n=e.clone(),r=this.clone(),i=S(1),a=S(0),o=S(0),s=S(1);n.signum()!=0;){for(;n.isEven();)n.rShiftTo(1,n),t?((!i.isEven()||!a.isEven())&&(i.addTo(this,i),a.subTo(e,a)),i.rShiftTo(1,i)):a.isEven()||a.subTo(e,a),a.rShiftTo(1,a);for(;r.isEven();)r.rShiftTo(1,r),t?((!o.isEven()||!s.isEven())&&(o.addTo(this,o),s.subTo(e,s)),o.rShiftTo(1,o)):s.isEven()||s.subTo(e,s),s.rShiftTo(1,s);n.compareTo(r)>=0?(n.subTo(r,n),t&&i.subTo(o,i),a.subTo(s,a)):(r.subTo(n,r),t&&o.subTo(i,o),s.subTo(a,s))}if(r.compareTo(c.ONE)!=0)return c.ZERO;if(s.compareTo(e)>=0)return s.subtract(e);if(s.signum()<0)s.addTo(e,s);else return s;return s.signum()<0?s.add(e):s}var Z=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997],ft=(1<<26)/Z[Z.length-1];function pt(e){var t,n=this.abs();if(n.t==1&&n[0]<=Z[Z.length-1]){for(t=0;t<Z.length;++t)if(n[0]==Z[t])return!0;return!1}if(n.isEven())return!1;for(t=1;t<Z.length;){for(var r=Z[t],i=t+1;i<Z.length&&r<ft;)r*=Z[i++];for(r=n.modInt(r);t<i;)if(r%Z[t++]==0)return!1}return n.millerRabin(e)}function mt(e){var t=this.subtract(c.ONE),n=t.getLowestSetBit();if(n<=0)return!1;var r=t.shiftRight(n);e=e+1>>1,e>Z.length&&(e=Z.length);for(var i=l(),a=0;a<e;++a){i.fromInt(Z[Math.floor(Math.random()*Z.length)]);var o=i.modPow(r,this);if(o.compareTo(c.ONE)!=0&&o.compareTo(t)!=0){for(var s=1;s++<n&&o.compareTo(t)!=0;)if(o=o.modPowInt(2,this),o.compareTo(c.ONE)==0)return!1;if(o.compareTo(t)!=0)return!1}}return!0}c.prototype.chunkSize=he,c.prototype.toRadix=_e,c.prototype.fromRadix=ve,c.prototype.fromNumber=ye,c.prototype.bitwiseTo=we,c.prototype.changeBit=Re,c.prototype.addTo=He,c.prototype.dMultiply=Xe,c.prototype.dAddOffset=Ze,c.prototype.multiplyLowerTo=tt,c.prototype.multiplyUpperTo=nt,c.prototype.modInt=ut,c.prototype.millerRabin=mt,c.prototype.clone=de,c.prototype.intValue=fe,c.prototype.byteValue=pe,c.prototype.shortValue=me,c.prototype.signum=ge,c.prototype.toByteArray=be,c.prototype.equals=xe,c.prototype.min=Se,c.prototype.max=Ce,c.prototype.and=Ee,c.prototype.or=De,c.prototype.xor=Oe,c.prototype.andNot=ke,c.prototype.not=Ae,c.prototype.shiftLeft=je,c.prototype.shiftRight=Me,c.prototype.getLowestSetBit=Pe,c.prototype.bitCount=Ie,c.prototype.testBit=Le,c.prototype.setBit=ze,c.prototype.clearBit=Be,c.prototype.flipBit=Ve,c.prototype.add=Ue,c.prototype.subtract=We,c.prototype.multiply=Ge,c.prototype.divide=qe,c.prototype.remainder=Je,c.prototype.divideAndRemainder=Ye,c.prototype.modPow=ct,c.prototype.modInverse=dt,c.prototype.pow=et,c.prototype.gcd=lt,c.prototype.isProbablePrime=pt,c.prototype.square=Ke;var Q=c;Q.prototype.IsNegative=function(){return this.compareTo(Q.ZERO)==-1},Q.op_Equality=function(e,t){return e.compareTo(t)==0},Q.op_Inequality=function(e,t){return e.compareTo(t)!=0},Q.op_GreaterThan=function(e,t){return e.compareTo(t)>0},Q.op_LessThan=function(e,t){return e.compareTo(t)<0},Q.op_Addition=function(e,t){return new Q(e,void 0,void 0).add(new Q(t,void 0,void 0))},Q.op_Subtraction=function(e,t){return new Q(e,void 0,void 0).subtract(new Q(t,void 0,void 0))},Q.Int128Mul=function(e,t){return new Q(e,void 0,void 0).multiply(new Q(t,void 0,void 0))},Q.op_Division=function(e,t){return e.divide(t)},Q.prototype.ToDouble=function(){return parseFloat(this.toString())};var $=function(e,t){var n;if(Object.getOwnPropertyNames===void 0){for(n in t.prototype)(e.prototype[n]===void 0||e.prototype[n]===Object.prototype[n])&&(e.prototype[n]=t.prototype[n]);for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}else{for(var r=Object.getOwnPropertyNames(t.prototype),i=0;i<r.length;i++)Object.getOwnPropertyDescriptor(e.prototype,r[i])===void 0&&Object.defineProperty(e.prototype,r[i],Object.getOwnPropertyDescriptor(t.prototype,r[i]));for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}};e.Path=function(){return[]},e.Path.prototype.push=Array.prototype.push,e.Paths=function(){return[]},e.Paths.prototype.push=Array.prototype.push,e.DoublePoint=function(){var e=arguments;this.X=0,this.Y=0,e.length===1?(this.X=e[0].X,this.Y=e[0].Y):e.length===2&&(this.X=e[0],this.Y=e[1])},e.DoublePoint0=function(){this.X=0,this.Y=0},e.DoublePoint0.prototype=e.DoublePoint.prototype,e.DoublePoint1=function(e){this.X=e.X,this.Y=e.Y},e.DoublePoint1.prototype=e.DoublePoint.prototype,e.DoublePoint2=function(e,t){this.X=e,this.Y=t},e.DoublePoint2.prototype=e.DoublePoint.prototype,e.PolyNode=function(){this.m_Parent=null,this.m_polygon=new e.Path,this.m_Index=0,this.m_jointype=0,this.m_endtype=0,this.m_Childs=[],this.IsOpen=!1},e.PolyNode.prototype.IsHoleNode=function(){for(var e=!0,t=this.m_Parent;t!==null;)e=!e,t=t.m_Parent;return e},e.PolyNode.prototype.ChildCount=function(){return this.m_Childs.length},e.PolyNode.prototype.Contour=function(){return this.m_polygon},e.PolyNode.prototype.AddChild=function(e){var t=this.m_Childs.length;this.m_Childs.push(e),e.m_Parent=this,e.m_Index=t},e.PolyNode.prototype.GetNext=function(){return this.m_Childs.length>0?this.m_Childs[0]:this.GetNextSiblingUp()},e.PolyNode.prototype.GetNextSiblingUp=function(){return this.m_Parent===null?null:this.m_Index===this.m_Parent.m_Childs.length-1?this.m_Parent.GetNextSiblingUp():this.m_Parent.m_Childs[this.m_Index+1]},e.PolyNode.prototype.Childs=function(){return this.m_Childs},e.PolyNode.prototype.Parent=function(){return this.m_Parent},e.PolyNode.prototype.IsHole=function(){return this.IsHoleNode()},e.PolyTree=function(){this.m_AllPolys=[],e.PolyNode.call(this)},e.PolyTree.prototype.Clear=function(){for(var e=0,t=this.m_AllPolys.length;e<t;e++)this.m_AllPolys[e]=null;this.m_AllPolys.length=0,this.m_Childs.length=0},e.PolyTree.prototype.GetFirst=function(){return this.m_Childs.length>0?this.m_Childs[0]:null},e.PolyTree.prototype.Total=function(){var e=this.m_AllPolys.length;return e>0&&this.m_Childs[0]!==this.m_AllPolys[0]&&e--,e},$(e.PolyTree,e.PolyNode),e.Math_Abs_Int64=e.Math_Abs_Int32=e.Math_Abs_Double=function(e){return Math.abs(e)},e.Math_Max_Int32_Int32=function(e,t){return Math.max(e,t)},a.msie||a.opera||a.safari?e.Cast_Int32=function(e){return e|0}:e.Cast_Int32=function(e){return~~e},Number.toInteger===void 0&&(Number.toInteger=null),a.chrome?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):~~e}:a.firefox&&typeof Number.toInteger==`function`?e.Cast_Int64=function(e){return Number.toInteger(e)}:a.msie7||a.msie8?e.Cast_Int64=function(e){return parseInt(e,10)}:a.msie?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):e|0}:e.Cast_Int64=function(e){return e<0?Math.ceil(e):Math.floor(e)},e.Clear=function(e){e.length=0},e.PI=3.141592653589793,e.PI2=2*3.141592653589793,e.IntPoint=function(){var t=arguments,n=t.length;if(this.X=0,this.Y=0,e.use_xyz)if(this.Z=0,n===3)this.X=t[0],this.Y=t[1],this.Z=t[2];else if(n===2)this.X=t[0],this.Y=t[1],this.Z=0;else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y),this.Z=0}else{var i=t[0];i.Z===void 0&&(i.Z=0),this.X=i.X,this.Y=i.Y,this.Z=i.Z}else this.X=0,this.Y=0,this.Z=0;else if(n===2)this.X=t[0],this.Y=t[1];else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y)}else{var i=t[0];this.X=i.X,this.Y=i.Y}else this.X=0,this.Y=0},e.IntPoint.op_Equality=function(e,t){return e.X===t.X&&e.Y===t.Y},e.IntPoint.op_Inequality=function(e,t){return e.X!==t.X||e.Y!==t.Y},e.IntPoint0=function(){this.X=0,this.Y=0,e.use_xyz&&(this.Z=0)},e.IntPoint0.prototype=e.IntPoint.prototype,e.IntPoint1=function(t){this.X=t.X,this.Y=t.Y,e.use_xyz&&(t.Z===void 0?this.Z=0:this.Z=t.Z)},e.IntPoint1.prototype=e.IntPoint.prototype,e.IntPoint1dp=function(t){this.X=e.Clipper.Round(t.X),this.Y=e.Clipper.Round(t.Y),e.use_xyz&&(this.Z=0)},e.IntPoint1dp.prototype=e.IntPoint.prototype,e.IntPoint2=function(t,n,r){this.X=t,this.Y=n,e.use_xyz&&(r===void 0?this.Z=0:this.Z=r)},e.IntPoint2.prototype=e.IntPoint.prototype,e.IntRect=function(){var e=arguments,t=e.length;if(t===4)this.left=e[0],this.top=e[1],this.right=e[2],this.bottom=e[3];else if(t===1){var n=e[0];this.left=n.left,this.top=n.top,this.right=n.right,this.bottom=n.bottom}else this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0=function(){this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0.prototype=e.IntRect.prototype,e.IntRect1=function(e){this.left=e.left,this.top=e.top,this.right=e.right,this.bottom=e.bottom},e.IntRect1.prototype=e.IntRect.prototype,e.IntRect4=function(e,t,n,r){this.left=e,this.top=t,this.right=n,this.bottom=r},e.IntRect4.prototype=e.IntRect.prototype,e.ClipType={ctIntersection:0,ctUnion:1,ctDifference:2,ctXor:3},e.PolyType={ptSubject:0,ptClip:1},e.PolyFillType={pftEvenOdd:0,pftNonZero:1,pftPositive:2,pftNegative:3},e.JoinType={jtSquare:0,jtRound:1,jtMiter:2},e.EndType={etOpenSquare:0,etOpenRound:1,etOpenButt:2,etClosedLine:3,etClosedPolygon:4},e.EdgeSide={esLeft:0,esRight:1},e.Direction={dRightToLeft:0,dLeftToRight:1},e.TEdge=function(){this.Bot=new e.IntPoint0,this.Curr=new e.IntPoint0,this.Top=new e.IntPoint0,this.Delta=new e.IntPoint0,this.Dx=0,this.PolyTyp=e.PolyType.ptSubject,this.Side=e.EdgeSide.esLeft,this.WindDelta=0,this.WindCnt=0,this.WindCnt2=0,this.OutIdx=0,this.Next=null,this.Prev=null,this.NextInLML=null,this.NextInAEL=null,this.PrevInAEL=null,this.NextInSEL=null,this.PrevInSEL=null},e.IntersectNode=function(){this.Edge1=null,this.Edge2=null,this.Pt=new e.IntPoint0},e.MyIntersectNodeSort=function(){},e.MyIntersectNodeSort.Compare=function(e,t){var n=t.Pt.Y-e.Pt.Y;return n>0?1:n<0?-1:0},e.LocalMinima=function(){this.Y=0,this.LeftBound=null,this.RightBound=null,this.Next=null},e.Scanbeam=function(){this.Y=0,this.Next=null},e.Maxima=function(){this.X=0,this.Next=null,this.Prev=null},e.OutRec=function(){this.Idx=0,this.IsHole=!1,this.IsOpen=!1,this.FirstLeft=null,this.Pts=null,this.BottomPt=null,this.PolyNode=null},e.OutPt=function(){this.Idx=0,this.Pt=new e.IntPoint0,this.Next=null,this.Prev=null},e.Join=function(){this.OutPt1=null,this.OutPt2=null,this.OffPt=new e.IntPoint0},e.ClipperBase=function(){this.m_MinimaList=null,this.m_CurrentLM=null,this.m_edges=[],this.m_UseFullRange=!1,this.m_HasOpenPaths=!1,this.PreserveCollinear=!1,this.m_Scanbeam=null,this.m_PolyOuts=null,this.m_ActiveEdges=null},e.ClipperBase.horizontal=-9007199254740992,e.ClipperBase.Skip=-2,e.ClipperBase.Unassigned=-1,e.ClipperBase.tolerance=1e-20,e.ClipperBase.loRange=47453132,e.ClipperBase.hiRange=0xfffffffffffff,e.ClipperBase.near_zero=function(t){return t>-e.ClipperBase.tolerance&&t<e.ClipperBase.tolerance},e.ClipperBase.IsHorizontal=function(e){return e.Delta.Y===0},e.ClipperBase.prototype.PointIsVertex=function(t,n){var r=n;do{if(e.IntPoint.op_Equality(r.Pt,t))return!0;r=r.Next}while(r!==n);return!1},e.ClipperBase.prototype.PointOnLineSegment=function(e,t,n,r){return r?e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&Q.op_Equality(Q.Int128Mul(e.X-t.X,n.Y-t.Y),Q.Int128Mul(n.X-t.X,e.Y-t.Y)):e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&(e.X-t.X)*(n.Y-t.Y)===(n.X-t.X)*(e.Y-t.Y)},e.ClipperBase.prototype.PointOnPolygon=function(e,t,n){for(var r=t;;){if(this.PointOnLineSegment(e,r.Pt,r.Next.Pt,n))return!0;if(r=r.Next,r===t)break}return!1},e.ClipperBase.prototype.SlopesEqual=e.ClipperBase.SlopesEqual=function(){var t=arguments,n=t.length,r,i,a,o,s,c,l;return n===3?(r=t[0],i=t[1],l=t[2],l?Q.op_Equality(Q.Int128Mul(r.Delta.Y,i.Delta.X),Q.Int128Mul(r.Delta.X,i.Delta.Y)):e.Cast_Int64(r.Delta.Y*i.Delta.X)===e.Cast_Int64(r.Delta.X*i.Delta.Y)):n===4?(a=t[0],o=t[1],s=t[2],l=t[3],l?Q.op_Equality(Q.Int128Mul(a.Y-o.Y,o.X-s.X),Q.Int128Mul(a.X-o.X,o.Y-s.Y)):e.Cast_Int64((a.Y-o.Y)*(o.X-s.X))-e.Cast_Int64((a.X-o.X)*(o.Y-s.Y))===0):(a=t[0],o=t[1],s=t[2],c=t[3],l=t[4],l?Q.op_Equality(Q.Int128Mul(a.Y-o.Y,s.X-c.X),Q.Int128Mul(a.X-o.X,s.Y-c.Y)):e.Cast_Int64((a.Y-o.Y)*(s.X-c.X))-e.Cast_Int64((a.X-o.X)*(s.Y-c.Y))===0)},e.ClipperBase.SlopesEqual3=function(t,n,r){return r?Q.op_Equality(Q.Int128Mul(t.Delta.Y,n.Delta.X),Q.Int128Mul(t.Delta.X,n.Delta.Y)):e.Cast_Int64(t.Delta.Y*n.Delta.X)===e.Cast_Int64(t.Delta.X*n.Delta.Y)},e.ClipperBase.SlopesEqual4=function(t,n,r,i){return i?Q.op_Equality(Q.Int128Mul(t.Y-n.Y,n.X-r.X),Q.Int128Mul(t.X-n.X,n.Y-r.Y)):e.Cast_Int64((t.Y-n.Y)*(n.X-r.X))-e.Cast_Int64((t.X-n.X)*(n.Y-r.Y))===0},e.ClipperBase.SlopesEqual5=function(t,n,r,i,a){return a?Q.op_Equality(Q.Int128Mul(t.Y-n.Y,r.X-i.X),Q.Int128Mul(t.X-n.X,r.Y-i.Y)):e.Cast_Int64((t.Y-n.Y)*(r.X-i.X))-e.Cast_Int64((t.X-n.X)*(r.Y-i.Y))===0},e.ClipperBase.prototype.Clear=function(){this.DisposeLocalMinimaList();for(var t=0,n=this.m_edges.length;t<n;++t){for(var r=0,i=this.m_edges[t].length;r<i;++r)this.m_edges[t][r]=null;e.Clear(this.m_edges[t])}e.Clear(this.m_edges),this.m_UseFullRange=!1,this.m_HasOpenPaths=!1},e.ClipperBase.prototype.DisposeLocalMinimaList=function(){for(;this.m_MinimaList!==null;){var e=this.m_MinimaList.Next;this.m_MinimaList=null,this.m_MinimaList=e}this.m_CurrentLM=null},e.ClipperBase.prototype.RangeTest=function(t,n){n.Value?(t.X>e.ClipperBase.hiRange||t.Y>e.ClipperBase.hiRange||-t.X>e.ClipperBase.hiRange||-t.Y>e.ClipperBase.hiRange)&&e.Error(`Coordinate outside allowed range in RangeTest().`):(t.X>e.ClipperBase.loRange||t.Y>e.ClipperBase.loRange||-t.X>e.ClipperBase.loRange||-t.Y>e.ClipperBase.loRange)&&(n.Value=!0,this.RangeTest(t,n))},e.ClipperBase.prototype.InitEdge=function(t,n,r,i){t.Next=n,t.Prev=r,t.Curr.X=i.X,t.Curr.Y=i.Y,e.use_xyz&&(t.Curr.Z=i.Z),t.OutIdx=-1},e.ClipperBase.prototype.InitEdge2=function(t,n){t.Curr.Y>=t.Next.Curr.Y?(t.Bot.X=t.Curr.X,t.Bot.Y=t.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Curr.Z),t.Top.X=t.Next.Curr.X,t.Top.Y=t.Next.Curr.Y,e.use_xyz&&(t.Top.Z=t.Next.Curr.Z)):(t.Top.X=t.Curr.X,t.Top.Y=t.Curr.Y,e.use_xyz&&(t.Top.Z=t.Curr.Z),t.Bot.X=t.Next.Curr.X,t.Bot.Y=t.Next.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Next.Curr.Z)),this.SetDx(t),t.PolyTyp=n},e.ClipperBase.prototype.FindNextLocMin=function(t){for(var n;;){for(;e.IntPoint.op_Inequality(t.Bot,t.Prev.Bot)||e.IntPoint.op_Equality(t.Curr,t.Top);)t=t.Next;if(t.Dx!==e.ClipperBase.horizontal&&t.Prev.Dx!==e.ClipperBase.horizontal)break;for(;t.Prev.Dx===e.ClipperBase.horizontal;)t=t.Prev;for(n=t;t.Dx===e.ClipperBase.horizontal;)t=t.Next;if(t.Top.Y!==t.Prev.Bot.Y){n.Prev.Bot.X<t.Bot.X&&(t=n);break}}return t},e.ClipperBase.prototype.ProcessBound=function(t,n){var r,i=t,a;if(i.OutIdx===e.ClipperBase.Skip){if(t=i,n){for(;t.Top.Y===t.Next.Bot.Y;)t=t.Next;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Prev}else{for(;t.Top.Y===t.Prev.Bot.Y;)t=t.Prev;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Next}if(t===i)i=n?t.Next:t.Prev;else{t=n?i.Next:i.Prev;var o=new e.LocalMinima;o.Next=null,o.Y=t.Bot.Y,o.LeftBound=null,o.RightBound=t,t.WindDelta=0,i=this.ProcessBound(t,n),this.InsertLocalMinima(o)}return i}if(t.Dx===e.ClipperBase.horizontal&&(r=n?t.Prev:t.Next,r.Dx===e.ClipperBase.horizontal?r.Bot.X!==t.Bot.X&&r.Top.X!==t.Bot.X&&this.ReverseHorizontal(t):r.Bot.X!==t.Bot.X&&this.ReverseHorizontal(t)),r=t,n){for(;i.Top.Y===i.Next.Bot.Y&&i.Next.OutIdx!==e.ClipperBase.Skip;)i=i.Next;if(i.Dx===e.ClipperBase.horizontal&&i.Next.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Prev.Dx===e.ClipperBase.horizontal;)a=a.Prev;a.Prev.Top.X>i.Next.Top.X&&(i=a.Prev)}for(;t!==i;)t.NextInLML=t.Next,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),t=t.Next;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),i=i.Next}else{for(;i.Top.Y===i.Prev.Bot.Y&&i.Prev.OutIdx!==e.ClipperBase.Skip;)i=i.Prev;if(i.Dx===e.ClipperBase.horizontal&&i.Prev.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Next.Dx===e.ClipperBase.horizontal;)a=a.Next;(a.Next.Top.X===i.Prev.Top.X||a.Next.Top.X>i.Prev.Top.X)&&(i=a.Next)}for(;t!==i;)t.NextInLML=t.Prev,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),t=t.Prev;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),i=i.Prev}return i},e.ClipperBase.prototype.AddPath=function(t,n,r){e.use_lines?!r&&n===e.PolyType.ptClip&&e.Error(`AddPath: Open paths must be subject.`):r||e.Error(`AddPath: Open paths have been disabled.`);var i=t.length-1;if(r)for(;i>0&&e.IntPoint.op_Equality(t[i],t[0]);)--i;for(;i>0&&e.IntPoint.op_Equality(t[i],t[i-1]);)--i;if(r&&i<2||!r&&i<1)return!1;for(var a=[],o=0;o<=i;o++)a.push(new e.TEdge);var s=!0;a[1].Curr.X=t[1].X,a[1].Curr.Y=t[1].Y,e.use_xyz&&(a[1].Curr.Z=t[1].Z);var c={Value:this.m_UseFullRange};this.RangeTest(t[0],c),this.m_UseFullRange=c.Value,c.Value=this.m_UseFullRange,this.RangeTest(t[i],c),this.m_UseFullRange=c.Value,this.InitEdge(a[0],a[1],a[i],t[0]),this.InitEdge(a[i],a[0],a[i-1],t[i]);for(var o=i-1;o>=1;--o)c.Value=this.m_UseFullRange,this.RangeTest(t[o],c),this.m_UseFullRange=c.Value,this.InitEdge(a[o],a[o+1],a[o-1],t[o]);for(var l=a[0],u=l,d=l;;){if(u.Curr===u.Next.Curr&&(r||u.Next!==l)){if(u===u.Next)break;u===l&&(l=u.Next),u=this.RemoveEdge(u),d=u;continue}if(u.Prev===u.Next)break;if(r&&e.ClipperBase.SlopesEqual4(u.Prev.Curr,u.Curr,u.Next.Curr,this.m_UseFullRange)&&(!this.PreserveCollinear||!this.Pt2IsBetweenPt1AndPt3(u.Prev.Curr,u.Curr,u.Next.Curr))){u===l&&(l=u.Next),u=this.RemoveEdge(u),u=u.Prev,d=u;continue}if(u=u.Next,u===d||!r&&u.Next===l)break}if(!r&&u===u.Next||r&&u.Prev===u.Next)return!1;r||(this.m_HasOpenPaths=!0,l.Prev.OutIdx=e.ClipperBase.Skip),u=l;do this.InitEdge2(u,n),u=u.Next,s&&u.Curr.Y!==l.Curr.Y&&(s=!1);while(u!==l);if(s){if(r)return!1;u.Prev.OutIdx=e.ClipperBase.Skip;var f=new e.LocalMinima;for(f.Next=null,f.Y=u.Bot.Y,f.LeftBound=null,f.RightBound=u,f.RightBound.Side=e.EdgeSide.esRight,f.RightBound.WindDelta=0;u.Bot.X!==u.Prev.Top.X&&this.ReverseHorizontal(u),u.Next.OutIdx!==e.ClipperBase.Skip;)u.NextInLML=u.Next,u=u.Next;return this.InsertLocalMinima(f),this.m_edges.push(a),!0}this.m_edges.push(a);var p,m=null;for(e.IntPoint.op_Equality(u.Prev.Bot,u.Prev.Top)&&(u=u.Next);u=this.FindNextLocMin(u),u!==m;){m===null&&(m=u);var f=new e.LocalMinima;f.Next=null,f.Y=u.Bot.Y,u.Dx<u.Prev.Dx?(f.LeftBound=u.Prev,f.RightBound=u,p=!1):(f.LeftBound=u,f.RightBound=u.Prev,p=!0),f.LeftBound.Side=e.EdgeSide.esLeft,f.RightBound.Side=e.EdgeSide.esRight,r?f.LeftBound.Next===f.RightBound?f.LeftBound.WindDelta=-1:f.LeftBound.WindDelta=1:f.LeftBound.WindDelta=0,f.RightBound.WindDelta=-f.LeftBound.WindDelta,u=this.ProcessBound(f.LeftBound,p),u.OutIdx===e.ClipperBase.Skip&&(u=this.ProcessBound(u,p));var h=this.ProcessBound(f.RightBound,!p);h.OutIdx===e.ClipperBase.Skip&&(h=this.ProcessBound(h,!p)),f.LeftBound.OutIdx===e.ClipperBase.Skip?f.LeftBound=null:f.RightBound.OutIdx===e.ClipperBase.Skip&&(f.RightBound=null),this.InsertLocalMinima(f),p||(u=h)}return!0},e.ClipperBase.prototype.AddPaths=function(e,t,n){for(var r=!1,i=0,a=e.length;i<a;++i)this.AddPath(e[i],t,n)&&(r=!0);return r},e.ClipperBase.prototype.Pt2IsBetweenPt1AndPt3=function(t,n,r){return e.IntPoint.op_Equality(t,r)||e.IntPoint.op_Equality(t,n)||e.IntPoint.op_Equality(r,n)?!1:t.X===r.X?n.Y>t.Y==n.Y<r.Y:n.X>t.X==n.X<r.X},e.ClipperBase.prototype.RemoveEdge=function(e){e.Prev.Next=e.Next,e.Next.Prev=e.Prev;var t=e.Next;return e.Prev=null,t},e.ClipperBase.prototype.SetDx=function(t){t.Delta.X=t.Top.X-t.Bot.X,t.Delta.Y=t.Top.Y-t.Bot.Y,t.Delta.Y===0?t.Dx=e.ClipperBase.horizontal:t.Dx=t.Delta.X/t.Delta.Y},e.ClipperBase.prototype.InsertLocalMinima=function(e){if(this.m_MinimaList===null)this.m_MinimaList=e;else if(e.Y>=this.m_MinimaList.Y)e.Next=this.m_MinimaList,this.m_MinimaList=e;else{for(var t=this.m_MinimaList;t.Next!==null&&e.Y<t.Next.Y;)t=t.Next;e.Next=t.Next,t.Next=e}},e.ClipperBase.prototype.PopLocalMinima=function(e,t){return t.v=this.m_CurrentLM,this.m_CurrentLM!==null&&this.m_CurrentLM.Y===e?(this.m_CurrentLM=this.m_CurrentLM.Next,!0):!1},e.ClipperBase.prototype.ReverseHorizontal=function(t){var n=t.Top.X;t.Top.X=t.Bot.X,t.Bot.X=n,e.use_xyz&&(n=t.Top.Z,t.Top.Z=t.Bot.Z,t.Bot.Z=n)},e.ClipperBase.prototype.Reset=function(){if(this.m_CurrentLM=this.m_MinimaList,this.m_CurrentLM!==null){this.m_Scanbeam=null;for(var t=this.m_MinimaList;t!==null;){this.InsertScanbeam(t.Y);var n=t.LeftBound;n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),n=t.RightBound,n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),t=t.Next}this.m_ActiveEdges=null}},e.ClipperBase.prototype.InsertScanbeam=function(t){if(this.m_Scanbeam===null)this.m_Scanbeam=new e.Scanbeam,this.m_Scanbeam.Next=null,this.m_Scanbeam.Y=t;else if(t>this.m_Scanbeam.Y){var n=new e.Scanbeam;n.Y=t,n.Next=this.m_Scanbeam,this.m_Scanbeam=n}else{for(var r=this.m_Scanbeam;r.Next!==null&&t<=r.Next.Y;)r=r.Next;if(t===r.Y)return;var i=new e.Scanbeam;i.Y=t,i.Next=r.Next,r.Next=i}},e.ClipperBase.prototype.PopScanbeam=function(e){return this.m_Scanbeam===null?(e.v=0,!1):(e.v=this.m_Scanbeam.Y,this.m_Scanbeam=this.m_Scanbeam.Next,!0)},e.ClipperBase.prototype.LocalMinimaPending=function(){return this.m_CurrentLM!==null},e.ClipperBase.prototype.CreateOutRec=function(){var t=new e.OutRec;return t.Idx=e.ClipperBase.Unassigned,t.IsHole=!1,t.IsOpen=!1,t.FirstLeft=null,t.Pts=null,t.BottomPt=null,t.PolyNode=null,this.m_PolyOuts.push(t),t.Idx=this.m_PolyOuts.length-1,t},e.ClipperBase.prototype.DisposeOutRec=function(e){var t=this.m_PolyOuts[e];t.Pts=null,t=null,this.m_PolyOuts[e]=null},e.ClipperBase.prototype.UpdateEdgeIntoAEL=function(t){t.NextInLML===null&&e.Error(`UpdateEdgeIntoAEL: invalid call`);var n=t.PrevInAEL,r=t.NextInAEL;return t.NextInLML.OutIdx=t.OutIdx,n===null?this.m_ActiveEdges=t.NextInLML:n.NextInAEL=t.NextInLML,r!==null&&(r.PrevInAEL=t.NextInLML),t.NextInLML.Side=t.Side,t.NextInLML.WindDelta=t.WindDelta,t.NextInLML.WindCnt=t.WindCnt,t.NextInLML.WindCnt2=t.WindCnt2,t=t.NextInLML,t.Curr.X=t.Bot.X,t.Curr.Y=t.Bot.Y,t.PrevInAEL=n,t.NextInAEL=r,e.ClipperBase.IsHorizontal(t)||this.InsertScanbeam(t.Top.Y),t},e.ClipperBase.prototype.SwapPositionsInAEL=function(e,t){if(!(e.NextInAEL===e.PrevInAEL||t.NextInAEL===t.PrevInAEL)){if(e.NextInAEL===t){var n=t.NextInAEL;n!==null&&(n.PrevInAEL=e);var r=e.PrevInAEL;r!==null&&(r.NextInAEL=t),t.PrevInAEL=r,t.NextInAEL=e,e.PrevInAEL=t,e.NextInAEL=n}else if(t.NextInAEL===e){var i=e.NextInAEL;i!==null&&(i.PrevInAEL=t);var a=t.PrevInAEL;a!==null&&(a.NextInAEL=e),e.PrevInAEL=a,e.NextInAEL=t,t.PrevInAEL=e,t.NextInAEL=i}else{var o=e.NextInAEL,s=e.PrevInAEL;e.NextInAEL=t.NextInAEL,e.NextInAEL!==null&&(e.NextInAEL.PrevInAEL=e),e.PrevInAEL=t.PrevInAEL,e.PrevInAEL!==null&&(e.PrevInAEL.NextInAEL=e),t.NextInAEL=o,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=t),t.PrevInAEL=s,t.PrevInAEL!==null&&(t.PrevInAEL.NextInAEL=t)}e.PrevInAEL===null?this.m_ActiveEdges=e:t.PrevInAEL===null&&(this.m_ActiveEdges=t)}},e.ClipperBase.prototype.DeleteFromAEL=function(e){var t=e.PrevInAEL,n=e.NextInAEL;t===null&&n===null&&e!==this.m_ActiveEdges||(t===null?this.m_ActiveEdges=n:t.NextInAEL=n,n!==null&&(n.PrevInAEL=t),e.NextInAEL=null,e.PrevInAEL=null)},e.Clipper=function(t){t===void 0&&(t=0),this.m_PolyOuts=null,this.m_ClipType=e.ClipType.ctIntersection,this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=null,this.m_IntersectNodeComparer=null,this.m_ExecuteLocked=!1,this.m_ClipFillType=e.PolyFillType.pftEvenOdd,this.m_SubjFillType=e.PolyFillType.pftEvenOdd,this.m_Joins=null,this.m_GhostJoins=null,this.m_UsingPolyTree=!1,this.ReverseSolution=!1,this.StrictlySimple=!1,e.ClipperBase.call(this),this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=[],this.m_IntersectNodeComparer=e.MyIntersectNodeSort.Compare,this.m_ExecuteLocked=!1,this.m_UsingPolyTree=!1,this.m_PolyOuts=[],this.m_Joins=[],this.m_GhostJoins=[],this.ReverseSolution=(1&t)!=0,this.StrictlySimple=(2&t)!=0,this.PreserveCollinear=(4&t)!=0,e.use_xyz&&(this.ZFillFunction=null)},e.Clipper.ioReverseSolution=1,e.Clipper.ioStrictlySimple=2,e.Clipper.ioPreserveCollinear=4,e.Clipper.prototype.Clear=function(){this.m_edges.length!==0&&(this.DisposeAllPolyPts(),e.ClipperBase.prototype.Clear.call(this))},e.Clipper.prototype.InsertMaxima=function(t){var n=new e.Maxima;if(n.X=t,this.m_Maxima===null)this.m_Maxima=n,this.m_Maxima.Next=null,this.m_Maxima.Prev=null;else if(t<this.m_Maxima.X)n.Next=this.m_Maxima,n.Prev=null,this.m_Maxima=n;else{for(var r=this.m_Maxima;r.Next!==null&&t>=r.Next.X;)r=r.Next;if(t===r.X)return;n.Next=r.Next,n.Prev=r,r.Next!==null&&(r.Next.Prev=n),r.Next=n}},e.Clipper.prototype.Execute=function(){var t=arguments,n=t.length,r=t[1]instanceof e.PolyTree;if(n===4&&!r){var i=t[0],a=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_HasOpenPaths&&e.Error(`Error: PolyTree struct is needed for open path clipping.`),this.m_ExecuteLocked=!0,e.Clear(a),this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!1;try{var c=this.ExecuteInternal();c&&this.BuildResult(a)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===4&&r){var i=t[0],l=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_ExecuteLocked=!0,this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!0;try{var c=this.ExecuteInternal();c&&this.BuildResult2(l)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===2&&!r){var i=t[0],a=t[1];return this.Execute(i,a,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}else if(n===2&&r){var i=t[0],l=t[1];return this.Execute(i,l,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}},e.Clipper.prototype.FixHoleLinkage=function(e){if(!(e.FirstLeft===null||e.IsHole!==e.FirstLeft.IsHole&&e.FirstLeft.Pts!==null)){for(var t=e.FirstLeft;t!==null&&(t.IsHole===e.IsHole||t.Pts===null);)t=t.FirstLeft;e.FirstLeft=t}},e.Clipper.prototype.ExecuteInternal=function(){try{this.Reset(),this.m_SortedEdges=null,this.m_Maxima=null;var e={},t={};if(!this.PopScanbeam(e))return!1;for(this.InsertLocalMinimaIntoAEL(e.v);this.PopScanbeam(t)||this.LocalMinimaPending();){if(this.ProcessHorizontals(),this.m_GhostJoins.length=0,!this.ProcessIntersections(t.v))return!1;this.ProcessEdgesAtTopOfScanbeam(t.v),e.v=t.v,this.InsertLocalMinimaIntoAEL(e.v)}var n,r,i;for(r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],!(n.Pts===null||n.IsOpen)&&(n.IsHole^this.ReverseSolution)==this.Area$1(n)>0&&this.ReversePolyPtLinks(n.Pts);for(this.JoinCommonEdges(),r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],n.Pts!==null&&(n.IsOpen?this.FixupOutPolyline(n):this.FixupOutPolygon(n));return this.StrictlySimple&&this.DoSimplePolygons(),!0}finally{this.m_Joins.length=0,this.m_GhostJoins.length=0}},e.Clipper.prototype.DisposeAllPolyPts=function(){for(var t=0,n=this.m_PolyOuts.length;t<n;++t)this.DisposeOutRec(t);e.Clear(this.m_PolyOuts)},e.Clipper.prototype.AddJoin=function(t,n,r){var i=new e.Join;i.OutPt1=t,i.OutPt2=n,i.OffPt.X=r.X,i.OffPt.Y=r.Y,e.use_xyz&&(i.OffPt.Z=r.Z),this.m_Joins.push(i)},e.Clipper.prototype.AddGhostJoin=function(t,n){var r=new e.Join;r.OutPt1=t,r.OffPt.X=n.X,r.OffPt.Y=n.Y,e.use_xyz&&(r.OffPt.Z=n.Z),this.m_GhostJoins.push(r)},e.Clipper.prototype.SetZ=function(t,n,r){if(this.ZFillFunction!==null){if(t.Z!==0||this.ZFillFunction===null)return;e.IntPoint.op_Equality(t,n.Bot)?t.Z=n.Bot.Z:e.IntPoint.op_Equality(t,n.Top)?t.Z=n.Top.Z:e.IntPoint.op_Equality(t,r.Bot)?t.Z=r.Bot.Z:e.IntPoint.op_Equality(t,r.Top)?t.Z=r.Top.Z:this.ZFillFunction(n.Bot,n.Top,r.Bot,r.Top,t)}},e.Clipper.prototype.InsertLocalMinimaIntoAEL=function(t){for(var n={},r,i;this.PopLocalMinima(t,n);){r=n.v.LeftBound,i=n.v.RightBound;var a=null;if(r===null?(this.InsertEdgeIntoAEL(i,null),this.SetWindingCount(i),this.IsContributing(i)&&(a=this.AddOutPt(i,i.Bot))):i===null?(this.InsertEdgeIntoAEL(r,null),this.SetWindingCount(r),this.IsContributing(r)&&(a=this.AddOutPt(r,r.Bot)),this.InsertScanbeam(r.Top.Y)):(this.InsertEdgeIntoAEL(r,null),this.InsertEdgeIntoAEL(i,r),this.SetWindingCount(r),i.WindCnt=r.WindCnt,i.WindCnt2=r.WindCnt2,this.IsContributing(r)&&(a=this.AddLocalMinPoly(r,i,r.Bot)),this.InsertScanbeam(r.Top.Y)),i!==null&&(e.ClipperBase.IsHorizontal(i)?(i.NextInLML!==null&&this.InsertScanbeam(i.NextInLML.Top.Y),this.AddEdgeToSEL(i)):this.InsertScanbeam(i.Top.Y)),!(r===null||i===null)){if(a!==null&&e.ClipperBase.IsHorizontal(i)&&this.m_GhostJoins.length>0&&i.WindDelta!==0)for(var o=0,s=this.m_GhostJoins.length;o<s;o++){var c=this.m_GhostJoins[o];this.HorzSegmentsOverlap(c.OutPt1.Pt.X,c.OffPt.X,i.Bot.X,i.Top.X)&&this.AddJoin(c.OutPt1,a,c.OffPt)}if(r.OutIdx>=0&&r.PrevInAEL!==null&&r.PrevInAEL.Curr.X===r.Bot.X&&r.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(r.PrevInAEL.Curr,r.PrevInAEL.Top,r.Curr,r.Top,this.m_UseFullRange)&&r.WindDelta!==0&&r.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(r.PrevInAEL,r.Bot);this.AddJoin(a,l,r.Top)}if(r.NextInAEL!==i){if(i.OutIdx>=0&&i.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(i.PrevInAEL.Curr,i.PrevInAEL.Top,i.Curr,i.Top,this.m_UseFullRange)&&i.WindDelta!==0&&i.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(i.PrevInAEL,i.Bot);this.AddJoin(a,l,i.Top)}var u=r.NextInAEL;if(u!==null)for(;u!==i;)this.IntersectEdges(i,u,r.Curr),u=u.NextInAEL}}}},e.Clipper.prototype.InsertEdgeIntoAEL=function(e,t){if(this.m_ActiveEdges===null)e.PrevInAEL=null,e.NextInAEL=null,this.m_ActiveEdges=e;else if(t===null&&this.E2InsertsBeforeE1(this.m_ActiveEdges,e))e.PrevInAEL=null,e.NextInAEL=this.m_ActiveEdges,this.m_ActiveEdges.PrevInAEL=e,this.m_ActiveEdges=e;else{for(t===null&&(t=this.m_ActiveEdges);t.NextInAEL!==null&&!this.E2InsertsBeforeE1(t.NextInAEL,e);)t=t.NextInAEL;e.NextInAEL=t.NextInAEL,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=e),e.PrevInAEL=t,t.NextInAEL=e}},e.Clipper.prototype.E2InsertsBeforeE1=function(t,n){return n.Curr.X===t.Curr.X?n.Top.Y>t.Top.Y?n.Top.X<e.Clipper.TopX(t,n.Top.Y):t.Top.X>e.Clipper.TopX(n,t.Top.Y):n.Curr.X<t.Curr.X},e.Clipper.prototype.IsEvenOddFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType===e.PolyFillType.pftEvenOdd:this.m_ClipFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsEvenOddAltFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_ClipFillType===e.PolyFillType.pftEvenOdd:this.m_SubjFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsContributing=function(t){var n,r;switch(t.PolyTyp===e.PolyType.ptSubject?(n=this.m_SubjFillType,r=this.m_ClipFillType):(n=this.m_ClipFillType,r=this.m_SubjFillType),n){case e.PolyFillType.pftEvenOdd:if(t.WindDelta===0&&t.WindCnt!==1)return!1;break;case e.PolyFillType.pftNonZero:if(Math.abs(t.WindCnt)!==1)return!1;break;case e.PolyFillType.pftPositive:if(t.WindCnt!==1)return!1;break;default:if(t.WindCnt!==-1)return!1;break}switch(this.m_ClipType){case e.ClipType.ctIntersection:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctUnion:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}case e.ClipType.ctDifference:if(t.PolyTyp===e.PolyType.ptSubject)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctXor:if(t.WindDelta===0)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else return!0}return!0},e.Clipper.prototype.SetWindingCount=function(t){for(var n=t.PrevInAEL;n!==null&&(n.PolyTyp!==t.PolyTyp||n.WindDelta===0);)n=n.PrevInAEL;if(n===null){var r=t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType:this.m_ClipFillType;t.WindDelta===0?t.WindCnt=r===e.PolyFillType.pftNegative?-1:1:t.WindCnt=t.WindDelta,t.WindCnt2=0,n=this.m_ActiveEdges}else if(t.WindDelta===0&&this.m_ClipType!==e.ClipType.ctUnion)t.WindCnt=1,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;else if(this.IsEvenOddFillType(t)){if(t.WindDelta===0){for(var i=!0,a=n.PrevInAEL;a!==null;)a.PolyTyp===n.PolyTyp&&a.WindDelta!==0&&(i=!i),a=a.PrevInAEL;t.WindCnt=+!i}else t.WindCnt=t.WindDelta;t.WindCnt2=n.WindCnt2,n=n.NextInAEL}else n.WindCnt*n.WindDelta<0?Math.abs(n.WindCnt)>1?n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta:t.WindCnt=t.WindDelta===0?1:t.WindDelta:t.WindDelta===0?t.WindCnt=n.WindCnt<0?n.WindCnt-1:n.WindCnt+1:n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;if(this.IsEvenOddAltFillType(t))for(;n!==t;)n.WindDelta!==0&&(t.WindCnt2=+(t.WindCnt2===0)),n=n.NextInAEL;else for(;n!==t;)t.WindCnt2+=n.WindDelta,n=n.NextInAEL},e.Clipper.prototype.AddEdgeToSEL=function(e){this.m_SortedEdges===null?(this.m_SortedEdges=e,e.PrevInSEL=null,e.NextInSEL=null):(e.NextInSEL=this.m_SortedEdges,e.PrevInSEL=null,this.m_SortedEdges.PrevInSEL=e,this.m_SortedEdges=e)},e.Clipper.prototype.PopEdgeFromSEL=function(e){if(e.v=this.m_SortedEdges,e.v===null)return!1;var t=e.v;return this.m_SortedEdges=e.v.NextInSEL,this.m_SortedEdges!==null&&(this.m_SortedEdges.PrevInSEL=null),t.NextInSEL=null,t.PrevInSEL=null,!0},e.Clipper.prototype.CopyAELToSEL=function(){var e=this.m_ActiveEdges;for(this.m_SortedEdges=e;e!==null;)e.PrevInSEL=e.PrevInAEL,e.NextInSEL=e.NextInAEL,e=e.NextInAEL},e.Clipper.prototype.SwapPositionsInSEL=function(e,t){if(!(e.NextInSEL===null&&e.PrevInSEL===null)&&!(t.NextInSEL===null&&t.PrevInSEL===null)){if(e.NextInSEL===t){var n=t.NextInSEL;n!==null&&(n.PrevInSEL=e);var r=e.PrevInSEL;r!==null&&(r.NextInSEL=t),t.PrevInSEL=r,t.NextInSEL=e,e.PrevInSEL=t,e.NextInSEL=n}else if(t.NextInSEL===e){var n=e.NextInSEL;n!==null&&(n.PrevInSEL=t);var r=t.PrevInSEL;r!==null&&(r.NextInSEL=e),e.PrevInSEL=r,e.NextInSEL=t,t.PrevInSEL=e,t.NextInSEL=n}else{var n=e.NextInSEL,r=e.PrevInSEL;e.NextInSEL=t.NextInSEL,e.NextInSEL!==null&&(e.NextInSEL.PrevInSEL=e),e.PrevInSEL=t.PrevInSEL,e.PrevInSEL!==null&&(e.PrevInSEL.NextInSEL=e),t.NextInSEL=n,t.NextInSEL!==null&&(t.NextInSEL.PrevInSEL=t),t.PrevInSEL=r,t.PrevInSEL!==null&&(t.PrevInSEL.NextInSEL=t)}e.PrevInSEL===null?this.m_SortedEdges=e:t.PrevInSEL===null&&(this.m_SortedEdges=t)}},e.Clipper.prototype.AddLocalMaxPoly=function(e,t,n){this.AddOutPt(e,n),t.WindDelta===0&&this.AddOutPt(t,n),e.OutIdx===t.OutIdx?(e.OutIdx=-1,t.OutIdx=-1):e.OutIdx<t.OutIdx?this.AppendPolygon(e,t):this.AppendPolygon(t,e)},e.Clipper.prototype.AddLocalMinPoly=function(t,n,r){var i,a,o;if(e.ClipperBase.IsHorizontal(n)||t.Dx>n.Dx?(i=this.AddOutPt(t,r),n.OutIdx=t.OutIdx,t.Side=e.EdgeSide.esLeft,n.Side=e.EdgeSide.esRight,a=t,o=a.PrevInAEL===n?n.PrevInAEL:a.PrevInAEL):(i=this.AddOutPt(n,r),t.OutIdx=n.OutIdx,t.Side=e.EdgeSide.esRight,n.Side=e.EdgeSide.esLeft,a=n,o=a.PrevInAEL===t?t.PrevInAEL:a.PrevInAEL),o!==null&&o.OutIdx>=0&&o.Top.Y<r.Y&&a.Top.Y<r.Y){var s=e.Clipper.TopX(o,r.Y),c=e.Clipper.TopX(a,r.Y);if(s===c&&a.WindDelta!==0&&o.WindDelta!==0&&e.ClipperBase.SlopesEqual5(new e.IntPoint2(s,r.Y),o.Top,new e.IntPoint2(c,r.Y),a.Top,this.m_UseFullRange)){var l=this.AddOutPt(o,r);this.AddJoin(i,l,a.Top)}}return i},e.Clipper.prototype.AddOutPt=function(t,n){if(t.OutIdx<0){var r=this.CreateOutRec();r.IsOpen=t.WindDelta===0;var i=new e.OutPt;return r.Pts=i,i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=i,i.Prev=i,r.IsOpen||this.SetHoleState(t,r),t.OutIdx=r.Idx,i}else{var r=this.m_PolyOuts[t.OutIdx],a=r.Pts,o=t.Side===e.EdgeSide.esLeft;if(o&&e.IntPoint.op_Equality(n,a.Pt))return a;if(!o&&e.IntPoint.op_Equality(n,a.Prev.Pt))return a.Prev;var i=new e.OutPt;return i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=a,i.Prev=a.Prev,i.Prev.Next=i,a.Prev=i,o&&(r.Pts=i),i}},e.Clipper.prototype.GetLastOutPt=function(t){var n=this.m_PolyOuts[t.OutIdx];return t.Side===e.EdgeSide.esLeft?n.Pts:n.Pts.Prev},e.Clipper.prototype.SwapPoints=function(t,n){var r=new e.IntPoint1(t.Value);t.Value.X=n.Value.X,t.Value.Y=n.Value.Y,e.use_xyz&&(t.Value.Z=n.Value.Z),n.Value.X=r.X,n.Value.Y=r.Y,e.use_xyz&&(n.Value.Z=r.Z)},e.Clipper.prototype.HorzSegmentsOverlap=function(e,t,n,r){var i;return e>t&&(i=e,e=t,t=i),n>r&&(i=n,n=r,r=i),e<r&&n<t},e.Clipper.prototype.SetHoleState=function(e,t){for(var n=e.PrevInAEL,r=null;n!==null;)n.OutIdx>=0&&n.WindDelta!==0&&(r===null?r=n:r.OutIdx===n.OutIdx&&(r=null)),n=n.PrevInAEL;r===null?(t.FirstLeft=null,t.IsHole=!1):(t.FirstLeft=this.m_PolyOuts[r.OutIdx],t.IsHole=!t.FirstLeft.IsHole)},e.Clipper.prototype.GetDx=function(t,n){return t.Y===n.Y?e.ClipperBase.horizontal:(n.X-t.X)/(n.Y-t.Y)},e.Clipper.prototype.FirstIsBottomPt=function(t,n){for(var r=t.Prev;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Prev;var i=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=t.Next;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Next;var a=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=n.Prev;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Prev;var o=Math.abs(this.GetDx(n.Pt,r.Pt));for(r=n.Next;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Next;var s=Math.abs(this.GetDx(n.Pt,r.Pt));return Math.max(i,a)===Math.max(o,s)&&Math.min(i,a)===Math.min(o,s)?this.Area(t)>0:i>=o&&i>=s||a>=o&&a>=s},e.Clipper.prototype.GetBottomPt=function(t){for(var n=null,r=t.Next;r!==t;)r.Pt.Y>t.Pt.Y?(t=r,n=null):r.Pt.Y===t.Pt.Y&&r.Pt.X<=t.Pt.X&&(r.Pt.X<t.Pt.X?(n=null,t=r):r.Next!==t&&r.Prev!==t&&(n=r)),r=r.Next;if(n!==null)for(;n!==r;)for(this.FirstIsBottomPt(r,n)||(t=n),n=n.Next;e.IntPoint.op_Inequality(n.Pt,t.Pt);)n=n.Next;return t},e.Clipper.prototype.GetLowermostRec=function(e,t){e.BottomPt===null&&(e.BottomPt=this.GetBottomPt(e.Pts)),t.BottomPt===null&&(t.BottomPt=this.GetBottomPt(t.Pts));var n=e.BottomPt,r=t.BottomPt;return n.Pt.Y>r.Pt.Y?e:n.Pt.Y<r.Pt.Y?t:n.Pt.X<r.Pt.X?e:n.Pt.X>r.Pt.X||n.Next===n?t:r.Next===r||this.FirstIsBottomPt(n,r)?e:t},e.Clipper.prototype.OutRec1RightOfOutRec2=function(e,t){do if(e=e.FirstLeft,e===t)return!0;while(e!==null);return!1},e.Clipper.prototype.GetOutRec=function(e){for(var t=this.m_PolyOuts[e];t!==this.m_PolyOuts[t.Idx];)t=this.m_PolyOuts[t.Idx];return t},e.Clipper.prototype.AppendPolygon=function(t,n){var r=this.m_PolyOuts[t.OutIdx],i=this.m_PolyOuts[n.OutIdx],a=this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i),o=r.Pts,s=o.Prev,c=i.Pts,l=c.Prev;t.Side===e.EdgeSide.esLeft?n.Side===e.EdgeSide.esLeft?(this.ReversePolyPtLinks(c),c.Next=o,o.Prev=c,s.Next=l,l.Prev=s,r.Pts=l):(l.Next=o,o.Prev=l,c.Prev=s,s.Next=c,r.Pts=c):n.Side===e.EdgeSide.esRight?(this.ReversePolyPtLinks(c),s.Next=l,l.Prev=s,c.Next=o,o.Prev=c):(s.Next=c,c.Prev=s,o.Prev=l,l.Next=o),r.BottomPt=null,a===i&&(i.FirstLeft!==r&&(r.FirstLeft=i.FirstLeft),r.IsHole=i.IsHole),i.Pts=null,i.BottomPt=null,i.FirstLeft=r;var u=t.OutIdx,d=n.OutIdx;t.OutIdx=-1,n.OutIdx=-1;for(var f=this.m_ActiveEdges;f!==null;){if(f.OutIdx===d){f.OutIdx=u,f.Side=t.Side;break}f=f.NextInAEL}i.Idx=r.Idx},e.Clipper.prototype.ReversePolyPtLinks=function(e){if(e!==null){var t=e,n;do n=t.Next,t.Next=t.Prev,t.Prev=n,t=n;while(t!==e)}},e.Clipper.SwapSides=function(e,t){var n=e.Side;e.Side=t.Side,t.Side=n},e.Clipper.SwapPolyIndexes=function(e,t){var n=e.OutIdx;e.OutIdx=t.OutIdx,t.OutIdx=n},e.Clipper.prototype.IntersectEdges=function(t,n,r){var i=t.OutIdx>=0,a=n.OutIdx>=0;if(e.use_xyz&&this.SetZ(r,t,n),e.use_lines&&(t.WindDelta===0||n.WindDelta===0)){if(t.WindDelta===0&&n.WindDelta===0)return;t.PolyTyp===n.PolyTyp&&t.WindDelta!==n.WindDelta&&this.m_ClipType===e.ClipType.ctUnion?t.WindDelta===0?a&&(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):i&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)):t.PolyTyp!==n.PolyTyp&&(t.WindDelta===0&&Math.abs(n.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||n.WindCnt2===0)?(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):n.WindDelta===0&&Math.abs(t.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||t.WindCnt2===0)&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)));return}if(t.PolyTyp===n.PolyTyp)if(this.IsEvenOddFillType(t)){var o=t.WindCnt;t.WindCnt=n.WindCnt,n.WindCnt=o}else t.WindCnt+n.WindDelta===0?t.WindCnt=-t.WindCnt:t.WindCnt+=n.WindDelta,n.WindCnt-t.WindDelta===0?n.WindCnt=-n.WindCnt:n.WindCnt-=t.WindDelta;else this.IsEvenOddFillType(n)?t.WindCnt2=+(t.WindCnt2===0):t.WindCnt2+=n.WindDelta,this.IsEvenOddFillType(t)?n.WindCnt2=+(n.WindCnt2===0):n.WindCnt2-=t.WindDelta;var s,c,l,u;t.PolyTyp===e.PolyType.ptSubject?(s=this.m_SubjFillType,l=this.m_ClipFillType):(s=this.m_ClipFillType,l=this.m_SubjFillType),n.PolyTyp===e.PolyType.ptSubject?(c=this.m_SubjFillType,u=this.m_ClipFillType):(c=this.m_ClipFillType,u=this.m_SubjFillType);var d,f;switch(s){case e.PolyFillType.pftPositive:d=t.WindCnt;break;case e.PolyFillType.pftNegative:d=-t.WindCnt;break;default:d=Math.abs(t.WindCnt);break}switch(c){case e.PolyFillType.pftPositive:f=n.WindCnt;break;case e.PolyFillType.pftNegative:f=-n.WindCnt;break;default:f=Math.abs(n.WindCnt);break}if(i&&a)d!==0&&d!==1||f!==0&&f!==1||t.PolyTyp!==n.PolyTyp&&this.m_ClipType!==e.ClipType.ctXor?this.AddLocalMaxPoly(t,n,r):(this.AddOutPt(t,r),this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(i)(f===0||f===1)&&(this.AddOutPt(t,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(a)(d===0||d===1)&&(this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if((d===0||d===1)&&(f===0||f===1)){var p,m;switch(l){case e.PolyFillType.pftPositive:p=t.WindCnt2;break;case e.PolyFillType.pftNegative:p=-t.WindCnt2;break;default:p=Math.abs(t.WindCnt2);break}switch(u){case e.PolyFillType.pftPositive:m=n.WindCnt2;break;case e.PolyFillType.pftNegative:m=-n.WindCnt2;break;default:m=Math.abs(n.WindCnt2);break}if(t.PolyTyp!==n.PolyTyp)this.AddLocalMinPoly(t,n,r);else if(d===1&&f===1)switch(this.m_ClipType){case e.ClipType.ctIntersection:p>0&&m>0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctUnion:p<=0&&m<=0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctDifference:(t.PolyTyp===e.PolyType.ptClip&&p>0&&m>0||t.PolyTyp===e.PolyType.ptSubject&&p<=0&&m<=0)&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctXor:this.AddLocalMinPoly(t,n,r);break}else e.Clipper.SwapSides(t,n)}},e.Clipper.prototype.DeleteFromSEL=function(e){var t=e.PrevInSEL,n=e.NextInSEL;t===null&&n===null&&e!==this.m_SortedEdges||(t===null?this.m_SortedEdges=n:t.NextInSEL=n,n!==null&&(n.PrevInSEL=t),e.NextInSEL=null,e.PrevInSEL=null)},e.Clipper.prototype.ProcessHorizontals=function(){for(var e={};this.PopEdgeFromSEL(e);)this.ProcessHorizontal(e.v)},e.Clipper.prototype.GetHorzDirection=function(t,n){t.Bot.X<t.Top.X?(n.Left=t.Bot.X,n.Right=t.Top.X,n.Dir=e.Direction.dLeftToRight):(n.Left=t.Top.X,n.Right=t.Bot.X,n.Dir=e.Direction.dRightToLeft)},e.Clipper.prototype.ProcessHorizontal=function(t){var n={Dir:null,Left:null,Right:null};this.GetHorzDirection(t,n);for(var r=n.Dir,i=n.Left,a=n.Right,o=t.WindDelta===0,s=t,c=null;s.NextInLML!==null&&e.ClipperBase.IsHorizontal(s.NextInLML);)s=s.NextInLML;s.NextInLML===null&&(c=this.GetMaximaPair(s));var l=this.m_Maxima;if(l!==null)if(r===e.Direction.dLeftToRight){for(;l!==null&&l.X<=t.Bot.X;)l=l.Next;l!==null&&l.X>=s.Top.X&&(l=null)}else{for(;l.Next!==null&&l.Next.X<t.Bot.X;)l=l.Next;l.X<=s.Top.X&&(l=null)}for(var u=null;;){for(var d=t===s,f=this.GetNextInAEL(t,r);f!==null;){if(l!==null)if(r===e.Direction.dLeftToRight)for(;l!==null&&l.X<f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Next;else for(;l!==null&&l.X>f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Prev;if(r===e.Direction.dLeftToRight&&f.Curr.X>a||r===e.Direction.dRightToLeft&&f.Curr.X<i||f.Curr.X===t.Top.X&&t.NextInLML!==null&&f.Dx<t.NextInLML.Dx)break;if(t.OutIdx>=0&&!o){e.use_xyz&&(r===e.Direction.dLeftToRight?this.SetZ(f.Curr,t,f):this.SetZ(f.Curr,f,t)),u=this.AddOutPt(t,f.Curr);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Bot)}if(f===c&&d){t.OutIdx>=0&&this.AddLocalMaxPoly(t,c,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(c);return}if(r===e.Direction.dLeftToRight){var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(t,f,h)}else{var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(f,t,h)}var g=this.GetNextInAEL(f,r);this.SwapPositionsInAEL(t,f),f=g}if(t.NextInLML===null||!e.ClipperBase.IsHorizontal(t.NextInLML))break;t=this.UpdateEdgeIntoAEL(t),t.OutIdx>=0&&this.AddOutPt(t,t.Bot),n={Dir:r,Left:i,Right:a},this.GetHorzDirection(t,n),r=n.Dir,i=n.Left,a=n.Right}if(t.OutIdx>=0&&u===null){u=this.GetLastOutPt(t);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Top)}if(t.NextInLML!==null)if(t.OutIdx>=0){if(u=this.AddOutPt(t,t.Top),t=this.UpdateEdgeIntoAEL(t),t.WindDelta===0)return;var _=t.PrevInAEL,g=t.NextInAEL;if(_!==null&&_.Curr.X===t.Bot.X&&_.Curr.Y===t.Bot.Y&&_.WindDelta===0&&_.OutIdx>=0&&_.Curr.Y>_.Top.Y&&e.ClipperBase.SlopesEqual3(t,_,this.m_UseFullRange)){var m=this.AddOutPt(_,t.Bot);this.AddJoin(u,m,t.Top)}else if(g!==null&&g.Curr.X===t.Bot.X&&g.Curr.Y===t.Bot.Y&&g.WindDelta!==0&&g.OutIdx>=0&&g.Curr.Y>g.Top.Y&&e.ClipperBase.SlopesEqual3(t,g,this.m_UseFullRange)){var m=this.AddOutPt(g,t.Bot);this.AddJoin(u,m,t.Top)}}else t=this.UpdateEdgeIntoAEL(t);else t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t)},e.Clipper.prototype.GetNextInAEL=function(t,n){return n===e.Direction.dLeftToRight?t.NextInAEL:t.PrevInAEL},e.Clipper.prototype.IsMinima=function(e){return e!==null&&e.Prev.NextInLML!==e&&e.Next.NextInLML!==e},e.Clipper.prototype.IsMaxima=function(e,t){return e!==null&&e.Top.Y===t&&e.NextInLML===null},e.Clipper.prototype.IsIntermediate=function(e,t){return e.Top.Y===t&&e.NextInLML!==null},e.Clipper.prototype.GetMaximaPair=function(t){return e.IntPoint.op_Equality(t.Next.Top,t.Top)&&t.Next.NextInLML===null?t.Next:e.IntPoint.op_Equality(t.Prev.Top,t.Top)&&t.Prev.NextInLML===null?t.Prev:null},e.Clipper.prototype.GetMaximaPairEx=function(t){var n=this.GetMaximaPair(t);return n===null||n.OutIdx===e.ClipperBase.Skip||n.NextInAEL===n.PrevInAEL&&!e.ClipperBase.IsHorizontal(n)?null:n},e.Clipper.prototype.ProcessIntersections=function(t){if(this.m_ActiveEdges===null)return!0;try{if(this.BuildIntersectList(t),this.m_IntersectList.length===0)return!0;if(this.m_IntersectList.length===1||this.FixupIntersectionOrder())this.ProcessIntersectList();else return!1}catch{this.m_SortedEdges=null,this.m_IntersectList.length=0,e.Error(`ProcessIntersections error`)}return this.m_SortedEdges=null,!0},e.Clipper.prototype.BuildIntersectList=function(t){if(this.m_ActiveEdges!==null){var n=this.m_ActiveEdges;for(this.m_SortedEdges=n;n!==null;)n.PrevInSEL=n.PrevInAEL,n.NextInSEL=n.NextInAEL,n.Curr.X=e.Clipper.TopX(n,t),n=n.NextInAEL;for(var r=!0;r&&this.m_SortedEdges!==null;){for(r=!1,n=this.m_SortedEdges;n.NextInSEL!==null;){var i=n.NextInSEL,a=new e.IntPoint0;if(n.Curr.X>i.Curr.X){this.IntersectPoint(n,i,a),a.Y<t&&(a=new e.IntPoint2(e.Clipper.TopX(n,t),t));var o=new e.IntersectNode;o.Edge1=n,o.Edge2=i,o.Pt.X=a.X,o.Pt.Y=a.Y,e.use_xyz&&(o.Pt.Z=a.Z),this.m_IntersectList.push(o),this.SwapPositionsInSEL(n,i),r=!0}else n=i}if(n.PrevInSEL!==null)n.PrevInSEL.NextInSEL=null;else break}this.m_SortedEdges=null}},e.Clipper.prototype.EdgesAdjacent=function(e){return e.Edge1.NextInSEL===e.Edge2||e.Edge1.PrevInSEL===e.Edge2},e.Clipper.IntersectNodeSort=function(e,t){return t.Pt.Y-e.Pt.Y},e.Clipper.prototype.FixupIntersectionOrder=function(){this.m_IntersectList.sort(this.m_IntersectNodeComparer),this.CopyAELToSEL();for(var e=this.m_IntersectList.length,t=0;t<e;t++){if(!this.EdgesAdjacent(this.m_IntersectList[t])){for(var n=t+1;n<e&&!this.EdgesAdjacent(this.m_IntersectList[n]);)n++;if(n===e)return!1;var r=this.m_IntersectList[t];this.m_IntersectList[t]=this.m_IntersectList[n],this.m_IntersectList[n]=r}this.SwapPositionsInSEL(this.m_IntersectList[t].Edge1,this.m_IntersectList[t].Edge2)}return!0},e.Clipper.prototype.ProcessIntersectList=function(){for(var e=0,t=this.m_IntersectList.length;e<t;e++){var n=this.m_IntersectList[e];this.IntersectEdges(n.Edge1,n.Edge2,n.Pt),this.SwapPositionsInAEL(n.Edge1,n.Edge2)}this.m_IntersectList.length=0};var ht=function(e){return e<0?Math.ceil(e-.5):Math.round(e)},gt=function(e){return e<0?Math.ceil(e-.5):Math.floor(e+.5)},_t=function(e){return e<0?-Math.round(Math.abs(e)):Math.round(e)},vt=function(e){return e<0?(e-=.5,e<-2147483648?Math.ceil(e):e|0):(e+=.5,e>2147483647?Math.floor(e):e|0)};a.msie?e.Clipper.Round=ht:a.chromium?e.Clipper.Round=_t:a.safari?e.Clipper.Round=vt:e.Clipper.Round=gt,e.Clipper.TopX=function(t,n){return n===t.Top.Y?t.Top.X:t.Bot.X+e.Clipper.Round(t.Dx*(n-t.Bot.Y))},e.Clipper.prototype.IntersectPoint=function(t,n,r){r.X=0,r.Y=0;var i,a;if(t.Dx===n.Dx){r.Y=t.Curr.Y,r.X=e.Clipper.TopX(t,r.Y);return}if(t.Delta.X===0)r.X=t.Bot.X,e.ClipperBase.IsHorizontal(n)?r.Y=n.Bot.Y:(a=n.Bot.Y-n.Bot.X/n.Dx,r.Y=e.Clipper.Round(r.X/n.Dx+a));else if(n.Delta.X===0)r.X=n.Bot.X,e.ClipperBase.IsHorizontal(t)?r.Y=t.Bot.Y:(i=t.Bot.Y-t.Bot.X/t.Dx,r.Y=e.Clipper.Round(r.X/t.Dx+i));else{i=t.Bot.X-t.Bot.Y*t.Dx,a=n.Bot.X-n.Bot.Y*n.Dx;var o=(a-i)/(t.Dx-n.Dx);r.Y=e.Clipper.Round(o),Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.Round(t.Dx*o+i):r.X=e.Clipper.Round(n.Dx*o+a)}if(r.Y<t.Top.Y||r.Y<n.Top.Y){if(t.Top.Y>n.Top.Y)return r.Y=t.Top.Y,r.X=e.Clipper.TopX(n,t.Top.Y),r.X<t.Top.X;r.Y=n.Top.Y,Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.TopX(t,r.Y):r.X=e.Clipper.TopX(n,r.Y)}r.Y>t.Curr.Y&&(r.Y=t.Curr.Y,Math.abs(t.Dx)>Math.abs(n.Dx)?r.X=e.Clipper.TopX(n,r.Y):r.X=e.Clipper.TopX(t,r.Y))},e.Clipper.prototype.ProcessEdgesAtTopOfScanbeam=function(t){for(var n=this.m_ActiveEdges;n!==null;){var r=this.IsMaxima(n,t);if(r){var i=this.GetMaximaPairEx(n);r=i===null||!e.ClipperBase.IsHorizontal(i)}if(r){this.StrictlySimple&&this.InsertMaxima(n.Top.X);var a=n.PrevInAEL;this.DoMaxima(n),n=a===null?this.m_ActiveEdges:a.NextInAEL}else{if(this.IsIntermediate(n,t)&&e.ClipperBase.IsHorizontal(n.NextInLML)?(n=this.UpdateEdgeIntoAEL(n),n.OutIdx>=0&&this.AddOutPt(n,n.Bot),this.AddEdgeToSEL(n)):(n.Curr.X=e.Clipper.TopX(n,t),n.Curr.Y=t),e.use_xyz&&(n.Top.Y===t?n.Curr.Z=n.Top.Z:n.Bot.Y===t?n.Curr.Z=n.Bot.Z:n.Curr.Z=0),this.StrictlySimple){var a=n.PrevInAEL;if(n.OutIdx>=0&&n.WindDelta!==0&&a!==null&&a.OutIdx>=0&&a.Curr.X===n.Curr.X&&a.WindDelta!==0){var o=new e.IntPoint1(n.Curr);e.use_xyz&&this.SetZ(o,a,n);var s=this.AddOutPt(a,o),c=this.AddOutPt(n,o);this.AddJoin(s,c,o)}}n=n.NextInAEL}}for(this.ProcessHorizontals(),this.m_Maxima=null,n=this.m_ActiveEdges;n!==null;){if(this.IsIntermediate(n,t)){var s=null;n.OutIdx>=0&&(s=this.AddOutPt(n,n.Top)),n=this.UpdateEdgeIntoAEL(n);var a=n.PrevInAEL,l=n.NextInAEL;if(a!==null&&a.Curr.X===n.Bot.X&&a.Curr.Y===n.Bot.Y&&s!==null&&a.OutIdx>=0&&a.Curr.Y===a.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,a.Curr,a.Top,this.m_UseFullRange)&&n.WindDelta!==0&&a.WindDelta!==0){var c=this.AddOutPt(ePrev2,n.Bot);this.AddJoin(s,c,n.Top)}else if(l!==null&&l.Curr.X===n.Bot.X&&l.Curr.Y===n.Bot.Y&&s!==null&&l.OutIdx>=0&&l.Curr.Y===l.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,l.Curr,l.Top,this.m_UseFullRange)&&n.WindDelta!==0&&l.WindDelta!==0){var c=this.AddOutPt(l,n.Bot);this.AddJoin(s,c,n.Top)}}n=n.NextInAEL}},e.Clipper.prototype.DoMaxima=function(t){var n=this.GetMaximaPairEx(t);if(n===null){t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t);return}for(var r=t.NextInAEL;r!==null&&r!==n;)this.IntersectEdges(t,r,t.Top),this.SwapPositionsInAEL(t,r),r=t.NextInAEL;t.OutIdx===-1&&n.OutIdx===-1?(this.DeleteFromAEL(t),this.DeleteFromAEL(n)):t.OutIdx>=0&&n.OutIdx>=0?(t.OutIdx>=0&&this.AddLocalMaxPoly(t,n,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(n)):e.use_lines&&t.WindDelta===0?(t.OutIdx>=0&&(this.AddOutPt(t,t.Top),t.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(t),n.OutIdx>=0&&(this.AddOutPt(n,t.Top),n.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(n)):e.Error(`DoMaxima error`)},e.Clipper.ReversePaths=function(e){for(var t=0,n=e.length;t<n;t++)e[t].reverse()},e.Clipper.Orientation=function(t){return e.Clipper.Area(t)>=0},e.Clipper.prototype.PointCount=function(e){if(e===null)return 0;var t=0,n=e;do t++,n=n.Next;while(n!==e);return t},e.Clipper.prototype.BuildResult=function(t){e.Clear(t);for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];if(i.Pts!==null){var a=i.Pts.Prev,o=this.PointCount(a);if(!(o<2)){for(var s=Array(o),c=0;c<o;c++)s[c]=a.Pt,a=a.Prev;t.push(s)}}}},e.Clipper.prototype.BuildResult2=function(t){t.Clear();for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n],a=this.PointCount(i.Pts);if(!(i.IsOpen&&a<2||!i.IsOpen&&a<3)){this.FixHoleLinkage(i);var o=new e.PolyNode;t.m_AllPolys.push(o),i.PolyNode=o,o.m_polygon.length=a;for(var s=i.Pts.Prev,c=0;c<a;c++)o.m_polygon[c]=s.Pt,s=s.Prev}}for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];i.PolyNode!==null&&(i.IsOpen?(i.PolyNode.IsOpen=!0,t.AddChild(i.PolyNode)):i.FirstLeft!==null&&i.FirstLeft.PolyNode!==null?i.FirstLeft.PolyNode.AddChild(i.PolyNode):t.AddChild(i.PolyNode))}},e.Clipper.prototype.FixupOutPolyline=function(t){for(var n=t.Pts,r=n.Prev;n!==r;)if(n=n.Next,e.IntPoint.op_Equality(n.Pt,n.Prev.Pt)){n===r&&(r=n.Prev);var i=n.Prev;i.Next=n.Next,n.Next.Prev=i,n=i}n===n.Prev&&(t.Pts=null)},e.Clipper.prototype.FixupOutPolygon=function(t){var n=null;t.BottomPt=null;for(var r=t.Pts,i=this.PreserveCollinear||this.StrictlySimple;;){if(r.Prev===r||r.Prev===r.Next){t.Pts=null;return}if(e.IntPoint.op_Equality(r.Pt,r.Next.Pt)||e.IntPoint.op_Equality(r.Pt,r.Prev.Pt)||e.ClipperBase.SlopesEqual4(r.Prev.Pt,r.Pt,r.Next.Pt,this.m_UseFullRange)&&(!i||!this.Pt2IsBetweenPt1AndPt3(r.Prev.Pt,r.Pt,r.Next.Pt)))n=null,r.Prev.Next=r.Next,r.Next.Prev=r.Prev,r=r.Prev;else if(r===n)break;else n===null&&(n=r),r=r.Next}t.Pts=r},e.Clipper.prototype.DupOutPt=function(t,n){var r=new e.OutPt;return r.Pt.X=t.Pt.X,r.Pt.Y=t.Pt.Y,e.use_xyz&&(r.Pt.Z=t.Pt.Z),r.Idx=t.Idx,n?(r.Next=t.Next,r.Prev=t,t.Next.Prev=r,t.Next=r):(r.Prev=t.Prev,r.Next=t,t.Prev.Next=r,t.Prev=r),r},e.Clipper.prototype.GetOverlap=function(e,t,n,r,i){return e<t?n<r?(i.Left=Math.max(e,n),i.Right=Math.min(t,r)):(i.Left=Math.max(e,r),i.Right=Math.min(t,n)):n<r?(i.Left=Math.max(t,n),i.Right=Math.min(e,r)):(i.Left=Math.max(t,r),i.Right=Math.min(e,n)),i.Left<i.Right},e.Clipper.prototype.JoinHorz=function(t,n,r,i,a,o){var s=t.Pt.X>n.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight,c=r.Pt.X>i.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight;if(s===c)return!1;if(s===e.Direction.dLeftToRight){for(;t.Next.Pt.X<=a.X&&t.Next.Pt.X>=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,!o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,!o))}else{for(;t.Next.Pt.X>=a.X&&t.Next.Pt.X<=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;!o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,o))}if(c===e.Direction.dLeftToRight){for(;r.Next.Pt.X<=a.X&&r.Next.Pt.X>=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,!o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,!o))}else{for(;r.Next.Pt.X>=a.X&&r.Next.Pt.X<=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;!o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,o))}return s===e.Direction.dLeftToRight===o?(t.Prev=r,r.Next=t,n.Next=i,i.Prev=n):(t.Next=r,r.Prev=t,n.Prev=i,i.Next=n),!0},e.Clipper.prototype.JoinPoints=function(t,n,r){var i=t.OutPt1,a=new e.OutPt,o=t.OutPt2,s=new e.OutPt,c=t.OutPt1.Pt.Y===t.OffPt.Y;if(c&&e.IntPoint.op_Equality(t.OffPt,t.OutPt1.Pt)&&e.IntPoint.op_Equality(t.OffPt,t.OutPt2.Pt)){if(n!==r)return!1;for(a=t.OutPt1.Next;a!==i&&e.IntPoint.op_Equality(a.Pt,t.OffPt);)a=a.Next;var l=a.Pt.Y>t.OffPt.Y;for(s=t.OutPt2.Next;s!==o&&e.IntPoint.op_Equality(s.Pt,t.OffPt);)s=s.Next;return l===s.Pt.Y>t.OffPt.Y?!1:l?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}else if(c){for(a=i;i.Prev.Pt.Y===i.Pt.Y&&i.Prev!==a&&i.Prev!==o;)i=i.Prev;for(;a.Next.Pt.Y===a.Pt.Y&&a.Next!==i&&a.Next!==o;)a=a.Next;if(a.Next===i||a.Next===o)return!1;for(s=o;o.Prev.Pt.Y===o.Pt.Y&&o.Prev!==s&&o.Prev!==a;)o=o.Prev;for(;s.Next.Pt.Y===s.Pt.Y&&s.Next!==o&&s.Next!==i;)s=s.Next;if(s.Next===o||s.Next===i)return!1;var u={Left:null,Right:null};if(!this.GetOverlap(i.Pt.X,a.Pt.X,o.Pt.X,s.Pt.X,u))return!1;var d=u.Left,f=u.Right,p=new e.IntPoint0,m;return i.Pt.X>=d&&i.Pt.X<=f?(p.X=i.Pt.X,p.Y=i.Pt.Y,e.use_xyz&&(p.Z=i.Pt.Z),m=i.Pt.X>a.Pt.X):o.Pt.X>=d&&o.Pt.X<=f?(p.X=o.Pt.X,p.Y=o.Pt.Y,e.use_xyz&&(p.Z=o.Pt.Z),m=o.Pt.X>s.Pt.X):a.Pt.X>=d&&a.Pt.X<=f?(p.X=a.Pt.X,p.Y=a.Pt.Y,e.use_xyz&&(p.Z=a.Pt.Z),m=a.Pt.X>i.Pt.X):(p.X=s.Pt.X,p.Y=s.Pt.Y,e.use_xyz&&(p.Z=s.Pt.Z),m=s.Pt.X>o.Pt.X),t.OutPt1=i,t.OutPt2=o,this.JoinHorz(i,a,o,s,p,m)}else{for(a=i.Next;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Next;var h=a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange);if(h){for(a=i.Prev;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Prev;if(a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange))return!1}for(s=o.Next;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Next;var g=s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange);if(g){for(s=o.Prev;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Prev;if(s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange))return!1}return a===i||s===o||a===s||n===r&&h===g?!1:h?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}},e.Clipper.GetBounds=function(t){for(var n=0,r=t.length;n<r&&t[n].length===0;)n++;if(n===r)return new e.IntRect(0,0,0,0);var i=new e.IntRect;for(i.left=t[n][0].X,i.right=i.left,i.top=t[n][0].Y,i.bottom=i.top;n<r;n++)for(var a=0,o=t[n].length;a<o;a++)t[n][a].X<i.left?i.left=t[n][a].X:t[n][a].X>i.right&&(i.right=t[n][a].X),t[n][a].Y<i.top?i.top=t[n][a].Y:t[n][a].Y>i.bottom&&(i.bottom=t[n][a].Y);return i},e.Clipper.prototype.GetBounds2=function(t){var n=t,r=new e.IntRect;for(r.left=t.Pt.X,r.right=t.Pt.X,r.top=t.Pt.Y,r.bottom=t.Pt.Y,t=t.Next;t!==n;)t.Pt.X<r.left&&(r.left=t.Pt.X),t.Pt.X>r.right&&(r.right=t.Pt.X),t.Pt.Y<r.top&&(r.top=t.Pt.Y),t.Pt.Y>r.bottom&&(r.bottom=t.Pt.Y),t=t.Next;return r},e.Clipper.PointInPolygon=function(e,t){var n=0,r=t.length;if(r<3)return 0;for(var i=t[0],a=1;a<=r;++a){var o=a===r?t[0]:t[a];if(o.Y===e.Y&&(o.X===e.X||i.Y===e.Y&&o.X>e.X==i.X<e.X))return-1;if(i.Y<e.Y!=o.Y<e.Y){if(i.X>=e.X)if(o.X>e.X)n=1-n;else{var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}else if(o.X>e.X){var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}}i=o}return n},e.Clipper.prototype.PointInPolygon=function(e,t){var n=0,r=t,i=e.X,a=e.Y,o=t.Pt.X,s=t.Pt.Y;do{t=t.Next;var c=t.Pt.X,l=t.Pt.Y;if(l===a&&(c===i||s===a&&c>i==o<i))return-1;if(s<a!=l<a){if(o>=i)if(c>i)n=1-n;else{var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}else if(c>i){var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}}o=c,s=l}while(r!==t);return n},e.Clipper.prototype.Poly2ContainsPoly1=function(e,t){var n=e;do{var r=this.PointInPolygon(n.Pt,t);if(r>=0)return r>0;n=n.Next}while(n!==e);return!0},e.Clipper.prototype.FixupFirstLefts1=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&this.Poly2ContainsPoly1(r.Pts,n.Pts)&&(r.FirstLeft=n)},e.Clipper.prototype.FixupFirstLefts2=function(t,n){for(var r=n.FirstLeft,i,a,o=0,s=this.m_PolyOuts.length;o<s;o++)i=this.m_PolyOuts[o],!(i.Pts===null||i===n||i===t)&&(a=e.Clipper.ParseFirstLeft(i.FirstLeft),!(a!==r&&a!==t&&a!==n)&&(this.Poly2ContainsPoly1(i.Pts,t.Pts)?i.FirstLeft=t:this.Poly2ContainsPoly1(i.Pts,n.Pts)?i.FirstLeft=n:(i.FirstLeft===t||i.FirstLeft===n)&&(i.FirstLeft=r)))},e.Clipper.prototype.FixupFirstLefts3=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&(r.FirstLeft=n)},e.Clipper.ParseFirstLeft=function(e){for(;e!==null&&e.Pts===null;)e=e.FirstLeft;return e},e.Clipper.prototype.JoinCommonEdges=function(){for(var e=0,t=this.m_Joins.length;e<t;e++){var n=this.m_Joins[e],r=this.GetOutRec(n.OutPt1.Idx),i=this.GetOutRec(n.OutPt2.Idx);if(!(r.Pts===null||i.Pts===null)&&!(r.IsOpen||i.IsOpen)){var a=r===i?r:this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i);this.JoinPoints(n,r,i)&&(r===i?(r.Pts=n.OutPt1,r.BottomPt=null,i=this.CreateOutRec(),i.Pts=n.OutPt2,this.UpdateOutPtIdxs(i),this.Poly2ContainsPoly1(i.Pts,r.Pts)?(i.IsHole=!r.IsHole,i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts2(i,r),(i.IsHole^this.ReverseSolution)==this.Area$1(i)>0&&this.ReversePolyPtLinks(i.Pts)):this.Poly2ContainsPoly1(r.Pts,i.Pts)?(i.IsHole=r.IsHole,r.IsHole=!i.IsHole,i.FirstLeft=r.FirstLeft,r.FirstLeft=i,this.m_UsingPolyTree&&this.FixupFirstLefts2(r,i),(r.IsHole^this.ReverseSolution)==this.Area$1(r)>0&&this.ReversePolyPtLinks(r.Pts)):(i.IsHole=r.IsHole,i.FirstLeft=r.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(r,i))):(i.Pts=null,i.BottomPt=null,i.Idx=r.Idx,r.IsHole=a.IsHole,a===i&&(r.FirstLeft=i.FirstLeft),i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts3(i,r)))}}},e.Clipper.prototype.UpdateOutPtIdxs=function(e){var t=e.Pts;do t.Idx=e.Idx,t=t.Prev;while(t!==e.Pts)},e.Clipper.prototype.DoSimplePolygons=function(){for(var t=0;t<this.m_PolyOuts.length;){var n=this.m_PolyOuts[t++],r=n.Pts;if(!(r===null||n.IsOpen))do{for(var i=r.Next;i!==n.Pts;){if(e.IntPoint.op_Equality(r.Pt,i.Pt)&&i.Next!==r&&i.Prev!==r){var a=r.Prev,o=i.Prev;r.Prev=o,o.Next=r,i.Prev=a,a.Next=i,n.Pts=r;var s=this.CreateOutRec();s.Pts=i,this.UpdateOutPtIdxs(s),this.Poly2ContainsPoly1(s.Pts,n.Pts)?(s.IsHole=!n.IsHole,s.FirstLeft=n,this.m_UsingPolyTree&&this.FixupFirstLefts2(s,n)):this.Poly2ContainsPoly1(n.Pts,s.Pts)?(s.IsHole=n.IsHole,n.IsHole=!s.IsHole,s.FirstLeft=n.FirstLeft,n.FirstLeft=s,this.m_UsingPolyTree&&this.FixupFirstLefts2(n,s)):(s.IsHole=n.IsHole,s.FirstLeft=n.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(n,s)),i=r}i=i.Next}r=r.Next}while(r!==n.Pts)}},e.Clipper.Area=function(e){if(!Array.isArray(e))return 0;var t=e.length;if(t<3)return 0;for(var n=0,r=0,i=t-1;r<t;++r)n+=(e[i].X+e[r].X)*(e[i].Y-e[r].Y),i=r;return-n*.5},e.Clipper.prototype.Area=function(e){var t=e;if(e===null)return 0;var n=0;do n+=(e.Prev.Pt.X+e.Pt.X)*(e.Prev.Pt.Y-e.Pt.Y),e=e.Next;while(e!==t);return n*.5},e.Clipper.prototype.Area$1=function(e){return this.Area(e.Pts)},e.Clipper.SimplifyPolygon=function(t,n){var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPath(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.SimplifyPolygons=function(t,n){n===void 0&&(n=e.PolyFillType.pftEvenOdd);var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPaths(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.DistanceSqrd=function(e,t){var n=e.X-t.X,r=e.Y-t.Y;return n*n+r*r},e.Clipper.DistanceFromLineSqrd=function(e,t,n){var r=t.Y-n.Y,i=n.X-t.X,a=r*t.X+i*t.Y;return a=r*e.X+i*e.Y-a,a*a/(r*r+i*i)},e.Clipper.SlopesNearCollinear=function(t,n,r,i){return Math.abs(t.X-n.X)>Math.abs(t.Y-n.Y)?t.X>n.X==t.X<r.X?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.X>t.X==n.X<r.X?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i:t.Y>n.Y==t.Y<r.Y?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.Y>t.Y==n.Y<r.Y?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i},e.Clipper.PointsAreClose=function(e,t,n){var r=e.X-t.X,i=e.Y-t.Y;return r*r+i*i<=n},e.Clipper.ExcludeOp=function(e){var t=e.Prev;return t.Next=e.Next,e.Next.Prev=t,t.Idx=0,t},e.Clipper.CleanPolygon=function(t,n){n===void 0&&(n=1.415);var r=t.length;if(r===0)return[];for(var i=Array(r),a=0;a<r;++a)i[a]=new e.OutPt;for(var a=0;a<r;++a)i[a].Pt=t[a],i[a].Next=i[(a+1)%r],i[a].Next.Prev=i[a],i[a].Idx=0;for(var o=n*n,s=i[0];s.Idx===0&&s.Next!==s.Prev;)e.Clipper.PointsAreClose(s.Pt,s.Prev.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):e.Clipper.PointsAreClose(s.Prev.Pt,s.Next.Pt,o)?(e.Clipper.ExcludeOp(s.Next),s=e.Clipper.ExcludeOp(s),r-=2):e.Clipper.SlopesNearCollinear(s.Prev.Pt,s.Pt,s.Next.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):(s.Idx=1,s=s.Next);r<3&&(r=0);for(var c=Array(r),a=0;a<r;++a)c[a]=new e.IntPoint1(s.Pt),s=s.Next;return i=null,c},e.Clipper.CleanPolygons=function(t,n){for(var r=Array(t.length),i=0,a=t.length;i<a;i++)r[i]=e.Clipper.CleanPolygon(t[i],n);return r},e.Clipper.Minkowski=function(t,n,r,i){var a=+!!i,o=t.length,s=n.length,c=[];if(r)for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X+p.X,n[l].Y+p.Y);c.push(u)}else for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X-p.X,n[l].Y-p.Y);c.push(u)}for(var m=[],l=0;l<s-1+a;l++)for(var d=0;d<o;d++){var h=[];h.push(c[l%s][d%o]),h.push(c[(l+1)%s][d%o]),h.push(c[(l+1)%s][(d+1)%o]),h.push(c[l%s][(d+1)%o]),e.Clipper.Orientation(h)||h.reverse(),m.push(h)}return m},e.Clipper.MinkowskiSum=function(t,n,r){if(n[0]instanceof Array){for(var i=n,a=new e.Paths,o=new e.Clipper,s=0;s<i.length;++s){var c=e.Clipper.Minkowski(t,i[s],!0,r);if(o.AddPaths(c,e.PolyType.ptSubject,!0),r){var l=e.Clipper.TranslatePath(i[s],t[0]);o.AddPath(l,e.PolyType.ptClip,!0)}}return o.Execute(e.ClipType.ctUnion,a,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),a}else{var l=n,i=e.Clipper.Minkowski(t,l,!0,r),o=new e.Clipper;return o.AddPaths(i,e.PolyType.ptSubject,!0),o.Execute(e.ClipType.ctUnion,i,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),i}},e.Clipper.TranslatePath=function(t,n){for(var r=new e.Path,i=0;i<t.length;i++)r.push(new e.IntPoint2(t[i].X+n.X,t[i].Y+n.Y));return r},e.Clipper.MinkowskiDiff=function(t,n){var r=e.Clipper.Minkowski(t,n,!1,!0),i=new e.Clipper;return i.AddPaths(r,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),r},e.Clipper.PolyTreeToPaths=function(t){var n=[];return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntAny,n),n},e.Clipper.AddPolyNodeToPaths=function(t,n,r){var i=!0;switch(n){case e.Clipper.NodeType.ntOpen:return;case e.Clipper.NodeType.ntClosed:i=!t.IsOpen;break;default:break}t.m_polygon.length>0&&i&&r.push(t.m_polygon);for(var a=0,o=t.Childs(),s=o.length,c=o[a];a<s;a++,c=o[a])e.Clipper.AddPolyNodeToPaths(c,n,r)},e.Clipper.OpenPathsFromPolyTree=function(t){for(var n=new e.Paths,r=0,i=t.ChildCount();r<i;r++)t.Childs()[r].IsOpen&&n.push(t.Childs()[r].m_polygon);return n},e.Clipper.ClosedPathsFromPolyTree=function(t){var n=new e.Paths;return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntClosed,n),n},$(e.Clipper,e.ClipperBase),e.Clipper.NodeType={ntAny:0,ntOpen:1,ntClosed:2},e.ClipperOffset=function(t,n){t===void 0&&(t=2),n===void 0&&(n=e.ClipperOffset.def_arc_tolerance),this.m_destPolys=new e.Paths,this.m_srcPoly=new e.Path,this.m_destPoly=new e.Path,this.m_normals=[],this.m_delta=0,this.m_sinA=0,this.m_sin=0,this.m_cos=0,this.m_miterLim=0,this.m_StepsPerRad=0,this.m_lowest=new e.IntPoint0,this.m_polyNodes=new e.PolyNode,this.MiterLimit=t,this.ArcTolerance=n,this.m_lowest.X=-1},e.ClipperOffset.two_pi=6.28318530717959,e.ClipperOffset.def_arc_tolerance=.25,e.ClipperOffset.prototype.Clear=function(){e.Clear(this.m_polyNodes.Childs()),this.m_lowest.X=-1},e.ClipperOffset.Round=e.Clipper.Round,e.ClipperOffset.prototype.AddPath=function(t,n,r){var i=t.length-1;if(!(i<0)){var a=new e.PolyNode;if(a.m_jointype=n,a.m_endtype=r,r===e.EndType.etClosedLine||r===e.EndType.etClosedPolygon)for(;i>0&&e.IntPoint.op_Equality(t[0],t[i]);)i--;a.m_polygon.push(t[0]);for(var o=0,s=0,c=1;c<=i;c++)e.IntPoint.op_Inequality(a.m_polygon[o],t[c])&&(o++,a.m_polygon.push(t[c]),(t[c].Y>a.m_polygon[s].Y||t[c].Y===a.m_polygon[s].Y&&t[c].X<a.m_polygon[s].X)&&(s=o));if(!(r===e.EndType.etClosedPolygon&&o<2)&&(this.m_polyNodes.AddChild(a),r===e.EndType.etClosedPolygon))if(this.m_lowest.X<0)this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s);else{var l=this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon[this.m_lowest.Y];(a.m_polygon[s].Y>l.Y||a.m_polygon[s].Y===l.Y&&a.m_polygon[s].X<l.X)&&(this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s))}}},e.ClipperOffset.prototype.AddPaths=function(e,t,n){for(var r=0,i=e.length;r<i;r++)this.AddPath(e[r],t,n)},e.ClipperOffset.prototype.FixOrientations=function(){if(this.m_lowest.X>=0&&!e.Clipper.Orientation(this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon))for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];(n.m_endtype===e.EndType.etClosedPolygon||n.m_endtype===e.EndType.etClosedLine&&e.Clipper.Orientation(n.m_polygon))&&n.m_polygon.reverse()}else for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];n.m_endtype===e.EndType.etClosedLine&&!e.Clipper.Orientation(n.m_polygon)&&n.m_polygon.reverse()}},e.ClipperOffset.GetUnitNormal=function(t,n){var r=n.X-t.X,i=n.Y-t.Y;if(r===0&&i===0)return new e.DoublePoint2(0,0);var a=1/Math.sqrt(r*r+i*i);return r*=a,i*=a,new e.DoublePoint2(i,-r)},e.ClipperOffset.prototype.DoOffset=function(t){if(this.m_destPolys=[],this.m_delta=t,e.ClipperBase.near_zero(t)){for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];r.m_endtype===e.EndType.etClosedPolygon&&this.m_destPolys.push(r.m_polygon)}return}this.MiterLimit>2?this.m_miterLim=2/(this.MiterLimit*this.MiterLimit):this.m_miterLim=.5;var i=this.ArcTolerance<=0?e.ClipperOffset.def_arc_tolerance:this.ArcTolerance>Math.abs(t)*e.ClipperOffset.def_arc_tolerance?Math.abs(t)*e.ClipperOffset.def_arc_tolerance:this.ArcTolerance,a=3.14159265358979/Math.acos(1-i/Math.abs(t));this.m_sin=Math.sin(e.ClipperOffset.two_pi/a),this.m_cos=Math.cos(e.ClipperOffset.two_pi/a),this.m_StepsPerRad=a/e.ClipperOffset.two_pi,t<0&&(this.m_sin=-this.m_sin);for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];this.m_srcPoly=r.m_polygon;var o=this.m_srcPoly.length;if(!(o===0||t<=0&&(o<3||r.m_endtype!==e.EndType.etClosedPolygon))){if(this.m_destPoly=[],o===1){if(r.m_jointype===e.JoinType.jtRound)for(var s=1,c=0,l=1;l<=a;l++){this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t)));var u=s;s=s*this.m_cos-this.m_sin*c,c=u*this.m_sin+c*this.m_cos}else for(var s=-1,c=-1,l=0;l<4;++l)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t))),s<0?s=1:c<0?c=1:s=-1;this.m_destPolys.push(this.m_destPoly);continue}this.m_normals.length=0;for(var l=0;l<o-1;l++)this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[l],this.m_srcPoly[l+1]));if(r.m_endtype===e.EndType.etClosedLine||r.m_endtype===e.EndType.etClosedPolygon?this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[o-1],this.m_srcPoly[0])):this.m_normals.push(new e.DoublePoint1(this.m_normals[o-2])),r.m_endtype===e.EndType.etClosedPolygon){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else if(r.m_endtype===e.EndType.etClosedLine){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly),this.m_destPoly=[];for(var f=this.m_normals[o-1],l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-f.X,-f.Y),d=0;for(var l=o-1;l>=0;l--)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else{for(var d=0,l=1;l<o-1;++l)d=this.OffsetPoint(l,d,r.m_jointype);var p;if(r.m_endtype===e.EndType.etOpenButt){var l=o-1;p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X+this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y+this.m_normals[l].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X-this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y-this.m_normals[l].Y*t)),this.m_destPoly.push(p)}else{var l=o-1;d=o-2,this.m_sinA=0,this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l].X,-this.m_normals[l].Y),r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(l,d):this.DoRound(l,d)}for(var l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-this.m_normals[1].X,-this.m_normals[1].Y),d=o-1;for(var l=d-1;l>0;--l)d=this.OffsetPoint(l,d,r.m_jointype);r.m_endtype===e.EndType.etOpenButt?(p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X-this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y-this.m_normals[0].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+this.m_normals[0].Y*t)),this.m_destPoly.push(p)):(d=1,this.m_sinA=0,r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(0,1):this.DoRound(0,1)),this.m_destPolys.push(this.m_destPoly)}}}},e.ClipperOffset.prototype.Execute=function(){var t=arguments;if(t[0]instanceof e.PolyTree){var n=t[0],r=t[1];n.Clear(),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;if(o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.ChildCount()===1&&n.Childs()[0].ChildCount()>0){var s=n.Childs()[0];n.Childs()[0]=s.Childs()[0],n.Childs()[0].m_Parent=n;for(var c=1;c<s.ChildCount();c++)n.AddChild(s.Childs()[c])}else n.Clear()}}else{var n=t[0],r=t[1];e.Clear(n),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.length>0&&n.splice(0,1)}}},e.ClipperOffset.prototype.OffsetPoint=function(t,n,r){if(this.m_sinA=this.m_normals[n].X*this.m_normals[t].Y-this.m_normals[t].X*this.m_normals[n].Y,Math.abs(this.m_sinA*this.m_delta)<1){if(this.m_normals[n].X*this.m_normals[t].X+this.m_normals[t].Y*this.m_normals[n].Y>0)return this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),n}else this.m_sinA>1?this.m_sinA=1:this.m_sinA<-1&&(this.m_sinA=-1);if(this.m_sinA*this.m_delta<0)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),this.m_destPoly.push(new e.IntPoint1(this.m_srcPoly[t])),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)));else switch(r){case e.JoinType.jtMiter:var i=1+(this.m_normals[t].X*this.m_normals[n].X+this.m_normals[t].Y*this.m_normals[n].Y);i>=this.m_miterLim?this.DoMiter(t,n,i):this.DoSquare(t,n);break;case e.JoinType.jtSquare:this.DoSquare(t,n);break;case e.JoinType.jtRound:this.DoRound(t,n);break}return n=t,n},e.ClipperOffset.prototype.DoSquare=function(t,n){var r=Math.tan(Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y)/4);this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[n].X-this.m_normals[n].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[n].Y+this.m_normals[n].X*r)))),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[t].X+this.m_normals[t].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[t].Y-this.m_normals[t].X*r))))},e.ClipperOffset.prototype.DoMiter=function(t,n,r){var i=this.m_delta/r;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+(this.m_normals[n].X+this.m_normals[t].X)*i),e.ClipperOffset.Round(this.m_srcPoly[t].Y+(this.m_normals[n].Y+this.m_normals[t].Y)*i)))},e.ClipperOffset.prototype.DoRound=function(t,n){for(var r=Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y),i=Math.max(e.Cast_Int32(e.ClipperOffset.Round(this.m_StepsPerRad*Math.abs(r))),1),a=this.m_normals[n].X,o=this.m_normals[n].Y,s,c=0;c<i;++c)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+a*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+o*this.m_delta))),s=a,a=a*this.m_cos-this.m_sin*o,o=s*this.m_sin+o*this.m_cos;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)))},e.Error=function(e){try{throw Error(e)}catch(e){alert(e.message)}},e.JS={},e.JS.AreaOfPolygon=function(t,n){return n||=1,e.Clipper.Area(t)/(n*n)},e.JS.AreaOfPolygons=function(t,n){n||=1;for(var r=0,i=0;i<t.length;i++)r+=e.Clipper.Area(t[i]);return r/(n*n)},e.JS.BoundsOfPath=function(t,n){return e.JS.BoundsOfPaths([t],n)},e.JS.BoundsOfPaths=function(t,n){n||=1;var r=e.Clipper.GetBounds(t);return r.left/=n,r.bottom/=n,r.right/=n,r.top/=n,r},e.JS.Clean=function(t,n){if(!(t instanceof Array))return[];var r=t[0]instanceof Array,t=e.JS.Clone(t);if(typeof n!=`number`||n===null)return e.Error(`Delta is not a number in Clean().`),t;if(t.length===0||t.length===1&&t[0].length===0||n<0)return t;r||(t=[t]);for(var i=t.length,a,o,s,c,l,u,d,f=[],p=0;p<i;p++)if(o=t[p],a=o.length,a!==0){if(a<3){s=o,f.push(s);continue}for(s=o,c=n*n,l=o[0],u=1,d=1;d<a;d++)(o[d].X-l.X)*(o[d].X-l.X)+(o[d].Y-l.Y)*(o[d].Y-l.Y)<=c||(s[u]=o[d],l=o[d],u++);l=o[u-1],(o[0].X-l.X)*(o[0].X-l.X)+(o[0].Y-l.Y)*(o[0].Y-l.Y)<=c&&u--,u<a&&s.splice(u,a-u),s.length&&f.push(s)}return!r&&f.length?f=f[0]:!r&&f.length===0?f=[]:r&&f.length===0&&(f=[[]]),f},e.JS.Clone=function(e){if(!(e instanceof Array)||e.length===0)return[];if(e.length===1&&e[0].length===0)return[[]];var t=e[0]instanceof Array;t||(e=[e]);var n=e.length,r,i,a,o,s=Array(n);for(i=0;i<n;i++){for(r=e[i].length,o=Array(r),a=0;a<r;a++)o[a]={X:e[i][a].X,Y:e[i][a].Y};s[i]=o}return t||(s=s[0]),s},e.JS.Lighten=function(t,n){if(!(t instanceof Array))return[];if(typeof n!=`number`||n===null)return e.Error(`Tolerance is not a number in Lighten().`),e.JS.Clone(t);if(t.length===0||t.length===1&&t[0].length===0||n<0)return e.JS.Clone(t);var r=t[0]instanceof Array;r||(t=[t]);var i,a,o,s,c,l,u,d,f,p,m,h,g,_,v,y,b,x=t.length,S=n*n,C=[];for(i=0;i<x;i++)if(o=t[i],l=o.length,l!==0){for(s=0;s<1e6;s++){for(c=[],l=o.length,o[l-1].X!==o[0].X||o[l-1].Y!==o[0].Y?(h=1,o.push({X:o[0].X,Y:o[0].Y}),l=o.length):h=0,m=[],a=0;a<l-2;a++)u=o[a],f=o[a+1],d=o[a+2],y=u.X,b=u.Y,g=d.X-y,_=d.Y-b,(g!==0||_!==0)&&(v=((f.X-y)*g+(f.Y-b)*_)/(g*g+_*_),v>1?(y=d.X,b=d.Y):v>0&&(y+=g*v,b+=_*v)),g=f.X-y,_=f.Y-b,p=g*g+_*_,p<=S&&(m[a+1]=1,a++);for(c.push({X:o[0].X,Y:o[0].Y}),a=1;a<l-1;a++)m[a]||c.push({X:o[a].X,Y:o[a].Y});if(c.push({X:o[l-1].X,Y:o[l-1].Y}),h&&o.pop(),m.length)o=c;else break}l=c.length,c[l-1].X===c[0].X&&c[l-1].Y===c[0].Y&&c.pop(),c.length>2&&C.push(c)}return r||(C=C[0]),C===void 0&&(C=[]),C},e.JS.PerimeterOfPath=function(e,t,n){if(e===void 0)return 0;var r=Math.sqrt,i=0,a,o,s=0,c=0,l=0,u=0,d=e.length;if(d<2)return 0;for(t&&(e[d]=e[0],d++);--d;)a=e[d],s=a.X,c=a.Y,o=e[d-1],l=o.X,u=o.Y,i+=r((s-l)*(s-l)+(c-u)*(c-u));return t&&e.pop(),i/n},e.JS.PerimeterOfPaths=function(t,n,r){r||=1;for(var i=0,a=0;a<t.length;a++)i+=e.JS.PerimeterOfPath(t[a],n,r);return i},e.JS.ScaleDownPath=function(e,t){var n,r;for(t||=1,n=e.length;n--;)r=e[n],r.X/=t,r.Y/=t},e.JS.ScaleDownPaths=function(e,t){var n,r,i;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X/=t,i.Y/=t},e.JS.ScaleUpPath=function(e,t){var n,r,i=Math.round;for(t||=1,n=e.length;n--;)r=e[n],r.X=i(r.X*t),r.Y=i(r.Y*t)},e.JS.ScaleUpPaths=function(e,t){var n,r,i,a=Math.round;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X=a(i.X*t),i.Y=a(i.Y*t)},e.ExPolygons=function(){return[]},e.ExPolygon=function(){this.outer=null,this.holes=null},e.JS.AddOuterPolyNodeToExPolygons=function(t,n){var r=new e.ExPolygon;r.outer=t.Contour();var i=t.Childs(),a=i.length;r.holes=Array(a);var o,s,c,l,u,d;for(c=0;c<a;c++)for(o=i[c],r.holes[c]=o.Contour(),l=0,u=o.Childs(),d=u.length;l<d;l++)s=u[l],e.JS.AddOuterPolyNodeToExPolygons(s,n);n.push(r)},e.JS.ExPolygonsToPaths=function(t){var n,r,i,a,o=new e.Paths;for(n=0,i=t.length;n<i;n++)for(o.push(t[n].outer),r=0,a=t[n].holes.length;r<a;r++)o.push(t[n].holes[r]);return o},e.JS.PolyTreeToExPolygons=function(t){var n=new e.ExPolygons,r,i,a,o;for(i=0,a=t.Childs(),o=a.length;i<o;i++)r=a[i],e.JS.AddOuterPolyNodeToExPolygons(r,n);return n}})()}))(),1);let h=1e4,g=1e-4;function _(e){let t=0;for(let n=0,r=e.length-1;n<e.length;r=n++)t+=e[r].x*e[n].y-e[n].x*e[r].y;return t/2}function v(e){let t=1/0,n=1/0,r=-1/0,i=-1/0;for(let a of e)for(let e of a.points)t=Math.min(t,e.x),n=Math.min(n,e.y),r=Math.max(r,e.x),i=Math.max(i,e.y);return{minX:t,minY:n,maxX:r,maxY:i,width:r-t,height:i-n}}function y(e){return e.map(e=>e.points.map(e=>({X:Math.round(e.x*h),Y:Math.round(e.y*h)})))}function b(e){let t=[];function n(e){for(let r of e.Childs()){let e=r.IsHole(),i=m.default.Clipper.CleanPolygon(r.Contour(),1.1).map(e=>({x:e.X/h,y:e.Y/h}));i.length>=3&&(_(i)>0===e&&i.reverse(),t.push({isHole:e,points:i})),n(r)}}return n(e),t}function x(e,t,n,r=!1){if(!e.length)return[];let i=new m.default.Clipper;i.StrictlySimple=!0,i.AddPaths(y(e),m.default.PolyType.ptSubject,!0),t.length&&i.AddPaths(y(t),m.default.PolyType.ptClip,!0);let a=new m.default.PolyTree,o=r?m.default.PolyFillType.pftEvenOdd:m.default.PolyFillType.pftNonZero;return i.Execute(n===`union`?m.default.ClipType.ctUnion:n===`difference`?m.default.ClipType.ctDifference:m.default.ClipType.ctIntersection,a,o,m.default.PolyFillType.pftNonZero),b(a)}function S(e,t){if(!e.length)return[];if(Math.abs(t)<1e-4/10)return e.map(e=>({...e,points:e.points.map(e=>({...e}))}));let n=new m.default.ClipperOffset(2,.002*h);n.AddPaths(y(e),m.default.JoinType.jtMiter,m.default.EndType.etClosedPolygon);let r=new m.default.PolyTree;return n.Execute(r,t*h),b(r)}function C(e,t){let n=!1;for(let r=0,i=t.length-1;r<t.length;i=r++){let a=t[r],o=t[i];a.y>e.y!=o.y>e.y&&e.x<(o.x-a.x)*(e.y-a.y)/(o.y-a.y)+a.x&&(n=!n)}return n}function w(e,t){let n=!1;for(let r of t)C(e,r.points)&&(n=!n);return n}function T(e){let t=e.filter(e=>!e.isHole).map(e=>[e]);for(let n of e.filter(e=>e.isHole)){let e=t.filter(e=>C(n.points[0],e[0].points));e.sort((e,t)=>Math.abs(_(e[0].points))-Math.abs(_(t[0].points))),e[0]&&e[0].push(n)}return t}function E(e){return e.reduce((e,t)=>e+(t.isHole?-1:1)*Math.abs(_(t.points)),0)}function D(e){let t=0;for(let n of e)for(let e=0,r=n.points.length-1;e<n.points.length;r=e++)t+=Math.hypot(n.points[e].x-n.points[r].x,n.points[e].y-n.points[r].y);return t}function O(e,t){let n=1/0;for(let r of t)for(let t=0,i=r.points.length-1;t<r.points.length;i=t++){let a=r.points[i],o=r.points[t],s=o.x-a.x,c=o.y-a.y,l=Math.max(0,Math.min(1,((e.x-a.x)*s+(e.y-a.y)*c)/(s*s+c*c||1)));n=Math.min(n,Math.hypot(e.x-a.x-l*s,e.y-a.y-l*c))}return w(e,t)?n:-n}function k(e){let t=v(e),n={point:{x:(t.minX+t.maxX)/2,y:(t.minY+t.maxY)/2},clearance:-1/0};for(let r=0;r<18;r++)for(let i=0;i<18;i++){let a={x:t.minX+(r+.5)*t.width/18,y:t.minY+(i+.5)*t.height/18},o=O(a,e);o>n.clearance&&(n={point:a,clearance:o})}let r=Math.max(t.width,t.height)/18;for(let t=0;t<7;t++){let t=n.point;for(let i=-1;i<=1;i++)for(let a=-1;a<=1;a++){let o={x:t.x+i*r,y:t.y+a*r},s=O(o,e);s>n.clearance&&(n={point:o,clearance:s})}r/=2}return n}function A(e,t){return{isHole:!1,points:Array.from({length:96},(n,r)=>({x:e.x+t*Math.cos(r*Math.PI*2/96),y:e.y+t*Math.sin(r*Math.PI*2/96)}))}}function j(e,t){let n=[];for(let r of e)for(let e=0,i=r.points.length-1;e<r.points.length;i=e++){let a=r.points[i],o=r.points[e];(a.x<=t&&o.x>t||o.x<=t&&a.x>t)&&n.push(a.y+(o.y-a.y)*(t-a.x)/(o.x-a.x))}n.sort((e,t)=>e-t);let r=[];for(let e=0;e+1<n.length;e+=2)n[e+1]-n[e]>1e-4&&r.push([n[e],n[e+1]]);return r}function M(e,t,n){let r=t===`X`?0:t===`Y`?1:2,i=+(r===0),a=r===2?1:2,o=new Map,s=new Map,c=e=>`${Math.round(e.x/g)},${Math.round(e.y/g)}`;for(let t=0;t<e.length;t+=9){let l=[e[t+r]-n,e[t+3+r]-n,e[t+6+r]-n].map(e=>Math.abs(e)<1e-4/10?0:e);if(l.every(e=>e>=0)||l.every(e=>e<0))continue;let u=[];for(let n=0;n<3;n++){let r=(n+1)%3;if(l[n]<0==l[r]<0)continue;let o=l[n]/(l[n]-l[r]);u.push({x:e[t+n*3+i]+o*(e[t+r*3+i]-e[t+n*3+i]),y:e[t+n*3+a]+o*(e[t+r*3+a]-e[t+n*3+a])})}if(u.length!==2)continue;let d=c(u[0]),f=c(u[1]);if(d===f)continue;s.set(d,u[0]),s.set(f,u[1]);let p=d<f?`${d}|${f}`:`${f}|${d}`;o.has(p)?o.delete(p):o.set(p,[d,f])}let l=new Map;for(let[e,t]of o.values())l.has(e)||l.set(e,new Set),l.has(t)||l.set(t,new Set),l.get(e).add(t),l.get(t).add(e);let u=0,d=0;for(let e of l.values())e.size===1&&u++,e.size>2&&d++;let f=new Set,p=[];for(let e of l.keys()){if(f.has(e))continue;let t=[e];f.add(e);for(let e=0;e<t.length;e++)for(let n of l.get(t[e]))f.has(n)||(f.add(n),t.push(n));if(t.some(e=>l.get(e).size!==2))continue;let n=[],r=``,i=e;do{n.push(s.get(i));let e=[...l.get(i)].find(e=>e!==r);r=i,i=e}while(i!==e&&n.length<=t.length);i===e&&n.length>=3&&p.push({isHole:!1,points:n})}return{loops:x(p,[],`union`,!0),open:u,branches:d}}let N={0:[[0,0,.6,0,.6,1,0,1,0,0]],1:[[.12,.8,.3,1,.3,0],[.08,0,.52,0]],2:[[0,1,.6,1,.6,.5,0,.5,0,0,.6,0]],3:[[0,1,.6,1,.6,0,0,0],[.15,.5,.6,.5]],4:[[0,1,0,.5,.6,.5],[.6,1,.6,0]],5:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],6:[[.6,1,0,1,0,0,.6,0,.6,.5,0,.5]],7:[[0,1,.6,1,.1,0]],8:[[0,0,.6,0,.6,1,0,1,0,0],[0,.5,.6,.5]],9:[[.6,.5,0,.5,0,1,.6,1,.6,0,0,0]],X:[[0,0,.6,1],[0,1,.6,0]],Y:[[0,1,.3,.5,.6,1],[.3,.5,.3,0]],Z:[[0,1,.6,1,0,0,.6,0]],"-":[[.08,.5,.52,.5]],A:[[0,0,.3,1,.6,0],[.12,.4,.48,.4]],B:[[0,0,0,1,.5,1,.6,.75,.5,.5,0,.5],[.5,.5,.6,.25,.5,0,0,0]],C:[[.6,1,0,1,0,0,.6,0]],D:[[0,0,0,1,.4,1,.6,.8,.6,.2,.4,0,0,0]],E:[[.6,1,0,1,0,0,.6,0],[0,.5,.5,.5]],F:[[.6,1,0,1,0,0],[0,.5,.5,.5]],G:[[.6,1,0,1,0,0,.6,0,.6,.5,.35,.5]],H:[[0,0,0,1],[.6,0,.6,1],[0,.5,.6,.5]],I:[[0,1,.6,1],[.3,1,.3,0],[0,0,.6,0]],J:[[0,1,.6,1,.6,0,0,0,0,.25]],K:[[0,0,0,1],[.6,1,0,.5,.6,0]],L:[[0,1,0,0,.6,0]],M:[[0,0,0,1,.3,.5,.6,1,.6,0]],N:[[0,0,0,1,.6,0,.6,1]],O:[[0,0,.6,0,.6,1,0,1,0,0]],P:[[0,0,0,1,.6,1,.6,.5,0,.5]],Q:[[0,0,.6,0,.6,1,0,1,0,0],[.35,.25,.65,-.05]],R:[[0,0,0,1,.6,1,.6,.5,0,.5],[.25,.5,.6,0]],S:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],T:[[0,1,.6,1],[.3,1,.3,0]],U:[[0,1,0,0,.6,0,.6,1]],V:[[0,1,.3,0,.6,1]],W:[[0,1,.15,0,.3,.5,.45,0,.6,1]]};function P(e,t,n){let{point:r,clearance:i}=n||k(t),a=e.length*.85-.25,o=Math.min(3.8,2*Math.max(0,i-.7)/Math.hypot(a,1));if(o<.65)return[];let s=r.x-a*o/2,c=r.y-o/2,l=[];return[...e.toUpperCase()].forEach((e,t)=>{for(let n of N[e]||N[`-`]){let e=[];for(let r=0;r<n.length;r+=2)e.push({x:s+(t*.85+n[r])*o,y:c+n[r+1]*o});l.push({points:e})}}),l}function F(e,t){return t.x>=e.x-1e-8&&t.y>=e.y-1e-8&&t.x+t.w<=e.x+e.w+1e-8&&t.y+t.h<=e.y+e.h+1e-8}function I(e,t){let n=[];for(let r of e){if(t.x>=r.x+r.w-1e-8||t.x+t.w<=r.x+1e-8||t.y>=r.y+r.h-1e-8||t.y+t.h<=r.y+1e-8){n.push(r);continue}t.x>r.x&&n.push({x:r.x,y:r.y,w:t.x-r.x,h:r.h}),t.x+t.w<r.x+r.w&&n.push({x:t.x+t.w,y:r.y,w:r.x+r.w-t.x-t.w,h:r.h}),t.y>r.y&&n.push({x:r.x,y:r.y,w:r.w,h:t.y-r.y}),t.y+t.h<r.y+r.h&&n.push({x:r.x,y:t.y+t.h,w:r.w,h:r.y+r.h-t.y-t.h})}return n.filter((e,t)=>e.w>1e-8&&e.h>1e-8&&!n.some((n,r)=>r!==t&&F(n,e)&&(!F(e,n)||r<t)))}function L(e,t){let n=t.sheetWidth-t.sheetMargin*2,r=t.sheetHeight-t.sheetMargin*2,i=[],a=[],o=[...e].sort((e,t)=>t.bounds.width*t.bounds.height-e.bounds.width*e.bounds.height||e.id.localeCompare(t.id));for(let e of o){let o=e.bounds.width+t.partSpacing,s=e.bounds.height+t.partSpacing;if(!(o<=n&&s<=r||t.allowRotation&&s<=n&&o<=r)){a.push(e.id);continue}let c=null,l=e=>{for(let n of i[e].free)for(let r of t.allowRotation?[0,90]:[0]){let t=r===0?o:s,i=r===0?s:o;if(t>n.w+1e-8||i>n.h+1e-8)continue;let a=Math.min(n.w-t,n.h-i),l=Math.max(n.w-t,n.h-i);(!c||a<c.short-1e-8||Math.abs(a-c.short)<1e-8&&l<c.long)&&(c={bin:e,rect:{x:n.x,y:n.y,w:t,h:i},rotation:r,short:a,long:l})}};for(let e=0;e<i.length;e++)l(e);c||(i.push({free:[{x:0,y:0,w:n,h:r}],sheet:{sheetIndex:i.length,placements:[],utilization:0,cutLength:0}}),l(i.length-1));let u=c;if(!u){a.push(e.id);continue}let d=i[u.bin];d.free=I(d.free,u.rect),d.sheet.placements.push({pieceId:e.id,x:u.rect.x+t.sheetMargin+t.partSpacing/2,y:u.rect.y+t.sheetMargin+t.partSpacing/2,rotation:u.rotation}),d.sheet.utilization+=e.area/(t.sheetWidth*t.sheetHeight),d.sheet.cutLength+=e.cutLength}return{sheets:i.map(e=>e.sheet),unplaced:a}}function R(e){for(let[t,[n,r]]of Object.entries({targetWidth:[1,1e4],targetDepth:[1,1e4],targetHeight:[1,1e4],materialThickness:[.1,100],laserKerf:[0,5],slotFitTolerance:[-2,5],leadInChamfer:[0,20],xSliceCount:[1,100],ySliceCount:[1,100],slotDepthRatio:[.1,.9],pinDiameter:[.5,100],pinCount:[1,5],sheetWidth:[20,5e3],sheetHeight:[20,5e3],sheetMargin:[0,500],partSpacing:[0,100]})){let i=e[t];if(typeof i!=`number`||!Number.isFinite(i)||i<n||i>r)throw Error(`${t.replace(/([A-Z])/g,` $1`)} must be between ${n} and ${r}.`)}for(let t of[`xSliceCount`,`ySliceCount`,`pinCount`])if(!Number.isInteger(e[t]))throw Error(`Slice and pin counts must be whole numbers.`);if(![`interlocking`,`stacked`].includes(e.mode)||![`X`,`Y`,`Z`].includes(e.stackedAxis)||![`X`,`Y`,`Z`].includes(e.scaleAxis))throw Error(`Invalid slicing mode or axis.`);if(e.materialThickness+e.slotFitTolerance<=e.laserKerf+1e-4&&e.mode===`interlocking`)throw Error(`The desired slot is smaller than the laser kerf. Increase thickness/tolerance or reduce kerf.`);if(e.alignmentPins&&e.pinDiameter<=e.laserKerf+1e-4&&e.mode===`stacked`)throw Error(`Pin diameter must be larger than the laser kerf.`);if(e.sheetMargin*2>=Math.min(e.sheetWidth,e.sheetHeight))throw Error(`The margin leaves no usable sheet area.`)}function z(e,t,n,r,i,a,o,s){let c=a/2,l=Math.min(o,(n-t)*.15,(i?n-r:r-t)*.45);return{isHole:!1,points:(i?[[e-c,r],[e+c,r],[e+c,n-l],[e+c+l,n],[e+c+l,s],[e-c-l,s],[e-c-l,n],[e-c,n-l]]:[[e-c-l,s],[e+c+l,s],[e+c+l,t],[e+c,t+l],[e+c,r],[e-c,r],[e-c,t+l],[e-c-l,t]]).map(([e,t])=>({x:e,y:t}))}}function B(e,t){let n=e[0]?.raw||[];for(let t=1;t<e.length&&n.length;t++)n=x(n,e[t].raw,`intersection`);let r=S(n,-(t.pinDiameter/2+Math.max(t.materialThickness,2)));if(!r.length)return[];let i=v(r),a=[];for(let e=0;e<29;e++)for(let t=0;t<29;t++){let n={x:i.minX+(e+.5)*i.width/29,y:i.minY+(t+.5)*i.height/29};w(n,r)&&a.push(n)}for(let e of T(r))a.push(k(e).point);let o=[];for(;o.length<t.pinCount&&a.length;){let e=-1,n=-1/0;if(a.forEach((i,a)=>{let s=o.length?Math.min(...o.map(e=>Math.hypot(i.x-e.x,i.y-e.y))):O(i,r);o.length&&s<t.pinDiameter+2*t.materialThickness||s>n&&(n=s,e=a)}),e<0)break;o.push(a.splice(e,1)[0])}return o}function V(e,t){let n=performance.now();R(t);let r=[],i=(e,t,n,i=[])=>{let a=r.find(t=>t.code===e);a||(a={code:e,severity:t,message:n,partIds:[]},r.push(a));for(let e of i)a.partIds.includes(e)||a.partIds.push(e)};(e.info.boundaryEdges||e.info.nonManifoldEdges)&&i(`mesh-topology`,`warning`,`Mesh has ${e.info.boundaryEdges.toLocaleString()} open edges and ${e.info.nonManifoldEdges.toLocaleString()} non-manifold edges. Repair the STL for reliable sections.`);let a=l(e.vertices),o=[t.targetWidth,t.targetDepth,t.targetHeight],s=t.scaleAxis===`X`?0:t.scaleAxis===`Y`?1:2,c=t.keepAspectRatio?a.dimensions.map(()=>o[s]/a.dimensions[s]):o.map((e,t)=>e/a.dimensions[t]),u=a.dimensions.map((e,t)=>e*c[t]),d=new Float64Array(e.vertices.length);for(let t=0;t<d.length;t++)d[t]=(e.vertices[t]-a.min[t%3])*c[t%3];let f=[],p=[],m=0,h=0,_=(e,t,n,r=n)=>{let a=`${e}-${String(t+1).padStart(2,`0`)}`,o=M(d,e,r);(o.open||o.branches)&&i(`open-contours`,`error`,`Some sections have open or branching contours and were omitted. DXF can export the generated parts; repair the STL for complete sections.`,[a]),o.loops.length?f.push({id:a,axis:e,index:t,position:n,raw:o.loops,cuts:[]}):i(`empty-sections`,`warning`,`Some slicing planes have no closed material contour.`,[a])};if(t.mode===`interlocking`){for(let[e,n,r]of[[`X`,t.xSliceCount,u[0]],[`Y`,t.ySliceCount,u[1]]]){let a=r/(n+1);a<t.materialThickness?i(`slice-collision`,`error`,`${e} ribs overlap. Reduce the slice count or material thickness.`):a<t.materialThickness*1.5&&i(`tight-spacing`,`warning`,`${e} ribs are closely spaced. Check the material remaining between slots.`);for(let t=0;t<n;t++)_(e,t,(t+1)*a)}let e=f.filter(e=>e.axis===`X`),n=f.filter(e=>e.axis===`Y`),r=t.materialThickness+t.slotFitTolerance;for(let a of e)for(let e of n){let n=j(a.raw,e.position),o=j(e.raw,a.position),s=[];for(let[e,t]of n)for(let[n,r]of o){let i=Math.max(e,n),a=Math.min(t,r);a-i>1e-4&&s.push([i,a])}s.length>1&&i(`multi-span-joints`,`warning`,`Some joints cross hollow or concave regions. Check that each slot is accessible during assembly.`,[a.id,e.id]);for(let n=0;n<s.length;n++){let[o,c]=s[n];if(c-o<=2*t.materialThickness||(c-o)*Math.min(t.slotDepthRatio,1-t.slotDepthRatio)<t.materialThickness){i(`short-joints`,`warning`,`Short intersections were left unslotted to avoid fragile joints.`,[a.id,e.id]);continue}let l=c-(c-o)*t.slotDepthRatio,d=n?s[n-1][1]:-t.materialThickness,f=(c+(n+1<s.length?s[n+1][0]:u[2]+t.materialThickness))/2+g,m=(o+d)/2-g;a.cuts.push(z(e.position,o,c,l,!0,r,t.leadInChamfer,s.length===1?u[2]+1:f)),e.cuts.push(z(a.position,o,c,l,!1,r,t.leadInChamfer,s.length===1?-1:m)),p.push({a:a.id,b:e.id,x:a.position,y:e.position,z:l})}}}else{let e=t.stackedAxis===`X`?0:t.stackedAxis===`Y`?1:2;if(m=Math.max(1,Math.round(u[e]/t.materialThickness)),h=m*t.materialThickness,m>400)throw Error(`This stack needs more than 400 layers. Increase material thickness or reduce model size.`);for(let n=0;n<m;n++)_(t.stackedAxis,n,(n+.5)*t.materialThickness,(n+.5)*u[e]/m);Math.abs(h-u[e])>.001&&i(`rounded-stack`,`warning`,`Stack depth is rounded to ${h.toFixed(2)} mm (${m} layers × ${t.materialThickness} mm).`)}let y=t.mode===`stacked`&&t.alignmentPins?B(f,t):[];if(t.mode===`stacked`&&t.alignmentPins&&y.length<t.pinCount&&i(`pin-placement`,`warning`,y.length?`Only ${y.length} pin positions fit through every layer with a material margin.`:`No safe pin position passes through every layer. Pins were omitted; use adhesive or external registration.`),y.length)for(let e of f)e.cuts.push(...y.map(e=>A(e,t.pinDiameter/2)));let b=[];for(let e of f){let n=T(e.cuts.length?x(e.raw,e.cuts,`difference`):e.raw).filter(t=>E(t)>=2?!0:(i(`micro-islands`,`warning`,`Tiny components below 2 mm² were omitted.`,[e.id]),!1));n.length>1&&i(`split-components`,`warning`,`Disconnected regions are exported as separate labeled parts. Inspect their assembly connections.`,[e.id]),n.length||i(`removed-pieces`,`warning`,`Slots removed all usable material from some slices.`,[e.id]),n.forEach((r,a)=>{let o=n.length>1?`-${a<26?String.fromCharCode(65+a):a+1}`:``,s=e.id+o,c=S(r,t.laserKerf/2);if(c.filter(e=>e.isHole).length<r.filter(e=>e.isHole).length&&i(`vanishing-holes`,`error`,`A hole is smaller than the kerf and disappeared. Reduce kerf or increase feature size.`,[s]),!c.length){i(`collapsed-path`,`error`,`Kerf compensation removed an entire part.`,[s]);return}for(let e of c)e.isHole&&y.some(t=>C(t,e.points))&&(e.isRegistration=!0);let l=k(r),u=l.point,d=T(e.raw).find(e=>w(u,e))||e.raw,f=P(s,r,l);f.length||i(`small-labels`,`warning`,`Some narrow parts have no room for an etched label. Match them using the assembly preview.`,[s]),b.push({id:s,label:s,parentId:e.id,axis:e.axis,sliceIndex:e.index,worldPosition:e.position,unmodifiedPaths:d,assemblyPaths:r,cutPaths:c,etchPaths:f,bounds:v(c),area:E(r),cutLength:D(c),joints:[]})})}let N=[];for(let e of p){let n=b.find(t=>t.parentId===e.a&&w({x:e.y,y:e.z-.1},t.assemblyPaths)),r=b.find(t=>t.parentId===e.b&&w({x:e.x,y:e.z+.1},t.assemblyPaths));if(n&&r){n.joints.push(r.id),r.joints.push(n.id),N.push({...e,a:n.id,b:r.id});for(let[i,a,o]of[[n,e.y,-1],[r,e.x,1]])for(let n of[-1,1]){let r={x:a+n*(t.materialThickness+t.slotFitTolerance)/2+n*.7,y:e.z+o*.9},s={x:r.x+n*1.4,y:r.y};O(r,i.assemblyPaths)>.2&&O(s,i.assemblyPaths)>.2&&i.etchPaths.push({points:[r,s]})}}else i(`incomplete-joints`,`warning`,`Some joints lost their supporting material during slot subtraction.`,[e.a,e.b])}if(t.mode===`interlocking`){let e=b.filter(e=>!e.joints.length).map(e=>e.id);e.length&&i(`unanchored-parts`,`warning`,`Some parts have no usable interlock. They need support or adhesive.`,e);let t=new Set,n=0,r=new Map(b.map(e=>[e.id,e]));for(let e of b){if(t.has(e.id))continue;n++;let i=[e.id];t.add(e.id);for(let e=0;e<i.length;e++)for(let n of r.get(i[e]).joints)t.has(n)||(t.add(n),i.push(n))}n>1&&i(`separate-assemblies`,`warning`,`The joint graph contains ${n} separate assemblies. Review how they are supported.`)}else if(y.length){let e=b.filter(e=>!e.cutPaths.some(e=>e.isRegistration)).map(e=>e.id);e.length&&i(`unpinned-components`,`warning`,`Some stacked components contain no registration pin. Use adhesive and position them by the preview.`,e)}b.length||i(`no-pieces`,`error`,`No usable parts were generated. Try fewer slices, a thicker stack, or a closed mesh.`);let F=L(b,t);return F.unplaced.length&&i(`oversize-parts`,`error`,`Some parts do not fit the usable sheet area. Increase the sheet size, reduce margins/spacing, or scale the model down.`,F.unplaced),{model:e.info,dimensions:u,vertices:new Float32Array(d),settings:{...t},pieces:b,...F,joints:N,pins:y,issues:r,processingMs:performance.now()-n,layerCount:m,builtDepth:h}}function H(){let e=null;return t=>{try{let n=t.type===`load`?d(t.buffer,t.name):t.type===`preset`?p(t.preset):e;if(!n)throw Error(`Load an STL or choose a sample model.`);let r=V(n,t.settings);return e=n,{id:t.id,result:r}}catch(e){return{id:t.id,error:e instanceof Error?e.message:`Could not process this mesh.`}}}}let U=H();self.onmessage=e=>{let t=U(e.data);self.postMessage(t,`result`in t?{transfer:[t.result.vertices.buffer]}:void 0)},self.postMessage({type:`ready`})})();',uE=typeof self<`u`&&self.Blob&&new Blob([`(self.URL || self.webkitURL).revokeObjectURL(self.location.href);`,lE],{type:`text/javascript;charset=utf-8`});function dE(e){let t;try{if(t=uE&&(self.URL||self.webkitURL).createObjectURL(uE),!t)throw``;let n=new Worker(t,{name:e?.name});return n.addEventListener(`error`,()=>{(self.URL||self.webkitURL).revokeObjectURL(t)}),n}catch{return new Worker(`data:text/javascript;charset=utf-8,`+encodeURIComponent(lE),{name:e?.name})}}function fE(){let e=null;return t=>{try{let n=t.type===`load`?Aw(t.buffer,t.name):t.type===`preset`?Mw(t.preset):e;if(!n)throw Error(`Load an STL or choose a sample model.`);let r=sE(n,t.settings);return e=n,{id:t.id,result:r}}catch(e){return{id:t.id,error:e instanceof Error?e.message:`Could not process this mesh.`}}}}var pE=class{constructor(){this.onmessage=null,this.onerror=null,this.worker=null,this.ready=!1,this.closed=!1,this.pending=[],this.session=null,this.startupTimer=null;try{let e=new dE;this.worker=e,e.onmessage=e=>{if(!this.closed)if(`type`in e.data&&e.data.type===`ready`){this.clearStartupTimer(),this.ready=!0;for(let e of this.pending.splice(0))this.postMessage(e)}else this.onmessage?.({data:e.data})},e.onerror=e=>{e.preventDefault?.(),this.ready?this.onerror?.({message:e.message||`The slicing engine stopped. Reload the page and try again.`}):this.useCompatibilityMode()},this.startupTimer=setTimeout(()=>this.useCompatibilityMode(),3e3)}catch{this.useCompatibilityMode()}}postMessage(e){if(this.closed)throw Error(`The slicing engine has closed.`);this.session?setTimeout(()=>{this.closed||this.onmessage?.({data:this.session(e)})},0):this.ready?this.worker.postMessage(e,e.type===`load`?[e.buffer]:[]):this.pending.push(e)}terminate(){this.closed=!0,this.clearStartupTimer(),this.worker?.terminate(),this.worker=null,this.pending.length=0}clearStartupTimer(){this.startupTimer!==null&&clearTimeout(this.startupTimer),this.startupTimer=null}useCompatibilityMode(){if(!(this.closed||this.session)){this.clearStartupTimer(),this.worker?.terminate(),this.worker=null,this.session=fE();for(let e of this.pending.splice(0))this.postMessage(e)}}},mE=(e,t=1)=>e.toLocaleString(`en-US`,{maximumFractionDigits:t});function hE({label:e,value:t,max:n=100,min:r=0,step:i=1,onChange:a}){let o=(0,C.useRef)(null);return(0,C.useEffect)(()=>{o.current?.querySelectorAll(`[role=slider]`).forEach(t=>t.setAttribute(`aria-label`,e))},[e]),(0,G.jsx)(`div`,{ref:o,children:(0,G.jsx)(of,{value:[t],max:n,min:r,step:i,onValueChange:e=>a(e[0]),"aria-label":e})})}function gE({label:e,value:t,onChange:n,min:r=0,max:i=1e4,step:a=.1,unit:o=`mm`}){let s=(0,C.useId)(),[c,l]=(0,C.useState)(String(Number(t.toFixed(3))));return(0,C.useEffect)(()=>l(String(Number(t.toFixed(3)))),[t]),(0,G.jsxs)(`label`,{htmlFor:s,className:`number-field`,children:[(0,G.jsx)(`span`,{children:e}),(0,G.jsxs)(`div`,{className:`number-input`,children:[(0,G.jsx)(rf,{id:s,type:`number`,value:c,min:r,max:i,step:a,inputMode:`decimal`,onChange:e=>{l(e.target.value);let t=Number(e.target.value);e.target.value!==``&&Number.isFinite(t)&&t>=r&&t<=i&&(a!==1||Number.isInteger(t))&&n(t)},onBlur:()=>{let e=Number(c);if(c===``||!Number.isFinite(e)){l(String(t));return}let o=Math.max(r,Math.min(i,a===1?Math.round(e):e));l(String(o)),o!==t&&n(o)}}),o&&(0,G.jsx)(`span`,{children:o})]})]})}function _E({label:e,checked:t,onChange:n,id:r}){let i=(0,C.useId)(),a=r||i;return(0,G.jsxs)(`div`,{className:`toggle-row`,children:[(0,G.jsx)(`label`,{htmlFor:a,children:e}),(0,G.jsx)(af,{id:a,checked:t,onCheckedChange:n})]})}function vE({label:e,value:t,onChange:n,items:r}){return(0,G.jsxs)(ff,{value:t,onValueChange:n,children:[(0,G.jsx)(mf,{"aria-label":e,className:`picker`,children:(0,G.jsx)(pf,{})}),(0,G.jsx)(hf,{position:`popper`,children:r.map(e=>(0,G.jsx)(gf,{value:e.value,children:e.label},e.value))})]})}function yE(e,t,n){let r=typeof e==`string`?e:new Uint8Array(e).buffer,i=URL.createObjectURL(new Blob([r],{type:n})),a=document.createElement(`a`);a.href=i,a.download=t,a.click(),setTimeout(()=>URL.revokeObjectURL(i),3e4)}function bE(e){return e?{model:e.model.name,dimensions:e.dimensions,settings:e.settings,partCount:e.pieces.length,sheetCount:e.sheets.length,unplaced:e.unplaced,issues:e.issues,processingMs:Math.round(e.processingMs)}:{status:`No completed project`}}function xE(){let[e,t]=(0,C.useState)({...Nw}),[n,r]=(0,C.useState)(null),[i,a]=(0,C.useState)(!0),[o,s]=(0,C.useState)(``),[c,l]=(0,C.useState)(`ripple`),[u,d]=(0,C.useState)(null),[f,p]=(0,C.useState)(0),[m,h]=(0,C.useState)(0),[g,_]=(0,C.useState)(1e4),[v,y]=(0,C.useState)(!1),[b,x]=(0,C.useState)(!1),[S,w]=(0,C.useState)(`iso`),[T,E]=(0,C.useState)(0),[D,A]=(0,C.useState)(!0),[N,fe]=(0,C.useState)(!0),[pe,me]=(0,C.useState)(!0),[he,H]=(0,C.useState)(!1),[ge,_e]=(0,C.useState)({id:0,kind:`fit`}),[ve,U]=(0,C.useState)(!1),[ye,W]=(0,C.useState)(!1),[be,xe]=(0,C.useState)(!1),[Se,Ce]=(0,C.useState)(!1),[we,Te]=(0,C.useState)(!1),[Ee,De]=(0,C.useState)(!0),[Oe,ke]=(0,C.useState)(!1),[Ae,je]=(0,C.useState)(``),Me=(0,C.useRef)(null),Ne=(0,C.useRef)(0),Pe=(0,C.useRef)(e),Fe=(0,C.useRef)(!0),Ie=(0,C.useRef)(n),Le=(0,C.useRef)(!0);Pe.current=e,Ie.current=n;let Re=(0,C.useRef)(null),ze=(0,C.useRef)(new Map),Be=(0,C.useCallback)(e=>{let t=Me.current;if(!t)return Promise.reject(Error(`The slicer is still starting.`));let n=++Ne.current;Fe.current=!0,a(!0),s(``);for(let[e,t]of ze.current)t.reject(Error(`Regeneration was replaced by a newer request.`)),ze.current.delete(e);return new Promise((r,i)=>{ze.current.set(n,{resolve:r,reject:i});try{t.postMessage({...e,id:n})}catch(e){ze.current.delete(n),Fe.current=!1,a(!1);let t=e instanceof Error?e.message:`Could not send the slicing request.`;s(t),i(Error(t))}})},[]);(0,C.useEffect)(()=>{let e=new pE;return Me.current=e,e.onmessage=e=>{let t=e.data;if(t.id!==Ne.current)return;Fe.current=!1,a(!1);let n=ze.current.get(t.id);if(ze.current.delete(t.id),`error`in t){s(t.error),n?.reject(Error(t.error));return}let i=t.result,o=Ie.current?.pieces.length||0;Ie.current=i,r(i),p(e=>Math.min(e,Math.max(0,i.sheets.length-1))),d(e=>i.pieces.some(t=>t.id===e)?e:null),_(e=>e>=o?i.pieces.length:Math.min(e,i.pieces.length)),requestAnimationFrame(()=>n?.resolve(i))},e.onerror=e=>{Fe.current=!1,a(!1),s(e.message);for(let t of ze.current.values())t.reject(Error(e.message));ze.current.clear()},Be({type:`preset`,preset:`ripple`,settings:Pe.current}).catch(()=>{}),()=>{e.terminate(),Me.current=null;for(let e of ze.current.values())e.reject(Error(`Workspace closed.`));ze.current.clear()}},[Be]),(0,C.useEffect)(()=>{if(Le.current){Le.current=!1;return}Ne.current++,Fe.current=!0,a(!0);let t=setTimeout(()=>{Be({type:`settings`,settings:e}).catch(()=>{})},150);return()=>clearTimeout(t)},[e,Be]),(0,C.useEffect)(()=>{if(!Ae)return;let e=setTimeout(()=>je(``),4500);return()=>clearTimeout(e)},[Ae]),(0,C.useEffect)(()=>{if(!v||!n)return;let e=setInterval(()=>_(e=>e>=n.pieces.length?(y(!1),e):e+1),420);return()=>clearInterval(e)},[v,n]);let K=(e,n)=>{Ne.current++,Fe.current=!0,a(!0),t(t=>({...t,[e]:n}))},Ve=(e,n)=>{Ne.current++,Fe.current=!0,a(!0),t(t=>({...t,[e===`X`?`targetWidth`:e===`Y`?`targetDepth`:`targetHeight`]:n,scaleAxis:e}))},He=(e,n=!1)=>{let r=n?{...Nw}:{...Pe.current};e===`cube`&&!n&&Object.assign(r,{targetWidth:100,targetDepth:100,targetHeight:100,scaleAxis:`X`,xSliceCount:4,ySliceCount:4,materialThickness:4}),Le.current=!0,t(r),l(e),d(null),h(0),_(1e4),y(!1),p(0),Be({type:`preset`,preset:e,settings:r}).catch(()=>{})},Ue=async e=>{if(!/\.stl$/i.test(e.name)){s(`Choose a binary or ASCII .stl file.`);return}if(e.size>100*1024*1024){s(`This STL is over 100 MB. Simplify it before importing.`);return}Ne.current++,Fe.current=!0,a(!0),s(``),y(!1),d(null),_(1e4),h(0),p(0);try{await Be({type:`load`,buffer:await e.arrayBuffer(),name:e.name,settings:Pe.current}),l(`uploaded`)}catch(e){e instanceof Error&&!e.message.includes(`replaced`)&&(s(e.message),Fe.current=!1,a(!1))}},We=e=>{let t=e&&n&&(n.pieces.find(t=>t.id===e)||n.pieces.find(t=>t.parentId===e))?.id||null;if(d(t),t&&n){y(!1),_(e=>Math.max(e,n.pieces.findIndex(e=>e.id===t)+1));let e=n.sheets.find(e=>e.placements.some(e=>e.pieceId===t));e&&p(e.sheetIndex)}},Ge=i||!!o||!n||n.issues.some(e=>e.severity===`error`),Ke=i||!!o||!n||!n.pieces.length,qe=(e,t=f,n=Ee)=>{let r=Ie.current;if(Fe.current||o||!r||!r.pieces.length)throw Error(`Wait for a completed slicing result before exporting.`);if(e!==`dxf`&&r.issues.some(e=>e.severity===`error`))throw Error(`Resolve the fabrication errors before exporting SVG or the laser ZIP. DXF export is available.`);let i=e===`dxf`&&r.unplaced.length>0&&t===r.sheets.length;if(!i&&!r.sheets[t])throw Error(`Choose an existing sheet.`);let a=r.model.name.replace(/\.stl$/i,``).replace(/[^a-z0-9-_]+/gi,`-`).replace(/^-|-$/g,``)||`slice-lab`,s=e===`zip`?`${a}-laser-sheets.zip`:i?`${a}-unplaced-parts.dxf`:`${a}-sheet-${String(t+1).padStart(2,`0`)}.${e}`;return e===`zip`?yE(IT(r,n,Oe),s,`application/zip`):e===`dxf`?yE(i?PT(r,n,Oe):NT(r,r.sheets[t],n,Oe),s,`application/dxf`):yE(MT(r,r.sheets[t],n),s,`image/svg+xml`),je(`Downloaded ${s}`),{filename:s,format:e,sheets:e===`zip`?r.sheets.length:1}},Je=(0,C.useRef)({settings:e,save:qe,process:Be,error:o});Je.current={settings:e,save:qe,process:Be,error:o},(0,C.useEffect)(()=>cE({read:()=>({...bE(Ie.current),pending:Fe.current,error:Je.current.error}),configure:async e=>{if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Expected an object of slicing settings.`);let n=[`mode`,`targetWidth`,`materialThickness`,`laserKerf`,`slotFitTolerance`,`xSliceCount`,`ySliceCount`,`stackedAxis`,`alignmentPins`,`sheetWidth`,`sheetHeight`];for(let[t,r]of Object.entries(e)){if(!n.includes(t))throw Error(`Unknown setting: ${t}`);if(t===`alignmentPins`&&typeof r!=`boolean`)throw Error(`alignmentPins must be a boolean.`)}let r={...Je.current.settings,...e,...`targetWidth`in e?{scaleAxis:`X`}:{}};return iE(r),Le.current=!0,t(r),bE(await Je.current.process({type:`settings`,settings:r}))},export:e=>{if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Expected export options.`);let t=e;if(Object.keys(t).some(e=>![`format`,`sheet`,`labels`].includes(e)))throw Error(`Unknown export option.`);if(![`zip`,`dxf`,`svg`].includes(String(t.format)))throw Error(`Format must be zip, svg, or dxf.`);if(t.sheet!==void 0&&(typeof t.sheet!=`number`||!Number.isInteger(t.sheet)||t.sheet<1))throw Error(`Sheet must be a positive integer.`);if(t.labels!==void 0&&typeof t.labels!=`boolean`)throw Error(`labels must be a boolean.`);return Je.current.save(t.format,typeof t.sheet==`number`?t.sheet-1:0,typeof t.labels==`boolean`?t.labels:!0)}}),[]);let Ye=e.keepAspectRatio&&n?.model.originalDimensions?(()=>{let t=n.model.originalDimensions,r=e.scaleAxis===`X`?0:e.scaleAxis===`Y`?1:2,i=[e.targetWidth,e.targetDepth,e.targetHeight][r];return t.map(e=>e*i/t[r])})():[e.targetWidth,e.targetDepth,e.targetHeight],Xe=n?.sheets[f],Ze=n?.pieces.find(e=>e.id===u),Qe=n?.issues||[],$e=Qe.filter(e=>e.severity===`error`),et=Qe.filter(e=>e.severity===`warning`),tt=n?Math.min(g,n.pieces.length):0,nt=n?.pieces.reduce((e,t)=>e+t.cutLength,0)||0,rt=e=>_e(t=>({id:t.id+1,kind:e}));return(0,G.jsxs)(`div`,{className:`slice-app`,onDragOver:e=>{e.preventDefault(),e.dataTransfer.types.includes(`Files`)&&Te(!0)},onDragLeave:e=>{e.currentTarget.contains(e.relatedTarget)||Te(!1)},onDrop:e=>{e.preventDefault(),Te(!1),e.dataTransfer.files[0]&&Ue(e.dataTransfer.files[0])},children:[(0,G.jsxs)(`header`,{className:`app-header`,children:[(0,G.jsxs)(`div`,{className:`brand`,children:[(0,G.jsx)(`div`,{className:`brand-mark`,children:(0,G.jsx)(L,{size:24,strokeWidth:1.6})}),(0,G.jsxs)(`h1`,{children:[`SLICE`,(0,G.jsx)(`span`,{children:`LAB`})]}),(0,G.jsx)(`span`,{className:`header-divider`}),(0,G.jsx)(`span`,{className:`app-category`,children:`Fabrication workspace`})]}),(0,G.jsxs)(`div`,{className:`header-actions`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`mobile-parameters icon-button`,"aria-label":`Toggle parameters`,onClick:()=>Ce(e=>!e),children:(0,G.jsx)(se,{size:18})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button help-button`,"aria-label":`How to use Slice Lab`,onClick:()=>W(!0),children:(0,G.jsx)(I,{size:18})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button reset-button`,"aria-label":`Reset to default model and settings`,onClick:()=>He(`ripple`,!0),children:(0,G.jsx)(ie,{size:17})}),(0,G.jsxs)(nf,{variant:`outline`,className:`upload-button`,"aria-label":`Import STL`,onClick:()=>Re.current?.click(),children:[(0,G.jsx)(ue,{size:16}),(0,G.jsx)(`span`,{children:`Import STL`})]}),(0,G.jsxs)(nf,{className:`primary-button`,"aria-label":`Export sheets`,disabled:Ke,onClick:()=>U(!0),children:[(0,G.jsx)(P,{size:16}),(0,G.jsx)(`span`,{children:`Export sheets`})]})]}),(0,G.jsx)(`input`,{ref:Re,type:`file`,accept:`.stl`,className:`sr-only`,"aria-label":`Import STL file`,onChange:e=>{let t=e.target.files?.[0];t&&Ue(t),e.target.value=``}})]}),(0,G.jsxs)(`div`,{className:`workspace-layout`,children:[(0,G.jsxs)(`aside`,{className:`parameters ${Se?`parameters-open`:``}`,"aria-label":`Fabrication parameters`,children:[(0,G.jsxs)(`section`,{className:`parameter-section model-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`01`}),(0,G.jsx)(`h2`,{children:`Source model`})]}),(0,G.jsx)(vE,{label:`Sample model`,value:c,onChange:e=>{e!==`uploaded`&&He(e)},items:[...Object.entries(jw).map(([e,t])=>({value:e,label:t})),...c===`uploaded`?[{value:`uploaded`,label:n?.model.name||`Imported STL`}]:[]]}),(0,G.jsx)(`p`,{className:`field-note`,children:`Or drop an STL anywhere in the workspace.`})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`02`}),(0,G.jsx)(`h2`,{children:`Construction`})]}),(0,G.jsxs)(sf,{value:e.mode,onValueChange:e=>K(`mode`,e),className:`construction-tabs`,children:[(0,G.jsxs)(lf,{children:[(0,G.jsxs)(uf,{value:`interlocking`,children:[(0,G.jsx)(F,{size:15}),`Interlocking`]}),(0,G.jsxs)(uf,{value:`stacked`,children:[(0,G.jsx)(L,{size:15}),`Stacked`]})]}),(0,G.jsx)(df,{value:`interlocking`,children:(0,G.jsx)(`p`,{className:`field-note`,children:`Two families of ribs with matching half-lap slots.`})}),(0,G.jsx)(df,{value:`stacked`,children:(0,G.jsx)(`p`,{className:`field-note`,children:`Solid layers, spaced by your material thickness.`})})]})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`03`}),(0,G.jsx)(`h2`,{children:`Model dimensions`}),(0,G.jsx)(`button`,{className:`ratio-lock`,title:e.keepAspectRatio?`Unlock proportions`:`Lock proportions`,"aria-label":e.keepAspectRatio?`Unlock proportions`:`Lock proportions`,"aria-pressed":e.keepAspectRatio,onClick:()=>{let n=!e.keepAspectRatio;t(e=>({...e,keepAspectRatio:n,targetWidth:Ye[0],targetDepth:Ye[1],targetHeight:Ye[2]}))},children:e.keepAspectRatio?(0,G.jsx)(ee,{size:15}):(0,G.jsx)(le,{size:15})})]}),(0,G.jsxs)(`div`,{className:`dimension-fields`,children:[(0,G.jsx)(gE,{label:`Width · X`,value:Ye[0],onChange:e=>Ve(`X`,e),min:1}),(0,G.jsx)(gE,{label:`Depth · Y`,value:Ye[1],onChange:e=>Ve(`Y`,e),min:1}),(0,G.jsx)(gE,{label:`Height · Z`,value:Ye[2],onChange:e=>Ve(`Z`,e),min:1})]}),(0,G.jsxs)(`p`,{className:`field-note`,children:[e.keepAspectRatio?`Proportions locked`:`Scale each axis independently`,` · millimeters`]})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`04`}),(0,G.jsx)(`h2`,{children:e.mode===`interlocking`?`Slice grid`:`Stack settings`})]}),e.mode===`interlocking`?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(gE,{label:`X ribs`,unit:``,value:e.xSliceCount,min:1,max:100,step:1,onChange:e=>K(`xSliceCount`,e)}),(0,G.jsx)(gE,{label:`Y ribs`,unit:``,value:e.ySliceCount,min:1,max:100,step:1,onChange:e=>K(`ySliceCount`,e)})]}),(0,G.jsxs)(`div`,{className:`range-row`,children:[(0,G.jsx)(`label`,{children:`Joint split`}),(0,G.jsxs)(`span`,{children:[mE(e.slotDepthRatio*100,0),` / `,mE((1-e.slotDepthRatio)*100,0),`%`]})]}),(0,G.jsx)(hE,{label:`Joint depth split`,value:e.slotDepthRatio*100,min:10,max:90,step:5,onChange:e=>K(`slotDepthRatio`,e/100)})]}):(0,G.jsxs)(G.Fragment,{children:[(0,G.jsxs)(`div`,{className:`labeled-picker`,children:[(0,G.jsx)(`label`,{children:`Stack axis`}),(0,G.jsx)(vE,{label:`Stack axis`,value:e.stackedAxis,onChange:e=>K(`stackedAxis`,e),items:[{value:`Z`,label:`Z · vertical`},{value:`X`,label:`X · width`},{value:`Y`,label:`Y · depth`}]})]}),(0,G.jsx)(_E,{label:`Registration pins`,checked:e.alignmentPins,onChange:e=>K(`alignmentPins`,e)}),e.alignmentPins&&(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(gE,{label:`Diameter`,value:e.pinDiameter,min:.5,max:100,onChange:e=>K(`pinDiameter`,e)}),(0,G.jsx)(gE,{label:`Pins`,unit:``,value:e.pinCount,min:1,max:5,step:1,onChange:e=>K(`pinCount`,e)})]}),n?.settings.mode===`stacked`&&(0,G.jsxs)(`p`,{className:`field-note`,children:[n.layerCount,` layers · `,mE(n.builtDepth,2),` mm built depth`]})]})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`05`}),(0,G.jsx)(`h2`,{children:`Material & fit`})]}),(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(gE,{label:`Thickness`,value:e.materialThickness,min:.1,max:100,onChange:e=>K(`materialThickness`,e)}),(0,G.jsx)(gE,{label:`Laser kerf`,value:e.laserKerf,step:.01,min:0,max:5,onChange:e=>K(`laserKerf`,e)})]}),e.mode===`interlocking`&&(0,G.jsxs)(G.Fragment,{children:[(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(gE,{label:`Fit tolerance`,value:e.slotFitTolerance,step:.01,min:-2,max:5,onChange:e=>K(`slotFitTolerance`,e)}),(0,G.jsx)(gE,{label:`Lead-in`,value:e.leadInChamfer,min:0,max:20,onChange:e=>K(`leadInChamfer`,e)})]}),(0,G.jsxs)(`div`,{className:`fit-readout`,children:[(0,G.jsx)(`span`,{children:`Finished slot`}),(0,G.jsxs)(`strong`,{children:[mE(e.materialThickness+e.slotFitTolerance,3),` mm`]})]}),(0,G.jsx)(`p`,{className:`field-note`,children:`Positive tolerance loosens the fit. Kerf is applied once to the cut paths.`})]})]}),(0,G.jsxs)(`section`,{className:`parameter-section bed-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`06`}),(0,G.jsx)(`h2`,{children:`Laser sheet`})]}),(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(gE,{label:`Width`,value:e.sheetWidth,min:20,max:5e3,step:1,onChange:e=>K(`sheetWidth`,e)}),(0,G.jsx)(gE,{label:`Height`,value:e.sheetHeight,min:20,max:5e3,step:1,onChange:e=>K(`sheetHeight`,e)}),(0,G.jsx)(gE,{label:`Margin`,value:e.sheetMargin,min:0,max:500,onChange:e=>K(`sheetMargin`,e)}),(0,G.jsx)(gE,{label:`Part spacing`,value:e.partSpacing,min:0,max:100,onChange:e=>K(`partSpacing`,e)})]}),(0,G.jsx)(_E,{label:`Allow 90° rotation`,checked:e.allowRotation,onChange:e=>K(`allowRotation`,e)})]}),(0,G.jsxs)(`div`,{className:`local-note`,children:[(0,G.jsx)(O,{size:15}),(0,G.jsx)(`span`,{children:`STL files stay in your browser.`})]})]}),(0,G.jsxs)(`main`,{className:`main-workspace`,children:[(0,G.jsxs)(`div`,{className:`project-bar`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsxs)(`div`,{className:`project-eyebrow`,children:[`MODEL / `,e.mode===`interlocking`?`INTERLOCKING RIBS`:`STACKED LAYERS`]}),(0,G.jsx)(`h2`,{children:n?.model.name||`Ripple form`})]}),(0,G.jsxs)(`div`,{className:`project-dimensions`,children:[Ye.map(e=>mE(e)).join(` × `),(0,G.jsx)(`span`,{children:` mm`})]})]}),(0,G.jsxs)(`div`,{className:`workspace-stats`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Parts`}),(0,G.jsx)(`strong`,{children:n?.pieces.length??`—`})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Sheets`}),(0,G.jsx)(`strong`,{children:n?.sheets.length??`—`})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Cut length`}),(0,G.jsxs)(`strong`,{children:[n?mE(nt/1e3,2):`—`,(0,G.jsx)(`small`,{children:` m`})]})]}),(0,G.jsxs)(`div`,{className:`status-stat`,children:[(0,G.jsx)(`span`,{children:`Fabrication check`}),(0,G.jsx)(`button`,{disabled:!Qe.length&&!o,onClick:()=>xe(!0),className:$e.length||o?`check-error`:et.length?`check-warning`:`check-ok`,children:i?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(te,{size:14,className:`spin`}),`Generating`]}):o||$e.length?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(ce,{size:14}),`Needs attention`]}):et.length?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(ce,{size:14}),et.length,` notes`]}):(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(k,{size:14}),`Ready to export`]})})]})]}),(o||$e.length>0)&&(0,G.jsxs)(`div`,{className:`error-banner`,role:`alert`,children:[(0,G.jsx)(ce,{size:16}),(0,G.jsx)(`span`,{children:o||$e[0].message}),!o&&(0,G.jsx)(`button`,{onClick:()=>xe(!0),children:`Details`})]}),(0,G.jsxs)(`div`,{className:`preview-grid`,children:[(0,G.jsxs)(`section`,{className:`assembly-panel`,"aria-label":`3D assembly preview`,children:[(0,G.jsxs)(`div`,{className:`panel-header`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(O,{size:16}),(0,G.jsx)(`h3`,{children:`Assembly`}),(0,G.jsx)(`span`,{className:`small-tag`,children:`3D`})]}),(0,G.jsxs)(`div`,{className:`view-actions`,children:[(0,G.jsx)(`div`,{className:`view-buttons`,children:[`iso`,`front`,`top`].map(e=>(0,G.jsx)(`button`,{className:S===e?`active`:``,onClick:()=>w(e),"aria-label":`${e} view`,"aria-pressed":S===e,children:e},e))}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Fit assembly in view`,onClick:()=>E(e=>e+1),children:(0,G.jsx)(ne,{size:15})})]})]}),(0,G.jsxs)(`div`,{className:`assembly-stage`,children:[(0,G.jsx)(xw,{result:n,explode:m,step:tt,ghost:b,selected:u,onSelect:We,view:S,fit:T}),(0,G.jsxs)(`div`,{className:`stage-note`,children:[`Drag to orbit `,(0,G.jsx)(`span`,{children:`·`}),` Scroll to zoom`]}),(0,G.jsxs)(`div`,{className:`axis-legend`,children:[(0,G.jsx)(`span`,{className:`axis-x`,children:`X`}),(0,G.jsx)(`span`,{className:`axis-y`,children:`Y`}),(0,G.jsx)(`span`,{className:`axis-z`,children:`Z`})]}),i&&(0,G.jsxs)(`div`,{className:`processing-pill`,role:`status`,children:[(0,G.jsx)(te,{size:14,className:`spin`}),`Generating parts…`]}),!n&&!o&&(0,G.jsxs)(`div`,{className:`stage-initial`,children:[(0,G.jsx)(L,{size:48,strokeWidth:1}),(0,G.jsx)(`p`,{children:`Preparing your first assembly`})]})]}),(0,G.jsxs)(`div`,{className:`assembly-controls`,children:[(0,G.jsxs)(`div`,{className:`explode-control`,children:[(0,G.jsxs)(`div`,{className:`range-row`,children:[(0,G.jsx)(`label`,{children:`Exploded view`}),(0,G.jsx)(`span`,{children:m===0?`Assembled`:`${m}%`})]}),(0,G.jsx)(hE,{label:`Explode assembly`,value:m,onChange:h})]}),(0,G.jsx)(`div`,{className:`ghost-control`,children:(0,G.jsx)(_E,{label:`Ghost mesh`,checked:b,onChange:x})})]}),(0,G.jsxs)(`div`,{className:`sequence-control`,children:[(0,G.jsxs)(`div`,{className:`sequence-title`,children:[(0,G.jsx)(`span`,{children:`Assembly sequence`}),(0,G.jsxs)(`span`,{children:[tt,` / `,n?.pieces.length??0]})]}),(0,G.jsxs)(`div`,{className:`sequence-player`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`First assembly step`,onClick:()=>{y(!1),_(0)},children:(0,G.jsx)(ae,{size:14})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button play-button`,disabled:!n,"aria-label":v?`Pause assembly`:`Play assembly`,onClick:()=>{!v&&n&&tt>=n.pieces.length&&_(0),y(e=>!e)},children:v?(0,G.jsx)(B,{size:15}):(0,G.jsx)(re,{size:15})}),(0,G.jsx)(hE,{label:`Assembly step`,value:tt,max:Math.max(1,n?.pieces.length||1),onChange:e=>{y(!1),_(e)}}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Show completed assembly`,onClick:()=>{y(!1),_(n?.pieces.length||0)},children:(0,G.jsx)(oe,{size:14})})]})]})]}),(0,G.jsxs)(`section`,{className:`sheet-panel`,"aria-label":`Laser sheet layout`,children:[(0,G.jsxs)(`div`,{className:`panel-header`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(F,{size:16}),(0,G.jsx)(`h3`,{children:`Laser layout`}),(0,G.jsx)(`span`,{className:`small-tag`,children:`2D`})]}),(0,G.jsxs)(`span`,{className:`sheet-size`,children:[mE(e.sheetWidth,0),` × `,mE(e.sheetHeight,0),` mm`]})]}),(0,G.jsxs)(`div`,{className:`sheet-navigation`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Previous sheet`,disabled:f===0,onClick:()=>p(e=>e-1),children:(0,G.jsx)(j,{size:16})}),(0,G.jsx)(vE,{label:`Selected laser sheet`,value:String(f),onChange:e=>p(Number(e)),items:n?.sheets.length?n.sheets.map(e=>({value:String(e.sheetIndex),label:`Sheet ${e.sheetIndex+1} of ${n.sheets.length}`})):[{value:`0`,label:n?`No sheets`:`Preparing sheets`}]}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Next sheet`,disabled:!n||f>=n.sheets.length-1,onClick:()=>p(e=>e+1),children:(0,G.jsx)(M,{size:16})}),(0,G.jsxs)(`div`,{className:`sheet-zoom`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Zoom out of sheet`,onClick:()=>rt(`out`),children:(0,G.jsx)(R,{size:14})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Zoom into sheet`,onClick:()=>rt(`in`),children:(0,G.jsx)(V,{size:14})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Fit sheet in view`,onClick:()=>rt(`fit`),children:(0,G.jsx)(ne,{size:14})})]})]}),(0,G.jsxs)(`div`,{className:`sheet-stage`,children:[n&&Xe?(0,G.jsx)(Dw,{result:n,sheetIndex:f,selected:u,onSelect:We,cuts:D,labels:N,raw:he,pins:pe,zoomAction:ge}):(0,G.jsxs)(`div`,{className:`sheet-empty`,children:[(0,G.jsx)(F,{size:32,strokeWidth:1}),(0,G.jsx)(`p`,{children:n?`No parts fit this sheet`:`Nesting your parts`})]}),(0,G.jsxs)(`div`,{className:`sheet-stage-note`,children:[`Click a part to inspect `,(0,G.jsx)(`span`,{children:`·`}),` Drag to pan`]})]}),(0,G.jsx)(`div`,{className:`layer-toggles`,children:[{name:`Cut`,checked:D,set:A,color:`cut`},{name:`Labels`,checked:N,set:fe,color:`labels`},{name:`Pins`,checked:pe,set:me,color:`pins`},{name:`Raw`,checked:he,set:H,color:`raw`}].map(e=>(0,G.jsxs)(`button`,{"aria-pressed":e.checked,className:`${e.color} ${e.checked?`on`:``}`,onClick:()=>e.set(e=>!e),children:[(0,G.jsx)(`span`,{}),e.name]},e.name))}),(0,G.jsxs)(`div`,{className:`sheet-metrics`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`On this sheet`}),(0,G.jsxs)(`strong`,{children:[Xe?.placements.length??0,` parts`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Material used`}),(0,G.jsxs)(`strong`,{children:[mE((Xe?.utilization||0)*100,0),`%`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Cut length`}),(0,G.jsxs)(`strong`,{children:[mE((Xe?.cutLength||0)/1e3,2),` m`]})]})]}),(0,G.jsxs)(`div`,{className:`sheet-downloads`,children:[(0,G.jsxs)(nf,{variant:`outline`,disabled:Ke,onClick:()=>qe(`dxf`),children:[(0,G.jsx)(P,{size:14}),`DXF`]}),!!n?.sheets.length&&!!n.unplaced.length&&(0,G.jsxs)(nf,{variant:`outline`,disabled:Ke,onClick:()=>qe(`dxf`,n.sheets.length),children:[(0,G.jsx)(P,{size:14}),`Unplaced DXF`]}),(0,G.jsxs)(nf,{variant:`outline`,disabled:Ge,onClick:()=>qe(`svg`),children:[(0,G.jsx)(P,{size:14}),`SVG`]})]})]})]}),(0,G.jsxs)(`section`,{className:`part-inspector`,children:[(0,G.jsxs)(`div`,{className:`part-list-heading`,children:[(0,G.jsx)(`h3`,{children:`Parts on this sheet`}),(0,G.jsx)(`span`,{children:Ze?`Selected ${Ze.id}`:`Select a part in either view`})]}),(0,G.jsx)(`div`,{className:`part-chips`,children:Xe?.placements.map(e=>(0,G.jsxs)(`button`,{className:u===e.pieceId?`selected`:``,onClick:()=>We(e.pieceId),"aria-pressed":u===e.pieceId,children:[(0,G.jsx)(`span`,{className:e.pieceId.startsWith(`Y`)?`chip-y`:`chip-x`}),e.pieceId,e.rotation===90&&(0,G.jsx)(`small`,{children:`90°`})]},e.pieceId))}),Ze&&(0,G.jsxs)(`div`,{className:`selected-part-details`,children:[(0,G.jsx)(`strong`,{children:Ze.id}),(0,G.jsxs)(`span`,{children:[`Cut bounds `,mE(Ze.bounds.width),` × `,mE(Ze.bounds.height),` mm`]}),(0,G.jsxs)(`span`,{children:[Ze.axis,` = `,mE(Ze.worldPosition,2),` mm`]}),(0,G.jsx)(`span`,{children:Ze.joints.length?`Joins ${[...new Set(Ze.joints)].join(`, `)}`:e.mode===`stacked`?`Stack in numerical order`:`No interlocking joint`}),(0,G.jsx)(`button`,{"aria-label":`Clear part selection`,onClick:()=>d(null),children:(0,G.jsx)(de,{size:14})})]})]})]})]}),(0,G.jsxs)(`footer`,{className:`app-footer`,children:[(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`span`,{className:`footer-square`}),`All dimensions in millimeters`]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:n?`${mE(n.model.triangleCount,0)} triangles`:`Preparing model`}),(0,G.jsx)(`span`,{children:n?`${Math.round(n.processingMs)} ms`:``}),(0,G.jsx)(`span`,{className:`footer-engine`,children:`Browser processing`})]})]}),we&&(0,G.jsxs)(`div`,{className:`drop-overlay`,children:[(0,G.jsx)(ue,{size:48}),(0,G.jsx)(`h2`,{children:`Drop your STL`}),(0,G.jsx)(`p`,{children:`Binary or ASCII · up to 100 MB`})]}),Ae&&(0,G.jsxs)(`div`,{className:`download-notice`,role:`status`,children:[(0,G.jsx)(k,{size:16}),Ae]}),(0,G.jsx)(yf,{open:ve,onOpenChange:U,children:(0,G.jsxs)(Sf,{className:`export-dialog`,children:[(0,G.jsxs)(Cf,{children:[(0,G.jsx)(`div`,{className:`dialog-icon`,children:(0,G.jsx)(z,{size:24})}),(0,G.jsx)(wf,{children:$e.length?`Export for CAD editing`:`Ready for the laser`}),(0,G.jsxs)(Tf,{children:[n?.pieces.length,` parts across `,n?.sheets.length,` sheets. Files use millimeters at 1:1 scale.`]})]}),(0,G.jsxs)(`div`,{className:`export-summary`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Material`}),(0,G.jsxs)(`strong`,{children:[e.materialThickness,` mm`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Kerf`}),(0,G.jsxs)(`strong`,{children:[e.laserKerf,` mm`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Cut length`}),(0,G.jsxs)(`strong`,{children:[mE(nt/1e3,2),` m`]})]})]}),(0,G.jsx)(_E,{label:`Include vector labels & guides`,checked:Ee,onChange:De}),(0,G.jsx)(_E,{label:`Legacy R12 DXF`,checked:Oe,onChange:ke}),(0,G.jsx)(`p`,{className:`field-note`,children:Oe?`R12 uses classic POLYLINE entities. Select millimeters when importing.`:`AutoCAD 2000 DXF declares millimeter units. SVG includes physical mm dimensions.`}),(0,G.jsxs)(`div`,{className:`export-layer-key`,children:[(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`i`,{className:`cut`}),`Cut outlines`]}),(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`i`,{className:`labels`}),`Etch labels`]}),(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`i`,{className:`pins`}),`Pin holes`]})]}),et.length>0&&(0,G.jsxs)(`button`,{className:`export-notes`,onClick:()=>{U(!1),xe(!0)},children:[(0,G.jsx)(ce,{size:15}),`Review `,et.length,` fabrication notes`]}),$e.length>0&&(0,G.jsx)(`p`,{className:`field-note`,children:`DXF export is available with the reported fabrication errors. Unplaced parts export without a sheet-size limit.`}),(0,G.jsxs)(nf,{variant:`outline`,disabled:Ke,onClick:()=>qe(`dxf`),children:[(0,G.jsx)(P,{size:14}),`Download DXF`]}),!!n?.sheets.length&&!!n.unplaced.length&&(0,G.jsxs)(nf,{variant:`outline`,disabled:Ke,onClick:()=>qe(`dxf`,n.sheets.length),children:[(0,G.jsx)(P,{size:14}),`Download unplaced parts · DXF`]}),(0,G.jsx)(`p`,{className:`export-fit-note`,children:`Paths already include kerf compensation. Disable extra kerf offsets in your laser software, and cut a small fit sample first.`}),(0,G.jsxs)(nf,{className:`primary-button bundle-button`,disabled:Ge,onClick:()=>qe(`zip`),children:[(0,G.jsx)(P,{size:17}),`Download all sheets · ZIP`]}),(0,G.jsx)(`p`,{className:`export-contents`,children:`DXF + SVG for every sheet, assembly guide, and part table.`})]})}),(0,G.jsx)(yf,{open:be,onOpenChange:xe,children:(0,G.jsxs)(Sf,{className:`issues-dialog`,children:[(0,G.jsxs)(Cf,{children:[(0,G.jsx)(wf,{children:`Fabrication check`}),(0,G.jsx)(Tf,{children:$e.length?`DXF export is available. Resolve these errors before exporting SVG or the laser ZIP.`:`Inspect these notes before cutting and assembling.`})]}),(0,G.jsxs)(`div`,{className:`issues-list`,children:[o&&(0,G.jsxs)(`div`,{className:`issue error`,children:[(0,G.jsx)(ce,{size:17}),(0,G.jsx)(`div`,{children:(0,G.jsx)(`p`,{children:o})})]}),Qe.map(e=>(0,G.jsxs)(`div`,{className:`issue ${e.severity}`,children:[(0,G.jsx)(ce,{size:17}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`p`,{children:e.message}),!!e.partIds?.length&&(0,G.jsxs)(`div`,{className:`issue-parts`,children:[e.partIds.slice(0,18).map(e=>(0,G.jsx)(`button`,{onClick:()=>{We(e),xe(!1)},children:e},e)),e.partIds.length>18&&(0,G.jsxs)(`span`,{children:[`+`,e.partIds.length-18,` more`]})]})]})]},e.code)),!Qe.length&&!o&&(0,G.jsx)(`p`,{children:`All generated contours are closed and all parts fit the sheets.`})]})]})}),(0,G.jsx)(yf,{open:ye,onOpenChange:W,children:(0,G.jsxs)(Sf,{className:`help-dialog`,children:[(0,G.jsxs)(Cf,{children:[(0,G.jsx)(wf,{children:`From mesh to material`}),(0,G.jsx)(Tf,{children:`Create a rib structure or a stack of laser-cut layers.`})]}),(0,G.jsxs)(`ol`,{className:`help-steps`,children:[(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Import and size`}),(0,G.jsx)(`p`,{children:`Load a closed STL or choose a sample. STL has no units; check the X, Y, and Z dimensions before cutting.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Choose a construction`}),(0,G.jsx)(`p`,{children:`Interlocking: X ribs lie in YZ planes and slot down from the top. Y ribs lie in XZ planes and slot up from the bottom. Stacked: layers follow the selected axis at your material thickness.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Measure your material`}),(0,G.jsx)(`p`,{children:`Use the actual sheet thickness. Positive fit tolerance makes slots looser; negative tolerance tightens them. Lead-in adds a chamfer at slot mouths.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Inspect the assembly`}),(0,G.jsx)(`p`,{children:`Orbit the model, turn on the ghost mesh, or separate the slices with exploded view. Click a part to find it on its sheet. The sequence player reveals parts in order; check slot accessibility on complex forms.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Export and cut`}),(0,G.jsx)(`p`,{children:`Download one sheet or the entire ZIP. Etch blue labels first, then cut green pin holes and red outlines. Kerf is already applied. Start with a small fit test.`})]})]}),(0,G.jsx)(`p`,{className:`field-note`,children:`Nesting packs bounding rectangles, so curved parts may leave gaps. Registration pins are placed only where they pass safely through every stacked layer. Open sections block export.`})]})})]})}(0,fe.createRoot)(document.getElementById(`root`)).render((0,G.jsx)(xE,{}))})();
+`),OT(i,{level:6})}var BT=c(o(((e,t)=>{(function(){"use strict";var e={};e.version=`6.4.2.2`,e.use_lines=!0,e.use_xyz=!1;var n=!1;t!==void 0&&t.exports?(t.exports=e,n=!0):(typeof define==`function`&&define.amd&&define(e),typeof document<`u`?window.ClipperLib=e:self.ClipperLib=e);var r;if(n){var i=`chrome`;r=`Netscape`}else{var i=navigator.userAgent.toString().toLowerCase();r=navigator.appName}var a={};i.indexOf(`chrome`)!=-1&&i.indexOf(`chromium`)==-1?a.chrome=1:a.chrome=0,i.indexOf(`chromium`)==-1?a.chromium=0:a.chromium=1,i.indexOf(`safari`)!=-1&&i.indexOf(`chrome`)==-1&&i.indexOf(`chromium`)==-1?a.safari=1:a.safari=0,i.indexOf(`firefox`)==-1?a.firefox=0:a.firefox=1,i.indexOf(`firefox/17`)==-1?a.firefox17=0:a.firefox17=1,i.indexOf(`firefox/15`)==-1?a.firefox15=0:a.firefox15=1,i.indexOf(`firefox/3`)==-1?a.firefox3=0:a.firefox3=1,i.indexOf(`opera`)==-1?a.opera=0:a.opera=1,i.indexOf(`msie 10`)==-1?a.msie10=0:a.msie10=1,i.indexOf(`msie 9`)==-1?a.msie9=0:a.msie9=1,i.indexOf(`msie 8`)==-1?a.msie8=0:a.msie8=1,i.indexOf(`msie 7`)==-1?a.msie7=0:a.msie7=1,i.indexOf(`msie `)==-1?a.msie=0:a.msie=1,e.biginteger_used=null;var o,s=!0;function c(t,n,r){e.biginteger_used=1,t!=null&&(typeof t==`number`&&n===void 0?this.fromInt(t):typeof t==`number`?this.fromNumber(t,n,r):n==null&&typeof t!=`string`?this.fromString(t,256):this.fromString(t,n))}function l(){return new c(null,void 0,void 0)}function u(e,t,n,r,i,a){for(;--a>=0;){var o=t*this[e++]+n[r]+i;i=Math.floor(o/67108864),n[r++]=o&67108863}return i}function d(e,t,n,r,i,a){for(var o=t&32767,s=t>>15;--a>=0;){var c=this[e]&32767,l=this[e++]>>15,u=s*c+l*o;c=o*c+((u&32767)<<15)+n[r]+(i&1073741823),i=(c>>>30)+(u>>>15)+s*l+(i>>>30),n[r++]=c&1073741823}return i}function f(e,t,n,r,i,a){for(var o=t&16383,s=t>>14;--a>=0;){var c=this[e]&16383,l=this[e++]>>14,u=s*c+l*o;c=o*c+((u&16383)<<14)+n[r]+i,i=(c>>28)+(u>>14)+s*l,n[r++]=c&268435455}return i}s&&r==`Microsoft Internet Explorer`?(c.prototype.am=d,o=30):s&&r!=`Netscape`?(c.prototype.am=u,o=26):(c.prototype.am=f,o=28),c.prototype.DB=o,c.prototype.DM=(1<<o)-1,c.prototype.DV=1<<o;var p=52;c.prototype.FV=2**p,c.prototype.F1=p-o,c.prototype.F2=2*o-p;var m=`0123456789abcdefghijklmnopqrstuvwxyz`,h=[],g=48,_;for(_=0;_<=9;++_)h[g++]=_;for(g=97,_=10;_<36;++_)h[g++]=_;for(g=65,_=10;_<36;++_)h[g++]=_;function v(e){return m.charAt(e)}function y(e,t){return h[e.charCodeAt(t)]??-1}function b(e){for(var t=this.t-1;t>=0;--t)e[t]=this[t];e.t=this.t,e.s=this.s}function x(e){this.t=1,this.s=e<0?-1:0,e>0?this[0]=e:e<-1?this[0]=e+this.DV:this.t=0}function S(e){var t=l();return t.fromInt(e),t}function C(e,t){var n;if(t==16)n=4;else if(t==8)n=3;else if(t==256)n=8;else if(t==2)n=1;else if(t==32)n=5;else if(t==4)n=2;else{this.fromRadix(e,t);return}this.t=0,this.s=0;for(var r=e.length,i=!1,a=0;--r>=0;){var o=n==8?e[r]&255:y(e,r);if(o<0){e.charAt(r)==`-`&&(i=!0);continue}i=!1,a==0?this[this.t++]=o:a+n>this.DB?(this[this.t-1]|=(o&(1<<this.DB-a)-1)<<a,this[this.t++]=o>>this.DB-a):this[this.t-1]|=o<<a,a+=n,a>=this.DB&&(a-=this.DB)}n==8&&e[0]&128&&(this.s=-1,a>0&&(this[this.t-1]|=(1<<this.DB-a)-1<<a)),this.clamp(),i&&c.ZERO.subTo(this,this)}function w(){for(var e=this.s&this.DM;this.t>0&&this[this.t-1]==e;)--this.t}function T(e){if(this.s<0)return`-`+this.negate().toString(e);var t;if(e==16)t=4;else if(e==8)t=3;else if(e==2)t=1;else if(e==32)t=5;else if(e==4)t=2;else return this.toRadix(e);var n=(1<<t)-1,r,i=!1,a=``,o=this.t,s=this.DB-o*this.DB%t;if(o-- >0)for(s<this.DB&&(r=this[o]>>s)>0&&(i=!0,a=v(r));o>=0;)s<t?(r=(this[o]&(1<<s)-1)<<t-s,r|=this[--o]>>(s+=this.DB-t)):(r=this[o]>>(s-=t)&n,s<=0&&(s+=this.DB,--o)),r>0&&(i=!0),i&&(a+=v(r));return i?a:`0`}function E(){var e=l();return c.ZERO.subTo(this,e),e}function D(){return this.s<0?this.negate():this}function O(e){var t=this.s-e.s;if(t!=0)return t;var n=this.t;if(t=n-e.t,t!=0)return this.s<0?-t:t;for(;--n>=0;)if((t=this[n]-e[n])!=0)return t;return 0}function k(e){var t=1,n;return(n=e>>>16)!=0&&(e=n,t+=16),(n=e>>8)!=0&&(e=n,t+=8),(n=e>>4)!=0&&(e=n,t+=4),(n=e>>2)!=0&&(e=n,t+=2),(n=e>>1)!=0&&(e=n,t+=1),t}function A(){return this.t<=0?0:this.DB*(this.t-1)+k(this[this.t-1]^this.s&this.DM)}function j(e,t){var n;for(n=this.t-1;n>=0;--n)t[n+e]=this[n];for(n=e-1;n>=0;--n)t[n]=0;t.t=this.t+e,t.s=this.s}function M(e,t){for(var n=e;n<this.t;++n)t[n-e]=this[n];t.t=Math.max(this.t-e,0),t.s=this.s}function N(e,t){var n=e%this.DB,r=this.DB-n,i=(1<<r)-1,a=Math.floor(e/this.DB),o=this.s<<n&this.DM,s;for(s=this.t-1;s>=0;--s)t[s+a+1]=this[s]>>r|o,o=(this[s]&i)<<n;for(s=a-1;s>=0;--s)t[s]=0;t[a]=o,t.t=this.t+a+1,t.s=this.s,t.clamp()}function P(e,t){t.s=this.s;var n=Math.floor(e/this.DB);if(n>=this.t){t.t=0;return}var r=e%this.DB,i=this.DB-r,a=(1<<r)-1;t[0]=this[n]>>r;for(var o=n+1;o<this.t;++o)t[o-n-1]|=(this[o]&a)<<i,t[o-n]=this[o]>>r;r>0&&(t[this.t-n-1]|=(this.s&a)<<i),t.t=this.t-n,t.clamp()}function F(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]-e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r-=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r-=e[n],t[n++]=r&this.DM,r>>=this.DB;r-=e.s}t.s=r<0?-1:0,r<-1?t[n++]=this.DV+r:r>0&&(t[n++]=r),t.t=n,t.clamp()}function I(e,t){var n=this.abs(),r=e.abs(),i=n.t;for(t.t=i+r.t;--i>=0;)t[i]=0;for(i=0;i<r.t;++i)t[i+n.t]=n.am(0,r[i],t,i,0,n.t);t.s=0,t.clamp(),this.s!=e.s&&c.ZERO.subTo(t,t)}function L(e){for(var t=this.abs(),n=e.t=2*t.t;--n>=0;)e[n]=0;for(n=0;n<t.t-1;++n){var r=t.am(n,t[n],e,2*n,0,1);(e[n+t.t]+=t.am(n+1,2*t[n],e,2*n+1,r,t.t-n-1))>=t.DV&&(e[n+t.t]-=t.DV,e[n+t.t+1]=1)}e.t>0&&(e[e.t-1]+=t.am(n,t[n],e,2*n,0,1)),e.s=0,e.clamp()}function ee(e,t,n){var r=e.abs();if(!(r.t<=0)){var i=this.abs();if(i.t<r.t){t?.fromInt(0),n!=null&&this.copyTo(n);return}n??=l();var a=l(),o=this.s,s=e.s,u=this.DB-k(r[r.t-1]);u>0?(r.lShiftTo(u,a),i.lShiftTo(u,n)):(r.copyTo(a),i.copyTo(n));var d=a.t,f=a[d-1];if(f!=0){var p=f*(1<<this.F1)+(d>1?a[d-2]>>this.F2:0),m=this.FV/p,h=(1<<this.F1)/p,g=1<<this.F2,_=n.t,v=_-d,y=t??l();for(a.dlShiftTo(v,y),n.compareTo(y)>=0&&(n[n.t++]=1,n.subTo(y,n)),c.ONE.dlShiftTo(d,y),y.subTo(a,a);a.t<d;)a[a.t++]=0;for(;--v>=0;){var b=n[--_]==f?this.DM:Math.floor(n[_]*m+(n[_-1]+g)*h);if((n[_]+=a.am(0,b,n,v,0,d))<b)for(a.dlShiftTo(v,y),n.subTo(y,n);n[_]<--b;)n.subTo(y,n)}t!=null&&(n.drShiftTo(d,t),o!=s&&c.ZERO.subTo(t,t)),n.t=d,n.clamp(),u>0&&n.rShiftTo(u,n),o<0&&c.ZERO.subTo(n,n)}}}function te(e){var t=l();return this.abs().divRemTo(e,null,t),this.s<0&&t.compareTo(c.ZERO)>0&&e.subTo(t,t),t}function ne(e){this.m=e}function R(e){return e.s<0||e.compareTo(this.m)>=0?e.mod(this.m):e}function z(e){return e}function B(e){e.divRemTo(this.m,null,e)}function re(e,t,n){e.multiplyTo(t,n),this.reduce(n)}function V(e,t){e.squareTo(t),this.reduce(t)}ne.prototype.convert=R,ne.prototype.revert=z,ne.prototype.reduce=B,ne.prototype.mulTo=re,ne.prototype.sqrTo=V;function ie(){if(this.t<1)return 0;var e=this[0];if(!(e&1))return 0;var t=e&3;return t=t*(2-(e&15)*t)&15,t=t*(2-(e&255)*t)&255,t=t*(2-((e&65535)*t&65535))&65535,t=t*(2-e*t%this.DV)%this.DV,t>0?this.DV-t:-t}function ae(e){this.m=e,this.mp=e.invDigit(),this.mpl=this.mp&32767,this.mph=this.mp>>15,this.um=(1<<e.DB-15)-1,this.mt2=2*e.t}function oe(e){var t=l();return e.abs().dlShiftTo(this.m.t,t),t.divRemTo(this.m,null,t),e.s<0&&t.compareTo(c.ZERO)>0&&this.m.subTo(t,t),t}function se(e){var t=l();return e.copyTo(t),this.reduce(t),t}function ce(e){for(;e.t<=this.mt2;)e[e.t++]=0;for(var t=0;t<this.m.t;++t){var n=e[t]&32767,r=n*this.mpl+((n*this.mph+(e[t]>>15)*this.mpl&this.um)<<15)&e.DM;for(n=t+this.m.t,e[n]+=this.m.am(0,r,e,t,0,this.m.t);e[n]>=e.DV;)e[n]-=e.DV,e[++n]++}e.clamp(),e.drShiftTo(this.m.t,e),e.compareTo(this.m)>=0&&e.subTo(this.m,e)}function le(e,t){e.squareTo(t),this.reduce(t)}function ue(e,t,n){e.multiplyTo(t,n),this.reduce(n)}ae.prototype.convert=oe,ae.prototype.revert=se,ae.prototype.reduce=ce,ae.prototype.mulTo=ue,ae.prototype.sqrTo=le;function de(){return(this.t>0?this[0]&1:this.s)==0}function fe(e,t){if(e>4294967295||e<1)return c.ONE;var n=l(),r=l(),i=t.convert(this),a=k(e)-1;for(i.copyTo(n);--a>=0;)if(t.sqrTo(n,r),(e&1<<a)>0)t.mulTo(r,i,n);else{var o=n;n=r,r=o}return t.revert(n)}function pe(e,t){var n=e<256||t.isEven()?new ne(t):new ae(t);return this.exp(e,n)}c.prototype.copyTo=b,c.prototype.fromInt=x,c.prototype.fromString=C,c.prototype.clamp=w,c.prototype.dlShiftTo=j,c.prototype.drShiftTo=M,c.prototype.lShiftTo=N,c.prototype.rShiftTo=P,c.prototype.subTo=F,c.prototype.multiplyTo=I,c.prototype.squareTo=L,c.prototype.divRemTo=ee,c.prototype.invDigit=ie,c.prototype.isEven=de,c.prototype.exp=fe,c.prototype.toString=T,c.prototype.negate=E,c.prototype.abs=D,c.prototype.compareTo=O,c.prototype.bitLength=A,c.prototype.mod=te,c.prototype.modPowInt=pe,c.ZERO=S(0),c.ONE=S(1);function me(){var e=l();return this.copyTo(e),e}function he(){if(this.s<0){if(this.t==1)return this[0]-this.DV;if(this.t==0)return-1}else if(this.t==1)return this[0];else if(this.t==0)return 0;return(this[1]&(1<<32-this.DB)-1)<<this.DB|this[0]}function H(){return this.t==0?this.s:this[0]<<24>>24}function ge(){return this.t==0?this.s:this[0]<<16>>16}function _e(e){return Math.floor(Math.LN2*this.DB/Math.log(e))}function ve(){return this.s<0?-1:this.t<=0||this.t==1&&this[0]<=0?0:1}function U(e){if(e??=10,this.signum()==0||e<2||e>36)return`0`;var t=this.chunkSize(e),n=e**+t,r=S(n),i=l(),a=l(),o=``;for(this.divRemTo(r,i,a);i.signum()>0;)o=(n+a.intValue()).toString(e).substr(1)+o,i.divRemTo(r,i,a);return a.intValue().toString(e)+o}function ye(e,t){this.fromInt(0),t??=10;for(var n=this.chunkSize(t),r=t**+n,i=!1,a=0,o=0,s=0;s<e.length;++s){var l=y(e,s);if(l<0){e.charAt(s)==`-`&&this.signum()==0&&(i=!0);continue}o=t*o+l,++a>=n&&(this.dMultiply(r),this.dAddOffset(o,0),a=0,o=0)}a>0&&(this.dMultiply(t**+a),this.dAddOffset(o,0)),i&&c.ZERO.subTo(this,this)}function W(e,t,n){if(typeof t==`number`)if(e<2)this.fromInt(1);else for(this.fromNumber(e,n),this.testBit(e-1)||this.bitwiseTo(c.ONE.shiftLeft(e-1),De,this),this.isEven()&&this.dAddOffset(1,0);!this.isProbablePrime(t);)this.dAddOffset(2,0),this.bitLength()>e&&this.subTo(c.ONE.shiftLeft(e-1),this);else{var r=[],i=e&7;r.length=(e>>3)+1,t.nextBytes(r),i>0?r[0]&=(1<<i)-1:r[0]=0,this.fromString(r,256)}}function be(){var e=this.t,t=[];t[0]=this.s;var n=this.DB-e*this.DB%8,r,i=0;if(e-- >0)for(n<this.DB&&(r=this[e]>>n)!=(this.s&this.DM)>>n&&(t[i++]=r|this.s<<this.DB-n);e>=0;)n<8?(r=(this[e]&(1<<n)-1)<<8-n,r|=this[--e]>>(n+=this.DB-8)):(r=this[e]>>(n-=8)&255,n<=0&&(n+=this.DB,--e)),r&128&&(r|=-256),i==0&&(this.s&128)!=(r&128)&&++i,(i>0||r!=this.s)&&(t[i++]=r);return t}function xe(e){return this.compareTo(e)==0}function Se(e){return this.compareTo(e)<0?this:e}function Ce(e){return this.compareTo(e)>0?this:e}function we(e,t,n){var r,i,a=Math.min(e.t,this.t);for(r=0;r<a;++r)n[r]=t(this[r],e[r]);if(e.t<this.t){for(i=e.s&this.DM,r=a;r<this.t;++r)n[r]=t(this[r],i);n.t=this.t}else{for(i=this.s&this.DM,r=a;r<e.t;++r)n[r]=t(i,e[r]);n.t=e.t}n.s=t(this.s,e.s),n.clamp()}function Te(e,t){return e&t}function Ee(e){var t=l();return this.bitwiseTo(e,Te,t),t}function De(e,t){return e|t}function Oe(e){var t=l();return this.bitwiseTo(e,De,t),t}function ke(e,t){return e^t}function Ae(e){var t=l();return this.bitwiseTo(e,ke,t),t}function je(e,t){return e&~t}function Me(e){var t=l();return this.bitwiseTo(e,je,t),t}function Ne(){for(var e=l(),t=0;t<this.t;++t)e[t]=this.DM&~this[t];return e.t=this.t,e.s=~this.s,e}function Pe(e){var t=l();return e<0?this.rShiftTo(-e,t):this.lShiftTo(e,t),t}function Fe(e){var t=l();return e<0?this.lShiftTo(-e,t):this.rShiftTo(e,t),t}function Ie(e){if(e==0)return-1;var t=0;return e&65535||(e>>=16,t+=16),e&255||(e>>=8,t+=8),e&15||(e>>=4,t+=4),e&3||(e>>=2,t+=2),e&1||++t,t}function Le(){for(var e=0;e<this.t;++e)if(this[e]!=0)return e*this.DB+Ie(this[e]);return this.s<0?this.t*this.DB:-1}function Re(e){for(var t=0;e!=0;)e&=e-1,++t;return t}function G(){for(var e=0,t=this.s&this.DM,n=0;n<this.t;++n)e+=Re(this[n]^t);return e}function ze(e){var t=Math.floor(e/this.DB);return t>=this.t?this.s!=0:(this[t]&1<<e%this.DB)!=0}function Be(e,t){var n=c.ONE.shiftLeft(e);return this.bitwiseTo(n,t,n),n}function K(e){return this.changeBit(e,De)}function Ve(e){return this.changeBit(e,je)}function He(e){return this.changeBit(e,ke)}function Ue(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]+e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r+=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r+=e[n],t[n++]=r&this.DM,r>>=this.DB;r+=e.s}t.s=r<0?-1:0,r>0?t[n++]=r:r<-1&&(t[n++]=this.DV+r),t.t=n,t.clamp()}function We(e){var t=l();return this.addTo(e,t),t}function Ge(e){var t=l();return this.subTo(e,t),t}function Ke(e){var t=l();return this.multiplyTo(e,t),t}function qe(){var e=l();return this.squareTo(e),e}function Je(e){var t=l();return this.divRemTo(e,t,null),t}function Ye(e){var t=l();return this.divRemTo(e,null,t),t}function Xe(e){var t=l(),n=l();return this.divRemTo(e,t,n),[t,n]}function Ze(e){this[this.t]=this.am(0,e-1,this,0,0,this.t),++this.t,this.clamp()}function Qe(e,t){if(e!=0){for(;this.t<=t;)this[this.t++]=0;for(this[t]+=e;this[t]>=this.DV;)this[t]-=this.DV,++t>=this.t&&(this[this.t++]=0),++this[t]}}function $e(){}function et(e){return e}function tt(e,t,n){e.multiplyTo(t,n)}function nt(e,t){e.squareTo(t)}$e.prototype.convert=et,$e.prototype.revert=et,$e.prototype.mulTo=tt,$e.prototype.sqrTo=nt;function rt(e){return this.exp(e,new $e)}function it(e,t,n){var r=Math.min(this.t+e.t,t);for(n.s=0,n.t=r;r>0;)n[--r]=0;var i;for(i=n.t-this.t;r<i;++r)n[r+this.t]=this.am(0,e[r],n,r,0,this.t);for(i=Math.min(e.t,t);r<i;++r)this.am(0,e[r],n,r,0,t-r);n.clamp()}function at(e,t,n){--t;var r=n.t=this.t+e.t-t;for(n.s=0;--r>=0;)n[r]=0;for(r=Math.max(t-this.t,0);r<e.t;++r)n[this.t+r-t]=this.am(t-r,e[r],n,0,0,this.t+r-t);n.clamp(),n.drShiftTo(1,n)}function ot(e){this.r2=l(),this.q3=l(),c.ONE.dlShiftTo(2*e.t,this.r2),this.mu=this.r2.divide(e),this.m=e}function st(e){if(e.s<0||e.t>2*this.m.t)return e.mod(this.m);if(e.compareTo(this.m)<0)return e;var t=l();return e.copyTo(t),this.reduce(t),t}function ct(e){return e}function lt(e){for(e.drShiftTo(this.m.t-1,this.r2),e.t>this.m.t+1&&(e.t=this.m.t+1,e.clamp()),this.mu.multiplyUpperTo(this.r2,this.m.t+1,this.q3),this.m.multiplyLowerTo(this.q3,this.m.t+1,this.r2);e.compareTo(this.r2)<0;)e.dAddOffset(1,this.m.t+1);for(e.subTo(this.r2,e);e.compareTo(this.m)>=0;)e.subTo(this.m,e)}function ut(e,t){e.squareTo(t),this.reduce(t)}function dt(e,t,n){e.multiplyTo(t,n),this.reduce(n)}ot.prototype.convert=st,ot.prototype.revert=ct,ot.prototype.reduce=lt,ot.prototype.mulTo=dt,ot.prototype.sqrTo=ut;function ft(e,t){var n=e.bitLength(),r,i=S(1),a;if(n<=0)return i;r=n<18?1:n<48?3:n<144?4:n<768?5:6,a=n<8?new ne(t):t.isEven()?new ot(t):new ae(t);var o=[],s=3,c=r-1,u=(1<<r)-1;if(o[1]=a.convert(this),r>1){var d=l();for(a.sqrTo(o[1],d);s<=u;)o[s]=l(),a.mulTo(d,o[s-2],o[s]),s+=2}var f=e.t-1,p,m=!0,h=l(),g;for(n=k(e[f])-1;f>=0;){for(n>=c?p=e[f]>>n-c&u:(p=(e[f]&(1<<n+1)-1)<<c-n,f>0&&(p|=e[f-1]>>this.DB+n-c)),s=r;!(p&1);)p>>=1,--s;if((n-=s)<0&&(n+=this.DB,--f),m)o[p].copyTo(i),m=!1;else{for(;s>1;)a.sqrTo(i,h),a.sqrTo(h,i),s-=2;s>0?a.sqrTo(i,h):(g=i,i=h,h=g),a.mulTo(h,o[p],i)}for(;f>=0&&!(e[f]&1<<n);)a.sqrTo(i,h),g=i,i=h,h=g,--n<0&&(n=this.DB-1,--f)}return a.revert(i)}function pt(e){var t=this.s<0?this.negate():this.clone(),n=e.s<0?e.negate():e.clone();if(t.compareTo(n)<0){var r=t;t=n,n=r}var i=t.getLowestSetBit(),a=n.getLowestSetBit();if(a<0)return t;for(i<a&&(a=i),a>0&&(t.rShiftTo(a,t),n.rShiftTo(a,n));t.signum()>0;)(i=t.getLowestSetBit())>0&&t.rShiftTo(i,t),(i=n.getLowestSetBit())>0&&n.rShiftTo(i,n),t.compareTo(n)>=0?(t.subTo(n,t),t.rShiftTo(1,t)):(n.subTo(t,n),n.rShiftTo(1,n));return a>0&&n.lShiftTo(a,n),n}function mt(e){if(e<=0)return 0;var t=this.DV%e,n=this.s<0?e-1:0;if(this.t>0)if(t==0)n=this[0]%e;else for(var r=this.t-1;r>=0;--r)n=(t*n+this[r])%e;return n}function ht(e){var t=e.isEven();if(this.isEven()&&t||e.signum()==0)return c.ZERO;for(var n=e.clone(),r=this.clone(),i=S(1),a=S(0),o=S(0),s=S(1);n.signum()!=0;){for(;n.isEven();)n.rShiftTo(1,n),t?((!i.isEven()||!a.isEven())&&(i.addTo(this,i),a.subTo(e,a)),i.rShiftTo(1,i)):a.isEven()||a.subTo(e,a),a.rShiftTo(1,a);for(;r.isEven();)r.rShiftTo(1,r),t?((!o.isEven()||!s.isEven())&&(o.addTo(this,o),s.subTo(e,s)),o.rShiftTo(1,o)):s.isEven()||s.subTo(e,s),s.rShiftTo(1,s);n.compareTo(r)>=0?(n.subTo(r,n),t&&i.subTo(o,i),a.subTo(s,a)):(r.subTo(n,r),t&&o.subTo(i,o),s.subTo(a,s))}if(r.compareTo(c.ONE)!=0)return c.ZERO;if(s.compareTo(e)>=0)return s.subtract(e);if(s.signum()<0)s.addTo(e,s);else return s;return s.signum()<0?s.add(e):s}var gt=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997],_t=(1<<26)/gt[gt.length-1];function vt(e){var t,n=this.abs();if(n.t==1&&n[0]<=gt[gt.length-1]){for(t=0;t<gt.length;++t)if(n[0]==gt[t])return!0;return!1}if(n.isEven())return!1;for(t=1;t<gt.length;){for(var r=gt[t],i=t+1;i<gt.length&&r<_t;)r*=gt[i++];for(r=n.modInt(r);t<i;)if(r%gt[t++]==0)return!1}return n.millerRabin(e)}function yt(e){var t=this.subtract(c.ONE),n=t.getLowestSetBit();if(n<=0)return!1;var r=t.shiftRight(n);e=e+1>>1,e>gt.length&&(e=gt.length);for(var i=l(),a=0;a<e;++a){i.fromInt(gt[Math.floor(Math.random()*gt.length)]);var o=i.modPow(r,this);if(o.compareTo(c.ONE)!=0&&o.compareTo(t)!=0){for(var s=1;s++<n&&o.compareTo(t)!=0;)if(o=o.modPowInt(2,this),o.compareTo(c.ONE)==0)return!1;if(o.compareTo(t)!=0)return!1}}return!0}c.prototype.chunkSize=_e,c.prototype.toRadix=U,c.prototype.fromRadix=ye,c.prototype.fromNumber=W,c.prototype.bitwiseTo=we,c.prototype.changeBit=Be,c.prototype.addTo=Ue,c.prototype.dMultiply=Ze,c.prototype.dAddOffset=Qe,c.prototype.multiplyLowerTo=it,c.prototype.multiplyUpperTo=at,c.prototype.modInt=mt,c.prototype.millerRabin=yt,c.prototype.clone=me,c.prototype.intValue=he,c.prototype.byteValue=H,c.prototype.shortValue=ge,c.prototype.signum=ve,c.prototype.toByteArray=be,c.prototype.equals=xe,c.prototype.min=Se,c.prototype.max=Ce,c.prototype.and=Ee,c.prototype.or=Oe,c.prototype.xor=Ae,c.prototype.andNot=Me,c.prototype.not=Ne,c.prototype.shiftLeft=Pe,c.prototype.shiftRight=Fe,c.prototype.getLowestSetBit=Le,c.prototype.bitCount=G,c.prototype.testBit=ze,c.prototype.setBit=K,c.prototype.clearBit=Ve,c.prototype.flipBit=He,c.prototype.add=We,c.prototype.subtract=Ge,c.prototype.multiply=Ke,c.prototype.divide=Je,c.prototype.remainder=Ye,c.prototype.divideAndRemainder=Xe,c.prototype.modPow=ft,c.prototype.modInverse=ht,c.prototype.pow=rt,c.prototype.gcd=pt,c.prototype.isProbablePrime=vt,c.prototype.square=qe;var bt=c;bt.prototype.IsNegative=function(){return this.compareTo(bt.ZERO)==-1},bt.op_Equality=function(e,t){return e.compareTo(t)==0},bt.op_Inequality=function(e,t){return e.compareTo(t)!=0},bt.op_GreaterThan=function(e,t){return e.compareTo(t)>0},bt.op_LessThan=function(e,t){return e.compareTo(t)<0},bt.op_Addition=function(e,t){return new bt(e,void 0,void 0).add(new bt(t,void 0,void 0))},bt.op_Subtraction=function(e,t){return new bt(e,void 0,void 0).subtract(new bt(t,void 0,void 0))},bt.Int128Mul=function(e,t){return new bt(e,void 0,void 0).multiply(new bt(t,void 0,void 0))},bt.op_Division=function(e,t){return e.divide(t)},bt.prototype.ToDouble=function(){return parseFloat(this.toString())};var xt=function(e,t){var n;if(Object.getOwnPropertyNames===void 0){for(n in t.prototype)(e.prototype[n]===void 0||e.prototype[n]===Object.prototype[n])&&(e.prototype[n]=t.prototype[n]);for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}else{for(var r=Object.getOwnPropertyNames(t.prototype),i=0;i<r.length;i++)Object.getOwnPropertyDescriptor(e.prototype,r[i])===void 0&&Object.defineProperty(e.prototype,r[i],Object.getOwnPropertyDescriptor(t.prototype,r[i]));for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}};e.Path=function(){return[]},e.Path.prototype.push=Array.prototype.push,e.Paths=function(){return[]},e.Paths.prototype.push=Array.prototype.push,e.DoublePoint=function(){var e=arguments;this.X=0,this.Y=0,e.length===1?(this.X=e[0].X,this.Y=e[0].Y):e.length===2&&(this.X=e[0],this.Y=e[1])},e.DoublePoint0=function(){this.X=0,this.Y=0},e.DoublePoint0.prototype=e.DoublePoint.prototype,e.DoublePoint1=function(e){this.X=e.X,this.Y=e.Y},e.DoublePoint1.prototype=e.DoublePoint.prototype,e.DoublePoint2=function(e,t){this.X=e,this.Y=t},e.DoublePoint2.prototype=e.DoublePoint.prototype,e.PolyNode=function(){this.m_Parent=null,this.m_polygon=new e.Path,this.m_Index=0,this.m_jointype=0,this.m_endtype=0,this.m_Childs=[],this.IsOpen=!1},e.PolyNode.prototype.IsHoleNode=function(){for(var e=!0,t=this.m_Parent;t!==null;)e=!e,t=t.m_Parent;return e},e.PolyNode.prototype.ChildCount=function(){return this.m_Childs.length},e.PolyNode.prototype.Contour=function(){return this.m_polygon},e.PolyNode.prototype.AddChild=function(e){var t=this.m_Childs.length;this.m_Childs.push(e),e.m_Parent=this,e.m_Index=t},e.PolyNode.prototype.GetNext=function(){return this.m_Childs.length>0?this.m_Childs[0]:this.GetNextSiblingUp()},e.PolyNode.prototype.GetNextSiblingUp=function(){return this.m_Parent===null?null:this.m_Index===this.m_Parent.m_Childs.length-1?this.m_Parent.GetNextSiblingUp():this.m_Parent.m_Childs[this.m_Index+1]},e.PolyNode.prototype.Childs=function(){return this.m_Childs},e.PolyNode.prototype.Parent=function(){return this.m_Parent},e.PolyNode.prototype.IsHole=function(){return this.IsHoleNode()},e.PolyTree=function(){this.m_AllPolys=[],e.PolyNode.call(this)},e.PolyTree.prototype.Clear=function(){for(var e=0,t=this.m_AllPolys.length;e<t;e++)this.m_AllPolys[e]=null;this.m_AllPolys.length=0,this.m_Childs.length=0},e.PolyTree.prototype.GetFirst=function(){return this.m_Childs.length>0?this.m_Childs[0]:null},e.PolyTree.prototype.Total=function(){var e=this.m_AllPolys.length;return e>0&&this.m_Childs[0]!==this.m_AllPolys[0]&&e--,e},xt(e.PolyTree,e.PolyNode),e.Math_Abs_Int64=e.Math_Abs_Int32=e.Math_Abs_Double=function(e){return Math.abs(e)},e.Math_Max_Int32_Int32=function(e,t){return Math.max(e,t)},a.msie||a.opera||a.safari?e.Cast_Int32=function(e){return e|0}:e.Cast_Int32=function(e){return~~e},Number.toInteger===void 0&&(Number.toInteger=null),a.chrome?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):~~e}:a.firefox&&typeof Number.toInteger==`function`?e.Cast_Int64=function(e){return Number.toInteger(e)}:a.msie7||a.msie8?e.Cast_Int64=function(e){return parseInt(e,10)}:a.msie?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):e|0}:e.Cast_Int64=function(e){return e<0?Math.ceil(e):Math.floor(e)},e.Clear=function(e){e.length=0},e.PI=3.141592653589793,e.PI2=2*3.141592653589793,e.IntPoint=function(){var t=arguments,n=t.length;if(this.X=0,this.Y=0,e.use_xyz)if(this.Z=0,n===3)this.X=t[0],this.Y=t[1],this.Z=t[2];else if(n===2)this.X=t[0],this.Y=t[1],this.Z=0;else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y),this.Z=0}else{var i=t[0];i.Z===void 0&&(i.Z=0),this.X=i.X,this.Y=i.Y,this.Z=i.Z}else this.X=0,this.Y=0,this.Z=0;else if(n===2)this.X=t[0],this.Y=t[1];else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y)}else{var i=t[0];this.X=i.X,this.Y=i.Y}else this.X=0,this.Y=0},e.IntPoint.op_Equality=function(e,t){return e.X===t.X&&e.Y===t.Y},e.IntPoint.op_Inequality=function(e,t){return e.X!==t.X||e.Y!==t.Y},e.IntPoint0=function(){this.X=0,this.Y=0,e.use_xyz&&(this.Z=0)},e.IntPoint0.prototype=e.IntPoint.prototype,e.IntPoint1=function(t){this.X=t.X,this.Y=t.Y,e.use_xyz&&(t.Z===void 0?this.Z=0:this.Z=t.Z)},e.IntPoint1.prototype=e.IntPoint.prototype,e.IntPoint1dp=function(t){this.X=e.Clipper.Round(t.X),this.Y=e.Clipper.Round(t.Y),e.use_xyz&&(this.Z=0)},e.IntPoint1dp.prototype=e.IntPoint.prototype,e.IntPoint2=function(t,n,r){this.X=t,this.Y=n,e.use_xyz&&(r===void 0?this.Z=0:this.Z=r)},e.IntPoint2.prototype=e.IntPoint.prototype,e.IntRect=function(){var e=arguments,t=e.length;if(t===4)this.left=e[0],this.top=e[1],this.right=e[2],this.bottom=e[3];else if(t===1){var n=e[0];this.left=n.left,this.top=n.top,this.right=n.right,this.bottom=n.bottom}else this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0=function(){this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0.prototype=e.IntRect.prototype,e.IntRect1=function(e){this.left=e.left,this.top=e.top,this.right=e.right,this.bottom=e.bottom},e.IntRect1.prototype=e.IntRect.prototype,e.IntRect4=function(e,t,n,r){this.left=e,this.top=t,this.right=n,this.bottom=r},e.IntRect4.prototype=e.IntRect.prototype,e.ClipType={ctIntersection:0,ctUnion:1,ctDifference:2,ctXor:3},e.PolyType={ptSubject:0,ptClip:1},e.PolyFillType={pftEvenOdd:0,pftNonZero:1,pftPositive:2,pftNegative:3},e.JoinType={jtSquare:0,jtRound:1,jtMiter:2},e.EndType={etOpenSquare:0,etOpenRound:1,etOpenButt:2,etClosedLine:3,etClosedPolygon:4},e.EdgeSide={esLeft:0,esRight:1},e.Direction={dRightToLeft:0,dLeftToRight:1},e.TEdge=function(){this.Bot=new e.IntPoint0,this.Curr=new e.IntPoint0,this.Top=new e.IntPoint0,this.Delta=new e.IntPoint0,this.Dx=0,this.PolyTyp=e.PolyType.ptSubject,this.Side=e.EdgeSide.esLeft,this.WindDelta=0,this.WindCnt=0,this.WindCnt2=0,this.OutIdx=0,this.Next=null,this.Prev=null,this.NextInLML=null,this.NextInAEL=null,this.PrevInAEL=null,this.NextInSEL=null,this.PrevInSEL=null},e.IntersectNode=function(){this.Edge1=null,this.Edge2=null,this.Pt=new e.IntPoint0},e.MyIntersectNodeSort=function(){},e.MyIntersectNodeSort.Compare=function(e,t){var n=t.Pt.Y-e.Pt.Y;return n>0?1:n<0?-1:0},e.LocalMinima=function(){this.Y=0,this.LeftBound=null,this.RightBound=null,this.Next=null},e.Scanbeam=function(){this.Y=0,this.Next=null},e.Maxima=function(){this.X=0,this.Next=null,this.Prev=null},e.OutRec=function(){this.Idx=0,this.IsHole=!1,this.IsOpen=!1,this.FirstLeft=null,this.Pts=null,this.BottomPt=null,this.PolyNode=null},e.OutPt=function(){this.Idx=0,this.Pt=new e.IntPoint0,this.Next=null,this.Prev=null},e.Join=function(){this.OutPt1=null,this.OutPt2=null,this.OffPt=new e.IntPoint0},e.ClipperBase=function(){this.m_MinimaList=null,this.m_CurrentLM=null,this.m_edges=[],this.m_UseFullRange=!1,this.m_HasOpenPaths=!1,this.PreserveCollinear=!1,this.m_Scanbeam=null,this.m_PolyOuts=null,this.m_ActiveEdges=null},e.ClipperBase.horizontal=-9007199254740992,e.ClipperBase.Skip=-2,e.ClipperBase.Unassigned=-1,e.ClipperBase.tolerance=1e-20,e.ClipperBase.loRange=47453132,e.ClipperBase.hiRange=0xfffffffffffff,e.ClipperBase.near_zero=function(t){return t>-e.ClipperBase.tolerance&&t<e.ClipperBase.tolerance},e.ClipperBase.IsHorizontal=function(e){return e.Delta.Y===0},e.ClipperBase.prototype.PointIsVertex=function(t,n){var r=n;do{if(e.IntPoint.op_Equality(r.Pt,t))return!0;r=r.Next}while(r!==n);return!1},e.ClipperBase.prototype.PointOnLineSegment=function(e,t,n,r){return r?e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&bt.op_Equality(bt.Int128Mul(e.X-t.X,n.Y-t.Y),bt.Int128Mul(n.X-t.X,e.Y-t.Y)):e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&(e.X-t.X)*(n.Y-t.Y)===(n.X-t.X)*(e.Y-t.Y)},e.ClipperBase.prototype.PointOnPolygon=function(e,t,n){for(var r=t;;){if(this.PointOnLineSegment(e,r.Pt,r.Next.Pt,n))return!0;if(r=r.Next,r===t)break}return!1},e.ClipperBase.prototype.SlopesEqual=e.ClipperBase.SlopesEqual=function(){var t=arguments,n=t.length,r,i,a,o,s,c,l;return n===3?(r=t[0],i=t[1],l=t[2],l?bt.op_Equality(bt.Int128Mul(r.Delta.Y,i.Delta.X),bt.Int128Mul(r.Delta.X,i.Delta.Y)):e.Cast_Int64(r.Delta.Y*i.Delta.X)===e.Cast_Int64(r.Delta.X*i.Delta.Y)):n===4?(a=t[0],o=t[1],s=t[2],l=t[3],l?bt.op_Equality(bt.Int128Mul(a.Y-o.Y,o.X-s.X),bt.Int128Mul(a.X-o.X,o.Y-s.Y)):e.Cast_Int64((a.Y-o.Y)*(o.X-s.X))-e.Cast_Int64((a.X-o.X)*(o.Y-s.Y))===0):(a=t[0],o=t[1],s=t[2],c=t[3],l=t[4],l?bt.op_Equality(bt.Int128Mul(a.Y-o.Y,s.X-c.X),bt.Int128Mul(a.X-o.X,s.Y-c.Y)):e.Cast_Int64((a.Y-o.Y)*(s.X-c.X))-e.Cast_Int64((a.X-o.X)*(s.Y-c.Y))===0)},e.ClipperBase.SlopesEqual3=function(t,n,r){return r?bt.op_Equality(bt.Int128Mul(t.Delta.Y,n.Delta.X),bt.Int128Mul(t.Delta.X,n.Delta.Y)):e.Cast_Int64(t.Delta.Y*n.Delta.X)===e.Cast_Int64(t.Delta.X*n.Delta.Y)},e.ClipperBase.SlopesEqual4=function(t,n,r,i){return i?bt.op_Equality(bt.Int128Mul(t.Y-n.Y,n.X-r.X),bt.Int128Mul(t.X-n.X,n.Y-r.Y)):e.Cast_Int64((t.Y-n.Y)*(n.X-r.X))-e.Cast_Int64((t.X-n.X)*(n.Y-r.Y))===0},e.ClipperBase.SlopesEqual5=function(t,n,r,i,a){return a?bt.op_Equality(bt.Int128Mul(t.Y-n.Y,r.X-i.X),bt.Int128Mul(t.X-n.X,r.Y-i.Y)):e.Cast_Int64((t.Y-n.Y)*(r.X-i.X))-e.Cast_Int64((t.X-n.X)*(r.Y-i.Y))===0},e.ClipperBase.prototype.Clear=function(){this.DisposeLocalMinimaList();for(var t=0,n=this.m_edges.length;t<n;++t){for(var r=0,i=this.m_edges[t].length;r<i;++r)this.m_edges[t][r]=null;e.Clear(this.m_edges[t])}e.Clear(this.m_edges),this.m_UseFullRange=!1,this.m_HasOpenPaths=!1},e.ClipperBase.prototype.DisposeLocalMinimaList=function(){for(;this.m_MinimaList!==null;){var e=this.m_MinimaList.Next;this.m_MinimaList=null,this.m_MinimaList=e}this.m_CurrentLM=null},e.ClipperBase.prototype.RangeTest=function(t,n){n.Value?(t.X>e.ClipperBase.hiRange||t.Y>e.ClipperBase.hiRange||-t.X>e.ClipperBase.hiRange||-t.Y>e.ClipperBase.hiRange)&&e.Error(`Coordinate outside allowed range in RangeTest().`):(t.X>e.ClipperBase.loRange||t.Y>e.ClipperBase.loRange||-t.X>e.ClipperBase.loRange||-t.Y>e.ClipperBase.loRange)&&(n.Value=!0,this.RangeTest(t,n))},e.ClipperBase.prototype.InitEdge=function(t,n,r,i){t.Next=n,t.Prev=r,t.Curr.X=i.X,t.Curr.Y=i.Y,e.use_xyz&&(t.Curr.Z=i.Z),t.OutIdx=-1},e.ClipperBase.prototype.InitEdge2=function(t,n){t.Curr.Y>=t.Next.Curr.Y?(t.Bot.X=t.Curr.X,t.Bot.Y=t.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Curr.Z),t.Top.X=t.Next.Curr.X,t.Top.Y=t.Next.Curr.Y,e.use_xyz&&(t.Top.Z=t.Next.Curr.Z)):(t.Top.X=t.Curr.X,t.Top.Y=t.Curr.Y,e.use_xyz&&(t.Top.Z=t.Curr.Z),t.Bot.X=t.Next.Curr.X,t.Bot.Y=t.Next.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Next.Curr.Z)),this.SetDx(t),t.PolyTyp=n},e.ClipperBase.prototype.FindNextLocMin=function(t){for(var n;;){for(;e.IntPoint.op_Inequality(t.Bot,t.Prev.Bot)||e.IntPoint.op_Equality(t.Curr,t.Top);)t=t.Next;if(t.Dx!==e.ClipperBase.horizontal&&t.Prev.Dx!==e.ClipperBase.horizontal)break;for(;t.Prev.Dx===e.ClipperBase.horizontal;)t=t.Prev;for(n=t;t.Dx===e.ClipperBase.horizontal;)t=t.Next;if(t.Top.Y!==t.Prev.Bot.Y){n.Prev.Bot.X<t.Bot.X&&(t=n);break}}return t},e.ClipperBase.prototype.ProcessBound=function(t,n){var r,i=t,a;if(i.OutIdx===e.ClipperBase.Skip){if(t=i,n){for(;t.Top.Y===t.Next.Bot.Y;)t=t.Next;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Prev}else{for(;t.Top.Y===t.Prev.Bot.Y;)t=t.Prev;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Next}if(t===i)i=n?t.Next:t.Prev;else{t=n?i.Next:i.Prev;var o=new e.LocalMinima;o.Next=null,o.Y=t.Bot.Y,o.LeftBound=null,o.RightBound=t,t.WindDelta=0,i=this.ProcessBound(t,n),this.InsertLocalMinima(o)}return i}if(t.Dx===e.ClipperBase.horizontal&&(r=n?t.Prev:t.Next,r.Dx===e.ClipperBase.horizontal?r.Bot.X!==t.Bot.X&&r.Top.X!==t.Bot.X&&this.ReverseHorizontal(t):r.Bot.X!==t.Bot.X&&this.ReverseHorizontal(t)),r=t,n){for(;i.Top.Y===i.Next.Bot.Y&&i.Next.OutIdx!==e.ClipperBase.Skip;)i=i.Next;if(i.Dx===e.ClipperBase.horizontal&&i.Next.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Prev.Dx===e.ClipperBase.horizontal;)a=a.Prev;a.Prev.Top.X>i.Next.Top.X&&(i=a.Prev)}for(;t!==i;)t.NextInLML=t.Next,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),t=t.Next;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),i=i.Next}else{for(;i.Top.Y===i.Prev.Bot.Y&&i.Prev.OutIdx!==e.ClipperBase.Skip;)i=i.Prev;if(i.Dx===e.ClipperBase.horizontal&&i.Prev.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Next.Dx===e.ClipperBase.horizontal;)a=a.Next;(a.Next.Top.X===i.Prev.Top.X||a.Next.Top.X>i.Prev.Top.X)&&(i=a.Next)}for(;t!==i;)t.NextInLML=t.Prev,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),t=t.Prev;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),i=i.Prev}return i},e.ClipperBase.prototype.AddPath=function(t,n,r){e.use_lines?!r&&n===e.PolyType.ptClip&&e.Error(`AddPath: Open paths must be subject.`):r||e.Error(`AddPath: Open paths have been disabled.`);var i=t.length-1;if(r)for(;i>0&&e.IntPoint.op_Equality(t[i],t[0]);)--i;for(;i>0&&e.IntPoint.op_Equality(t[i],t[i-1]);)--i;if(r&&i<2||!r&&i<1)return!1;for(var a=[],o=0;o<=i;o++)a.push(new e.TEdge);var s=!0;a[1].Curr.X=t[1].X,a[1].Curr.Y=t[1].Y,e.use_xyz&&(a[1].Curr.Z=t[1].Z);var c={Value:this.m_UseFullRange};this.RangeTest(t[0],c),this.m_UseFullRange=c.Value,c.Value=this.m_UseFullRange,this.RangeTest(t[i],c),this.m_UseFullRange=c.Value,this.InitEdge(a[0],a[1],a[i],t[0]),this.InitEdge(a[i],a[0],a[i-1],t[i]);for(var o=i-1;o>=1;--o)c.Value=this.m_UseFullRange,this.RangeTest(t[o],c),this.m_UseFullRange=c.Value,this.InitEdge(a[o],a[o+1],a[o-1],t[o]);for(var l=a[0],u=l,d=l;;){if(u.Curr===u.Next.Curr&&(r||u.Next!==l)){if(u===u.Next)break;u===l&&(l=u.Next),u=this.RemoveEdge(u),d=u;continue}if(u.Prev===u.Next)break;if(r&&e.ClipperBase.SlopesEqual4(u.Prev.Curr,u.Curr,u.Next.Curr,this.m_UseFullRange)&&(!this.PreserveCollinear||!this.Pt2IsBetweenPt1AndPt3(u.Prev.Curr,u.Curr,u.Next.Curr))){u===l&&(l=u.Next),u=this.RemoveEdge(u),u=u.Prev,d=u;continue}if(u=u.Next,u===d||!r&&u.Next===l)break}if(!r&&u===u.Next||r&&u.Prev===u.Next)return!1;r||(this.m_HasOpenPaths=!0,l.Prev.OutIdx=e.ClipperBase.Skip),u=l;do this.InitEdge2(u,n),u=u.Next,s&&u.Curr.Y!==l.Curr.Y&&(s=!1);while(u!==l);if(s){if(r)return!1;u.Prev.OutIdx=e.ClipperBase.Skip;var f=new e.LocalMinima;for(f.Next=null,f.Y=u.Bot.Y,f.LeftBound=null,f.RightBound=u,f.RightBound.Side=e.EdgeSide.esRight,f.RightBound.WindDelta=0;u.Bot.X!==u.Prev.Top.X&&this.ReverseHorizontal(u),u.Next.OutIdx!==e.ClipperBase.Skip;)u.NextInLML=u.Next,u=u.Next;return this.InsertLocalMinima(f),this.m_edges.push(a),!0}this.m_edges.push(a);var p,m=null;for(e.IntPoint.op_Equality(u.Prev.Bot,u.Prev.Top)&&(u=u.Next);u=this.FindNextLocMin(u),u!==m;){m===null&&(m=u);var f=new e.LocalMinima;f.Next=null,f.Y=u.Bot.Y,u.Dx<u.Prev.Dx?(f.LeftBound=u.Prev,f.RightBound=u,p=!1):(f.LeftBound=u,f.RightBound=u.Prev,p=!0),f.LeftBound.Side=e.EdgeSide.esLeft,f.RightBound.Side=e.EdgeSide.esRight,r?f.LeftBound.Next===f.RightBound?f.LeftBound.WindDelta=-1:f.LeftBound.WindDelta=1:f.LeftBound.WindDelta=0,f.RightBound.WindDelta=-f.LeftBound.WindDelta,u=this.ProcessBound(f.LeftBound,p),u.OutIdx===e.ClipperBase.Skip&&(u=this.ProcessBound(u,p));var h=this.ProcessBound(f.RightBound,!p);h.OutIdx===e.ClipperBase.Skip&&(h=this.ProcessBound(h,!p)),f.LeftBound.OutIdx===e.ClipperBase.Skip?f.LeftBound=null:f.RightBound.OutIdx===e.ClipperBase.Skip&&(f.RightBound=null),this.InsertLocalMinima(f),p||(u=h)}return!0},e.ClipperBase.prototype.AddPaths=function(e,t,n){for(var r=!1,i=0,a=e.length;i<a;++i)this.AddPath(e[i],t,n)&&(r=!0);return r},e.ClipperBase.prototype.Pt2IsBetweenPt1AndPt3=function(t,n,r){return e.IntPoint.op_Equality(t,r)||e.IntPoint.op_Equality(t,n)||e.IntPoint.op_Equality(r,n)?!1:t.X===r.X?n.Y>t.Y==n.Y<r.Y:n.X>t.X==n.X<r.X},e.ClipperBase.prototype.RemoveEdge=function(e){e.Prev.Next=e.Next,e.Next.Prev=e.Prev;var t=e.Next;return e.Prev=null,t},e.ClipperBase.prototype.SetDx=function(t){t.Delta.X=t.Top.X-t.Bot.X,t.Delta.Y=t.Top.Y-t.Bot.Y,t.Delta.Y===0?t.Dx=e.ClipperBase.horizontal:t.Dx=t.Delta.X/t.Delta.Y},e.ClipperBase.prototype.InsertLocalMinima=function(e){if(this.m_MinimaList===null)this.m_MinimaList=e;else if(e.Y>=this.m_MinimaList.Y)e.Next=this.m_MinimaList,this.m_MinimaList=e;else{for(var t=this.m_MinimaList;t.Next!==null&&e.Y<t.Next.Y;)t=t.Next;e.Next=t.Next,t.Next=e}},e.ClipperBase.prototype.PopLocalMinima=function(e,t){return t.v=this.m_CurrentLM,this.m_CurrentLM!==null&&this.m_CurrentLM.Y===e?(this.m_CurrentLM=this.m_CurrentLM.Next,!0):!1},e.ClipperBase.prototype.ReverseHorizontal=function(t){var n=t.Top.X;t.Top.X=t.Bot.X,t.Bot.X=n,e.use_xyz&&(n=t.Top.Z,t.Top.Z=t.Bot.Z,t.Bot.Z=n)},e.ClipperBase.prototype.Reset=function(){if(this.m_CurrentLM=this.m_MinimaList,this.m_CurrentLM!==null){this.m_Scanbeam=null;for(var t=this.m_MinimaList;t!==null;){this.InsertScanbeam(t.Y);var n=t.LeftBound;n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),n=t.RightBound,n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),t=t.Next}this.m_ActiveEdges=null}},e.ClipperBase.prototype.InsertScanbeam=function(t){if(this.m_Scanbeam===null)this.m_Scanbeam=new e.Scanbeam,this.m_Scanbeam.Next=null,this.m_Scanbeam.Y=t;else if(t>this.m_Scanbeam.Y){var n=new e.Scanbeam;n.Y=t,n.Next=this.m_Scanbeam,this.m_Scanbeam=n}else{for(var r=this.m_Scanbeam;r.Next!==null&&t<=r.Next.Y;)r=r.Next;if(t===r.Y)return;var i=new e.Scanbeam;i.Y=t,i.Next=r.Next,r.Next=i}},e.ClipperBase.prototype.PopScanbeam=function(e){return this.m_Scanbeam===null?(e.v=0,!1):(e.v=this.m_Scanbeam.Y,this.m_Scanbeam=this.m_Scanbeam.Next,!0)},e.ClipperBase.prototype.LocalMinimaPending=function(){return this.m_CurrentLM!==null},e.ClipperBase.prototype.CreateOutRec=function(){var t=new e.OutRec;return t.Idx=e.ClipperBase.Unassigned,t.IsHole=!1,t.IsOpen=!1,t.FirstLeft=null,t.Pts=null,t.BottomPt=null,t.PolyNode=null,this.m_PolyOuts.push(t),t.Idx=this.m_PolyOuts.length-1,t},e.ClipperBase.prototype.DisposeOutRec=function(e){var t=this.m_PolyOuts[e];t.Pts=null,t=null,this.m_PolyOuts[e]=null},e.ClipperBase.prototype.UpdateEdgeIntoAEL=function(t){t.NextInLML===null&&e.Error(`UpdateEdgeIntoAEL: invalid call`);var n=t.PrevInAEL,r=t.NextInAEL;return t.NextInLML.OutIdx=t.OutIdx,n===null?this.m_ActiveEdges=t.NextInLML:n.NextInAEL=t.NextInLML,r!==null&&(r.PrevInAEL=t.NextInLML),t.NextInLML.Side=t.Side,t.NextInLML.WindDelta=t.WindDelta,t.NextInLML.WindCnt=t.WindCnt,t.NextInLML.WindCnt2=t.WindCnt2,t=t.NextInLML,t.Curr.X=t.Bot.X,t.Curr.Y=t.Bot.Y,t.PrevInAEL=n,t.NextInAEL=r,e.ClipperBase.IsHorizontal(t)||this.InsertScanbeam(t.Top.Y),t},e.ClipperBase.prototype.SwapPositionsInAEL=function(e,t){if(!(e.NextInAEL===e.PrevInAEL||t.NextInAEL===t.PrevInAEL)){if(e.NextInAEL===t){var n=t.NextInAEL;n!==null&&(n.PrevInAEL=e);var r=e.PrevInAEL;r!==null&&(r.NextInAEL=t),t.PrevInAEL=r,t.NextInAEL=e,e.PrevInAEL=t,e.NextInAEL=n}else if(t.NextInAEL===e){var i=e.NextInAEL;i!==null&&(i.PrevInAEL=t);var a=t.PrevInAEL;a!==null&&(a.NextInAEL=e),e.PrevInAEL=a,e.NextInAEL=t,t.PrevInAEL=e,t.NextInAEL=i}else{var o=e.NextInAEL,s=e.PrevInAEL;e.NextInAEL=t.NextInAEL,e.NextInAEL!==null&&(e.NextInAEL.PrevInAEL=e),e.PrevInAEL=t.PrevInAEL,e.PrevInAEL!==null&&(e.PrevInAEL.NextInAEL=e),t.NextInAEL=o,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=t),t.PrevInAEL=s,t.PrevInAEL!==null&&(t.PrevInAEL.NextInAEL=t)}e.PrevInAEL===null?this.m_ActiveEdges=e:t.PrevInAEL===null&&(this.m_ActiveEdges=t)}},e.ClipperBase.prototype.DeleteFromAEL=function(e){var t=e.PrevInAEL,n=e.NextInAEL;t===null&&n===null&&e!==this.m_ActiveEdges||(t===null?this.m_ActiveEdges=n:t.NextInAEL=n,n!==null&&(n.PrevInAEL=t),e.NextInAEL=null,e.PrevInAEL=null)},e.Clipper=function(t){t===void 0&&(t=0),this.m_PolyOuts=null,this.m_ClipType=e.ClipType.ctIntersection,this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=null,this.m_IntersectNodeComparer=null,this.m_ExecuteLocked=!1,this.m_ClipFillType=e.PolyFillType.pftEvenOdd,this.m_SubjFillType=e.PolyFillType.pftEvenOdd,this.m_Joins=null,this.m_GhostJoins=null,this.m_UsingPolyTree=!1,this.ReverseSolution=!1,this.StrictlySimple=!1,e.ClipperBase.call(this),this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=[],this.m_IntersectNodeComparer=e.MyIntersectNodeSort.Compare,this.m_ExecuteLocked=!1,this.m_UsingPolyTree=!1,this.m_PolyOuts=[],this.m_Joins=[],this.m_GhostJoins=[],this.ReverseSolution=(1&t)!=0,this.StrictlySimple=(2&t)!=0,this.PreserveCollinear=(4&t)!=0,e.use_xyz&&(this.ZFillFunction=null)},e.Clipper.ioReverseSolution=1,e.Clipper.ioStrictlySimple=2,e.Clipper.ioPreserveCollinear=4,e.Clipper.prototype.Clear=function(){this.m_edges.length!==0&&(this.DisposeAllPolyPts(),e.ClipperBase.prototype.Clear.call(this))},e.Clipper.prototype.InsertMaxima=function(t){var n=new e.Maxima;if(n.X=t,this.m_Maxima===null)this.m_Maxima=n,this.m_Maxima.Next=null,this.m_Maxima.Prev=null;else if(t<this.m_Maxima.X)n.Next=this.m_Maxima,n.Prev=null,this.m_Maxima=n;else{for(var r=this.m_Maxima;r.Next!==null&&t>=r.Next.X;)r=r.Next;if(t===r.X)return;n.Next=r.Next,n.Prev=r,r.Next!==null&&(r.Next.Prev=n),r.Next=n}},e.Clipper.prototype.Execute=function(){var t=arguments,n=t.length,r=t[1]instanceof e.PolyTree;if(n===4&&!r){var i=t[0],a=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_HasOpenPaths&&e.Error(`Error: PolyTree struct is needed for open path clipping.`),this.m_ExecuteLocked=!0,e.Clear(a),this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!1;try{var c=this.ExecuteInternal();c&&this.BuildResult(a)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===4&&r){var i=t[0],l=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_ExecuteLocked=!0,this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!0;try{var c=this.ExecuteInternal();c&&this.BuildResult2(l)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===2&&!r){var i=t[0],a=t[1];return this.Execute(i,a,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}else if(n===2&&r){var i=t[0],l=t[1];return this.Execute(i,l,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}},e.Clipper.prototype.FixHoleLinkage=function(e){if(!(e.FirstLeft===null||e.IsHole!==e.FirstLeft.IsHole&&e.FirstLeft.Pts!==null)){for(var t=e.FirstLeft;t!==null&&(t.IsHole===e.IsHole||t.Pts===null);)t=t.FirstLeft;e.FirstLeft=t}},e.Clipper.prototype.ExecuteInternal=function(){try{this.Reset(),this.m_SortedEdges=null,this.m_Maxima=null;var e={},t={};if(!this.PopScanbeam(e))return!1;for(this.InsertLocalMinimaIntoAEL(e.v);this.PopScanbeam(t)||this.LocalMinimaPending();){if(this.ProcessHorizontals(),this.m_GhostJoins.length=0,!this.ProcessIntersections(t.v))return!1;this.ProcessEdgesAtTopOfScanbeam(t.v),e.v=t.v,this.InsertLocalMinimaIntoAEL(e.v)}var n,r,i;for(r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],!(n.Pts===null||n.IsOpen)&&(n.IsHole^this.ReverseSolution)==this.Area$1(n)>0&&this.ReversePolyPtLinks(n.Pts);for(this.JoinCommonEdges(),r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],n.Pts!==null&&(n.IsOpen?this.FixupOutPolyline(n):this.FixupOutPolygon(n));return this.StrictlySimple&&this.DoSimplePolygons(),!0}finally{this.m_Joins.length=0,this.m_GhostJoins.length=0}},e.Clipper.prototype.DisposeAllPolyPts=function(){for(var t=0,n=this.m_PolyOuts.length;t<n;++t)this.DisposeOutRec(t);e.Clear(this.m_PolyOuts)},e.Clipper.prototype.AddJoin=function(t,n,r){var i=new e.Join;i.OutPt1=t,i.OutPt2=n,i.OffPt.X=r.X,i.OffPt.Y=r.Y,e.use_xyz&&(i.OffPt.Z=r.Z),this.m_Joins.push(i)},e.Clipper.prototype.AddGhostJoin=function(t,n){var r=new e.Join;r.OutPt1=t,r.OffPt.X=n.X,r.OffPt.Y=n.Y,e.use_xyz&&(r.OffPt.Z=n.Z),this.m_GhostJoins.push(r)},e.Clipper.prototype.SetZ=function(t,n,r){if(this.ZFillFunction!==null){if(t.Z!==0||this.ZFillFunction===null)return;e.IntPoint.op_Equality(t,n.Bot)?t.Z=n.Bot.Z:e.IntPoint.op_Equality(t,n.Top)?t.Z=n.Top.Z:e.IntPoint.op_Equality(t,r.Bot)?t.Z=r.Bot.Z:e.IntPoint.op_Equality(t,r.Top)?t.Z=r.Top.Z:this.ZFillFunction(n.Bot,n.Top,r.Bot,r.Top,t)}},e.Clipper.prototype.InsertLocalMinimaIntoAEL=function(t){for(var n={},r,i;this.PopLocalMinima(t,n);){r=n.v.LeftBound,i=n.v.RightBound;var a=null;if(r===null?(this.InsertEdgeIntoAEL(i,null),this.SetWindingCount(i),this.IsContributing(i)&&(a=this.AddOutPt(i,i.Bot))):i===null?(this.InsertEdgeIntoAEL(r,null),this.SetWindingCount(r),this.IsContributing(r)&&(a=this.AddOutPt(r,r.Bot)),this.InsertScanbeam(r.Top.Y)):(this.InsertEdgeIntoAEL(r,null),this.InsertEdgeIntoAEL(i,r),this.SetWindingCount(r),i.WindCnt=r.WindCnt,i.WindCnt2=r.WindCnt2,this.IsContributing(r)&&(a=this.AddLocalMinPoly(r,i,r.Bot)),this.InsertScanbeam(r.Top.Y)),i!==null&&(e.ClipperBase.IsHorizontal(i)?(i.NextInLML!==null&&this.InsertScanbeam(i.NextInLML.Top.Y),this.AddEdgeToSEL(i)):this.InsertScanbeam(i.Top.Y)),!(r===null||i===null)){if(a!==null&&e.ClipperBase.IsHorizontal(i)&&this.m_GhostJoins.length>0&&i.WindDelta!==0)for(var o=0,s=this.m_GhostJoins.length;o<s;o++){var c=this.m_GhostJoins[o];this.HorzSegmentsOverlap(c.OutPt1.Pt.X,c.OffPt.X,i.Bot.X,i.Top.X)&&this.AddJoin(c.OutPt1,a,c.OffPt)}if(r.OutIdx>=0&&r.PrevInAEL!==null&&r.PrevInAEL.Curr.X===r.Bot.X&&r.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(r.PrevInAEL.Curr,r.PrevInAEL.Top,r.Curr,r.Top,this.m_UseFullRange)&&r.WindDelta!==0&&r.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(r.PrevInAEL,r.Bot);this.AddJoin(a,l,r.Top)}if(r.NextInAEL!==i){if(i.OutIdx>=0&&i.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(i.PrevInAEL.Curr,i.PrevInAEL.Top,i.Curr,i.Top,this.m_UseFullRange)&&i.WindDelta!==0&&i.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(i.PrevInAEL,i.Bot);this.AddJoin(a,l,i.Top)}var u=r.NextInAEL;if(u!==null)for(;u!==i;)this.IntersectEdges(i,u,r.Curr),u=u.NextInAEL}}}},e.Clipper.prototype.InsertEdgeIntoAEL=function(e,t){if(this.m_ActiveEdges===null)e.PrevInAEL=null,e.NextInAEL=null,this.m_ActiveEdges=e;else if(t===null&&this.E2InsertsBeforeE1(this.m_ActiveEdges,e))e.PrevInAEL=null,e.NextInAEL=this.m_ActiveEdges,this.m_ActiveEdges.PrevInAEL=e,this.m_ActiveEdges=e;else{for(t===null&&(t=this.m_ActiveEdges);t.NextInAEL!==null&&!this.E2InsertsBeforeE1(t.NextInAEL,e);)t=t.NextInAEL;e.NextInAEL=t.NextInAEL,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=e),e.PrevInAEL=t,t.NextInAEL=e}},e.Clipper.prototype.E2InsertsBeforeE1=function(t,n){return n.Curr.X===t.Curr.X?n.Top.Y>t.Top.Y?n.Top.X<e.Clipper.TopX(t,n.Top.Y):t.Top.X>e.Clipper.TopX(n,t.Top.Y):n.Curr.X<t.Curr.X},e.Clipper.prototype.IsEvenOddFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType===e.PolyFillType.pftEvenOdd:this.m_ClipFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsEvenOddAltFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_ClipFillType===e.PolyFillType.pftEvenOdd:this.m_SubjFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsContributing=function(t){var n,r;switch(t.PolyTyp===e.PolyType.ptSubject?(n=this.m_SubjFillType,r=this.m_ClipFillType):(n=this.m_ClipFillType,r=this.m_SubjFillType),n){case e.PolyFillType.pftEvenOdd:if(t.WindDelta===0&&t.WindCnt!==1)return!1;break;case e.PolyFillType.pftNonZero:if(Math.abs(t.WindCnt)!==1)return!1;break;case e.PolyFillType.pftPositive:if(t.WindCnt!==1)return!1;break;default:if(t.WindCnt!==-1)return!1;break}switch(this.m_ClipType){case e.ClipType.ctIntersection:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctUnion:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}case e.ClipType.ctDifference:if(t.PolyTyp===e.PolyType.ptSubject)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctXor:if(t.WindDelta===0)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else return!0}return!0},e.Clipper.prototype.SetWindingCount=function(t){for(var n=t.PrevInAEL;n!==null&&(n.PolyTyp!==t.PolyTyp||n.WindDelta===0);)n=n.PrevInAEL;if(n===null){var r=t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType:this.m_ClipFillType;t.WindDelta===0?t.WindCnt=r===e.PolyFillType.pftNegative?-1:1:t.WindCnt=t.WindDelta,t.WindCnt2=0,n=this.m_ActiveEdges}else if(t.WindDelta===0&&this.m_ClipType!==e.ClipType.ctUnion)t.WindCnt=1,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;else if(this.IsEvenOddFillType(t)){if(t.WindDelta===0){for(var i=!0,a=n.PrevInAEL;a!==null;)a.PolyTyp===n.PolyTyp&&a.WindDelta!==0&&(i=!i),a=a.PrevInAEL;t.WindCnt=+!i}else t.WindCnt=t.WindDelta;t.WindCnt2=n.WindCnt2,n=n.NextInAEL}else n.WindCnt*n.WindDelta<0?Math.abs(n.WindCnt)>1?n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta:t.WindCnt=t.WindDelta===0?1:t.WindDelta:t.WindDelta===0?t.WindCnt=n.WindCnt<0?n.WindCnt-1:n.WindCnt+1:n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;if(this.IsEvenOddAltFillType(t))for(;n!==t;)n.WindDelta!==0&&(t.WindCnt2=+(t.WindCnt2===0)),n=n.NextInAEL;else for(;n!==t;)t.WindCnt2+=n.WindDelta,n=n.NextInAEL},e.Clipper.prototype.AddEdgeToSEL=function(e){this.m_SortedEdges===null?(this.m_SortedEdges=e,e.PrevInSEL=null,e.NextInSEL=null):(e.NextInSEL=this.m_SortedEdges,e.PrevInSEL=null,this.m_SortedEdges.PrevInSEL=e,this.m_SortedEdges=e)},e.Clipper.prototype.PopEdgeFromSEL=function(e){if(e.v=this.m_SortedEdges,e.v===null)return!1;var t=e.v;return this.m_SortedEdges=e.v.NextInSEL,this.m_SortedEdges!==null&&(this.m_SortedEdges.PrevInSEL=null),t.NextInSEL=null,t.PrevInSEL=null,!0},e.Clipper.prototype.CopyAELToSEL=function(){var e=this.m_ActiveEdges;for(this.m_SortedEdges=e;e!==null;)e.PrevInSEL=e.PrevInAEL,e.NextInSEL=e.NextInAEL,e=e.NextInAEL},e.Clipper.prototype.SwapPositionsInSEL=function(e,t){if(!(e.NextInSEL===null&&e.PrevInSEL===null)&&!(t.NextInSEL===null&&t.PrevInSEL===null)){if(e.NextInSEL===t){var n=t.NextInSEL;n!==null&&(n.PrevInSEL=e);var r=e.PrevInSEL;r!==null&&(r.NextInSEL=t),t.PrevInSEL=r,t.NextInSEL=e,e.PrevInSEL=t,e.NextInSEL=n}else if(t.NextInSEL===e){var n=e.NextInSEL;n!==null&&(n.PrevInSEL=t);var r=t.PrevInSEL;r!==null&&(r.NextInSEL=e),e.PrevInSEL=r,e.NextInSEL=t,t.PrevInSEL=e,t.NextInSEL=n}else{var n=e.NextInSEL,r=e.PrevInSEL;e.NextInSEL=t.NextInSEL,e.NextInSEL!==null&&(e.NextInSEL.PrevInSEL=e),e.PrevInSEL=t.PrevInSEL,e.PrevInSEL!==null&&(e.PrevInSEL.NextInSEL=e),t.NextInSEL=n,t.NextInSEL!==null&&(t.NextInSEL.PrevInSEL=t),t.PrevInSEL=r,t.PrevInSEL!==null&&(t.PrevInSEL.NextInSEL=t)}e.PrevInSEL===null?this.m_SortedEdges=e:t.PrevInSEL===null&&(this.m_SortedEdges=t)}},e.Clipper.prototype.AddLocalMaxPoly=function(e,t,n){this.AddOutPt(e,n),t.WindDelta===0&&this.AddOutPt(t,n),e.OutIdx===t.OutIdx?(e.OutIdx=-1,t.OutIdx=-1):e.OutIdx<t.OutIdx?this.AppendPolygon(e,t):this.AppendPolygon(t,e)},e.Clipper.prototype.AddLocalMinPoly=function(t,n,r){var i,a,o;if(e.ClipperBase.IsHorizontal(n)||t.Dx>n.Dx?(i=this.AddOutPt(t,r),n.OutIdx=t.OutIdx,t.Side=e.EdgeSide.esLeft,n.Side=e.EdgeSide.esRight,a=t,o=a.PrevInAEL===n?n.PrevInAEL:a.PrevInAEL):(i=this.AddOutPt(n,r),t.OutIdx=n.OutIdx,t.Side=e.EdgeSide.esRight,n.Side=e.EdgeSide.esLeft,a=n,o=a.PrevInAEL===t?t.PrevInAEL:a.PrevInAEL),o!==null&&o.OutIdx>=0&&o.Top.Y<r.Y&&a.Top.Y<r.Y){var s=e.Clipper.TopX(o,r.Y),c=e.Clipper.TopX(a,r.Y);if(s===c&&a.WindDelta!==0&&o.WindDelta!==0&&e.ClipperBase.SlopesEqual5(new e.IntPoint2(s,r.Y),o.Top,new e.IntPoint2(c,r.Y),a.Top,this.m_UseFullRange)){var l=this.AddOutPt(o,r);this.AddJoin(i,l,a.Top)}}return i},e.Clipper.prototype.AddOutPt=function(t,n){if(t.OutIdx<0){var r=this.CreateOutRec();r.IsOpen=t.WindDelta===0;var i=new e.OutPt;return r.Pts=i,i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=i,i.Prev=i,r.IsOpen||this.SetHoleState(t,r),t.OutIdx=r.Idx,i}else{var r=this.m_PolyOuts[t.OutIdx],a=r.Pts,o=t.Side===e.EdgeSide.esLeft;if(o&&e.IntPoint.op_Equality(n,a.Pt))return a;if(!o&&e.IntPoint.op_Equality(n,a.Prev.Pt))return a.Prev;var i=new e.OutPt;return i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=a,i.Prev=a.Prev,i.Prev.Next=i,a.Prev=i,o&&(r.Pts=i),i}},e.Clipper.prototype.GetLastOutPt=function(t){var n=this.m_PolyOuts[t.OutIdx];return t.Side===e.EdgeSide.esLeft?n.Pts:n.Pts.Prev},e.Clipper.prototype.SwapPoints=function(t,n){var r=new e.IntPoint1(t.Value);t.Value.X=n.Value.X,t.Value.Y=n.Value.Y,e.use_xyz&&(t.Value.Z=n.Value.Z),n.Value.X=r.X,n.Value.Y=r.Y,e.use_xyz&&(n.Value.Z=r.Z)},e.Clipper.prototype.HorzSegmentsOverlap=function(e,t,n,r){var i;return e>t&&(i=e,e=t,t=i),n>r&&(i=n,n=r,r=i),e<r&&n<t},e.Clipper.prototype.SetHoleState=function(e,t){for(var n=e.PrevInAEL,r=null;n!==null;)n.OutIdx>=0&&n.WindDelta!==0&&(r===null?r=n:r.OutIdx===n.OutIdx&&(r=null)),n=n.PrevInAEL;r===null?(t.FirstLeft=null,t.IsHole=!1):(t.FirstLeft=this.m_PolyOuts[r.OutIdx],t.IsHole=!t.FirstLeft.IsHole)},e.Clipper.prototype.GetDx=function(t,n){return t.Y===n.Y?e.ClipperBase.horizontal:(n.X-t.X)/(n.Y-t.Y)},e.Clipper.prototype.FirstIsBottomPt=function(t,n){for(var r=t.Prev;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Prev;var i=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=t.Next;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Next;var a=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=n.Prev;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Prev;var o=Math.abs(this.GetDx(n.Pt,r.Pt));for(r=n.Next;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Next;var s=Math.abs(this.GetDx(n.Pt,r.Pt));return Math.max(i,a)===Math.max(o,s)&&Math.min(i,a)===Math.min(o,s)?this.Area(t)>0:i>=o&&i>=s||a>=o&&a>=s},e.Clipper.prototype.GetBottomPt=function(t){for(var n=null,r=t.Next;r!==t;)r.Pt.Y>t.Pt.Y?(t=r,n=null):r.Pt.Y===t.Pt.Y&&r.Pt.X<=t.Pt.X&&(r.Pt.X<t.Pt.X?(n=null,t=r):r.Next!==t&&r.Prev!==t&&(n=r)),r=r.Next;if(n!==null)for(;n!==r;)for(this.FirstIsBottomPt(r,n)||(t=n),n=n.Next;e.IntPoint.op_Inequality(n.Pt,t.Pt);)n=n.Next;return t},e.Clipper.prototype.GetLowermostRec=function(e,t){e.BottomPt===null&&(e.BottomPt=this.GetBottomPt(e.Pts)),t.BottomPt===null&&(t.BottomPt=this.GetBottomPt(t.Pts));var n=e.BottomPt,r=t.BottomPt;return n.Pt.Y>r.Pt.Y?e:n.Pt.Y<r.Pt.Y?t:n.Pt.X<r.Pt.X?e:n.Pt.X>r.Pt.X||n.Next===n?t:r.Next===r||this.FirstIsBottomPt(n,r)?e:t},e.Clipper.prototype.OutRec1RightOfOutRec2=function(e,t){do if(e=e.FirstLeft,e===t)return!0;while(e!==null);return!1},e.Clipper.prototype.GetOutRec=function(e){for(var t=this.m_PolyOuts[e];t!==this.m_PolyOuts[t.Idx];)t=this.m_PolyOuts[t.Idx];return t},e.Clipper.prototype.AppendPolygon=function(t,n){var r=this.m_PolyOuts[t.OutIdx],i=this.m_PolyOuts[n.OutIdx],a=this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i),o=r.Pts,s=o.Prev,c=i.Pts,l=c.Prev;t.Side===e.EdgeSide.esLeft?n.Side===e.EdgeSide.esLeft?(this.ReversePolyPtLinks(c),c.Next=o,o.Prev=c,s.Next=l,l.Prev=s,r.Pts=l):(l.Next=o,o.Prev=l,c.Prev=s,s.Next=c,r.Pts=c):n.Side===e.EdgeSide.esRight?(this.ReversePolyPtLinks(c),s.Next=l,l.Prev=s,c.Next=o,o.Prev=c):(s.Next=c,c.Prev=s,o.Prev=l,l.Next=o),r.BottomPt=null,a===i&&(i.FirstLeft!==r&&(r.FirstLeft=i.FirstLeft),r.IsHole=i.IsHole),i.Pts=null,i.BottomPt=null,i.FirstLeft=r;var u=t.OutIdx,d=n.OutIdx;t.OutIdx=-1,n.OutIdx=-1;for(var f=this.m_ActiveEdges;f!==null;){if(f.OutIdx===d){f.OutIdx=u,f.Side=t.Side;break}f=f.NextInAEL}i.Idx=r.Idx},e.Clipper.prototype.ReversePolyPtLinks=function(e){if(e!==null){var t=e,n;do n=t.Next,t.Next=t.Prev,t.Prev=n,t=n;while(t!==e)}},e.Clipper.SwapSides=function(e,t){var n=e.Side;e.Side=t.Side,t.Side=n},e.Clipper.SwapPolyIndexes=function(e,t){var n=e.OutIdx;e.OutIdx=t.OutIdx,t.OutIdx=n},e.Clipper.prototype.IntersectEdges=function(t,n,r){var i=t.OutIdx>=0,a=n.OutIdx>=0;if(e.use_xyz&&this.SetZ(r,t,n),e.use_lines&&(t.WindDelta===0||n.WindDelta===0)){if(t.WindDelta===0&&n.WindDelta===0)return;t.PolyTyp===n.PolyTyp&&t.WindDelta!==n.WindDelta&&this.m_ClipType===e.ClipType.ctUnion?t.WindDelta===0?a&&(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):i&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)):t.PolyTyp!==n.PolyTyp&&(t.WindDelta===0&&Math.abs(n.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||n.WindCnt2===0)?(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):n.WindDelta===0&&Math.abs(t.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||t.WindCnt2===0)&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)));return}if(t.PolyTyp===n.PolyTyp)if(this.IsEvenOddFillType(t)){var o=t.WindCnt;t.WindCnt=n.WindCnt,n.WindCnt=o}else t.WindCnt+n.WindDelta===0?t.WindCnt=-t.WindCnt:t.WindCnt+=n.WindDelta,n.WindCnt-t.WindDelta===0?n.WindCnt=-n.WindCnt:n.WindCnt-=t.WindDelta;else this.IsEvenOddFillType(n)?t.WindCnt2=+(t.WindCnt2===0):t.WindCnt2+=n.WindDelta,this.IsEvenOddFillType(t)?n.WindCnt2=+(n.WindCnt2===0):n.WindCnt2-=t.WindDelta;var s,c,l,u;t.PolyTyp===e.PolyType.ptSubject?(s=this.m_SubjFillType,l=this.m_ClipFillType):(s=this.m_ClipFillType,l=this.m_SubjFillType),n.PolyTyp===e.PolyType.ptSubject?(c=this.m_SubjFillType,u=this.m_ClipFillType):(c=this.m_ClipFillType,u=this.m_SubjFillType);var d,f;switch(s){case e.PolyFillType.pftPositive:d=t.WindCnt;break;case e.PolyFillType.pftNegative:d=-t.WindCnt;break;default:d=Math.abs(t.WindCnt);break}switch(c){case e.PolyFillType.pftPositive:f=n.WindCnt;break;case e.PolyFillType.pftNegative:f=-n.WindCnt;break;default:f=Math.abs(n.WindCnt);break}if(i&&a)d!==0&&d!==1||f!==0&&f!==1||t.PolyTyp!==n.PolyTyp&&this.m_ClipType!==e.ClipType.ctXor?this.AddLocalMaxPoly(t,n,r):(this.AddOutPt(t,r),this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(i)(f===0||f===1)&&(this.AddOutPt(t,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(a)(d===0||d===1)&&(this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if((d===0||d===1)&&(f===0||f===1)){var p,m;switch(l){case e.PolyFillType.pftPositive:p=t.WindCnt2;break;case e.PolyFillType.pftNegative:p=-t.WindCnt2;break;default:p=Math.abs(t.WindCnt2);break}switch(u){case e.PolyFillType.pftPositive:m=n.WindCnt2;break;case e.PolyFillType.pftNegative:m=-n.WindCnt2;break;default:m=Math.abs(n.WindCnt2);break}if(t.PolyTyp!==n.PolyTyp)this.AddLocalMinPoly(t,n,r);else if(d===1&&f===1)switch(this.m_ClipType){case e.ClipType.ctIntersection:p>0&&m>0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctUnion:p<=0&&m<=0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctDifference:(t.PolyTyp===e.PolyType.ptClip&&p>0&&m>0||t.PolyTyp===e.PolyType.ptSubject&&p<=0&&m<=0)&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctXor:this.AddLocalMinPoly(t,n,r);break}else e.Clipper.SwapSides(t,n)}},e.Clipper.prototype.DeleteFromSEL=function(e){var t=e.PrevInSEL,n=e.NextInSEL;t===null&&n===null&&e!==this.m_SortedEdges||(t===null?this.m_SortedEdges=n:t.NextInSEL=n,n!==null&&(n.PrevInSEL=t),e.NextInSEL=null,e.PrevInSEL=null)},e.Clipper.prototype.ProcessHorizontals=function(){for(var e={};this.PopEdgeFromSEL(e);)this.ProcessHorizontal(e.v)},e.Clipper.prototype.GetHorzDirection=function(t,n){t.Bot.X<t.Top.X?(n.Left=t.Bot.X,n.Right=t.Top.X,n.Dir=e.Direction.dLeftToRight):(n.Left=t.Top.X,n.Right=t.Bot.X,n.Dir=e.Direction.dRightToLeft)},e.Clipper.prototype.ProcessHorizontal=function(t){var n={Dir:null,Left:null,Right:null};this.GetHorzDirection(t,n);for(var r=n.Dir,i=n.Left,a=n.Right,o=t.WindDelta===0,s=t,c=null;s.NextInLML!==null&&e.ClipperBase.IsHorizontal(s.NextInLML);)s=s.NextInLML;s.NextInLML===null&&(c=this.GetMaximaPair(s));var l=this.m_Maxima;if(l!==null)if(r===e.Direction.dLeftToRight){for(;l!==null&&l.X<=t.Bot.X;)l=l.Next;l!==null&&l.X>=s.Top.X&&(l=null)}else{for(;l.Next!==null&&l.Next.X<t.Bot.X;)l=l.Next;l.X<=s.Top.X&&(l=null)}for(var u=null;;){for(var d=t===s,f=this.GetNextInAEL(t,r);f!==null;){if(l!==null)if(r===e.Direction.dLeftToRight)for(;l!==null&&l.X<f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Next;else for(;l!==null&&l.X>f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Prev;if(r===e.Direction.dLeftToRight&&f.Curr.X>a||r===e.Direction.dRightToLeft&&f.Curr.X<i||f.Curr.X===t.Top.X&&t.NextInLML!==null&&f.Dx<t.NextInLML.Dx)break;if(t.OutIdx>=0&&!o){e.use_xyz&&(r===e.Direction.dLeftToRight?this.SetZ(f.Curr,t,f):this.SetZ(f.Curr,f,t)),u=this.AddOutPt(t,f.Curr);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Bot)}if(f===c&&d){t.OutIdx>=0&&this.AddLocalMaxPoly(t,c,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(c);return}if(r===e.Direction.dLeftToRight){var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(t,f,h)}else{var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(f,t,h)}var g=this.GetNextInAEL(f,r);this.SwapPositionsInAEL(t,f),f=g}if(t.NextInLML===null||!e.ClipperBase.IsHorizontal(t.NextInLML))break;t=this.UpdateEdgeIntoAEL(t),t.OutIdx>=0&&this.AddOutPt(t,t.Bot),n={Dir:r,Left:i,Right:a},this.GetHorzDirection(t,n),r=n.Dir,i=n.Left,a=n.Right}if(t.OutIdx>=0&&u===null){u=this.GetLastOutPt(t);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Top)}if(t.NextInLML!==null)if(t.OutIdx>=0){if(u=this.AddOutPt(t,t.Top),t=this.UpdateEdgeIntoAEL(t),t.WindDelta===0)return;var _=t.PrevInAEL,g=t.NextInAEL;if(_!==null&&_.Curr.X===t.Bot.X&&_.Curr.Y===t.Bot.Y&&_.WindDelta===0&&_.OutIdx>=0&&_.Curr.Y>_.Top.Y&&e.ClipperBase.SlopesEqual3(t,_,this.m_UseFullRange)){var m=this.AddOutPt(_,t.Bot);this.AddJoin(u,m,t.Top)}else if(g!==null&&g.Curr.X===t.Bot.X&&g.Curr.Y===t.Bot.Y&&g.WindDelta!==0&&g.OutIdx>=0&&g.Curr.Y>g.Top.Y&&e.ClipperBase.SlopesEqual3(t,g,this.m_UseFullRange)){var m=this.AddOutPt(g,t.Bot);this.AddJoin(u,m,t.Top)}}else t=this.UpdateEdgeIntoAEL(t);else t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t)},e.Clipper.prototype.GetNextInAEL=function(t,n){return n===e.Direction.dLeftToRight?t.NextInAEL:t.PrevInAEL},e.Clipper.prototype.IsMinima=function(e){return e!==null&&e.Prev.NextInLML!==e&&e.Next.NextInLML!==e},e.Clipper.prototype.IsMaxima=function(e,t){return e!==null&&e.Top.Y===t&&e.NextInLML===null},e.Clipper.prototype.IsIntermediate=function(e,t){return e.Top.Y===t&&e.NextInLML!==null},e.Clipper.prototype.GetMaximaPair=function(t){return e.IntPoint.op_Equality(t.Next.Top,t.Top)&&t.Next.NextInLML===null?t.Next:e.IntPoint.op_Equality(t.Prev.Top,t.Top)&&t.Prev.NextInLML===null?t.Prev:null},e.Clipper.prototype.GetMaximaPairEx=function(t){var n=this.GetMaximaPair(t);return n===null||n.OutIdx===e.ClipperBase.Skip||n.NextInAEL===n.PrevInAEL&&!e.ClipperBase.IsHorizontal(n)?null:n},e.Clipper.prototype.ProcessIntersections=function(t){if(this.m_ActiveEdges===null)return!0;try{if(this.BuildIntersectList(t),this.m_IntersectList.length===0)return!0;if(this.m_IntersectList.length===1||this.FixupIntersectionOrder())this.ProcessIntersectList();else return!1}catch{this.m_SortedEdges=null,this.m_IntersectList.length=0,e.Error(`ProcessIntersections error`)}return this.m_SortedEdges=null,!0},e.Clipper.prototype.BuildIntersectList=function(t){if(this.m_ActiveEdges!==null){var n=this.m_ActiveEdges;for(this.m_SortedEdges=n;n!==null;)n.PrevInSEL=n.PrevInAEL,n.NextInSEL=n.NextInAEL,n.Curr.X=e.Clipper.TopX(n,t),n=n.NextInAEL;for(var r=!0;r&&this.m_SortedEdges!==null;){for(r=!1,n=this.m_SortedEdges;n.NextInSEL!==null;){var i=n.NextInSEL,a=new e.IntPoint0;if(n.Curr.X>i.Curr.X){this.IntersectPoint(n,i,a),a.Y<t&&(a=new e.IntPoint2(e.Clipper.TopX(n,t),t));var o=new e.IntersectNode;o.Edge1=n,o.Edge2=i,o.Pt.X=a.X,o.Pt.Y=a.Y,e.use_xyz&&(o.Pt.Z=a.Z),this.m_IntersectList.push(o),this.SwapPositionsInSEL(n,i),r=!0}else n=i}if(n.PrevInSEL!==null)n.PrevInSEL.NextInSEL=null;else break}this.m_SortedEdges=null}},e.Clipper.prototype.EdgesAdjacent=function(e){return e.Edge1.NextInSEL===e.Edge2||e.Edge1.PrevInSEL===e.Edge2},e.Clipper.IntersectNodeSort=function(e,t){return t.Pt.Y-e.Pt.Y},e.Clipper.prototype.FixupIntersectionOrder=function(){this.m_IntersectList.sort(this.m_IntersectNodeComparer),this.CopyAELToSEL();for(var e=this.m_IntersectList.length,t=0;t<e;t++){if(!this.EdgesAdjacent(this.m_IntersectList[t])){for(var n=t+1;n<e&&!this.EdgesAdjacent(this.m_IntersectList[n]);)n++;if(n===e)return!1;var r=this.m_IntersectList[t];this.m_IntersectList[t]=this.m_IntersectList[n],this.m_IntersectList[n]=r}this.SwapPositionsInSEL(this.m_IntersectList[t].Edge1,this.m_IntersectList[t].Edge2)}return!0},e.Clipper.prototype.ProcessIntersectList=function(){for(var e=0,t=this.m_IntersectList.length;e<t;e++){var n=this.m_IntersectList[e];this.IntersectEdges(n.Edge1,n.Edge2,n.Pt),this.SwapPositionsInAEL(n.Edge1,n.Edge2)}this.m_IntersectList.length=0};var St=function(e){return e<0?Math.ceil(e-.5):Math.round(e)},Ct=function(e){return e<0?Math.ceil(e-.5):Math.floor(e+.5)},wt=function(e){return e<0?-Math.round(Math.abs(e)):Math.round(e)},Tt=function(e){return e<0?(e-=.5,e<-2147483648?Math.ceil(e):e|0):(e+=.5,e>2147483647?Math.floor(e):e|0)};a.msie?e.Clipper.Round=St:a.chromium?e.Clipper.Round=wt:a.safari?e.Clipper.Round=Tt:e.Clipper.Round=Ct,e.Clipper.TopX=function(t,n){return n===t.Top.Y?t.Top.X:t.Bot.X+e.Clipper.Round(t.Dx*(n-t.Bot.Y))},e.Clipper.prototype.IntersectPoint=function(t,n,r){r.X=0,r.Y=0;var i,a;if(t.Dx===n.Dx){r.Y=t.Curr.Y,r.X=e.Clipper.TopX(t,r.Y);return}if(t.Delta.X===0)r.X=t.Bot.X,e.ClipperBase.IsHorizontal(n)?r.Y=n.Bot.Y:(a=n.Bot.Y-n.Bot.X/n.Dx,r.Y=e.Clipper.Round(r.X/n.Dx+a));else if(n.Delta.X===0)r.X=n.Bot.X,e.ClipperBase.IsHorizontal(t)?r.Y=t.Bot.Y:(i=t.Bot.Y-t.Bot.X/t.Dx,r.Y=e.Clipper.Round(r.X/t.Dx+i));else{i=t.Bot.X-t.Bot.Y*t.Dx,a=n.Bot.X-n.Bot.Y*n.Dx;var o=(a-i)/(t.Dx-n.Dx);r.Y=e.Clipper.Round(o),Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.Round(t.Dx*o+i):r.X=e.Clipper.Round(n.Dx*o+a)}if(r.Y<t.Top.Y||r.Y<n.Top.Y){if(t.Top.Y>n.Top.Y)return r.Y=t.Top.Y,r.X=e.Clipper.TopX(n,t.Top.Y),r.X<t.Top.X;r.Y=n.Top.Y,Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.TopX(t,r.Y):r.X=e.Clipper.TopX(n,r.Y)}r.Y>t.Curr.Y&&(r.Y=t.Curr.Y,Math.abs(t.Dx)>Math.abs(n.Dx)?r.X=e.Clipper.TopX(n,r.Y):r.X=e.Clipper.TopX(t,r.Y))},e.Clipper.prototype.ProcessEdgesAtTopOfScanbeam=function(t){for(var n=this.m_ActiveEdges;n!==null;){var r=this.IsMaxima(n,t);if(r){var i=this.GetMaximaPairEx(n);r=i===null||!e.ClipperBase.IsHorizontal(i)}if(r){this.StrictlySimple&&this.InsertMaxima(n.Top.X);var a=n.PrevInAEL;this.DoMaxima(n),n=a===null?this.m_ActiveEdges:a.NextInAEL}else{if(this.IsIntermediate(n,t)&&e.ClipperBase.IsHorizontal(n.NextInLML)?(n=this.UpdateEdgeIntoAEL(n),n.OutIdx>=0&&this.AddOutPt(n,n.Bot),this.AddEdgeToSEL(n)):(n.Curr.X=e.Clipper.TopX(n,t),n.Curr.Y=t),e.use_xyz&&(n.Top.Y===t?n.Curr.Z=n.Top.Z:n.Bot.Y===t?n.Curr.Z=n.Bot.Z:n.Curr.Z=0),this.StrictlySimple){var a=n.PrevInAEL;if(n.OutIdx>=0&&n.WindDelta!==0&&a!==null&&a.OutIdx>=0&&a.Curr.X===n.Curr.X&&a.WindDelta!==0){var o=new e.IntPoint1(n.Curr);e.use_xyz&&this.SetZ(o,a,n);var s=this.AddOutPt(a,o),c=this.AddOutPt(n,o);this.AddJoin(s,c,o)}}n=n.NextInAEL}}for(this.ProcessHorizontals(),this.m_Maxima=null,n=this.m_ActiveEdges;n!==null;){if(this.IsIntermediate(n,t)){var s=null;n.OutIdx>=0&&(s=this.AddOutPt(n,n.Top)),n=this.UpdateEdgeIntoAEL(n);var a=n.PrevInAEL,l=n.NextInAEL;if(a!==null&&a.Curr.X===n.Bot.X&&a.Curr.Y===n.Bot.Y&&s!==null&&a.OutIdx>=0&&a.Curr.Y===a.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,a.Curr,a.Top,this.m_UseFullRange)&&n.WindDelta!==0&&a.WindDelta!==0){var c=this.AddOutPt(ePrev2,n.Bot);this.AddJoin(s,c,n.Top)}else if(l!==null&&l.Curr.X===n.Bot.X&&l.Curr.Y===n.Bot.Y&&s!==null&&l.OutIdx>=0&&l.Curr.Y===l.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,l.Curr,l.Top,this.m_UseFullRange)&&n.WindDelta!==0&&l.WindDelta!==0){var c=this.AddOutPt(l,n.Bot);this.AddJoin(s,c,n.Top)}}n=n.NextInAEL}},e.Clipper.prototype.DoMaxima=function(t){var n=this.GetMaximaPairEx(t);if(n===null){t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t);return}for(var r=t.NextInAEL;r!==null&&r!==n;)this.IntersectEdges(t,r,t.Top),this.SwapPositionsInAEL(t,r),r=t.NextInAEL;t.OutIdx===-1&&n.OutIdx===-1?(this.DeleteFromAEL(t),this.DeleteFromAEL(n)):t.OutIdx>=0&&n.OutIdx>=0?(t.OutIdx>=0&&this.AddLocalMaxPoly(t,n,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(n)):e.use_lines&&t.WindDelta===0?(t.OutIdx>=0&&(this.AddOutPt(t,t.Top),t.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(t),n.OutIdx>=0&&(this.AddOutPt(n,t.Top),n.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(n)):e.Error(`DoMaxima error`)},e.Clipper.ReversePaths=function(e){for(var t=0,n=e.length;t<n;t++)e[t].reverse()},e.Clipper.Orientation=function(t){return e.Clipper.Area(t)>=0},e.Clipper.prototype.PointCount=function(e){if(e===null)return 0;var t=0,n=e;do t++,n=n.Next;while(n!==e);return t},e.Clipper.prototype.BuildResult=function(t){e.Clear(t);for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];if(i.Pts!==null){var a=i.Pts.Prev,o=this.PointCount(a);if(!(o<2)){for(var s=Array(o),c=0;c<o;c++)s[c]=a.Pt,a=a.Prev;t.push(s)}}}},e.Clipper.prototype.BuildResult2=function(t){t.Clear();for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n],a=this.PointCount(i.Pts);if(!(i.IsOpen&&a<2||!i.IsOpen&&a<3)){this.FixHoleLinkage(i);var o=new e.PolyNode;t.m_AllPolys.push(o),i.PolyNode=o,o.m_polygon.length=a;for(var s=i.Pts.Prev,c=0;c<a;c++)o.m_polygon[c]=s.Pt,s=s.Prev}}for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];i.PolyNode!==null&&(i.IsOpen?(i.PolyNode.IsOpen=!0,t.AddChild(i.PolyNode)):i.FirstLeft!==null&&i.FirstLeft.PolyNode!==null?i.FirstLeft.PolyNode.AddChild(i.PolyNode):t.AddChild(i.PolyNode))}},e.Clipper.prototype.FixupOutPolyline=function(t){for(var n=t.Pts,r=n.Prev;n!==r;)if(n=n.Next,e.IntPoint.op_Equality(n.Pt,n.Prev.Pt)){n===r&&(r=n.Prev);var i=n.Prev;i.Next=n.Next,n.Next.Prev=i,n=i}n===n.Prev&&(t.Pts=null)},e.Clipper.prototype.FixupOutPolygon=function(t){var n=null;t.BottomPt=null;for(var r=t.Pts,i=this.PreserveCollinear||this.StrictlySimple;;){if(r.Prev===r||r.Prev===r.Next){t.Pts=null;return}if(e.IntPoint.op_Equality(r.Pt,r.Next.Pt)||e.IntPoint.op_Equality(r.Pt,r.Prev.Pt)||e.ClipperBase.SlopesEqual4(r.Prev.Pt,r.Pt,r.Next.Pt,this.m_UseFullRange)&&(!i||!this.Pt2IsBetweenPt1AndPt3(r.Prev.Pt,r.Pt,r.Next.Pt)))n=null,r.Prev.Next=r.Next,r.Next.Prev=r.Prev,r=r.Prev;else if(r===n)break;else n===null&&(n=r),r=r.Next}t.Pts=r},e.Clipper.prototype.DupOutPt=function(t,n){var r=new e.OutPt;return r.Pt.X=t.Pt.X,r.Pt.Y=t.Pt.Y,e.use_xyz&&(r.Pt.Z=t.Pt.Z),r.Idx=t.Idx,n?(r.Next=t.Next,r.Prev=t,t.Next.Prev=r,t.Next=r):(r.Prev=t.Prev,r.Next=t,t.Prev.Next=r,t.Prev=r),r},e.Clipper.prototype.GetOverlap=function(e,t,n,r,i){return e<t?n<r?(i.Left=Math.max(e,n),i.Right=Math.min(t,r)):(i.Left=Math.max(e,r),i.Right=Math.min(t,n)):n<r?(i.Left=Math.max(t,n),i.Right=Math.min(e,r)):(i.Left=Math.max(t,r),i.Right=Math.min(e,n)),i.Left<i.Right},e.Clipper.prototype.JoinHorz=function(t,n,r,i,a,o){var s=t.Pt.X>n.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight,c=r.Pt.X>i.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight;if(s===c)return!1;if(s===e.Direction.dLeftToRight){for(;t.Next.Pt.X<=a.X&&t.Next.Pt.X>=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,!o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,!o))}else{for(;t.Next.Pt.X>=a.X&&t.Next.Pt.X<=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;!o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,o))}if(c===e.Direction.dLeftToRight){for(;r.Next.Pt.X<=a.X&&r.Next.Pt.X>=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,!o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,!o))}else{for(;r.Next.Pt.X>=a.X&&r.Next.Pt.X<=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;!o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,o))}return s===e.Direction.dLeftToRight===o?(t.Prev=r,r.Next=t,n.Next=i,i.Prev=n):(t.Next=r,r.Prev=t,n.Prev=i,i.Next=n),!0},e.Clipper.prototype.JoinPoints=function(t,n,r){var i=t.OutPt1,a=new e.OutPt,o=t.OutPt2,s=new e.OutPt,c=t.OutPt1.Pt.Y===t.OffPt.Y;if(c&&e.IntPoint.op_Equality(t.OffPt,t.OutPt1.Pt)&&e.IntPoint.op_Equality(t.OffPt,t.OutPt2.Pt)){if(n!==r)return!1;for(a=t.OutPt1.Next;a!==i&&e.IntPoint.op_Equality(a.Pt,t.OffPt);)a=a.Next;var l=a.Pt.Y>t.OffPt.Y;for(s=t.OutPt2.Next;s!==o&&e.IntPoint.op_Equality(s.Pt,t.OffPt);)s=s.Next;return l===s.Pt.Y>t.OffPt.Y?!1:l?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}else if(c){for(a=i;i.Prev.Pt.Y===i.Pt.Y&&i.Prev!==a&&i.Prev!==o;)i=i.Prev;for(;a.Next.Pt.Y===a.Pt.Y&&a.Next!==i&&a.Next!==o;)a=a.Next;if(a.Next===i||a.Next===o)return!1;for(s=o;o.Prev.Pt.Y===o.Pt.Y&&o.Prev!==s&&o.Prev!==a;)o=o.Prev;for(;s.Next.Pt.Y===s.Pt.Y&&s.Next!==o&&s.Next!==i;)s=s.Next;if(s.Next===o||s.Next===i)return!1;var u={Left:null,Right:null};if(!this.GetOverlap(i.Pt.X,a.Pt.X,o.Pt.X,s.Pt.X,u))return!1;var d=u.Left,f=u.Right,p=new e.IntPoint0,m;return i.Pt.X>=d&&i.Pt.X<=f?(p.X=i.Pt.X,p.Y=i.Pt.Y,e.use_xyz&&(p.Z=i.Pt.Z),m=i.Pt.X>a.Pt.X):o.Pt.X>=d&&o.Pt.X<=f?(p.X=o.Pt.X,p.Y=o.Pt.Y,e.use_xyz&&(p.Z=o.Pt.Z),m=o.Pt.X>s.Pt.X):a.Pt.X>=d&&a.Pt.X<=f?(p.X=a.Pt.X,p.Y=a.Pt.Y,e.use_xyz&&(p.Z=a.Pt.Z),m=a.Pt.X>i.Pt.X):(p.X=s.Pt.X,p.Y=s.Pt.Y,e.use_xyz&&(p.Z=s.Pt.Z),m=s.Pt.X>o.Pt.X),t.OutPt1=i,t.OutPt2=o,this.JoinHorz(i,a,o,s,p,m)}else{for(a=i.Next;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Next;var h=a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange);if(h){for(a=i.Prev;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Prev;if(a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange))return!1}for(s=o.Next;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Next;var g=s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange);if(g){for(s=o.Prev;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Prev;if(s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange))return!1}return a===i||s===o||a===s||n===r&&h===g?!1:h?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}},e.Clipper.GetBounds=function(t){for(var n=0,r=t.length;n<r&&t[n].length===0;)n++;if(n===r)return new e.IntRect(0,0,0,0);var i=new e.IntRect;for(i.left=t[n][0].X,i.right=i.left,i.top=t[n][0].Y,i.bottom=i.top;n<r;n++)for(var a=0,o=t[n].length;a<o;a++)t[n][a].X<i.left?i.left=t[n][a].X:t[n][a].X>i.right&&(i.right=t[n][a].X),t[n][a].Y<i.top?i.top=t[n][a].Y:t[n][a].Y>i.bottom&&(i.bottom=t[n][a].Y);return i},e.Clipper.prototype.GetBounds2=function(t){var n=t,r=new e.IntRect;for(r.left=t.Pt.X,r.right=t.Pt.X,r.top=t.Pt.Y,r.bottom=t.Pt.Y,t=t.Next;t!==n;)t.Pt.X<r.left&&(r.left=t.Pt.X),t.Pt.X>r.right&&(r.right=t.Pt.X),t.Pt.Y<r.top&&(r.top=t.Pt.Y),t.Pt.Y>r.bottom&&(r.bottom=t.Pt.Y),t=t.Next;return r},e.Clipper.PointInPolygon=function(e,t){var n=0,r=t.length;if(r<3)return 0;for(var i=t[0],a=1;a<=r;++a){var o=a===r?t[0]:t[a];if(o.Y===e.Y&&(o.X===e.X||i.Y===e.Y&&o.X>e.X==i.X<e.X))return-1;if(i.Y<e.Y!=o.Y<e.Y){if(i.X>=e.X)if(o.X>e.X)n=1-n;else{var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}else if(o.X>e.X){var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}}i=o}return n},e.Clipper.prototype.PointInPolygon=function(e,t){var n=0,r=t,i=e.X,a=e.Y,o=t.Pt.X,s=t.Pt.Y;do{t=t.Next;var c=t.Pt.X,l=t.Pt.Y;if(l===a&&(c===i||s===a&&c>i==o<i))return-1;if(s<a!=l<a){if(o>=i)if(c>i)n=1-n;else{var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}else if(c>i){var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}}o=c,s=l}while(r!==t);return n},e.Clipper.prototype.Poly2ContainsPoly1=function(e,t){var n=e;do{var r=this.PointInPolygon(n.Pt,t);if(r>=0)return r>0;n=n.Next}while(n!==e);return!0},e.Clipper.prototype.FixupFirstLefts1=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&this.Poly2ContainsPoly1(r.Pts,n.Pts)&&(r.FirstLeft=n)},e.Clipper.prototype.FixupFirstLefts2=function(t,n){for(var r=n.FirstLeft,i,a,o=0,s=this.m_PolyOuts.length;o<s;o++)i=this.m_PolyOuts[o],!(i.Pts===null||i===n||i===t)&&(a=e.Clipper.ParseFirstLeft(i.FirstLeft),!(a!==r&&a!==t&&a!==n)&&(this.Poly2ContainsPoly1(i.Pts,t.Pts)?i.FirstLeft=t:this.Poly2ContainsPoly1(i.Pts,n.Pts)?i.FirstLeft=n:(i.FirstLeft===t||i.FirstLeft===n)&&(i.FirstLeft=r)))},e.Clipper.prototype.FixupFirstLefts3=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&(r.FirstLeft=n)},e.Clipper.ParseFirstLeft=function(e){for(;e!==null&&e.Pts===null;)e=e.FirstLeft;return e},e.Clipper.prototype.JoinCommonEdges=function(){for(var e=0,t=this.m_Joins.length;e<t;e++){var n=this.m_Joins[e],r=this.GetOutRec(n.OutPt1.Idx),i=this.GetOutRec(n.OutPt2.Idx);if(!(r.Pts===null||i.Pts===null)&&!(r.IsOpen||i.IsOpen)){var a=r===i?r:this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i);this.JoinPoints(n,r,i)&&(r===i?(r.Pts=n.OutPt1,r.BottomPt=null,i=this.CreateOutRec(),i.Pts=n.OutPt2,this.UpdateOutPtIdxs(i),this.Poly2ContainsPoly1(i.Pts,r.Pts)?(i.IsHole=!r.IsHole,i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts2(i,r),(i.IsHole^this.ReverseSolution)==this.Area$1(i)>0&&this.ReversePolyPtLinks(i.Pts)):this.Poly2ContainsPoly1(r.Pts,i.Pts)?(i.IsHole=r.IsHole,r.IsHole=!i.IsHole,i.FirstLeft=r.FirstLeft,r.FirstLeft=i,this.m_UsingPolyTree&&this.FixupFirstLefts2(r,i),(r.IsHole^this.ReverseSolution)==this.Area$1(r)>0&&this.ReversePolyPtLinks(r.Pts)):(i.IsHole=r.IsHole,i.FirstLeft=r.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(r,i))):(i.Pts=null,i.BottomPt=null,i.Idx=r.Idx,r.IsHole=a.IsHole,a===i&&(r.FirstLeft=i.FirstLeft),i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts3(i,r)))}}},e.Clipper.prototype.UpdateOutPtIdxs=function(e){var t=e.Pts;do t.Idx=e.Idx,t=t.Prev;while(t!==e.Pts)},e.Clipper.prototype.DoSimplePolygons=function(){for(var t=0;t<this.m_PolyOuts.length;){var n=this.m_PolyOuts[t++],r=n.Pts;if(!(r===null||n.IsOpen))do{for(var i=r.Next;i!==n.Pts;){if(e.IntPoint.op_Equality(r.Pt,i.Pt)&&i.Next!==r&&i.Prev!==r){var a=r.Prev,o=i.Prev;r.Prev=o,o.Next=r,i.Prev=a,a.Next=i,n.Pts=r;var s=this.CreateOutRec();s.Pts=i,this.UpdateOutPtIdxs(s),this.Poly2ContainsPoly1(s.Pts,n.Pts)?(s.IsHole=!n.IsHole,s.FirstLeft=n,this.m_UsingPolyTree&&this.FixupFirstLefts2(s,n)):this.Poly2ContainsPoly1(n.Pts,s.Pts)?(s.IsHole=n.IsHole,n.IsHole=!s.IsHole,s.FirstLeft=n.FirstLeft,n.FirstLeft=s,this.m_UsingPolyTree&&this.FixupFirstLefts2(n,s)):(s.IsHole=n.IsHole,s.FirstLeft=n.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(n,s)),i=r}i=i.Next}r=r.Next}while(r!==n.Pts)}},e.Clipper.Area=function(e){if(!Array.isArray(e))return 0;var t=e.length;if(t<3)return 0;for(var n=0,r=0,i=t-1;r<t;++r)n+=(e[i].X+e[r].X)*(e[i].Y-e[r].Y),i=r;return-n*.5},e.Clipper.prototype.Area=function(e){var t=e;if(e===null)return 0;var n=0;do n+=(e.Prev.Pt.X+e.Pt.X)*(e.Prev.Pt.Y-e.Pt.Y),e=e.Next;while(e!==t);return n*.5},e.Clipper.prototype.Area$1=function(e){return this.Area(e.Pts)},e.Clipper.SimplifyPolygon=function(t,n){var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPath(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.SimplifyPolygons=function(t,n){n===void 0&&(n=e.PolyFillType.pftEvenOdd);var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPaths(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.DistanceSqrd=function(e,t){var n=e.X-t.X,r=e.Y-t.Y;return n*n+r*r},e.Clipper.DistanceFromLineSqrd=function(e,t,n){var r=t.Y-n.Y,i=n.X-t.X,a=r*t.X+i*t.Y;return a=r*e.X+i*e.Y-a,a*a/(r*r+i*i)},e.Clipper.SlopesNearCollinear=function(t,n,r,i){return Math.abs(t.X-n.X)>Math.abs(t.Y-n.Y)?t.X>n.X==t.X<r.X?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.X>t.X==n.X<r.X?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i:t.Y>n.Y==t.Y<r.Y?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.Y>t.Y==n.Y<r.Y?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i},e.Clipper.PointsAreClose=function(e,t,n){var r=e.X-t.X,i=e.Y-t.Y;return r*r+i*i<=n},e.Clipper.ExcludeOp=function(e){var t=e.Prev;return t.Next=e.Next,e.Next.Prev=t,t.Idx=0,t},e.Clipper.CleanPolygon=function(t,n){n===void 0&&(n=1.415);var r=t.length;if(r===0)return[];for(var i=Array(r),a=0;a<r;++a)i[a]=new e.OutPt;for(var a=0;a<r;++a)i[a].Pt=t[a],i[a].Next=i[(a+1)%r],i[a].Next.Prev=i[a],i[a].Idx=0;for(var o=n*n,s=i[0];s.Idx===0&&s.Next!==s.Prev;)e.Clipper.PointsAreClose(s.Pt,s.Prev.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):e.Clipper.PointsAreClose(s.Prev.Pt,s.Next.Pt,o)?(e.Clipper.ExcludeOp(s.Next),s=e.Clipper.ExcludeOp(s),r-=2):e.Clipper.SlopesNearCollinear(s.Prev.Pt,s.Pt,s.Next.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):(s.Idx=1,s=s.Next);r<3&&(r=0);for(var c=Array(r),a=0;a<r;++a)c[a]=new e.IntPoint1(s.Pt),s=s.Next;return i=null,c},e.Clipper.CleanPolygons=function(t,n){for(var r=Array(t.length),i=0,a=t.length;i<a;i++)r[i]=e.Clipper.CleanPolygon(t[i],n);return r},e.Clipper.Minkowski=function(t,n,r,i){var a=+!!i,o=t.length,s=n.length,c=[];if(r)for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X+p.X,n[l].Y+p.Y);c.push(u)}else for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X-p.X,n[l].Y-p.Y);c.push(u)}for(var m=[],l=0;l<s-1+a;l++)for(var d=0;d<o;d++){var h=[];h.push(c[l%s][d%o]),h.push(c[(l+1)%s][d%o]),h.push(c[(l+1)%s][(d+1)%o]),h.push(c[l%s][(d+1)%o]),e.Clipper.Orientation(h)||h.reverse(),m.push(h)}return m},e.Clipper.MinkowskiSum=function(t,n,r){if(n[0]instanceof Array){for(var i=n,a=new e.Paths,o=new e.Clipper,s=0;s<i.length;++s){var c=e.Clipper.Minkowski(t,i[s],!0,r);if(o.AddPaths(c,e.PolyType.ptSubject,!0),r){var l=e.Clipper.TranslatePath(i[s],t[0]);o.AddPath(l,e.PolyType.ptClip,!0)}}return o.Execute(e.ClipType.ctUnion,a,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),a}else{var l=n,i=e.Clipper.Minkowski(t,l,!0,r),o=new e.Clipper;return o.AddPaths(i,e.PolyType.ptSubject,!0),o.Execute(e.ClipType.ctUnion,i,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),i}},e.Clipper.TranslatePath=function(t,n){for(var r=new e.Path,i=0;i<t.length;i++)r.push(new e.IntPoint2(t[i].X+n.X,t[i].Y+n.Y));return r},e.Clipper.MinkowskiDiff=function(t,n){var r=e.Clipper.Minkowski(t,n,!1,!0),i=new e.Clipper;return i.AddPaths(r,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),r},e.Clipper.PolyTreeToPaths=function(t){var n=[];return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntAny,n),n},e.Clipper.AddPolyNodeToPaths=function(t,n,r){var i=!0;switch(n){case e.Clipper.NodeType.ntOpen:return;case e.Clipper.NodeType.ntClosed:i=!t.IsOpen;break;default:break}t.m_polygon.length>0&&i&&r.push(t.m_polygon);for(var a=0,o=t.Childs(),s=o.length,c=o[a];a<s;a++,c=o[a])e.Clipper.AddPolyNodeToPaths(c,n,r)},e.Clipper.OpenPathsFromPolyTree=function(t){for(var n=new e.Paths,r=0,i=t.ChildCount();r<i;r++)t.Childs()[r].IsOpen&&n.push(t.Childs()[r].m_polygon);return n},e.Clipper.ClosedPathsFromPolyTree=function(t){var n=new e.Paths;return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntClosed,n),n},xt(e.Clipper,e.ClipperBase),e.Clipper.NodeType={ntAny:0,ntOpen:1,ntClosed:2},e.ClipperOffset=function(t,n){t===void 0&&(t=2),n===void 0&&(n=e.ClipperOffset.def_arc_tolerance),this.m_destPolys=new e.Paths,this.m_srcPoly=new e.Path,this.m_destPoly=new e.Path,this.m_normals=[],this.m_delta=0,this.m_sinA=0,this.m_sin=0,this.m_cos=0,this.m_miterLim=0,this.m_StepsPerRad=0,this.m_lowest=new e.IntPoint0,this.m_polyNodes=new e.PolyNode,this.MiterLimit=t,this.ArcTolerance=n,this.m_lowest.X=-1},e.ClipperOffset.two_pi=6.28318530717959,e.ClipperOffset.def_arc_tolerance=.25,e.ClipperOffset.prototype.Clear=function(){e.Clear(this.m_polyNodes.Childs()),this.m_lowest.X=-1},e.ClipperOffset.Round=e.Clipper.Round,e.ClipperOffset.prototype.AddPath=function(t,n,r){var i=t.length-1;if(!(i<0)){var a=new e.PolyNode;if(a.m_jointype=n,a.m_endtype=r,r===e.EndType.etClosedLine||r===e.EndType.etClosedPolygon)for(;i>0&&e.IntPoint.op_Equality(t[0],t[i]);)i--;a.m_polygon.push(t[0]);for(var o=0,s=0,c=1;c<=i;c++)e.IntPoint.op_Inequality(a.m_polygon[o],t[c])&&(o++,a.m_polygon.push(t[c]),(t[c].Y>a.m_polygon[s].Y||t[c].Y===a.m_polygon[s].Y&&t[c].X<a.m_polygon[s].X)&&(s=o));if(!(r===e.EndType.etClosedPolygon&&o<2)&&(this.m_polyNodes.AddChild(a),r===e.EndType.etClosedPolygon))if(this.m_lowest.X<0)this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s);else{var l=this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon[this.m_lowest.Y];(a.m_polygon[s].Y>l.Y||a.m_polygon[s].Y===l.Y&&a.m_polygon[s].X<l.X)&&(this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s))}}},e.ClipperOffset.prototype.AddPaths=function(e,t,n){for(var r=0,i=e.length;r<i;r++)this.AddPath(e[r],t,n)},e.ClipperOffset.prototype.FixOrientations=function(){if(this.m_lowest.X>=0&&!e.Clipper.Orientation(this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon))for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];(n.m_endtype===e.EndType.etClosedPolygon||n.m_endtype===e.EndType.etClosedLine&&e.Clipper.Orientation(n.m_polygon))&&n.m_polygon.reverse()}else for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];n.m_endtype===e.EndType.etClosedLine&&!e.Clipper.Orientation(n.m_polygon)&&n.m_polygon.reverse()}},e.ClipperOffset.GetUnitNormal=function(t,n){var r=n.X-t.X,i=n.Y-t.Y;if(r===0&&i===0)return new e.DoublePoint2(0,0);var a=1/Math.sqrt(r*r+i*i);return r*=a,i*=a,new e.DoublePoint2(i,-r)},e.ClipperOffset.prototype.DoOffset=function(t){if(this.m_destPolys=[],this.m_delta=t,e.ClipperBase.near_zero(t)){for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];r.m_endtype===e.EndType.etClosedPolygon&&this.m_destPolys.push(r.m_polygon)}return}this.MiterLimit>2?this.m_miterLim=2/(this.MiterLimit*this.MiterLimit):this.m_miterLim=.5;var i=this.ArcTolerance<=0?e.ClipperOffset.def_arc_tolerance:this.ArcTolerance>Math.abs(t)*e.ClipperOffset.def_arc_tolerance?Math.abs(t)*e.ClipperOffset.def_arc_tolerance:this.ArcTolerance,a=3.14159265358979/Math.acos(1-i/Math.abs(t));this.m_sin=Math.sin(e.ClipperOffset.two_pi/a),this.m_cos=Math.cos(e.ClipperOffset.two_pi/a),this.m_StepsPerRad=a/e.ClipperOffset.two_pi,t<0&&(this.m_sin=-this.m_sin);for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];this.m_srcPoly=r.m_polygon;var o=this.m_srcPoly.length;if(!(o===0||t<=0&&(o<3||r.m_endtype!==e.EndType.etClosedPolygon))){if(this.m_destPoly=[],o===1){if(r.m_jointype===e.JoinType.jtRound)for(var s=1,c=0,l=1;l<=a;l++){this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t)));var u=s;s=s*this.m_cos-this.m_sin*c,c=u*this.m_sin+c*this.m_cos}else for(var s=-1,c=-1,l=0;l<4;++l)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t))),s<0?s=1:c<0?c=1:s=-1;this.m_destPolys.push(this.m_destPoly);continue}this.m_normals.length=0;for(var l=0;l<o-1;l++)this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[l],this.m_srcPoly[l+1]));if(r.m_endtype===e.EndType.etClosedLine||r.m_endtype===e.EndType.etClosedPolygon?this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[o-1],this.m_srcPoly[0])):this.m_normals.push(new e.DoublePoint1(this.m_normals[o-2])),r.m_endtype===e.EndType.etClosedPolygon){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else if(r.m_endtype===e.EndType.etClosedLine){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly),this.m_destPoly=[];for(var f=this.m_normals[o-1],l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-f.X,-f.Y),d=0;for(var l=o-1;l>=0;l--)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else{for(var d=0,l=1;l<o-1;++l)d=this.OffsetPoint(l,d,r.m_jointype);var p;if(r.m_endtype===e.EndType.etOpenButt){var l=o-1;p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X+this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y+this.m_normals[l].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X-this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y-this.m_normals[l].Y*t)),this.m_destPoly.push(p)}else{var l=o-1;d=o-2,this.m_sinA=0,this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l].X,-this.m_normals[l].Y),r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(l,d):this.DoRound(l,d)}for(var l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-this.m_normals[1].X,-this.m_normals[1].Y),d=o-1;for(var l=d-1;l>0;--l)d=this.OffsetPoint(l,d,r.m_jointype);r.m_endtype===e.EndType.etOpenButt?(p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X-this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y-this.m_normals[0].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+this.m_normals[0].Y*t)),this.m_destPoly.push(p)):(d=1,this.m_sinA=0,r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(0,1):this.DoRound(0,1)),this.m_destPolys.push(this.m_destPoly)}}}},e.ClipperOffset.prototype.Execute=function(){var t=arguments;if(t[0]instanceof e.PolyTree){var n=t[0],r=t[1];n.Clear(),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;if(o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.ChildCount()===1&&n.Childs()[0].ChildCount()>0){var s=n.Childs()[0];n.Childs()[0]=s.Childs()[0],n.Childs()[0].m_Parent=n;for(var c=1;c<s.ChildCount();c++)n.AddChild(s.Childs()[c])}else n.Clear()}}else{var n=t[0],r=t[1];e.Clear(n),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.length>0&&n.splice(0,1)}}},e.ClipperOffset.prototype.OffsetPoint=function(t,n,r){if(this.m_sinA=this.m_normals[n].X*this.m_normals[t].Y-this.m_normals[t].X*this.m_normals[n].Y,Math.abs(this.m_sinA*this.m_delta)<1){if(this.m_normals[n].X*this.m_normals[t].X+this.m_normals[t].Y*this.m_normals[n].Y>0)return this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),n}else this.m_sinA>1?this.m_sinA=1:this.m_sinA<-1&&(this.m_sinA=-1);if(this.m_sinA*this.m_delta<0)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),this.m_destPoly.push(new e.IntPoint1(this.m_srcPoly[t])),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)));else switch(r){case e.JoinType.jtMiter:var i=1+(this.m_normals[t].X*this.m_normals[n].X+this.m_normals[t].Y*this.m_normals[n].Y);i>=this.m_miterLim?this.DoMiter(t,n,i):this.DoSquare(t,n);break;case e.JoinType.jtSquare:this.DoSquare(t,n);break;case e.JoinType.jtRound:this.DoRound(t,n);break}return n=t,n},e.ClipperOffset.prototype.DoSquare=function(t,n){var r=Math.tan(Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y)/4);this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[n].X-this.m_normals[n].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[n].Y+this.m_normals[n].X*r)))),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[t].X+this.m_normals[t].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[t].Y-this.m_normals[t].X*r))))},e.ClipperOffset.prototype.DoMiter=function(t,n,r){var i=this.m_delta/r;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+(this.m_normals[n].X+this.m_normals[t].X)*i),e.ClipperOffset.Round(this.m_srcPoly[t].Y+(this.m_normals[n].Y+this.m_normals[t].Y)*i)))},e.ClipperOffset.prototype.DoRound=function(t,n){for(var r=Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y),i=Math.max(e.Cast_Int32(e.ClipperOffset.Round(this.m_StepsPerRad*Math.abs(r))),1),a=this.m_normals[n].X,o=this.m_normals[n].Y,s,c=0;c<i;++c)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+a*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+o*this.m_delta))),s=a,a=a*this.m_cos-this.m_sin*o,o=s*this.m_sin+o*this.m_cos;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)))},e.Error=function(e){try{throw Error(e)}catch(e){alert(e.message)}},e.JS={},e.JS.AreaOfPolygon=function(t,n){return n||=1,e.Clipper.Area(t)/(n*n)},e.JS.AreaOfPolygons=function(t,n){n||=1;for(var r=0,i=0;i<t.length;i++)r+=e.Clipper.Area(t[i]);return r/(n*n)},e.JS.BoundsOfPath=function(t,n){return e.JS.BoundsOfPaths([t],n)},e.JS.BoundsOfPaths=function(t,n){n||=1;var r=e.Clipper.GetBounds(t);return r.left/=n,r.bottom/=n,r.right/=n,r.top/=n,r},e.JS.Clean=function(t,n){if(!(t instanceof Array))return[];var r=t[0]instanceof Array,t=e.JS.Clone(t);if(typeof n!=`number`||n===null)return e.Error(`Delta is not a number in Clean().`),t;if(t.length===0||t.length===1&&t[0].length===0||n<0)return t;r||(t=[t]);for(var i=t.length,a,o,s,c,l,u,d,f=[],p=0;p<i;p++)if(o=t[p],a=o.length,a!==0){if(a<3){s=o,f.push(s);continue}for(s=o,c=n*n,l=o[0],u=1,d=1;d<a;d++)(o[d].X-l.X)*(o[d].X-l.X)+(o[d].Y-l.Y)*(o[d].Y-l.Y)<=c||(s[u]=o[d],l=o[d],u++);l=o[u-1],(o[0].X-l.X)*(o[0].X-l.X)+(o[0].Y-l.Y)*(o[0].Y-l.Y)<=c&&u--,u<a&&s.splice(u,a-u),s.length&&f.push(s)}return!r&&f.length?f=f[0]:!r&&f.length===0?f=[]:r&&f.length===0&&(f=[[]]),f},e.JS.Clone=function(e){if(!(e instanceof Array)||e.length===0)return[];if(e.length===1&&e[0].length===0)return[[]];var t=e[0]instanceof Array;t||(e=[e]);var n=e.length,r,i,a,o,s=Array(n);for(i=0;i<n;i++){for(r=e[i].length,o=Array(r),a=0;a<r;a++)o[a]={X:e[i][a].X,Y:e[i][a].Y};s[i]=o}return t||(s=s[0]),s},e.JS.Lighten=function(t,n){if(!(t instanceof Array))return[];if(typeof n!=`number`||n===null)return e.Error(`Tolerance is not a number in Lighten().`),e.JS.Clone(t);if(t.length===0||t.length===1&&t[0].length===0||n<0)return e.JS.Clone(t);var r=t[0]instanceof Array;r||(t=[t]);var i,a,o,s,c,l,u,d,f,p,m,h,g,_,v,y,b,x=t.length,S=n*n,C=[];for(i=0;i<x;i++)if(o=t[i],l=o.length,l!==0){for(s=0;s<1e6;s++){for(c=[],l=o.length,o[l-1].X!==o[0].X||o[l-1].Y!==o[0].Y?(h=1,o.push({X:o[0].X,Y:o[0].Y}),l=o.length):h=0,m=[],a=0;a<l-2;a++)u=o[a],f=o[a+1],d=o[a+2],y=u.X,b=u.Y,g=d.X-y,_=d.Y-b,(g!==0||_!==0)&&(v=((f.X-y)*g+(f.Y-b)*_)/(g*g+_*_),v>1?(y=d.X,b=d.Y):v>0&&(y+=g*v,b+=_*v)),g=f.X-y,_=f.Y-b,p=g*g+_*_,p<=S&&(m[a+1]=1,a++);for(c.push({X:o[0].X,Y:o[0].Y}),a=1;a<l-1;a++)m[a]||c.push({X:o[a].X,Y:o[a].Y});if(c.push({X:o[l-1].X,Y:o[l-1].Y}),h&&o.pop(),m.length)o=c;else break}l=c.length,c[l-1].X===c[0].X&&c[l-1].Y===c[0].Y&&c.pop(),c.length>2&&C.push(c)}return r||(C=C[0]),C===void 0&&(C=[]),C},e.JS.PerimeterOfPath=function(e,t,n){if(e===void 0)return 0;var r=Math.sqrt,i=0,a,o,s=0,c=0,l=0,u=0,d=e.length;if(d<2)return 0;for(t&&(e[d]=e[0],d++);--d;)a=e[d],s=a.X,c=a.Y,o=e[d-1],l=o.X,u=o.Y,i+=r((s-l)*(s-l)+(c-u)*(c-u));return t&&e.pop(),i/n},e.JS.PerimeterOfPaths=function(t,n,r){r||=1;for(var i=0,a=0;a<t.length;a++)i+=e.JS.PerimeterOfPath(t[a],n,r);return i},e.JS.ScaleDownPath=function(e,t){var n,r;for(t||=1,n=e.length;n--;)r=e[n],r.X/=t,r.Y/=t},e.JS.ScaleDownPaths=function(e,t){var n,r,i;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X/=t,i.Y/=t},e.JS.ScaleUpPath=function(e,t){var n,r,i=Math.round;for(t||=1,n=e.length;n--;)r=e[n],r.X=i(r.X*t),r.Y=i(r.Y*t)},e.JS.ScaleUpPaths=function(e,t){var n,r,i,a=Math.round;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X=a(i.X*t),i.Y=a(i.Y*t)},e.ExPolygons=function(){return[]},e.ExPolygon=function(){this.outer=null,this.holes=null},e.JS.AddOuterPolyNodeToExPolygons=function(t,n){var r=new e.ExPolygon;r.outer=t.Contour();var i=t.Childs(),a=i.length;r.holes=Array(a);var o,s,c,l,u,d;for(c=0;c<a;c++)for(o=i[c],r.holes[c]=o.Contour(),l=0,u=o.Childs(),d=u.length;l<d;l++)s=u[l],e.JS.AddOuterPolyNodeToExPolygons(s,n);n.push(r)},e.JS.ExPolygonsToPaths=function(t){var n,r,i,a,o=new e.Paths;for(n=0,i=t.length;n<i;n++)for(o.push(t[n].outer),r=0,a=t[n].holes.length;r<a;r++)o.push(t[n].holes[r]);return o},e.JS.PolyTreeToExPolygons=function(t){var n=new e.ExPolygons,r,i,a,o;for(i=0,a=t.Childs(),o=a.length;i<o;i++)r=a[i],e.JS.AddOuterPolyNodeToExPolygons(r,n);return n}})()}))(),1),VT=1e4,HT=1e-4;function UT(e){let t=0;for(let n=0,r=e.length-1;n<e.length;r=n++)t+=e[r].x*e[n].y-e[n].x*e[r].y;return t/2}function WT(e){let t=1/0,n=1/0,r=-1/0,i=-1/0;for(let a of e)for(let e of a.points)t=Math.min(t,e.x),n=Math.min(n,e.y),r=Math.max(r,e.x),i=Math.max(i,e.y);return{minX:t,minY:n,maxX:r,maxY:i,width:r-t,height:i-n}}function GT(e){return e.map(e=>e.points.map(e=>({X:Math.round(e.x*VT),Y:Math.round(e.y*VT)})))}function KT(e){let t=[];function n(e){for(let r of e.Childs()){let e=r.IsHole(),i=BT.default.Clipper.CleanPolygon(r.Contour(),1.1).map(e=>({x:e.X/VT,y:e.Y/VT}));i.length>=3&&(UT(i)>0===e&&i.reverse(),t.push({isHole:e,points:i})),n(r)}}return n(e),t}function qT(e,t,n,r=!1){if(!e.length)return[];let i=new BT.default.Clipper;i.StrictlySimple=!0,i.AddPaths(GT(e),BT.default.PolyType.ptSubject,!0),t.length&&i.AddPaths(GT(t),BT.default.PolyType.ptClip,!0);let a=new BT.default.PolyTree,o=r?BT.default.PolyFillType.pftEvenOdd:BT.default.PolyFillType.pftNonZero;return i.Execute(n===`union`?BT.default.ClipType.ctUnion:n===`difference`?BT.default.ClipType.ctDifference:BT.default.ClipType.ctIntersection,a,o,BT.default.PolyFillType.pftNonZero),KT(a)}function JT(e,t){if(!e.length)return[];if(Math.abs(t)<1e-4/10)return e.map(e=>({...e,points:e.points.map(e=>({...e}))}));let n=new BT.default.ClipperOffset(2,.002*VT);n.AddPaths(GT(e),BT.default.JoinType.jtMiter,BT.default.EndType.etClosedPolygon);let r=new BT.default.PolyTree;return n.Execute(r,t*VT),KT(r)}function YT(e,t){let n=!1;for(let r=0,i=t.length-1;r<t.length;i=r++){let a=t[r],o=t[i];a.y>e.y!=o.y>e.y&&e.x<(o.x-a.x)*(e.y-a.y)/(o.y-a.y)+a.x&&(n=!n)}return n}function XT(e,t){let n=!1;for(let r of t)YT(e,r.points)&&(n=!n);return n}function ZT(e){let t=e.filter(e=>!e.isHole).map(e=>[e]);for(let n of e.filter(e=>e.isHole)){let e=t.filter(e=>YT(n.points[0],e[0].points));e.sort((e,t)=>Math.abs(UT(e[0].points))-Math.abs(UT(t[0].points))),e[0]&&e[0].push(n)}return t}function QT(e){return e.reduce((e,t)=>e+(t.isHole?-1:1)*Math.abs(UT(t.points)),0)}function $T(e){let t=0;for(let n of e)for(let e=0,r=n.points.length-1;e<n.points.length;r=e++)t+=Math.hypot(n.points[e].x-n.points[r].x,n.points[e].y-n.points[r].y);return t}function eE(e,t){let n=1/0;for(let r of t)for(let t=0,i=r.points.length-1;t<r.points.length;i=t++){let a=r.points[i],o=r.points[t],s=o.x-a.x,c=o.y-a.y,l=Math.max(0,Math.min(1,((e.x-a.x)*s+(e.y-a.y)*c)/(s*s+c*c||1)));n=Math.min(n,Math.hypot(e.x-a.x-l*s,e.y-a.y-l*c))}return XT(e,t)?n:-n}function tE(e){let t=WT(e),n={point:{x:(t.minX+t.maxX)/2,y:(t.minY+t.maxY)/2},clearance:-1/0};for(let r=0;r<18;r++)for(let i=0;i<18;i++){let a={x:t.minX+(r+.5)*t.width/18,y:t.minY+(i+.5)*t.height/18},o=eE(a,e);o>n.clearance&&(n={point:a,clearance:o})}let r=Math.max(t.width,t.height)/18;for(let t=0;t<7;t++){let t=n.point;for(let i=-1;i<=1;i++)for(let a=-1;a<=1;a++){let o={x:t.x+i*r,y:t.y+a*r},s=eE(o,e);s>n.clearance&&(n={point:o,clearance:s})}r/=2}return n}function nE(e,t){return{isHole:!1,points:Array.from({length:96},(n,r)=>({x:e.x+t*Math.cos(r*Math.PI*2/96),y:e.y+t*Math.sin(r*Math.PI*2/96)}))}}function rE(e,t){let n=[];for(let r of e)for(let e=0,i=r.points.length-1;e<r.points.length;i=e++){let a=r.points[i],o=r.points[e];(a.x<=t&&o.x>t||o.x<=t&&a.x>t)&&n.push(a.y+(o.y-a.y)*(t-a.x)/(o.x-a.x))}n.sort((e,t)=>e-t);let r=[];for(let e=0;e+1<n.length;e+=2)n[e+1]-n[e]>1e-4&&r.push([n[e],n[e+1]]);return r}function iE(e,t,n){let r=t===`X`?0:t===`Y`?1:2,i=+(r===0),a=r===2?1:2,o=new Map,s=new Map,c=e=>`${Math.round(e.x/HT)},${Math.round(e.y/HT)}`;for(let t=0;t<e.length;t+=9){let l=[e[t+r]-n,e[t+3+r]-n,e[t+6+r]-n].map(e=>Math.abs(e)<1e-4/10?0:e);if(l.every(e=>e>=0)||l.every(e=>e<0))continue;let u=[];for(let n=0;n<3;n++){let r=(n+1)%3;if(l[n]<0==l[r]<0)continue;let o=l[n]/(l[n]-l[r]);u.push({x:e[t+n*3+i]+o*(e[t+r*3+i]-e[t+n*3+i]),y:e[t+n*3+a]+o*(e[t+r*3+a]-e[t+n*3+a])})}if(u.length!==2)continue;let d=c(u[0]),f=c(u[1]);if(d===f)continue;s.set(d,u[0]),s.set(f,u[1]);let p=d<f?`${d}|${f}`:`${f}|${d}`;o.has(p)?o.delete(p):o.set(p,[d,f])}let l=new Map;for(let[e,t]of o.values())l.has(e)||l.set(e,new Set),l.has(t)||l.set(t,new Set),l.get(e).add(t),l.get(t).add(e);let u=0,d=0;for(let e of l.values())e.size===1&&u++,e.size>2&&d++;let f=new Set,p=[];for(let e of l.keys()){if(f.has(e))continue;let t=[e];f.add(e);for(let e=0;e<t.length;e++)for(let n of l.get(t[e]))f.has(n)||(f.add(n),t.push(n));if(t.some(e=>l.get(e).size!==2))continue;let n=[],r=``,i=e;do{n.push(s.get(i));let e=[...l.get(i)].find(e=>e!==r);r=i,i=e}while(i!==e&&n.length<=t.length);i===e&&n.length>=3&&p.push({isHole:!1,points:n})}return{loops:qT(p,[],`union`,!0),open:u,branches:d}}var aE={0:[[0,0,.6,0,.6,1,0,1,0,0]],1:[[.12,.8,.3,1,.3,0],[.08,0,.52,0]],2:[[0,1,.6,1,.6,.5,0,.5,0,0,.6,0]],3:[[0,1,.6,1,.6,0,0,0],[.15,.5,.6,.5]],4:[[0,1,0,.5,.6,.5],[.6,1,.6,0]],5:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],6:[[.6,1,0,1,0,0,.6,0,.6,.5,0,.5]],7:[[0,1,.6,1,.1,0]],8:[[0,0,.6,0,.6,1,0,1,0,0],[0,.5,.6,.5]],9:[[.6,.5,0,.5,0,1,.6,1,.6,0,0,0]],X:[[0,0,.6,1],[0,1,.6,0]],Y:[[0,1,.3,.5,.6,1],[.3,.5,.3,0]],Z:[[0,1,.6,1,0,0,.6,0]],"-":[[.08,.5,.52,.5]],A:[[0,0,.3,1,.6,0],[.12,.4,.48,.4]],B:[[0,0,0,1,.5,1,.6,.75,.5,.5,0,.5],[.5,.5,.6,.25,.5,0,0,0]],C:[[.6,1,0,1,0,0,.6,0]],D:[[0,0,0,1,.4,1,.6,.8,.6,.2,.4,0,0,0]],E:[[.6,1,0,1,0,0,.6,0],[0,.5,.5,.5]],F:[[.6,1,0,1,0,0],[0,.5,.5,.5]],G:[[.6,1,0,1,0,0,.6,0,.6,.5,.35,.5]],H:[[0,0,0,1],[.6,0,.6,1],[0,.5,.6,.5]],I:[[0,1,.6,1],[.3,1,.3,0],[0,0,.6,0]],J:[[0,1,.6,1,.6,0,0,0,0,.25]],K:[[0,0,0,1],[.6,1,0,.5,.6,0]],L:[[0,1,0,0,.6,0]],M:[[0,0,0,1,.3,.5,.6,1,.6,0]],N:[[0,0,0,1,.6,0,.6,1]],O:[[0,0,.6,0,.6,1,0,1,0,0]],P:[[0,0,0,1,.6,1,.6,.5,0,.5]],Q:[[0,0,.6,0,.6,1,0,1,0,0],[.35,.25,.65,-.05]],R:[[0,0,0,1,.6,1,.6,.5,0,.5],[.25,.5,.6,0]],S:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],T:[[0,1,.6,1],[.3,1,.3,0]],U:[[0,1,0,0,.6,0,.6,1]],V:[[0,1,.3,0,.6,1]],W:[[0,1,.15,0,.3,.5,.45,0,.6,1]]};function oE(e,t,n){let{point:r,clearance:i}=n||tE(t),a=e.length*.85-.25,o=Math.min(3.8,2*Math.max(0,i-.7)/Math.hypot(a,1));if(o<.65)return[];let s=r.x-a*o/2,c=r.y-o/2,l=[];return[...e.toUpperCase()].forEach((e,t)=>{for(let n of aE[e]||aE[`-`]){let e=[];for(let r=0;r<n.length;r+=2)e.push({x:s+(t*.85+n[r])*o,y:c+n[r+1]*o});l.push({points:e})}}),l}function sE(e,t){let n=t.pinDiameter+t.slotFitTolerance,r=t.materialThickness+t.slotFitTolerance;return{isHole:!1,points:[{x:e.x-n/2,y:e.y-r/2},{x:e.x+n/2,y:e.y-r/2},{x:e.x+n/2,y:e.y+r/2},{x:e.x-n/2,y:e.y+r/2}]}}function cE(e,t,n,r){let i=r.materialThickness,a=r.pinDiameter,o=a/2,s=o+i,c=n+i,l=Math.min(i/2,a/4),u=[[-s,-i],[s,-i],[s,0],[o,0],[o,c-l],[o-l,c],[-o+l,c],[-o,c-l],[-o,0],[-s,0]].map(([t,n])=>r.stackedAxis===`X`?{x:n,y:e.x+t}:{x:e.x+t,y:n});UT(u)<0&&u.reverse();let d=[{isHole:!1,points:u}],f=JT(d,r.laserKerf/2),p=`P-${String(t+1).padStart(2,`0`)}`;return{id:p,label:p,parentId:p,kind:`alignment-pin`,axis:r.stackedAxis===`Z`?`Y`:`Z`,sliceIndex:t,worldPosition:e.y,unmodifiedPaths:d,assemblyPaths:d,cutPaths:f,etchPaths:oE(p,d,tE(d)),bounds:WT(f),area:QT(d),cutLength:$T(f),joints:[]}}function lE(e){for(let[t,[n,r]]of Object.entries({targetWidth:[1,1e4],targetDepth:[1,1e4],targetHeight:[1,1e4],materialThickness:[.1,100],laserKerf:[0,5],slotFitTolerance:[-2,5],leadInChamfer:[0,20],xSliceCount:[1,100],ySliceCount:[1,100],slotDepthRatio:[.1,.9],pinDiameter:[.5,100],pinCount:[1,5],sheetWidth:[20,5e3],sheetHeight:[20,5e3],sheetMargin:[0,500],partSpacing:[0,100]})){let i=e[t];if(typeof i!=`number`||!Number.isFinite(i)||i<n||i>r)throw Error(`${t.replace(/([A-Z])/g,` $1`)} must be between ${n} and ${r}.`)}for(let t of[`xSliceCount`,`ySliceCount`,`pinCount`])if(!Number.isInteger(e[t]))throw Error(`Slice and pin counts must be whole numbers.`);if(![`interlocking`,`stacked`].includes(e.mode)||![`X`,`Y`,`Z`].includes(e.stackedAxis)||![`X`,`Y`,`Z`].includes(e.scaleAxis))throw Error(`Invalid slicing mode or axis.`);if(e.materialThickness+e.slotFitTolerance<=e.laserKerf+1e-4&&e.mode===`interlocking`)throw Error(`The desired slot is smaller than the laser kerf. Increase thickness/tolerance or reduce kerf.`);if(e.alignmentPins&&e.pinDiameter<=e.laserKerf+1e-4&&e.mode===`stacked`)throw Error(`Pin diameter must be larger than the laser kerf.`);if(e.alignmentPinType!==void 0&&![`dowel`,`material`].includes(e.alignmentPinType))throw Error(`Choose dowels or pins cut from sheet material.`);if(e.mode===`stacked`&&e.alignmentPins&&e.alignmentPinType===`material`&&Math.min(e.pinDiameter+e.slotFitTolerance,e.materialThickness+e.slotFitTolerance)<=e.laserKerf+1e-4)throw Error(`The material-pin slot is smaller than the kerf. Increase pin width or fit tolerance, or reduce kerf.`);if(e.sheetMargin*2>=Math.min(e.sheetWidth,e.sheetHeight))throw Error(`The margin leaves no usable sheet area.`)}function uE(e,t,n,r,i,a,o,s){let c=a/2,l=Math.min(o,(n-t)*.15,(i?n-r:r-t)*.45);return{isHole:!1,points:(i?[[e-c,r],[e+c,r],[e+c,n-l],[e+c+l,n],[e+c+l,s],[e-c-l,s],[e-c-l,n],[e-c,n-l]]:[[e-c-l,s],[e+c+l,s],[e+c+l,t],[e+c,t+l],[e+c,r],[e-c,r],[e-c,t+l],[e-c-l,t]]).map(([e,t])=>({x:e,y:t}))}}function dE(e,t){let n=e[0]?.raw||[];for(let t=1;t<e.length&&n.length;t++)n=qT(n,e[t].raw,`intersection`);let r=t.alignmentPinType===`material`?Math.hypot(t.pinDiameter+t.slotFitTolerance,t.materialThickness+t.slotFitTolerance)/2:t.pinDiameter/2,i=JT(n,-(r+Math.max(t.materialThickness,2)));if(!i.length)return[];let a=WT(i),o=[];for(let e=0;e<29;e++)for(let t=0;t<29;t++){let n={x:a.minX+(e+.5)*a.width/29,y:a.minY+(t+.5)*a.height/29};XT(n,i)&&o.push(n)}for(let e of ZT(i))o.push(tE(e).point);let s=[];for(;s.length<t.pinCount&&o.length;){let e=-1,n=-1/0;if(o.forEach((r,a)=>{let o=s.length?Math.min(...s.map(e=>Math.hypot(r.x-e.x,r.y-e.y))):eE(r,i);s.length&&o<t.pinDiameter+2*t.materialThickness||o>n&&(n=o,e=a)}),e<0)break;s.push(o.splice(e,1)[0])}return s}function fE(e,t){let n=performance.now();lE(t);let r=[],i=(e,t,n,i=[])=>{let a=r.find(t=>t.code===e);a||(a={code:e,severity:t,message:n,partIds:[]},r.push(a));for(let e of i)a.partIds.includes(e)||a.partIds.push(e)};(e.info.boundaryEdges||e.info.nonManifoldEdges)&&i(`mesh-topology`,`warning`,`Mesh has ${e.info.boundaryEdges.toLocaleString()} open edges and ${e.info.nonManifoldEdges.toLocaleString()} non-manifold edges. Repair the STL for reliable sections.`);let a=Ow(e.vertices),o=[t.targetWidth,t.targetDepth,t.targetHeight],s=t.scaleAxis===`X`?0:t.scaleAxis===`Y`?1:2,c=t.keepAspectRatio?a.dimensions.map(()=>o[s]/a.dimensions[s]):o.map((e,t)=>e/a.dimensions[t]),l=a.dimensions.map((e,t)=>e*c[t]),u=new Float64Array(e.vertices.length);for(let t=0;t<u.length;t++)u[t]=(e.vertices[t]-a.min[t%3])*c[t%3];let d=[],f=[],p=0,m=0,h=(e,t,n,r=n)=>{let a=`${e}-${String(t+1).padStart(2,`0`)}`,o=iE(u,e,r);(o.open||o.branches)&&i(`open-contours`,`error`,`Some sections have open or branching contours and were omitted. DXF can export the generated parts; repair the STL for complete sections.`,[a]),o.loops.length?d.push({id:a,axis:e,index:t,position:n,raw:o.loops,cuts:[]}):i(`empty-sections`,`warning`,`Some slicing planes have no closed material contour.`,[a])};if(t.mode===`interlocking`){for(let[e,n,r]of[[`X`,t.xSliceCount,l[0]],[`Y`,t.ySliceCount,l[1]]]){let a=r/(n+1);a<t.materialThickness?i(`slice-collision`,`error`,`${e} ribs overlap. Reduce the slice count or material thickness.`):a<t.materialThickness*1.5&&i(`tight-spacing`,`warning`,`${e} ribs are closely spaced. Check the material remaining between slots.`);for(let t=0;t<n;t++)h(e,t,(t+1)*a)}let e=d.filter(e=>e.axis===`X`),n=d.filter(e=>e.axis===`Y`),r=t.materialThickness+t.slotFitTolerance;for(let a of e)for(let e of n){let n=rE(a.raw,e.position),o=rE(e.raw,a.position),s=[];for(let[e,t]of n)for(let[n,r]of o){let i=Math.max(e,n),a=Math.min(t,r);a-i>1e-4&&s.push([i,a])}s.length>1&&i(`multi-span-joints`,`warning`,`Some joints cross hollow or concave regions. Check that each slot is accessible during assembly.`,[a.id,e.id]);for(let n=0;n<s.length;n++){let[o,c]=s[n];if(c-o<=2*t.materialThickness||(c-o)*Math.min(t.slotDepthRatio,1-t.slotDepthRatio)<t.materialThickness){i(`short-joints`,`warning`,`Short intersections were left unslotted to avoid fragile joints.`,[a.id,e.id]);continue}let u=c-(c-o)*t.slotDepthRatio,d=n?s[n-1][1]:-t.materialThickness,p=(c+(n+1<s.length?s[n+1][0]:l[2]+t.materialThickness))/2+HT,m=(o+d)/2-HT;a.cuts.push(uE(e.position,o,c,u,!0,r,t.leadInChamfer,s.length===1?l[2]+1:p)),e.cuts.push(uE(a.position,o,c,u,!1,r,t.leadInChamfer,s.length===1?-1:m)),f.push({a:a.id,b:e.id,x:a.position,y:e.position,z:u})}}}else{let e=t.stackedAxis===`X`?0:t.stackedAxis===`Y`?1:2;if(p=Math.max(1,Math.round(l[e]/t.materialThickness)),m=p*t.materialThickness,p>400)throw Error(`This stack needs more than 400 layers. Increase material thickness or reduce model size.`);for(let n=0;n<p;n++)h(t.stackedAxis,n,(n+.5)*t.materialThickness,(n+.5)*l[e]/p);Math.abs(m-l[e])>.001&&i(`rounded-stack`,`warning`,`Stack depth is rounded to ${m.toFixed(2)} mm (${p} layers × ${t.materialThickness} mm).`)}let g=t.mode===`stacked`&&t.alignmentPins?dE(d,t):[];if(t.mode===`stacked`&&t.alignmentPins&&g.length<t.pinCount&&i(`pin-placement`,`warning`,g.length?`Only ${g.length} pin positions fit through every layer with a material margin.`:`No safe pin position passes through every layer. Pins were omitted; use adhesive or external registration.`),g.length)for(let e of d)e.cuts.push(...g.map(e=>t.alignmentPinType===`material`?sE(e,t):nE(e,t.pinDiameter/2)));let _=[];for(let e of d){let n=ZT(e.cuts.length?qT(e.raw,e.cuts,`difference`):e.raw).filter(t=>QT(t)>=2?!0:(i(`micro-islands`,`warning`,`Tiny components below 2 mm² were omitted.`,[e.id]),!1));n.length>1&&i(`split-components`,`warning`,`Disconnected regions are exported as separate labeled parts. Inspect their assembly connections.`,[e.id]),n.length||i(`removed-pieces`,`warning`,`Slots removed all usable material from some slices.`,[e.id]),n.forEach((r,a)=>{let o=n.length>1?`-${a<26?String.fromCharCode(65+a):a+1}`:``,s=e.id+o,c=JT(r,t.laserKerf/2);if(c.filter(e=>e.isHole).length<r.filter(e=>e.isHole).length&&i(`vanishing-holes`,`error`,`A hole is smaller than the kerf and disappeared. Reduce kerf or increase feature size.`,[s]),!c.length){i(`collapsed-path`,`error`,`Kerf compensation removed an entire part.`,[s]);return}for(let e of c)e.isHole&&g.some(t=>YT(t,e.points))&&(e.isRegistration=!0);let l=tE(r),u=l.point,d=ZT(e.raw).find(e=>XT(u,e))||e.raw,f=oE(s,r,l);f.length||i(`small-labels`,`warning`,`Some narrow parts have no room for an etched label. Match them using the assembly preview.`,[s]),_.push({id:s,label:s,parentId:e.id,axis:e.axis,sliceIndex:e.index,worldPosition:e.position,unmodifiedPaths:d,assemblyPaths:r,cutPaths:c,etchPaths:f,bounds:WT(c),area:QT(r),cutLength:$T(c),joints:[]})})}let v=[];for(let e of f){let n=_.find(t=>t.parentId===e.a&&XT({x:e.y,y:e.z-.1},t.assemblyPaths)),r=_.find(t=>t.parentId===e.b&&XT({x:e.x,y:e.z+.1},t.assemblyPaths));if(n&&r){n.joints.push(r.id),r.joints.push(n.id),v.push({...e,a:n.id,b:r.id});for(let[i,a,o]of[[n,e.y,-1],[r,e.x,1]])for(let n of[-1,1]){let r={x:a+n*(t.materialThickness+t.slotFitTolerance)/2+n*.7,y:e.z+o*.9},s={x:r.x+n*1.4,y:r.y};eE(r,i.assemblyPaths)>.2&&eE(s,i.assemblyPaths)>.2&&i.etchPaths.push({points:[r,s]})}}else i(`incomplete-joints`,`warning`,`Some joints lost their supporting material during slot subtraction.`,[e.a,e.b])}if(t.mode===`interlocking`){let e=_.filter(e=>!e.joints.length).map(e=>e.id);e.length&&i(`unanchored-parts`,`warning`,`Some parts have no usable interlock. They need support or adhesive.`,e);let t=new Set,n=0,r=new Map(_.map(e=>[e.id,e]));for(let e of _){if(t.has(e.id))continue;n++;let i=[e.id];t.add(e.id);for(let e=0;e<i.length;e++)for(let n of r.get(i[e]).joints)t.has(n)||(t.add(n),i.push(n))}n>1&&i(`separate-assemblies`,`warning`,`The joint graph contains ${n} separate assemblies. Review how they are supported.`)}else if(g.length){let e=_.filter(e=>!e.cutPaths.some(e=>e.isRegistration)).map(e=>e.id);e.length&&i(`unpinned-components`,`warning`,`Some stacked components contain no registration pin. Use adhesive and position them by the preview.`,e)}_.length?t.mode===`stacked`&&t.alignmentPinType===`material`&&g.length&&_.unshift(...g.map((e,n)=>cE(e,n,m,t))):i(`no-pieces`,`error`,`No usable parts were generated. Try fewer slices, a thicker stack, or a closed mesh.`);let y=ww(_,t);return y.unplaced.length&&i(`oversize-parts`,`error`,`Some parts do not fit the usable sheet area. Increase the sheet size, reduce margins/spacing, or scale the model down.`,y.unplaced),{model:e.info,dimensions:l,vertices:new Float32Array(u),settings:{...t},pieces:_,...y,joints:v,pins:g,issues:r,processingMs:performance.now()-n,layerCount:p,builtDepth:m}}function pE(e){let t=document.modelContext;if(!t?.registerTool)return()=>{};let n=new AbortController,r=[{name:`read_slice_project`,title:`Read slice project`,description:`Read the loaded model, current settings, sheets, parts, and fabrication issues.`,inputSchema:{type:`object`,properties:{},additionalProperties:!1},annotations:{readOnlyHint:!0,untrustedContentHint:!0},execute:()=>e.read()},{name:`configure_slices`,title:`Configure slices`,description:`Change fabrication settings, regenerate parts and sheets, and return the completed result.`,inputSchema:{type:`object`,properties:{mode:{type:`string`,enum:[`interlocking`,`stacked`]},targetWidth:{type:`number`,minimum:1,maximum:1e4},materialThickness:{type:`number`,minimum:.1,maximum:100},laserKerf:{type:`number`,minimum:0,maximum:5},slotFitTolerance:{type:`number`,minimum:-2,maximum:5},xSliceCount:{type:`integer`,minimum:1,maximum:100},ySliceCount:{type:`integer`,minimum:1,maximum:100},stackedAxis:{type:`string`,enum:[`X`,`Y`,`Z`]},alignmentPins:{type:`boolean`},alignmentPinType:{type:`string`,enum:[`dowel`,`material`]},pinDiameter:{type:`number`,minimum:.5,maximum:100},pinCount:{type:`integer`,minimum:1,maximum:5},sheetWidth:{type:`number`,minimum:20,maximum:5e3},sheetHeight:{type:`number`,minimum:20,maximum:5e3}},additionalProperties:!1},annotations:{readOnlyHint:!1,untrustedContentHint:!1},execute:e.configure},{name:`export_cut_sheets`,title:`Export cut sheets`,description:`Download files for a completed project. DXF is available with fabrication errors. For DXF, sheetCount + 1 exports unplaced parts without a bed-size limit; this is sheet 1 if no parts fit. SVG and ZIP require resolved fabrication errors. Pending regeneration or processing failures block all downloads.`,inputSchema:{type:`object`,properties:{format:{type:`string`,enum:[`zip`,`svg`,`dxf`]},sheet:{type:`integer`,minimum:1},labels:{type:`boolean`}},required:[`format`],additionalProperties:!1},annotations:{readOnlyHint:!1,untrustedContentHint:!1},execute:e.export}];for(let e of r)try{Promise.resolve(t.registerTool(e,{signal:n.signal})).catch(()=>{})}catch{}return()=>n.abort()}var mE='(function(){var e=Object.create,t=Object.defineProperty,n=Object.getOwnPropertyDescriptor,r=Object.getOwnPropertyNames,i=Object.getPrototypeOf,a=Object.prototype.hasOwnProperty,o=(e,t)=>()=>(t||(e((t={exports:{}}).exports,t),e=null),t.exports),s=(e,i,o,s)=>{if(i&&typeof i==`object`||typeof i==`function`)for(var c=r(i),l=0,u=c.length,d;l<u;l++)d=c[l],!a.call(e,d)&&d!==o&&t(e,d,{get:(e=>i[e]).bind(null,d),enumerable:!(s=n(i,d))||s.enumerable});return e},c=(n,r,a)=>(a=n==null?{}:e(i(n)),s(r||!n||!n.__esModule?t(a,`default`,{value:n,enumerable:!0}):a,n));function l(e){let t=[1/0,1/0,1/0],n=[-1/0,-1/0,-1/0];for(let r=0;r<e.length;r++){if(!Number.isFinite(e[r]))throw Error(`The mesh contains invalid vertex coordinates.`);let i=r%3;t[i]=Math.min(t[i],e[r]),n[i]=Math.max(n[i],e[r])}let r=n.map((e,n)=>e-t[n]);if(r.some(e=>e<=1e-9||!Number.isFinite(e)))throw Error(`The STL must have volume in all three dimensions.`);return{min:t,max:n,dimensions:r}}function u(e,t,n){let{min:r,dimensions:i}=l(e),a=Math.max(...i)*1e-7,o=new Map,s=new Map,c=new Uint32Array(e.length/3);for(let t=0,n=0;t<e.length;t+=3,n++){let i=[0,1,2].map(n=>Math.round((e[t+n]-r[n])/a)).join(`,`),s=o.get(i);s===void 0&&(s=o.size,o.set(i,s)),c[n]=s}for(let e=0;e<c.length;e+=3)if(!(c[e]===c[e+1]||c[e+1]===c[e+2]||c[e]===c[e+2]))for(let t=0;t<3;t++){let n=c[e+t],r=c[e+(t+1)%3],i=n<r?`${n}:${r}`:`${r}:${n}`;s.set(i,(s.get(i)||0)+1)}let u=0,d=0;for(let e of s.values())e===1&&u++,e>2&&d++;return{name:t,format:n,triangleCount:e.length/9,originalDimensions:i,boundaryEdges:u,nonManifoldEdges:d}}function d(e,t){if(e.byteLength>100*1024*1024)throw Error(`This STL is over 100 MB. Simplify the mesh before importing it.`);let n=new DataView(e),r=e.byteLength>=84?n.getUint32(80,!0):0,i=84+r*50,a=new TextDecoder().decode(e.slice(0,Math.min(256,e.byteLength))).trimStart();if(r>1e6&&i<=e.byteLength)throw Error(`Simplify this mesh to fewer than one million triangles.`);let o=r>0&&r<=1e6&&(i===e.byteLength||i<=e.byteLength&&(!/^solid\\b/i.test(a)||/[\\x00-\\x08\\x0e-\\x1f]/.test(a))),s,c;if(o){s=new Float64Array(r*9);for(let e=0;e<r;e++){let t=84+e*50+12;for(let r=0;r<9;r++)s[e*9+r]=n.getFloat32(t+r*4,!0)}c=`Binary STL`}else{let t=new TextDecoder().decode(e);if(!/^\\s*solid\\b/i.test(t))throw Error(`This is not a readable binary or ASCII STL file.`);let n=`([+-]?(?:\\\\d+\\\\.?\\\\d*|\\\\.\\\\d+)(?:[eE][+-]?\\\\d+)?)`,r=RegExp(`\\\\bvertex\\\\s+${n}\\\\s+${n}\\\\s+${n}`,`gi`),i=[],a;for(;a=r.exec(t);)if(i.push(Number(a[1]),Number(a[2]),Number(a[3])),i.length>9e6)throw Error(`Simplify this mesh to fewer than one million triangles.`);if(i.length<36||i.length%9!=0)throw Error(`The ASCII STL contains incomplete triangles.`);if(t.match(/\\bfacet\\s+normal\\b/gi)?.length!==i.length/9)throw Error(`The ASCII STL facet and vertex counts do not match.`);s=new Float64Array(i),c=`ASCII STL`}return{vertices:s,info:u(s,t,c)}}let f={ripple:`Ripple form`,sphere:`Ellipsoid`,torus:`Torus`,cube:`Calibration cube`};function p(e){let t=[],n=(e,n,r)=>t.push(...e,...n,...r);if(e===`cube`){let e=[[0,0,0],[100,0,0],[100,100,0],[0,100,0],[0,0,100],[100,0,100],[100,100,100],[0,100,100]];for(let[t,r,i,a]of[[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]])n(e[t],e[r],e[i]),n(e[t],e[i],e[a])}else if(e===`torus`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI*2;return[(76+30*Math.cos(r))*Math.cos(n),(76+30*Math.cos(r))*Math.sin(n),30*Math.sin(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}}else if(e===`sphere`){let e=(e,t)=>{let n=e/72*Math.PI*2,r=t/36*Math.PI;return[100*Math.sin(r)*Math.cos(n),80*Math.sin(r)*Math.sin(n),112*Math.cos(r)]};for(let t=0;t<72;t++)for(let r=0;r<36;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);r>0&&n(i,a,o),r<35&&n(i,o,s)}}else{let e=(e,t)=>{let n=e/80*Math.PI*2,r=t/44,i=37+49*Math.sin(Math.PI*r)**.75+12*Math.sin(r*Math.PI*2),a=1+.08*Math.sin(3*n-r*5);return[i*a*Math.cos(n),i*a*Math.sin(n)*.84,r*220]};for(let t=0;t<80;t++)for(let r=0;r<44;r++){let i=e(t,r),a=e(t+1,r),o=e(t+1,r+1),s=e(t,r+1);n(i,a,o),n(i,o,s)}for(let t=0;t<80;t++)n([0,0,0],e(t+1,0),e(t,0)),n([0,0,220],e(t,44),e(t+1,44))}let r=new Float64Array(t);return{vertices:r,info:u(r,f[e],`Sample model`)}}var m=c(o(((e,t)=>{(function(){"use strict";var e={};e.version=`6.4.2.2`,e.use_lines=!0,e.use_xyz=!1;var n=!1;t!==void 0&&t.exports?(t.exports=e,n=!0):(typeof define==`function`&&define.amd&&define(e),typeof document<`u`?window.ClipperLib=e:self.ClipperLib=e);var r;if(n){var i=`chrome`;r=`Netscape`}else{var i=navigator.userAgent.toString().toLowerCase();r=navigator.appName}var a={};i.indexOf(`chrome`)!=-1&&i.indexOf(`chromium`)==-1?a.chrome=1:a.chrome=0,i.indexOf(`chromium`)==-1?a.chromium=0:a.chromium=1,i.indexOf(`safari`)!=-1&&i.indexOf(`chrome`)==-1&&i.indexOf(`chromium`)==-1?a.safari=1:a.safari=0,i.indexOf(`firefox`)==-1?a.firefox=0:a.firefox=1,i.indexOf(`firefox/17`)==-1?a.firefox17=0:a.firefox17=1,i.indexOf(`firefox/15`)==-1?a.firefox15=0:a.firefox15=1,i.indexOf(`firefox/3`)==-1?a.firefox3=0:a.firefox3=1,i.indexOf(`opera`)==-1?a.opera=0:a.opera=1,i.indexOf(`msie 10`)==-1?a.msie10=0:a.msie10=1,i.indexOf(`msie 9`)==-1?a.msie9=0:a.msie9=1,i.indexOf(`msie 8`)==-1?a.msie8=0:a.msie8=1,i.indexOf(`msie 7`)==-1?a.msie7=0:a.msie7=1,i.indexOf(`msie `)==-1?a.msie=0:a.msie=1,e.biginteger_used=null;var o,s=!0;function c(t,n,r){e.biginteger_used=1,t!=null&&(typeof t==`number`&&n===void 0?this.fromInt(t):typeof t==`number`?this.fromNumber(t,n,r):n==null&&typeof t!=`string`?this.fromString(t,256):this.fromString(t,n))}function l(){return new c(null,void 0,void 0)}function u(e,t,n,r,i,a){for(;--a>=0;){var o=t*this[e++]+n[r]+i;i=Math.floor(o/67108864),n[r++]=o&67108863}return i}function d(e,t,n,r,i,a){for(var o=t&32767,s=t>>15;--a>=0;){var c=this[e]&32767,l=this[e++]>>15,u=s*c+l*o;c=o*c+((u&32767)<<15)+n[r]+(i&1073741823),i=(c>>>30)+(u>>>15)+s*l+(i>>>30),n[r++]=c&1073741823}return i}function f(e,t,n,r,i,a){for(var o=t&16383,s=t>>14;--a>=0;){var c=this[e]&16383,l=this[e++]>>14,u=s*c+l*o;c=o*c+((u&16383)<<14)+n[r]+i,i=(c>>28)+(u>>14)+s*l,n[r++]=c&268435455}return i}s&&r==`Microsoft Internet Explorer`?(c.prototype.am=d,o=30):s&&r!=`Netscape`?(c.prototype.am=u,o=26):(c.prototype.am=f,o=28),c.prototype.DB=o,c.prototype.DM=(1<<o)-1,c.prototype.DV=1<<o;var p=52;c.prototype.FV=2**p,c.prototype.F1=p-o,c.prototype.F2=2*o-p;var m=`0123456789abcdefghijklmnopqrstuvwxyz`,h=[],g=48,_;for(_=0;_<=9;++_)h[g++]=_;for(g=97,_=10;_<36;++_)h[g++]=_;for(g=65,_=10;_<36;++_)h[g++]=_;function v(e){return m.charAt(e)}function y(e,t){return h[e.charCodeAt(t)]??-1}function b(e){for(var t=this.t-1;t>=0;--t)e[t]=this[t];e.t=this.t,e.s=this.s}function x(e){this.t=1,this.s=e<0?-1:0,e>0?this[0]=e:e<-1?this[0]=e+this.DV:this.t=0}function S(e){var t=l();return t.fromInt(e),t}function C(e,t){var n;if(t==16)n=4;else if(t==8)n=3;else if(t==256)n=8;else if(t==2)n=1;else if(t==32)n=5;else if(t==4)n=2;else{this.fromRadix(e,t);return}this.t=0,this.s=0;for(var r=e.length,i=!1,a=0;--r>=0;){var o=n==8?e[r]&255:y(e,r);if(o<0){e.charAt(r)==`-`&&(i=!0);continue}i=!1,a==0?this[this.t++]=o:a+n>this.DB?(this[this.t-1]|=(o&(1<<this.DB-a)-1)<<a,this[this.t++]=o>>this.DB-a):this[this.t-1]|=o<<a,a+=n,a>=this.DB&&(a-=this.DB)}n==8&&e[0]&128&&(this.s=-1,a>0&&(this[this.t-1]|=(1<<this.DB-a)-1<<a)),this.clamp(),i&&c.ZERO.subTo(this,this)}function w(){for(var e=this.s&this.DM;this.t>0&&this[this.t-1]==e;)--this.t}function T(e){if(this.s<0)return`-`+this.negate().toString(e);var t;if(e==16)t=4;else if(e==8)t=3;else if(e==2)t=1;else if(e==32)t=5;else if(e==4)t=2;else return this.toRadix(e);var n=(1<<t)-1,r,i=!1,a=``,o=this.t,s=this.DB-o*this.DB%t;if(o-- >0)for(s<this.DB&&(r=this[o]>>s)>0&&(i=!0,a=v(r));o>=0;)s<t?(r=(this[o]&(1<<s)-1)<<t-s,r|=this[--o]>>(s+=this.DB-t)):(r=this[o]>>(s-=t)&n,s<=0&&(s+=this.DB,--o)),r>0&&(i=!0),i&&(a+=v(r));return i?a:`0`}function E(){var e=l();return c.ZERO.subTo(this,e),e}function D(){return this.s<0?this.negate():this}function O(e){var t=this.s-e.s;if(t!=0)return t;var n=this.t;if(t=n-e.t,t!=0)return this.s<0?-t:t;for(;--n>=0;)if((t=this[n]-e[n])!=0)return t;return 0}function k(e){var t=1,n;return(n=e>>>16)!=0&&(e=n,t+=16),(n=e>>8)!=0&&(e=n,t+=8),(n=e>>4)!=0&&(e=n,t+=4),(n=e>>2)!=0&&(e=n,t+=2),(n=e>>1)!=0&&(e=n,t+=1),t}function A(){return this.t<=0?0:this.DB*(this.t-1)+k(this[this.t-1]^this.s&this.DM)}function j(e,t){var n;for(n=this.t-1;n>=0;--n)t[n+e]=this[n];for(n=e-1;n>=0;--n)t[n]=0;t.t=this.t+e,t.s=this.s}function M(e,t){for(var n=e;n<this.t;++n)t[n-e]=this[n];t.t=Math.max(this.t-e,0),t.s=this.s}function N(e,t){var n=e%this.DB,r=this.DB-n,i=(1<<r)-1,a=Math.floor(e/this.DB),o=this.s<<n&this.DM,s;for(s=this.t-1;s>=0;--s)t[s+a+1]=this[s]>>r|o,o=(this[s]&i)<<n;for(s=a-1;s>=0;--s)t[s]=0;t[a]=o,t.t=this.t+a+1,t.s=this.s,t.clamp()}function P(e,t){t.s=this.s;var n=Math.floor(e/this.DB);if(n>=this.t){t.t=0;return}var r=e%this.DB,i=this.DB-r,a=(1<<r)-1;t[0]=this[n]>>r;for(var o=n+1;o<this.t;++o)t[o-n-1]|=(this[o]&a)<<i,t[o-n]=this[o]>>r;r>0&&(t[this.t-n-1]|=(this.s&a)<<i),t.t=this.t-n,t.clamp()}function F(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]-e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r-=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r-=e[n],t[n++]=r&this.DM,r>>=this.DB;r-=e.s}t.s=r<0?-1:0,r<-1?t[n++]=this.DV+r:r>0&&(t[n++]=r),t.t=n,t.clamp()}function I(e,t){var n=this.abs(),r=e.abs(),i=n.t;for(t.t=i+r.t;--i>=0;)t[i]=0;for(i=0;i<r.t;++i)t[i+n.t]=n.am(0,r[i],t,i,0,n.t);t.s=0,t.clamp(),this.s!=e.s&&c.ZERO.subTo(t,t)}function L(e){for(var t=this.abs(),n=e.t=2*t.t;--n>=0;)e[n]=0;for(n=0;n<t.t-1;++n){var r=t.am(n,t[n],e,2*n,0,1);(e[n+t.t]+=t.am(n+1,2*t[n],e,2*n+1,r,t.t-n-1))>=t.DV&&(e[n+t.t]-=t.DV,e[n+t.t+1]=1)}e.t>0&&(e[e.t-1]+=t.am(n,t[n],e,2*n,0,1)),e.s=0,e.clamp()}function R(e,t,n){var r=e.abs();if(!(r.t<=0)){var i=this.abs();if(i.t<r.t){t?.fromInt(0),n!=null&&this.copyTo(n);return}n??=l();var a=l(),o=this.s,s=e.s,u=this.DB-k(r[r.t-1]);u>0?(r.lShiftTo(u,a),i.lShiftTo(u,n)):(r.copyTo(a),i.copyTo(n));var d=a.t,f=a[d-1];if(f!=0){var p=f*(1<<this.F1)+(d>1?a[d-2]>>this.F2:0),m=this.FV/p,h=(1<<this.F1)/p,g=1<<this.F2,_=n.t,v=_-d,y=t??l();for(a.dlShiftTo(v,y),n.compareTo(y)>=0&&(n[n.t++]=1,n.subTo(y,n)),c.ONE.dlShiftTo(d,y),y.subTo(a,a);a.t<d;)a[a.t++]=0;for(;--v>=0;){var b=n[--_]==f?this.DM:Math.floor(n[_]*m+(n[_-1]+g)*h);if((n[_]+=a.am(0,b,n,v,0,d))<b)for(a.dlShiftTo(v,y),n.subTo(y,n);n[_]<--b;)n.subTo(y,n)}t!=null&&(n.drShiftTo(d,t),o!=s&&c.ZERO.subTo(t,t)),n.t=d,n.clamp(),u>0&&n.rShiftTo(u,n),o<0&&c.ZERO.subTo(n,n)}}}function z(e){var t=l();return this.abs().divRemTo(e,null,t),this.s<0&&t.compareTo(c.ZERO)>0&&e.subTo(t,t),t}function B(e){this.m=e}function V(e){return e.s<0||e.compareTo(this.m)>=0?e.mod(this.m):e}function H(e){return e}function U(e){e.divRemTo(this.m,null,e)}function W(e,t,n){e.multiplyTo(t,n),this.reduce(n)}function G(e,t){e.squareTo(t),this.reduce(t)}B.prototype.convert=V,B.prototype.revert=H,B.prototype.reduce=U,B.prototype.mulTo=W,B.prototype.sqrTo=G;function ee(){if(this.t<1)return 0;var e=this[0];if(!(e&1))return 0;var t=e&3;return t=t*(2-(e&15)*t)&15,t=t*(2-(e&255)*t)&255,t=t*(2-((e&65535)*t&65535))&65535,t=t*(2-e*t%this.DV)%this.DV,t>0?this.DV-t:-t}function K(e){this.m=e,this.mp=e.invDigit(),this.mpl=this.mp&32767,this.mph=this.mp>>15,this.um=(1<<e.DB-15)-1,this.mt2=2*e.t}function te(e){var t=l();return e.abs().dlShiftTo(this.m.t,t),t.divRemTo(this.m,null,t),e.s<0&&t.compareTo(c.ZERO)>0&&this.m.subTo(t,t),t}function ne(e){var t=l();return e.copyTo(t),this.reduce(t),t}function re(e){for(;e.t<=this.mt2;)e[e.t++]=0;for(var t=0;t<this.m.t;++t){var n=e[t]&32767,r=n*this.mpl+((n*this.mph+(e[t]>>15)*this.mpl&this.um)<<15)&e.DM;for(n=t+this.m.t,e[n]+=this.m.am(0,r,e,t,0,this.m.t);e[n]>=e.DV;)e[n]-=e.DV,e[++n]++}e.clamp(),e.drShiftTo(this.m.t,e),e.compareTo(this.m)>=0&&e.subTo(this.m,e)}function ie(e,t){e.squareTo(t),this.reduce(t)}function ae(e,t,n){e.multiplyTo(t,n),this.reduce(n)}K.prototype.convert=te,K.prototype.revert=ne,K.prototype.reduce=re,K.prototype.mulTo=ae,K.prototype.sqrTo=ie;function oe(){return(this.t>0?this[0]&1:this.s)==0}function se(e,t){if(e>4294967295||e<1)return c.ONE;var n=l(),r=l(),i=t.convert(this),a=k(e)-1;for(i.copyTo(n);--a>=0;)if(t.sqrTo(n,r),(e&1<<a)>0)t.mulTo(r,i,n);else{var o=n;n=r,r=o}return t.revert(n)}function ce(e,t){var n=e<256||t.isEven()?new B(t):new K(t);return this.exp(e,n)}c.prototype.copyTo=b,c.prototype.fromInt=x,c.prototype.fromString=C,c.prototype.clamp=w,c.prototype.dlShiftTo=j,c.prototype.drShiftTo=M,c.prototype.lShiftTo=N,c.prototype.rShiftTo=P,c.prototype.subTo=F,c.prototype.multiplyTo=I,c.prototype.squareTo=L,c.prototype.divRemTo=R,c.prototype.invDigit=ee,c.prototype.isEven=oe,c.prototype.exp=se,c.prototype.toString=T,c.prototype.negate=E,c.prototype.abs=D,c.prototype.compareTo=O,c.prototype.bitLength=A,c.prototype.mod=z,c.prototype.modPowInt=ce,c.ZERO=S(0),c.ONE=S(1);function le(){var e=l();return this.copyTo(e),e}function ue(){if(this.s<0){if(this.t==1)return this[0]-this.DV;if(this.t==0)return-1}else if(this.t==1)return this[0];else if(this.t==0)return 0;return(this[1]&(1<<32-this.DB)-1)<<this.DB|this[0]}function de(){return this.t==0?this.s:this[0]<<24>>24}function fe(){return this.t==0?this.s:this[0]<<16>>16}function pe(e){return Math.floor(Math.LN2*this.DB/Math.log(e))}function me(){return this.s<0?-1:this.t<=0||this.t==1&&this[0]<=0?0:1}function he(e){if(e??=10,this.signum()==0||e<2||e>36)return`0`;var t=this.chunkSize(e),n=e**+t,r=S(n),i=l(),a=l(),o=``;for(this.divRemTo(r,i,a);i.signum()>0;)o=(n+a.intValue()).toString(e).substr(1)+o,i.divRemTo(r,i,a);return a.intValue().toString(e)+o}function ge(e,t){this.fromInt(0),t??=10;for(var n=this.chunkSize(t),r=t**+n,i=!1,a=0,o=0,s=0;s<e.length;++s){var l=y(e,s);if(l<0){e.charAt(s)==`-`&&this.signum()==0&&(i=!0);continue}o=t*o+l,++a>=n&&(this.dMultiply(r),this.dAddOffset(o,0),a=0,o=0)}a>0&&(this.dMultiply(t**+a),this.dAddOffset(o,0)),i&&c.ZERO.subTo(this,this)}function _e(e,t,n){if(typeof t==`number`)if(e<2)this.fromInt(1);else for(this.fromNumber(e,n),this.testBit(e-1)||this.bitwiseTo(c.ONE.shiftLeft(e-1),q,this),this.isEven()&&this.dAddOffset(1,0);!this.isProbablePrime(t);)this.dAddOffset(2,0),this.bitLength()>e&&this.subTo(c.ONE.shiftLeft(e-1),this);else{var r=[],i=e&7;r.length=(e>>3)+1,t.nextBytes(r),i>0?r[0]&=(1<<i)-1:r[0]=0,this.fromString(r,256)}}function ve(){var e=this.t,t=[];t[0]=this.s;var n=this.DB-e*this.DB%8,r,i=0;if(e-- >0)for(n<this.DB&&(r=this[e]>>n)!=(this.s&this.DM)>>n&&(t[i++]=r|this.s<<this.DB-n);e>=0;)n<8?(r=(this[e]&(1<<n)-1)<<8-n,r|=this[--e]>>(n+=this.DB-8)):(r=this[e]>>(n-=8)&255,n<=0&&(n+=this.DB,--e)),r&128&&(r|=-256),i==0&&(this.s&128)!=(r&128)&&++i,(i>0||r!=this.s)&&(t[i++]=r);return t}function ye(e){return this.compareTo(e)==0}function be(e){return this.compareTo(e)<0?this:e}function xe(e){return this.compareTo(e)>0?this:e}function Se(e,t,n){var r,i,a=Math.min(e.t,this.t);for(r=0;r<a;++r)n[r]=t(this[r],e[r]);if(e.t<this.t){for(i=e.s&this.DM,r=a;r<this.t;++r)n[r]=t(this[r],i);n.t=this.t}else{for(i=this.s&this.DM,r=a;r<e.t;++r)n[r]=t(i,e[r]);n.t=e.t}n.s=t(this.s,e.s),n.clamp()}function Ce(e,t){return e&t}function we(e){var t=l();return this.bitwiseTo(e,Ce,t),t}function q(e,t){return e|t}function Te(e){var t=l();return this.bitwiseTo(e,q,t),t}function J(e,t){return e^t}function Ee(e){var t=l();return this.bitwiseTo(e,J,t),t}function Y(e,t){return e&~t}function De(e){var t=l();return this.bitwiseTo(e,Y,t),t}function Oe(){for(var e=l(),t=0;t<this.t;++t)e[t]=this.DM&~this[t];return e.t=this.t,e.s=~this.s,e}function ke(e){var t=l();return e<0?this.rShiftTo(-e,t):this.lShiftTo(e,t),t}function Ae(e){var t=l();return e<0?this.lShiftTo(-e,t):this.rShiftTo(e,t),t}function je(e){if(e==0)return-1;var t=0;return e&65535||(e>>=16,t+=16),e&255||(e>>=8,t+=8),e&15||(e>>=4,t+=4),e&3||(e>>=2,t+=2),e&1||++t,t}function Me(){for(var e=0;e<this.t;++e)if(this[e]!=0)return e*this.DB+je(this[e]);return this.s<0?this.t*this.DB:-1}function Ne(e){for(var t=0;e!=0;)e&=e-1,++t;return t}function Pe(){for(var e=0,t=this.s&this.DM,n=0;n<this.t;++n)e+=Ne(this[n]^t);return e}function Fe(e){var t=Math.floor(e/this.DB);return t>=this.t?this.s!=0:(this[t]&1<<e%this.DB)!=0}function Ie(e,t){var n=c.ONE.shiftLeft(e);return this.bitwiseTo(n,t,n),n}function Le(e){return this.changeBit(e,q)}function Re(e){return this.changeBit(e,Y)}function ze(e){return this.changeBit(e,J)}function Be(e,t){for(var n=0,r=0,i=Math.min(e.t,this.t);n<i;)r+=this[n]+e[n],t[n++]=r&this.DM,r>>=this.DB;if(e.t<this.t){for(r+=e.s;n<this.t;)r+=this[n],t[n++]=r&this.DM,r>>=this.DB;r+=this.s}else{for(r+=this.s;n<e.t;)r+=e[n],t[n++]=r&this.DM,r>>=this.DB;r+=e.s}t.s=r<0?-1:0,r>0?t[n++]=r:r<-1&&(t[n++]=this.DV+r),t.t=n,t.clamp()}function Ve(e){var t=l();return this.addTo(e,t),t}function He(e){var t=l();return this.subTo(e,t),t}function Ue(e){var t=l();return this.multiplyTo(e,t),t}function We(){var e=l();return this.squareTo(e),e}function Ge(e){var t=l();return this.divRemTo(e,t,null),t}function Ke(e){var t=l();return this.divRemTo(e,null,t),t}function qe(e){var t=l(),n=l();return this.divRemTo(e,t,n),[t,n]}function Je(e){this[this.t]=this.am(0,e-1,this,0,0,this.t),++this.t,this.clamp()}function Ye(e,t){if(e!=0){for(;this.t<=t;)this[this.t++]=0;for(this[t]+=e;this[t]>=this.DV;)this[t]-=this.DV,++t>=this.t&&(this[this.t++]=0),++this[t]}}function X(){}function Xe(e){return e}function Ze(e,t,n){e.multiplyTo(t,n)}function Qe(e,t){e.squareTo(t)}X.prototype.convert=Xe,X.prototype.revert=Xe,X.prototype.mulTo=Ze,X.prototype.sqrTo=Qe;function $e(e){return this.exp(e,new X)}function et(e,t,n){var r=Math.min(this.t+e.t,t);for(n.s=0,n.t=r;r>0;)n[--r]=0;var i;for(i=n.t-this.t;r<i;++r)n[r+this.t]=this.am(0,e[r],n,r,0,this.t);for(i=Math.min(e.t,t);r<i;++r)this.am(0,e[r],n,r,0,t-r);n.clamp()}function tt(e,t,n){--t;var r=n.t=this.t+e.t-t;for(n.s=0;--r>=0;)n[r]=0;for(r=Math.max(t-this.t,0);r<e.t;++r)n[this.t+r-t]=this.am(t-r,e[r],n,0,0,this.t+r-t);n.clamp(),n.drShiftTo(1,n)}function Z(e){this.r2=l(),this.q3=l(),c.ONE.dlShiftTo(2*e.t,this.r2),this.mu=this.r2.divide(e),this.m=e}function nt(e){if(e.s<0||e.t>2*this.m.t)return e.mod(this.m);if(e.compareTo(this.m)<0)return e;var t=l();return e.copyTo(t),this.reduce(t),t}function rt(e){return e}function it(e){for(e.drShiftTo(this.m.t-1,this.r2),e.t>this.m.t+1&&(e.t=this.m.t+1,e.clamp()),this.mu.multiplyUpperTo(this.r2,this.m.t+1,this.q3),this.m.multiplyLowerTo(this.q3,this.m.t+1,this.r2);e.compareTo(this.r2)<0;)e.dAddOffset(1,this.m.t+1);for(e.subTo(this.r2,e);e.compareTo(this.m)>=0;)e.subTo(this.m,e)}function at(e,t){e.squareTo(t),this.reduce(t)}function ot(e,t,n){e.multiplyTo(t,n),this.reduce(n)}Z.prototype.convert=nt,Z.prototype.revert=rt,Z.prototype.reduce=it,Z.prototype.mulTo=ot,Z.prototype.sqrTo=at;function st(e,t){var n=e.bitLength(),r,i=S(1),a;if(n<=0)return i;r=n<18?1:n<48?3:n<144?4:n<768?5:6,a=n<8?new B(t):t.isEven()?new Z(t):new K(t);var o=[],s=3,c=r-1,u=(1<<r)-1;if(o[1]=a.convert(this),r>1){var d=l();for(a.sqrTo(o[1],d);s<=u;)o[s]=l(),a.mulTo(d,o[s-2],o[s]),s+=2}var f=e.t-1,p,m=!0,h=l(),g;for(n=k(e[f])-1;f>=0;){for(n>=c?p=e[f]>>n-c&u:(p=(e[f]&(1<<n+1)-1)<<c-n,f>0&&(p|=e[f-1]>>this.DB+n-c)),s=r;!(p&1);)p>>=1,--s;if((n-=s)<0&&(n+=this.DB,--f),m)o[p].copyTo(i),m=!1;else{for(;s>1;)a.sqrTo(i,h),a.sqrTo(h,i),s-=2;s>0?a.sqrTo(i,h):(g=i,i=h,h=g),a.mulTo(h,o[p],i)}for(;f>=0&&!(e[f]&1<<n);)a.sqrTo(i,h),g=i,i=h,h=g,--n<0&&(n=this.DB-1,--f)}return a.revert(i)}function ct(e){var t=this.s<0?this.negate():this.clone(),n=e.s<0?e.negate():e.clone();if(t.compareTo(n)<0){var r=t;t=n,n=r}var i=t.getLowestSetBit(),a=n.getLowestSetBit();if(a<0)return t;for(i<a&&(a=i),a>0&&(t.rShiftTo(a,t),n.rShiftTo(a,n));t.signum()>0;)(i=t.getLowestSetBit())>0&&t.rShiftTo(i,t),(i=n.getLowestSetBit())>0&&n.rShiftTo(i,n),t.compareTo(n)>=0?(t.subTo(n,t),t.rShiftTo(1,t)):(n.subTo(t,n),n.rShiftTo(1,n));return a>0&&n.lShiftTo(a,n),n}function lt(e){if(e<=0)return 0;var t=this.DV%e,n=this.s<0?e-1:0;if(this.t>0)if(t==0)n=this[0]%e;else for(var r=this.t-1;r>=0;--r)n=(t*n+this[r])%e;return n}function ut(e){var t=e.isEven();if(this.isEven()&&t||e.signum()==0)return c.ZERO;for(var n=e.clone(),r=this.clone(),i=S(1),a=S(0),o=S(0),s=S(1);n.signum()!=0;){for(;n.isEven();)n.rShiftTo(1,n),t?((!i.isEven()||!a.isEven())&&(i.addTo(this,i),a.subTo(e,a)),i.rShiftTo(1,i)):a.isEven()||a.subTo(e,a),a.rShiftTo(1,a);for(;r.isEven();)r.rShiftTo(1,r),t?((!o.isEven()||!s.isEven())&&(o.addTo(this,o),s.subTo(e,s)),o.rShiftTo(1,o)):s.isEven()||s.subTo(e,s),s.rShiftTo(1,s);n.compareTo(r)>=0?(n.subTo(r,n),t&&i.subTo(o,i),a.subTo(s,a)):(r.subTo(n,r),t&&o.subTo(i,o),s.subTo(a,s))}if(r.compareTo(c.ONE)!=0)return c.ZERO;if(s.compareTo(e)>=0)return s.subtract(e);if(s.signum()<0)s.addTo(e,s);else return s;return s.signum()<0?s.add(e):s}var Q=[2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997],dt=(1<<26)/Q[Q.length-1];function ft(e){var t,n=this.abs();if(n.t==1&&n[0]<=Q[Q.length-1]){for(t=0;t<Q.length;++t)if(n[0]==Q[t])return!0;return!1}if(n.isEven())return!1;for(t=1;t<Q.length;){for(var r=Q[t],i=t+1;i<Q.length&&r<dt;)r*=Q[i++];for(r=n.modInt(r);t<i;)if(r%Q[t++]==0)return!1}return n.millerRabin(e)}function pt(e){var t=this.subtract(c.ONE),n=t.getLowestSetBit();if(n<=0)return!1;var r=t.shiftRight(n);e=e+1>>1,e>Q.length&&(e=Q.length);for(var i=l(),a=0;a<e;++a){i.fromInt(Q[Math.floor(Math.random()*Q.length)]);var o=i.modPow(r,this);if(o.compareTo(c.ONE)!=0&&o.compareTo(t)!=0){for(var s=1;s++<n&&o.compareTo(t)!=0;)if(o=o.modPowInt(2,this),o.compareTo(c.ONE)==0)return!1;if(o.compareTo(t)!=0)return!1}}return!0}c.prototype.chunkSize=pe,c.prototype.toRadix=he,c.prototype.fromRadix=ge,c.prototype.fromNumber=_e,c.prototype.bitwiseTo=Se,c.prototype.changeBit=Ie,c.prototype.addTo=Be,c.prototype.dMultiply=Je,c.prototype.dAddOffset=Ye,c.prototype.multiplyLowerTo=et,c.prototype.multiplyUpperTo=tt,c.prototype.modInt=lt,c.prototype.millerRabin=pt,c.prototype.clone=le,c.prototype.intValue=ue,c.prototype.byteValue=de,c.prototype.shortValue=fe,c.prototype.signum=me,c.prototype.toByteArray=ve,c.prototype.equals=ye,c.prototype.min=be,c.prototype.max=xe,c.prototype.and=we,c.prototype.or=Te,c.prototype.xor=Ee,c.prototype.andNot=De,c.prototype.not=Oe,c.prototype.shiftLeft=ke,c.prototype.shiftRight=Ae,c.prototype.getLowestSetBit=Me,c.prototype.bitCount=Pe,c.prototype.testBit=Fe,c.prototype.setBit=Le,c.prototype.clearBit=Re,c.prototype.flipBit=ze,c.prototype.add=Ve,c.prototype.subtract=He,c.prototype.multiply=Ue,c.prototype.divide=Ge,c.prototype.remainder=Ke,c.prototype.divideAndRemainder=qe,c.prototype.modPow=st,c.prototype.modInverse=ut,c.prototype.pow=$e,c.prototype.gcd=ct,c.prototype.isProbablePrime=ft,c.prototype.square=We;var $=c;$.prototype.IsNegative=function(){return this.compareTo($.ZERO)==-1},$.op_Equality=function(e,t){return e.compareTo(t)==0},$.op_Inequality=function(e,t){return e.compareTo(t)!=0},$.op_GreaterThan=function(e,t){return e.compareTo(t)>0},$.op_LessThan=function(e,t){return e.compareTo(t)<0},$.op_Addition=function(e,t){return new $(e,void 0,void 0).add(new $(t,void 0,void 0))},$.op_Subtraction=function(e,t){return new $(e,void 0,void 0).subtract(new $(t,void 0,void 0))},$.Int128Mul=function(e,t){return new $(e,void 0,void 0).multiply(new $(t,void 0,void 0))},$.op_Division=function(e,t){return e.divide(t)},$.prototype.ToDouble=function(){return parseFloat(this.toString())};var mt=function(e,t){var n;if(Object.getOwnPropertyNames===void 0){for(n in t.prototype)(e.prototype[n]===void 0||e.prototype[n]===Object.prototype[n])&&(e.prototype[n]=t.prototype[n]);for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}else{for(var r=Object.getOwnPropertyNames(t.prototype),i=0;i<r.length;i++)Object.getOwnPropertyDescriptor(e.prototype,r[i])===void 0&&Object.defineProperty(e.prototype,r[i],Object.getOwnPropertyDescriptor(t.prototype,r[i]));for(n in t)e[n]===void 0&&(e[n]=t[n]);e.$baseCtor=t}};e.Path=function(){return[]},e.Path.prototype.push=Array.prototype.push,e.Paths=function(){return[]},e.Paths.prototype.push=Array.prototype.push,e.DoublePoint=function(){var e=arguments;this.X=0,this.Y=0,e.length===1?(this.X=e[0].X,this.Y=e[0].Y):e.length===2&&(this.X=e[0],this.Y=e[1])},e.DoublePoint0=function(){this.X=0,this.Y=0},e.DoublePoint0.prototype=e.DoublePoint.prototype,e.DoublePoint1=function(e){this.X=e.X,this.Y=e.Y},e.DoublePoint1.prototype=e.DoublePoint.prototype,e.DoublePoint2=function(e,t){this.X=e,this.Y=t},e.DoublePoint2.prototype=e.DoublePoint.prototype,e.PolyNode=function(){this.m_Parent=null,this.m_polygon=new e.Path,this.m_Index=0,this.m_jointype=0,this.m_endtype=0,this.m_Childs=[],this.IsOpen=!1},e.PolyNode.prototype.IsHoleNode=function(){for(var e=!0,t=this.m_Parent;t!==null;)e=!e,t=t.m_Parent;return e},e.PolyNode.prototype.ChildCount=function(){return this.m_Childs.length},e.PolyNode.prototype.Contour=function(){return this.m_polygon},e.PolyNode.prototype.AddChild=function(e){var t=this.m_Childs.length;this.m_Childs.push(e),e.m_Parent=this,e.m_Index=t},e.PolyNode.prototype.GetNext=function(){return this.m_Childs.length>0?this.m_Childs[0]:this.GetNextSiblingUp()},e.PolyNode.prototype.GetNextSiblingUp=function(){return this.m_Parent===null?null:this.m_Index===this.m_Parent.m_Childs.length-1?this.m_Parent.GetNextSiblingUp():this.m_Parent.m_Childs[this.m_Index+1]},e.PolyNode.prototype.Childs=function(){return this.m_Childs},e.PolyNode.prototype.Parent=function(){return this.m_Parent},e.PolyNode.prototype.IsHole=function(){return this.IsHoleNode()},e.PolyTree=function(){this.m_AllPolys=[],e.PolyNode.call(this)},e.PolyTree.prototype.Clear=function(){for(var e=0,t=this.m_AllPolys.length;e<t;e++)this.m_AllPolys[e]=null;this.m_AllPolys.length=0,this.m_Childs.length=0},e.PolyTree.prototype.GetFirst=function(){return this.m_Childs.length>0?this.m_Childs[0]:null},e.PolyTree.prototype.Total=function(){var e=this.m_AllPolys.length;return e>0&&this.m_Childs[0]!==this.m_AllPolys[0]&&e--,e},mt(e.PolyTree,e.PolyNode),e.Math_Abs_Int64=e.Math_Abs_Int32=e.Math_Abs_Double=function(e){return Math.abs(e)},e.Math_Max_Int32_Int32=function(e,t){return Math.max(e,t)},a.msie||a.opera||a.safari?e.Cast_Int32=function(e){return e|0}:e.Cast_Int32=function(e){return~~e},Number.toInteger===void 0&&(Number.toInteger=null),a.chrome?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):~~e}:a.firefox&&typeof Number.toInteger==`function`?e.Cast_Int64=function(e){return Number.toInteger(e)}:a.msie7||a.msie8?e.Cast_Int64=function(e){return parseInt(e,10)}:a.msie?e.Cast_Int64=function(e){return e<-2147483648||e>2147483647?e<0?Math.ceil(e):Math.floor(e):e|0}:e.Cast_Int64=function(e){return e<0?Math.ceil(e):Math.floor(e)},e.Clear=function(e){e.length=0},e.PI=3.141592653589793,e.PI2=2*3.141592653589793,e.IntPoint=function(){var t=arguments,n=t.length;if(this.X=0,this.Y=0,e.use_xyz)if(this.Z=0,n===3)this.X=t[0],this.Y=t[1],this.Z=t[2];else if(n===2)this.X=t[0],this.Y=t[1],this.Z=0;else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y),this.Z=0}else{var i=t[0];i.Z===void 0&&(i.Z=0),this.X=i.X,this.Y=i.Y,this.Z=i.Z}else this.X=0,this.Y=0,this.Z=0;else if(n===2)this.X=t[0],this.Y=t[1];else if(n===1)if(t[0]instanceof e.DoublePoint){var r=t[0];this.X=e.Clipper.Round(r.X),this.Y=e.Clipper.Round(r.Y)}else{var i=t[0];this.X=i.X,this.Y=i.Y}else this.X=0,this.Y=0},e.IntPoint.op_Equality=function(e,t){return e.X===t.X&&e.Y===t.Y},e.IntPoint.op_Inequality=function(e,t){return e.X!==t.X||e.Y!==t.Y},e.IntPoint0=function(){this.X=0,this.Y=0,e.use_xyz&&(this.Z=0)},e.IntPoint0.prototype=e.IntPoint.prototype,e.IntPoint1=function(t){this.X=t.X,this.Y=t.Y,e.use_xyz&&(t.Z===void 0?this.Z=0:this.Z=t.Z)},e.IntPoint1.prototype=e.IntPoint.prototype,e.IntPoint1dp=function(t){this.X=e.Clipper.Round(t.X),this.Y=e.Clipper.Round(t.Y),e.use_xyz&&(this.Z=0)},e.IntPoint1dp.prototype=e.IntPoint.prototype,e.IntPoint2=function(t,n,r){this.X=t,this.Y=n,e.use_xyz&&(r===void 0?this.Z=0:this.Z=r)},e.IntPoint2.prototype=e.IntPoint.prototype,e.IntRect=function(){var e=arguments,t=e.length;if(t===4)this.left=e[0],this.top=e[1],this.right=e[2],this.bottom=e[3];else if(t===1){var n=e[0];this.left=n.left,this.top=n.top,this.right=n.right,this.bottom=n.bottom}else this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0=function(){this.left=0,this.top=0,this.right=0,this.bottom=0},e.IntRect0.prototype=e.IntRect.prototype,e.IntRect1=function(e){this.left=e.left,this.top=e.top,this.right=e.right,this.bottom=e.bottom},e.IntRect1.prototype=e.IntRect.prototype,e.IntRect4=function(e,t,n,r){this.left=e,this.top=t,this.right=n,this.bottom=r},e.IntRect4.prototype=e.IntRect.prototype,e.ClipType={ctIntersection:0,ctUnion:1,ctDifference:2,ctXor:3},e.PolyType={ptSubject:0,ptClip:1},e.PolyFillType={pftEvenOdd:0,pftNonZero:1,pftPositive:2,pftNegative:3},e.JoinType={jtSquare:0,jtRound:1,jtMiter:2},e.EndType={etOpenSquare:0,etOpenRound:1,etOpenButt:2,etClosedLine:3,etClosedPolygon:4},e.EdgeSide={esLeft:0,esRight:1},e.Direction={dRightToLeft:0,dLeftToRight:1},e.TEdge=function(){this.Bot=new e.IntPoint0,this.Curr=new e.IntPoint0,this.Top=new e.IntPoint0,this.Delta=new e.IntPoint0,this.Dx=0,this.PolyTyp=e.PolyType.ptSubject,this.Side=e.EdgeSide.esLeft,this.WindDelta=0,this.WindCnt=0,this.WindCnt2=0,this.OutIdx=0,this.Next=null,this.Prev=null,this.NextInLML=null,this.NextInAEL=null,this.PrevInAEL=null,this.NextInSEL=null,this.PrevInSEL=null},e.IntersectNode=function(){this.Edge1=null,this.Edge2=null,this.Pt=new e.IntPoint0},e.MyIntersectNodeSort=function(){},e.MyIntersectNodeSort.Compare=function(e,t){var n=t.Pt.Y-e.Pt.Y;return n>0?1:n<0?-1:0},e.LocalMinima=function(){this.Y=0,this.LeftBound=null,this.RightBound=null,this.Next=null},e.Scanbeam=function(){this.Y=0,this.Next=null},e.Maxima=function(){this.X=0,this.Next=null,this.Prev=null},e.OutRec=function(){this.Idx=0,this.IsHole=!1,this.IsOpen=!1,this.FirstLeft=null,this.Pts=null,this.BottomPt=null,this.PolyNode=null},e.OutPt=function(){this.Idx=0,this.Pt=new e.IntPoint0,this.Next=null,this.Prev=null},e.Join=function(){this.OutPt1=null,this.OutPt2=null,this.OffPt=new e.IntPoint0},e.ClipperBase=function(){this.m_MinimaList=null,this.m_CurrentLM=null,this.m_edges=[],this.m_UseFullRange=!1,this.m_HasOpenPaths=!1,this.PreserveCollinear=!1,this.m_Scanbeam=null,this.m_PolyOuts=null,this.m_ActiveEdges=null},e.ClipperBase.horizontal=-9007199254740992,e.ClipperBase.Skip=-2,e.ClipperBase.Unassigned=-1,e.ClipperBase.tolerance=1e-20,e.ClipperBase.loRange=47453132,e.ClipperBase.hiRange=0xfffffffffffff,e.ClipperBase.near_zero=function(t){return t>-e.ClipperBase.tolerance&&t<e.ClipperBase.tolerance},e.ClipperBase.IsHorizontal=function(e){return e.Delta.Y===0},e.ClipperBase.prototype.PointIsVertex=function(t,n){var r=n;do{if(e.IntPoint.op_Equality(r.Pt,t))return!0;r=r.Next}while(r!==n);return!1},e.ClipperBase.prototype.PointOnLineSegment=function(e,t,n,r){return r?e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&$.op_Equality($.Int128Mul(e.X-t.X,n.Y-t.Y),$.Int128Mul(n.X-t.X,e.Y-t.Y)):e.X===t.X&&e.Y===t.Y||e.X===n.X&&e.Y===n.Y||e.X>t.X==e.X<n.X&&e.Y>t.Y==e.Y<n.Y&&(e.X-t.X)*(n.Y-t.Y)===(n.X-t.X)*(e.Y-t.Y)},e.ClipperBase.prototype.PointOnPolygon=function(e,t,n){for(var r=t;;){if(this.PointOnLineSegment(e,r.Pt,r.Next.Pt,n))return!0;if(r=r.Next,r===t)break}return!1},e.ClipperBase.prototype.SlopesEqual=e.ClipperBase.SlopesEqual=function(){var t=arguments,n=t.length,r,i,a,o,s,c,l;return n===3?(r=t[0],i=t[1],l=t[2],l?$.op_Equality($.Int128Mul(r.Delta.Y,i.Delta.X),$.Int128Mul(r.Delta.X,i.Delta.Y)):e.Cast_Int64(r.Delta.Y*i.Delta.X)===e.Cast_Int64(r.Delta.X*i.Delta.Y)):n===4?(a=t[0],o=t[1],s=t[2],l=t[3],l?$.op_Equality($.Int128Mul(a.Y-o.Y,o.X-s.X),$.Int128Mul(a.X-o.X,o.Y-s.Y)):e.Cast_Int64((a.Y-o.Y)*(o.X-s.X))-e.Cast_Int64((a.X-o.X)*(o.Y-s.Y))===0):(a=t[0],o=t[1],s=t[2],c=t[3],l=t[4],l?$.op_Equality($.Int128Mul(a.Y-o.Y,s.X-c.X),$.Int128Mul(a.X-o.X,s.Y-c.Y)):e.Cast_Int64((a.Y-o.Y)*(s.X-c.X))-e.Cast_Int64((a.X-o.X)*(s.Y-c.Y))===0)},e.ClipperBase.SlopesEqual3=function(t,n,r){return r?$.op_Equality($.Int128Mul(t.Delta.Y,n.Delta.X),$.Int128Mul(t.Delta.X,n.Delta.Y)):e.Cast_Int64(t.Delta.Y*n.Delta.X)===e.Cast_Int64(t.Delta.X*n.Delta.Y)},e.ClipperBase.SlopesEqual4=function(t,n,r,i){return i?$.op_Equality($.Int128Mul(t.Y-n.Y,n.X-r.X),$.Int128Mul(t.X-n.X,n.Y-r.Y)):e.Cast_Int64((t.Y-n.Y)*(n.X-r.X))-e.Cast_Int64((t.X-n.X)*(n.Y-r.Y))===0},e.ClipperBase.SlopesEqual5=function(t,n,r,i,a){return a?$.op_Equality($.Int128Mul(t.Y-n.Y,r.X-i.X),$.Int128Mul(t.X-n.X,r.Y-i.Y)):e.Cast_Int64((t.Y-n.Y)*(r.X-i.X))-e.Cast_Int64((t.X-n.X)*(r.Y-i.Y))===0},e.ClipperBase.prototype.Clear=function(){this.DisposeLocalMinimaList();for(var t=0,n=this.m_edges.length;t<n;++t){for(var r=0,i=this.m_edges[t].length;r<i;++r)this.m_edges[t][r]=null;e.Clear(this.m_edges[t])}e.Clear(this.m_edges),this.m_UseFullRange=!1,this.m_HasOpenPaths=!1},e.ClipperBase.prototype.DisposeLocalMinimaList=function(){for(;this.m_MinimaList!==null;){var e=this.m_MinimaList.Next;this.m_MinimaList=null,this.m_MinimaList=e}this.m_CurrentLM=null},e.ClipperBase.prototype.RangeTest=function(t,n){n.Value?(t.X>e.ClipperBase.hiRange||t.Y>e.ClipperBase.hiRange||-t.X>e.ClipperBase.hiRange||-t.Y>e.ClipperBase.hiRange)&&e.Error(`Coordinate outside allowed range in RangeTest().`):(t.X>e.ClipperBase.loRange||t.Y>e.ClipperBase.loRange||-t.X>e.ClipperBase.loRange||-t.Y>e.ClipperBase.loRange)&&(n.Value=!0,this.RangeTest(t,n))},e.ClipperBase.prototype.InitEdge=function(t,n,r,i){t.Next=n,t.Prev=r,t.Curr.X=i.X,t.Curr.Y=i.Y,e.use_xyz&&(t.Curr.Z=i.Z),t.OutIdx=-1},e.ClipperBase.prototype.InitEdge2=function(t,n){t.Curr.Y>=t.Next.Curr.Y?(t.Bot.X=t.Curr.X,t.Bot.Y=t.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Curr.Z),t.Top.X=t.Next.Curr.X,t.Top.Y=t.Next.Curr.Y,e.use_xyz&&(t.Top.Z=t.Next.Curr.Z)):(t.Top.X=t.Curr.X,t.Top.Y=t.Curr.Y,e.use_xyz&&(t.Top.Z=t.Curr.Z),t.Bot.X=t.Next.Curr.X,t.Bot.Y=t.Next.Curr.Y,e.use_xyz&&(t.Bot.Z=t.Next.Curr.Z)),this.SetDx(t),t.PolyTyp=n},e.ClipperBase.prototype.FindNextLocMin=function(t){for(var n;;){for(;e.IntPoint.op_Inequality(t.Bot,t.Prev.Bot)||e.IntPoint.op_Equality(t.Curr,t.Top);)t=t.Next;if(t.Dx!==e.ClipperBase.horizontal&&t.Prev.Dx!==e.ClipperBase.horizontal)break;for(;t.Prev.Dx===e.ClipperBase.horizontal;)t=t.Prev;for(n=t;t.Dx===e.ClipperBase.horizontal;)t=t.Next;if(t.Top.Y!==t.Prev.Bot.Y){n.Prev.Bot.X<t.Bot.X&&(t=n);break}}return t},e.ClipperBase.prototype.ProcessBound=function(t,n){var r,i=t,a;if(i.OutIdx===e.ClipperBase.Skip){if(t=i,n){for(;t.Top.Y===t.Next.Bot.Y;)t=t.Next;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Prev}else{for(;t.Top.Y===t.Prev.Bot.Y;)t=t.Prev;for(;t!==i&&t.Dx===e.ClipperBase.horizontal;)t=t.Next}if(t===i)i=n?t.Next:t.Prev;else{t=n?i.Next:i.Prev;var o=new e.LocalMinima;o.Next=null,o.Y=t.Bot.Y,o.LeftBound=null,o.RightBound=t,t.WindDelta=0,i=this.ProcessBound(t,n),this.InsertLocalMinima(o)}return i}if(t.Dx===e.ClipperBase.horizontal&&(r=n?t.Prev:t.Next,r.Dx===e.ClipperBase.horizontal?r.Bot.X!==t.Bot.X&&r.Top.X!==t.Bot.X&&this.ReverseHorizontal(t):r.Bot.X!==t.Bot.X&&this.ReverseHorizontal(t)),r=t,n){for(;i.Top.Y===i.Next.Bot.Y&&i.Next.OutIdx!==e.ClipperBase.Skip;)i=i.Next;if(i.Dx===e.ClipperBase.horizontal&&i.Next.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Prev.Dx===e.ClipperBase.horizontal;)a=a.Prev;a.Prev.Top.X>i.Next.Top.X&&(i=a.Prev)}for(;t!==i;)t.NextInLML=t.Next,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),t=t.Next;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Prev.Top.X&&this.ReverseHorizontal(t),i=i.Next}else{for(;i.Top.Y===i.Prev.Bot.Y&&i.Prev.OutIdx!==e.ClipperBase.Skip;)i=i.Prev;if(i.Dx===e.ClipperBase.horizontal&&i.Prev.OutIdx!==e.ClipperBase.Skip){for(a=i;a.Next.Dx===e.ClipperBase.horizontal;)a=a.Next;(a.Next.Top.X===i.Prev.Top.X||a.Next.Top.X>i.Prev.Top.X)&&(i=a.Next)}for(;t!==i;)t.NextInLML=t.Prev,t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),t=t.Prev;t.Dx===e.ClipperBase.horizontal&&t!==r&&t.Bot.X!==t.Next.Top.X&&this.ReverseHorizontal(t),i=i.Prev}return i},e.ClipperBase.prototype.AddPath=function(t,n,r){e.use_lines?!r&&n===e.PolyType.ptClip&&e.Error(`AddPath: Open paths must be subject.`):r||e.Error(`AddPath: Open paths have been disabled.`);var i=t.length-1;if(r)for(;i>0&&e.IntPoint.op_Equality(t[i],t[0]);)--i;for(;i>0&&e.IntPoint.op_Equality(t[i],t[i-1]);)--i;if(r&&i<2||!r&&i<1)return!1;for(var a=[],o=0;o<=i;o++)a.push(new e.TEdge);var s=!0;a[1].Curr.X=t[1].X,a[1].Curr.Y=t[1].Y,e.use_xyz&&(a[1].Curr.Z=t[1].Z);var c={Value:this.m_UseFullRange};this.RangeTest(t[0],c),this.m_UseFullRange=c.Value,c.Value=this.m_UseFullRange,this.RangeTest(t[i],c),this.m_UseFullRange=c.Value,this.InitEdge(a[0],a[1],a[i],t[0]),this.InitEdge(a[i],a[0],a[i-1],t[i]);for(var o=i-1;o>=1;--o)c.Value=this.m_UseFullRange,this.RangeTest(t[o],c),this.m_UseFullRange=c.Value,this.InitEdge(a[o],a[o+1],a[o-1],t[o]);for(var l=a[0],u=l,d=l;;){if(u.Curr===u.Next.Curr&&(r||u.Next!==l)){if(u===u.Next)break;u===l&&(l=u.Next),u=this.RemoveEdge(u),d=u;continue}if(u.Prev===u.Next)break;if(r&&e.ClipperBase.SlopesEqual4(u.Prev.Curr,u.Curr,u.Next.Curr,this.m_UseFullRange)&&(!this.PreserveCollinear||!this.Pt2IsBetweenPt1AndPt3(u.Prev.Curr,u.Curr,u.Next.Curr))){u===l&&(l=u.Next),u=this.RemoveEdge(u),u=u.Prev,d=u;continue}if(u=u.Next,u===d||!r&&u.Next===l)break}if(!r&&u===u.Next||r&&u.Prev===u.Next)return!1;r||(this.m_HasOpenPaths=!0,l.Prev.OutIdx=e.ClipperBase.Skip),u=l;do this.InitEdge2(u,n),u=u.Next,s&&u.Curr.Y!==l.Curr.Y&&(s=!1);while(u!==l);if(s){if(r)return!1;u.Prev.OutIdx=e.ClipperBase.Skip;var f=new e.LocalMinima;for(f.Next=null,f.Y=u.Bot.Y,f.LeftBound=null,f.RightBound=u,f.RightBound.Side=e.EdgeSide.esRight,f.RightBound.WindDelta=0;u.Bot.X!==u.Prev.Top.X&&this.ReverseHorizontal(u),u.Next.OutIdx!==e.ClipperBase.Skip;)u.NextInLML=u.Next,u=u.Next;return this.InsertLocalMinima(f),this.m_edges.push(a),!0}this.m_edges.push(a);var p,m=null;for(e.IntPoint.op_Equality(u.Prev.Bot,u.Prev.Top)&&(u=u.Next);u=this.FindNextLocMin(u),u!==m;){m===null&&(m=u);var f=new e.LocalMinima;f.Next=null,f.Y=u.Bot.Y,u.Dx<u.Prev.Dx?(f.LeftBound=u.Prev,f.RightBound=u,p=!1):(f.LeftBound=u,f.RightBound=u.Prev,p=!0),f.LeftBound.Side=e.EdgeSide.esLeft,f.RightBound.Side=e.EdgeSide.esRight,r?f.LeftBound.Next===f.RightBound?f.LeftBound.WindDelta=-1:f.LeftBound.WindDelta=1:f.LeftBound.WindDelta=0,f.RightBound.WindDelta=-f.LeftBound.WindDelta,u=this.ProcessBound(f.LeftBound,p),u.OutIdx===e.ClipperBase.Skip&&(u=this.ProcessBound(u,p));var h=this.ProcessBound(f.RightBound,!p);h.OutIdx===e.ClipperBase.Skip&&(h=this.ProcessBound(h,!p)),f.LeftBound.OutIdx===e.ClipperBase.Skip?f.LeftBound=null:f.RightBound.OutIdx===e.ClipperBase.Skip&&(f.RightBound=null),this.InsertLocalMinima(f),p||(u=h)}return!0},e.ClipperBase.prototype.AddPaths=function(e,t,n){for(var r=!1,i=0,a=e.length;i<a;++i)this.AddPath(e[i],t,n)&&(r=!0);return r},e.ClipperBase.prototype.Pt2IsBetweenPt1AndPt3=function(t,n,r){return e.IntPoint.op_Equality(t,r)||e.IntPoint.op_Equality(t,n)||e.IntPoint.op_Equality(r,n)?!1:t.X===r.X?n.Y>t.Y==n.Y<r.Y:n.X>t.X==n.X<r.X},e.ClipperBase.prototype.RemoveEdge=function(e){e.Prev.Next=e.Next,e.Next.Prev=e.Prev;var t=e.Next;return e.Prev=null,t},e.ClipperBase.prototype.SetDx=function(t){t.Delta.X=t.Top.X-t.Bot.X,t.Delta.Y=t.Top.Y-t.Bot.Y,t.Delta.Y===0?t.Dx=e.ClipperBase.horizontal:t.Dx=t.Delta.X/t.Delta.Y},e.ClipperBase.prototype.InsertLocalMinima=function(e){if(this.m_MinimaList===null)this.m_MinimaList=e;else if(e.Y>=this.m_MinimaList.Y)e.Next=this.m_MinimaList,this.m_MinimaList=e;else{for(var t=this.m_MinimaList;t.Next!==null&&e.Y<t.Next.Y;)t=t.Next;e.Next=t.Next,t.Next=e}},e.ClipperBase.prototype.PopLocalMinima=function(e,t){return t.v=this.m_CurrentLM,this.m_CurrentLM!==null&&this.m_CurrentLM.Y===e?(this.m_CurrentLM=this.m_CurrentLM.Next,!0):!1},e.ClipperBase.prototype.ReverseHorizontal=function(t){var n=t.Top.X;t.Top.X=t.Bot.X,t.Bot.X=n,e.use_xyz&&(n=t.Top.Z,t.Top.Z=t.Bot.Z,t.Bot.Z=n)},e.ClipperBase.prototype.Reset=function(){if(this.m_CurrentLM=this.m_MinimaList,this.m_CurrentLM!==null){this.m_Scanbeam=null;for(var t=this.m_MinimaList;t!==null;){this.InsertScanbeam(t.Y);var n=t.LeftBound;n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),n=t.RightBound,n!==null&&(n.Curr.X=n.Bot.X,n.Curr.Y=n.Bot.Y,e.use_xyz&&(n.Curr.Z=n.Bot.Z),n.OutIdx=e.ClipperBase.Unassigned),t=t.Next}this.m_ActiveEdges=null}},e.ClipperBase.prototype.InsertScanbeam=function(t){if(this.m_Scanbeam===null)this.m_Scanbeam=new e.Scanbeam,this.m_Scanbeam.Next=null,this.m_Scanbeam.Y=t;else if(t>this.m_Scanbeam.Y){var n=new e.Scanbeam;n.Y=t,n.Next=this.m_Scanbeam,this.m_Scanbeam=n}else{for(var r=this.m_Scanbeam;r.Next!==null&&t<=r.Next.Y;)r=r.Next;if(t===r.Y)return;var i=new e.Scanbeam;i.Y=t,i.Next=r.Next,r.Next=i}},e.ClipperBase.prototype.PopScanbeam=function(e){return this.m_Scanbeam===null?(e.v=0,!1):(e.v=this.m_Scanbeam.Y,this.m_Scanbeam=this.m_Scanbeam.Next,!0)},e.ClipperBase.prototype.LocalMinimaPending=function(){return this.m_CurrentLM!==null},e.ClipperBase.prototype.CreateOutRec=function(){var t=new e.OutRec;return t.Idx=e.ClipperBase.Unassigned,t.IsHole=!1,t.IsOpen=!1,t.FirstLeft=null,t.Pts=null,t.BottomPt=null,t.PolyNode=null,this.m_PolyOuts.push(t),t.Idx=this.m_PolyOuts.length-1,t},e.ClipperBase.prototype.DisposeOutRec=function(e){var t=this.m_PolyOuts[e];t.Pts=null,t=null,this.m_PolyOuts[e]=null},e.ClipperBase.prototype.UpdateEdgeIntoAEL=function(t){t.NextInLML===null&&e.Error(`UpdateEdgeIntoAEL: invalid call`);var n=t.PrevInAEL,r=t.NextInAEL;return t.NextInLML.OutIdx=t.OutIdx,n===null?this.m_ActiveEdges=t.NextInLML:n.NextInAEL=t.NextInLML,r!==null&&(r.PrevInAEL=t.NextInLML),t.NextInLML.Side=t.Side,t.NextInLML.WindDelta=t.WindDelta,t.NextInLML.WindCnt=t.WindCnt,t.NextInLML.WindCnt2=t.WindCnt2,t=t.NextInLML,t.Curr.X=t.Bot.X,t.Curr.Y=t.Bot.Y,t.PrevInAEL=n,t.NextInAEL=r,e.ClipperBase.IsHorizontal(t)||this.InsertScanbeam(t.Top.Y),t},e.ClipperBase.prototype.SwapPositionsInAEL=function(e,t){if(!(e.NextInAEL===e.PrevInAEL||t.NextInAEL===t.PrevInAEL)){if(e.NextInAEL===t){var n=t.NextInAEL;n!==null&&(n.PrevInAEL=e);var r=e.PrevInAEL;r!==null&&(r.NextInAEL=t),t.PrevInAEL=r,t.NextInAEL=e,e.PrevInAEL=t,e.NextInAEL=n}else if(t.NextInAEL===e){var i=e.NextInAEL;i!==null&&(i.PrevInAEL=t);var a=t.PrevInAEL;a!==null&&(a.NextInAEL=e),e.PrevInAEL=a,e.NextInAEL=t,t.PrevInAEL=e,t.NextInAEL=i}else{var o=e.NextInAEL,s=e.PrevInAEL;e.NextInAEL=t.NextInAEL,e.NextInAEL!==null&&(e.NextInAEL.PrevInAEL=e),e.PrevInAEL=t.PrevInAEL,e.PrevInAEL!==null&&(e.PrevInAEL.NextInAEL=e),t.NextInAEL=o,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=t),t.PrevInAEL=s,t.PrevInAEL!==null&&(t.PrevInAEL.NextInAEL=t)}e.PrevInAEL===null?this.m_ActiveEdges=e:t.PrevInAEL===null&&(this.m_ActiveEdges=t)}},e.ClipperBase.prototype.DeleteFromAEL=function(e){var t=e.PrevInAEL,n=e.NextInAEL;t===null&&n===null&&e!==this.m_ActiveEdges||(t===null?this.m_ActiveEdges=n:t.NextInAEL=n,n!==null&&(n.PrevInAEL=t),e.NextInAEL=null,e.PrevInAEL=null)},e.Clipper=function(t){t===void 0&&(t=0),this.m_PolyOuts=null,this.m_ClipType=e.ClipType.ctIntersection,this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=null,this.m_IntersectNodeComparer=null,this.m_ExecuteLocked=!1,this.m_ClipFillType=e.PolyFillType.pftEvenOdd,this.m_SubjFillType=e.PolyFillType.pftEvenOdd,this.m_Joins=null,this.m_GhostJoins=null,this.m_UsingPolyTree=!1,this.ReverseSolution=!1,this.StrictlySimple=!1,e.ClipperBase.call(this),this.m_Scanbeam=null,this.m_Maxima=null,this.m_ActiveEdges=null,this.m_SortedEdges=null,this.m_IntersectList=[],this.m_IntersectNodeComparer=e.MyIntersectNodeSort.Compare,this.m_ExecuteLocked=!1,this.m_UsingPolyTree=!1,this.m_PolyOuts=[],this.m_Joins=[],this.m_GhostJoins=[],this.ReverseSolution=(1&t)!=0,this.StrictlySimple=(2&t)!=0,this.PreserveCollinear=(4&t)!=0,e.use_xyz&&(this.ZFillFunction=null)},e.Clipper.ioReverseSolution=1,e.Clipper.ioStrictlySimple=2,e.Clipper.ioPreserveCollinear=4,e.Clipper.prototype.Clear=function(){this.m_edges.length!==0&&(this.DisposeAllPolyPts(),e.ClipperBase.prototype.Clear.call(this))},e.Clipper.prototype.InsertMaxima=function(t){var n=new e.Maxima;if(n.X=t,this.m_Maxima===null)this.m_Maxima=n,this.m_Maxima.Next=null,this.m_Maxima.Prev=null;else if(t<this.m_Maxima.X)n.Next=this.m_Maxima,n.Prev=null,this.m_Maxima=n;else{for(var r=this.m_Maxima;r.Next!==null&&t>=r.Next.X;)r=r.Next;if(t===r.X)return;n.Next=r.Next,n.Prev=r,r.Next!==null&&(r.Next.Prev=n),r.Next=n}},e.Clipper.prototype.Execute=function(){var t=arguments,n=t.length,r=t[1]instanceof e.PolyTree;if(n===4&&!r){var i=t[0],a=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_HasOpenPaths&&e.Error(`Error: PolyTree struct is needed for open path clipping.`),this.m_ExecuteLocked=!0,e.Clear(a),this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!1;try{var c=this.ExecuteInternal();c&&this.BuildResult(a)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===4&&r){var i=t[0],l=t[1],o=t[2],s=t[3];if(this.m_ExecuteLocked)return!1;this.m_ExecuteLocked=!0,this.m_SubjFillType=o,this.m_ClipFillType=s,this.m_ClipType=i,this.m_UsingPolyTree=!0;try{var c=this.ExecuteInternal();c&&this.BuildResult2(l)}finally{this.DisposeAllPolyPts(),this.m_ExecuteLocked=!1}return c}else if(n===2&&!r){var i=t[0],a=t[1];return this.Execute(i,a,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}else if(n===2&&r){var i=t[0],l=t[1];return this.Execute(i,l,e.PolyFillType.pftEvenOdd,e.PolyFillType.pftEvenOdd)}},e.Clipper.prototype.FixHoleLinkage=function(e){if(!(e.FirstLeft===null||e.IsHole!==e.FirstLeft.IsHole&&e.FirstLeft.Pts!==null)){for(var t=e.FirstLeft;t!==null&&(t.IsHole===e.IsHole||t.Pts===null);)t=t.FirstLeft;e.FirstLeft=t}},e.Clipper.prototype.ExecuteInternal=function(){try{this.Reset(),this.m_SortedEdges=null,this.m_Maxima=null;var e={},t={};if(!this.PopScanbeam(e))return!1;for(this.InsertLocalMinimaIntoAEL(e.v);this.PopScanbeam(t)||this.LocalMinimaPending();){if(this.ProcessHorizontals(),this.m_GhostJoins.length=0,!this.ProcessIntersections(t.v))return!1;this.ProcessEdgesAtTopOfScanbeam(t.v),e.v=t.v,this.InsertLocalMinimaIntoAEL(e.v)}var n,r,i;for(r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],!(n.Pts===null||n.IsOpen)&&(n.IsHole^this.ReverseSolution)==this.Area$1(n)>0&&this.ReversePolyPtLinks(n.Pts);for(this.JoinCommonEdges(),r=0,i=this.m_PolyOuts.length;r<i;r++)n=this.m_PolyOuts[r],n.Pts!==null&&(n.IsOpen?this.FixupOutPolyline(n):this.FixupOutPolygon(n));return this.StrictlySimple&&this.DoSimplePolygons(),!0}finally{this.m_Joins.length=0,this.m_GhostJoins.length=0}},e.Clipper.prototype.DisposeAllPolyPts=function(){for(var t=0,n=this.m_PolyOuts.length;t<n;++t)this.DisposeOutRec(t);e.Clear(this.m_PolyOuts)},e.Clipper.prototype.AddJoin=function(t,n,r){var i=new e.Join;i.OutPt1=t,i.OutPt2=n,i.OffPt.X=r.X,i.OffPt.Y=r.Y,e.use_xyz&&(i.OffPt.Z=r.Z),this.m_Joins.push(i)},e.Clipper.prototype.AddGhostJoin=function(t,n){var r=new e.Join;r.OutPt1=t,r.OffPt.X=n.X,r.OffPt.Y=n.Y,e.use_xyz&&(r.OffPt.Z=n.Z),this.m_GhostJoins.push(r)},e.Clipper.prototype.SetZ=function(t,n,r){if(this.ZFillFunction!==null){if(t.Z!==0||this.ZFillFunction===null)return;e.IntPoint.op_Equality(t,n.Bot)?t.Z=n.Bot.Z:e.IntPoint.op_Equality(t,n.Top)?t.Z=n.Top.Z:e.IntPoint.op_Equality(t,r.Bot)?t.Z=r.Bot.Z:e.IntPoint.op_Equality(t,r.Top)?t.Z=r.Top.Z:this.ZFillFunction(n.Bot,n.Top,r.Bot,r.Top,t)}},e.Clipper.prototype.InsertLocalMinimaIntoAEL=function(t){for(var n={},r,i;this.PopLocalMinima(t,n);){r=n.v.LeftBound,i=n.v.RightBound;var a=null;if(r===null?(this.InsertEdgeIntoAEL(i,null),this.SetWindingCount(i),this.IsContributing(i)&&(a=this.AddOutPt(i,i.Bot))):i===null?(this.InsertEdgeIntoAEL(r,null),this.SetWindingCount(r),this.IsContributing(r)&&(a=this.AddOutPt(r,r.Bot)),this.InsertScanbeam(r.Top.Y)):(this.InsertEdgeIntoAEL(r,null),this.InsertEdgeIntoAEL(i,r),this.SetWindingCount(r),i.WindCnt=r.WindCnt,i.WindCnt2=r.WindCnt2,this.IsContributing(r)&&(a=this.AddLocalMinPoly(r,i,r.Bot)),this.InsertScanbeam(r.Top.Y)),i!==null&&(e.ClipperBase.IsHorizontal(i)?(i.NextInLML!==null&&this.InsertScanbeam(i.NextInLML.Top.Y),this.AddEdgeToSEL(i)):this.InsertScanbeam(i.Top.Y)),!(r===null||i===null)){if(a!==null&&e.ClipperBase.IsHorizontal(i)&&this.m_GhostJoins.length>0&&i.WindDelta!==0)for(var o=0,s=this.m_GhostJoins.length;o<s;o++){var c=this.m_GhostJoins[o];this.HorzSegmentsOverlap(c.OutPt1.Pt.X,c.OffPt.X,i.Bot.X,i.Top.X)&&this.AddJoin(c.OutPt1,a,c.OffPt)}if(r.OutIdx>=0&&r.PrevInAEL!==null&&r.PrevInAEL.Curr.X===r.Bot.X&&r.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(r.PrevInAEL.Curr,r.PrevInAEL.Top,r.Curr,r.Top,this.m_UseFullRange)&&r.WindDelta!==0&&r.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(r.PrevInAEL,r.Bot);this.AddJoin(a,l,r.Top)}if(r.NextInAEL!==i){if(i.OutIdx>=0&&i.PrevInAEL.OutIdx>=0&&e.ClipperBase.SlopesEqual5(i.PrevInAEL.Curr,i.PrevInAEL.Top,i.Curr,i.Top,this.m_UseFullRange)&&i.WindDelta!==0&&i.PrevInAEL.WindDelta!==0){var l=this.AddOutPt(i.PrevInAEL,i.Bot);this.AddJoin(a,l,i.Top)}var u=r.NextInAEL;if(u!==null)for(;u!==i;)this.IntersectEdges(i,u,r.Curr),u=u.NextInAEL}}}},e.Clipper.prototype.InsertEdgeIntoAEL=function(e,t){if(this.m_ActiveEdges===null)e.PrevInAEL=null,e.NextInAEL=null,this.m_ActiveEdges=e;else if(t===null&&this.E2InsertsBeforeE1(this.m_ActiveEdges,e))e.PrevInAEL=null,e.NextInAEL=this.m_ActiveEdges,this.m_ActiveEdges.PrevInAEL=e,this.m_ActiveEdges=e;else{for(t===null&&(t=this.m_ActiveEdges);t.NextInAEL!==null&&!this.E2InsertsBeforeE1(t.NextInAEL,e);)t=t.NextInAEL;e.NextInAEL=t.NextInAEL,t.NextInAEL!==null&&(t.NextInAEL.PrevInAEL=e),e.PrevInAEL=t,t.NextInAEL=e}},e.Clipper.prototype.E2InsertsBeforeE1=function(t,n){return n.Curr.X===t.Curr.X?n.Top.Y>t.Top.Y?n.Top.X<e.Clipper.TopX(t,n.Top.Y):t.Top.X>e.Clipper.TopX(n,t.Top.Y):n.Curr.X<t.Curr.X},e.Clipper.prototype.IsEvenOddFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType===e.PolyFillType.pftEvenOdd:this.m_ClipFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsEvenOddAltFillType=function(t){return t.PolyTyp===e.PolyType.ptSubject?this.m_ClipFillType===e.PolyFillType.pftEvenOdd:this.m_SubjFillType===e.PolyFillType.pftEvenOdd},e.Clipper.prototype.IsContributing=function(t){var n,r;switch(t.PolyTyp===e.PolyType.ptSubject?(n=this.m_SubjFillType,r=this.m_ClipFillType):(n=this.m_ClipFillType,r=this.m_SubjFillType),n){case e.PolyFillType.pftEvenOdd:if(t.WindDelta===0&&t.WindCnt!==1)return!1;break;case e.PolyFillType.pftNonZero:if(Math.abs(t.WindCnt)!==1)return!1;break;case e.PolyFillType.pftPositive:if(t.WindCnt!==1)return!1;break;default:if(t.WindCnt!==-1)return!1;break}switch(this.m_ClipType){case e.ClipType.ctIntersection:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctUnion:switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}case e.ClipType.ctDifference:if(t.PolyTyp===e.PolyType.ptSubject)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2!==0;case e.PolyFillType.pftPositive:return t.WindCnt2>0;default:return t.WindCnt2<0}case e.ClipType.ctXor:if(t.WindDelta===0)switch(r){case e.PolyFillType.pftEvenOdd:case e.PolyFillType.pftNonZero:return t.WindCnt2===0;case e.PolyFillType.pftPositive:return t.WindCnt2<=0;default:return t.WindCnt2>=0}else return!0}return!0},e.Clipper.prototype.SetWindingCount=function(t){for(var n=t.PrevInAEL;n!==null&&(n.PolyTyp!==t.PolyTyp||n.WindDelta===0);)n=n.PrevInAEL;if(n===null){var r=t.PolyTyp===e.PolyType.ptSubject?this.m_SubjFillType:this.m_ClipFillType;t.WindDelta===0?t.WindCnt=r===e.PolyFillType.pftNegative?-1:1:t.WindCnt=t.WindDelta,t.WindCnt2=0,n=this.m_ActiveEdges}else if(t.WindDelta===0&&this.m_ClipType!==e.ClipType.ctUnion)t.WindCnt=1,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;else if(this.IsEvenOddFillType(t)){if(t.WindDelta===0){for(var i=!0,a=n.PrevInAEL;a!==null;)a.PolyTyp===n.PolyTyp&&a.WindDelta!==0&&(i=!i),a=a.PrevInAEL;t.WindCnt=+!i}else t.WindCnt=t.WindDelta;t.WindCnt2=n.WindCnt2,n=n.NextInAEL}else n.WindCnt*n.WindDelta<0?Math.abs(n.WindCnt)>1?n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta:t.WindCnt=t.WindDelta===0?1:t.WindDelta:t.WindDelta===0?t.WindCnt=n.WindCnt<0?n.WindCnt-1:n.WindCnt+1:n.WindDelta*t.WindDelta<0?t.WindCnt=n.WindCnt:t.WindCnt=n.WindCnt+t.WindDelta,t.WindCnt2=n.WindCnt2,n=n.NextInAEL;if(this.IsEvenOddAltFillType(t))for(;n!==t;)n.WindDelta!==0&&(t.WindCnt2=+(t.WindCnt2===0)),n=n.NextInAEL;else for(;n!==t;)t.WindCnt2+=n.WindDelta,n=n.NextInAEL},e.Clipper.prototype.AddEdgeToSEL=function(e){this.m_SortedEdges===null?(this.m_SortedEdges=e,e.PrevInSEL=null,e.NextInSEL=null):(e.NextInSEL=this.m_SortedEdges,e.PrevInSEL=null,this.m_SortedEdges.PrevInSEL=e,this.m_SortedEdges=e)},e.Clipper.prototype.PopEdgeFromSEL=function(e){if(e.v=this.m_SortedEdges,e.v===null)return!1;var t=e.v;return this.m_SortedEdges=e.v.NextInSEL,this.m_SortedEdges!==null&&(this.m_SortedEdges.PrevInSEL=null),t.NextInSEL=null,t.PrevInSEL=null,!0},e.Clipper.prototype.CopyAELToSEL=function(){var e=this.m_ActiveEdges;for(this.m_SortedEdges=e;e!==null;)e.PrevInSEL=e.PrevInAEL,e.NextInSEL=e.NextInAEL,e=e.NextInAEL},e.Clipper.prototype.SwapPositionsInSEL=function(e,t){if(!(e.NextInSEL===null&&e.PrevInSEL===null)&&!(t.NextInSEL===null&&t.PrevInSEL===null)){if(e.NextInSEL===t){var n=t.NextInSEL;n!==null&&(n.PrevInSEL=e);var r=e.PrevInSEL;r!==null&&(r.NextInSEL=t),t.PrevInSEL=r,t.NextInSEL=e,e.PrevInSEL=t,e.NextInSEL=n}else if(t.NextInSEL===e){var n=e.NextInSEL;n!==null&&(n.PrevInSEL=t);var r=t.PrevInSEL;r!==null&&(r.NextInSEL=e),e.PrevInSEL=r,e.NextInSEL=t,t.PrevInSEL=e,t.NextInSEL=n}else{var n=e.NextInSEL,r=e.PrevInSEL;e.NextInSEL=t.NextInSEL,e.NextInSEL!==null&&(e.NextInSEL.PrevInSEL=e),e.PrevInSEL=t.PrevInSEL,e.PrevInSEL!==null&&(e.PrevInSEL.NextInSEL=e),t.NextInSEL=n,t.NextInSEL!==null&&(t.NextInSEL.PrevInSEL=t),t.PrevInSEL=r,t.PrevInSEL!==null&&(t.PrevInSEL.NextInSEL=t)}e.PrevInSEL===null?this.m_SortedEdges=e:t.PrevInSEL===null&&(this.m_SortedEdges=t)}},e.Clipper.prototype.AddLocalMaxPoly=function(e,t,n){this.AddOutPt(e,n),t.WindDelta===0&&this.AddOutPt(t,n),e.OutIdx===t.OutIdx?(e.OutIdx=-1,t.OutIdx=-1):e.OutIdx<t.OutIdx?this.AppendPolygon(e,t):this.AppendPolygon(t,e)},e.Clipper.prototype.AddLocalMinPoly=function(t,n,r){var i,a,o;if(e.ClipperBase.IsHorizontal(n)||t.Dx>n.Dx?(i=this.AddOutPt(t,r),n.OutIdx=t.OutIdx,t.Side=e.EdgeSide.esLeft,n.Side=e.EdgeSide.esRight,a=t,o=a.PrevInAEL===n?n.PrevInAEL:a.PrevInAEL):(i=this.AddOutPt(n,r),t.OutIdx=n.OutIdx,t.Side=e.EdgeSide.esRight,n.Side=e.EdgeSide.esLeft,a=n,o=a.PrevInAEL===t?t.PrevInAEL:a.PrevInAEL),o!==null&&o.OutIdx>=0&&o.Top.Y<r.Y&&a.Top.Y<r.Y){var s=e.Clipper.TopX(o,r.Y),c=e.Clipper.TopX(a,r.Y);if(s===c&&a.WindDelta!==0&&o.WindDelta!==0&&e.ClipperBase.SlopesEqual5(new e.IntPoint2(s,r.Y),o.Top,new e.IntPoint2(c,r.Y),a.Top,this.m_UseFullRange)){var l=this.AddOutPt(o,r);this.AddJoin(i,l,a.Top)}}return i},e.Clipper.prototype.AddOutPt=function(t,n){if(t.OutIdx<0){var r=this.CreateOutRec();r.IsOpen=t.WindDelta===0;var i=new e.OutPt;return r.Pts=i,i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=i,i.Prev=i,r.IsOpen||this.SetHoleState(t,r),t.OutIdx=r.Idx,i}else{var r=this.m_PolyOuts[t.OutIdx],a=r.Pts,o=t.Side===e.EdgeSide.esLeft;if(o&&e.IntPoint.op_Equality(n,a.Pt))return a;if(!o&&e.IntPoint.op_Equality(n,a.Prev.Pt))return a.Prev;var i=new e.OutPt;return i.Idx=r.Idx,i.Pt.X=n.X,i.Pt.Y=n.Y,e.use_xyz&&(i.Pt.Z=n.Z),i.Next=a,i.Prev=a.Prev,i.Prev.Next=i,a.Prev=i,o&&(r.Pts=i),i}},e.Clipper.prototype.GetLastOutPt=function(t){var n=this.m_PolyOuts[t.OutIdx];return t.Side===e.EdgeSide.esLeft?n.Pts:n.Pts.Prev},e.Clipper.prototype.SwapPoints=function(t,n){var r=new e.IntPoint1(t.Value);t.Value.X=n.Value.X,t.Value.Y=n.Value.Y,e.use_xyz&&(t.Value.Z=n.Value.Z),n.Value.X=r.X,n.Value.Y=r.Y,e.use_xyz&&(n.Value.Z=r.Z)},e.Clipper.prototype.HorzSegmentsOverlap=function(e,t,n,r){var i;return e>t&&(i=e,e=t,t=i),n>r&&(i=n,n=r,r=i),e<r&&n<t},e.Clipper.prototype.SetHoleState=function(e,t){for(var n=e.PrevInAEL,r=null;n!==null;)n.OutIdx>=0&&n.WindDelta!==0&&(r===null?r=n:r.OutIdx===n.OutIdx&&(r=null)),n=n.PrevInAEL;r===null?(t.FirstLeft=null,t.IsHole=!1):(t.FirstLeft=this.m_PolyOuts[r.OutIdx],t.IsHole=!t.FirstLeft.IsHole)},e.Clipper.prototype.GetDx=function(t,n){return t.Y===n.Y?e.ClipperBase.horizontal:(n.X-t.X)/(n.Y-t.Y)},e.Clipper.prototype.FirstIsBottomPt=function(t,n){for(var r=t.Prev;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Prev;var i=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=t.Next;e.IntPoint.op_Equality(r.Pt,t.Pt)&&r!==t;)r=r.Next;var a=Math.abs(this.GetDx(t.Pt,r.Pt));for(r=n.Prev;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Prev;var o=Math.abs(this.GetDx(n.Pt,r.Pt));for(r=n.Next;e.IntPoint.op_Equality(r.Pt,n.Pt)&&r!==n;)r=r.Next;var s=Math.abs(this.GetDx(n.Pt,r.Pt));return Math.max(i,a)===Math.max(o,s)&&Math.min(i,a)===Math.min(o,s)?this.Area(t)>0:i>=o&&i>=s||a>=o&&a>=s},e.Clipper.prototype.GetBottomPt=function(t){for(var n=null,r=t.Next;r!==t;)r.Pt.Y>t.Pt.Y?(t=r,n=null):r.Pt.Y===t.Pt.Y&&r.Pt.X<=t.Pt.X&&(r.Pt.X<t.Pt.X?(n=null,t=r):r.Next!==t&&r.Prev!==t&&(n=r)),r=r.Next;if(n!==null)for(;n!==r;)for(this.FirstIsBottomPt(r,n)||(t=n),n=n.Next;e.IntPoint.op_Inequality(n.Pt,t.Pt);)n=n.Next;return t},e.Clipper.prototype.GetLowermostRec=function(e,t){e.BottomPt===null&&(e.BottomPt=this.GetBottomPt(e.Pts)),t.BottomPt===null&&(t.BottomPt=this.GetBottomPt(t.Pts));var n=e.BottomPt,r=t.BottomPt;return n.Pt.Y>r.Pt.Y?e:n.Pt.Y<r.Pt.Y?t:n.Pt.X<r.Pt.X?e:n.Pt.X>r.Pt.X||n.Next===n?t:r.Next===r||this.FirstIsBottomPt(n,r)?e:t},e.Clipper.prototype.OutRec1RightOfOutRec2=function(e,t){do if(e=e.FirstLeft,e===t)return!0;while(e!==null);return!1},e.Clipper.prototype.GetOutRec=function(e){for(var t=this.m_PolyOuts[e];t!==this.m_PolyOuts[t.Idx];)t=this.m_PolyOuts[t.Idx];return t},e.Clipper.prototype.AppendPolygon=function(t,n){var r=this.m_PolyOuts[t.OutIdx],i=this.m_PolyOuts[n.OutIdx],a=this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i),o=r.Pts,s=o.Prev,c=i.Pts,l=c.Prev;t.Side===e.EdgeSide.esLeft?n.Side===e.EdgeSide.esLeft?(this.ReversePolyPtLinks(c),c.Next=o,o.Prev=c,s.Next=l,l.Prev=s,r.Pts=l):(l.Next=o,o.Prev=l,c.Prev=s,s.Next=c,r.Pts=c):n.Side===e.EdgeSide.esRight?(this.ReversePolyPtLinks(c),s.Next=l,l.Prev=s,c.Next=o,o.Prev=c):(s.Next=c,c.Prev=s,o.Prev=l,l.Next=o),r.BottomPt=null,a===i&&(i.FirstLeft!==r&&(r.FirstLeft=i.FirstLeft),r.IsHole=i.IsHole),i.Pts=null,i.BottomPt=null,i.FirstLeft=r;var u=t.OutIdx,d=n.OutIdx;t.OutIdx=-1,n.OutIdx=-1;for(var f=this.m_ActiveEdges;f!==null;){if(f.OutIdx===d){f.OutIdx=u,f.Side=t.Side;break}f=f.NextInAEL}i.Idx=r.Idx},e.Clipper.prototype.ReversePolyPtLinks=function(e){if(e!==null){var t=e,n;do n=t.Next,t.Next=t.Prev,t.Prev=n,t=n;while(t!==e)}},e.Clipper.SwapSides=function(e,t){var n=e.Side;e.Side=t.Side,t.Side=n},e.Clipper.SwapPolyIndexes=function(e,t){var n=e.OutIdx;e.OutIdx=t.OutIdx,t.OutIdx=n},e.Clipper.prototype.IntersectEdges=function(t,n,r){var i=t.OutIdx>=0,a=n.OutIdx>=0;if(e.use_xyz&&this.SetZ(r,t,n),e.use_lines&&(t.WindDelta===0||n.WindDelta===0)){if(t.WindDelta===0&&n.WindDelta===0)return;t.PolyTyp===n.PolyTyp&&t.WindDelta!==n.WindDelta&&this.m_ClipType===e.ClipType.ctUnion?t.WindDelta===0?a&&(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):i&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)):t.PolyTyp!==n.PolyTyp&&(t.WindDelta===0&&Math.abs(n.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||n.WindCnt2===0)?(this.AddOutPt(t,r),i&&(t.OutIdx=-1)):n.WindDelta===0&&Math.abs(t.WindCnt)===1&&(this.m_ClipType!==e.ClipType.ctUnion||t.WindCnt2===0)&&(this.AddOutPt(n,r),a&&(n.OutIdx=-1)));return}if(t.PolyTyp===n.PolyTyp)if(this.IsEvenOddFillType(t)){var o=t.WindCnt;t.WindCnt=n.WindCnt,n.WindCnt=o}else t.WindCnt+n.WindDelta===0?t.WindCnt=-t.WindCnt:t.WindCnt+=n.WindDelta,n.WindCnt-t.WindDelta===0?n.WindCnt=-n.WindCnt:n.WindCnt-=t.WindDelta;else this.IsEvenOddFillType(n)?t.WindCnt2=+(t.WindCnt2===0):t.WindCnt2+=n.WindDelta,this.IsEvenOddFillType(t)?n.WindCnt2=+(n.WindCnt2===0):n.WindCnt2-=t.WindDelta;var s,c,l,u;t.PolyTyp===e.PolyType.ptSubject?(s=this.m_SubjFillType,l=this.m_ClipFillType):(s=this.m_ClipFillType,l=this.m_SubjFillType),n.PolyTyp===e.PolyType.ptSubject?(c=this.m_SubjFillType,u=this.m_ClipFillType):(c=this.m_ClipFillType,u=this.m_SubjFillType);var d,f;switch(s){case e.PolyFillType.pftPositive:d=t.WindCnt;break;case e.PolyFillType.pftNegative:d=-t.WindCnt;break;default:d=Math.abs(t.WindCnt);break}switch(c){case e.PolyFillType.pftPositive:f=n.WindCnt;break;case e.PolyFillType.pftNegative:f=-n.WindCnt;break;default:f=Math.abs(n.WindCnt);break}if(i&&a)d!==0&&d!==1||f!==0&&f!==1||t.PolyTyp!==n.PolyTyp&&this.m_ClipType!==e.ClipType.ctXor?this.AddLocalMaxPoly(t,n,r):(this.AddOutPt(t,r),this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(i)(f===0||f===1)&&(this.AddOutPt(t,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if(a)(d===0||d===1)&&(this.AddOutPt(n,r),e.Clipper.SwapSides(t,n),e.Clipper.SwapPolyIndexes(t,n));else if((d===0||d===1)&&(f===0||f===1)){var p,m;switch(l){case e.PolyFillType.pftPositive:p=t.WindCnt2;break;case e.PolyFillType.pftNegative:p=-t.WindCnt2;break;default:p=Math.abs(t.WindCnt2);break}switch(u){case e.PolyFillType.pftPositive:m=n.WindCnt2;break;case e.PolyFillType.pftNegative:m=-n.WindCnt2;break;default:m=Math.abs(n.WindCnt2);break}if(t.PolyTyp!==n.PolyTyp)this.AddLocalMinPoly(t,n,r);else if(d===1&&f===1)switch(this.m_ClipType){case e.ClipType.ctIntersection:p>0&&m>0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctUnion:p<=0&&m<=0&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctDifference:(t.PolyTyp===e.PolyType.ptClip&&p>0&&m>0||t.PolyTyp===e.PolyType.ptSubject&&p<=0&&m<=0)&&this.AddLocalMinPoly(t,n,r);break;case e.ClipType.ctXor:this.AddLocalMinPoly(t,n,r);break}else e.Clipper.SwapSides(t,n)}},e.Clipper.prototype.DeleteFromSEL=function(e){var t=e.PrevInSEL,n=e.NextInSEL;t===null&&n===null&&e!==this.m_SortedEdges||(t===null?this.m_SortedEdges=n:t.NextInSEL=n,n!==null&&(n.PrevInSEL=t),e.NextInSEL=null,e.PrevInSEL=null)},e.Clipper.prototype.ProcessHorizontals=function(){for(var e={};this.PopEdgeFromSEL(e);)this.ProcessHorizontal(e.v)},e.Clipper.prototype.GetHorzDirection=function(t,n){t.Bot.X<t.Top.X?(n.Left=t.Bot.X,n.Right=t.Top.X,n.Dir=e.Direction.dLeftToRight):(n.Left=t.Top.X,n.Right=t.Bot.X,n.Dir=e.Direction.dRightToLeft)},e.Clipper.prototype.ProcessHorizontal=function(t){var n={Dir:null,Left:null,Right:null};this.GetHorzDirection(t,n);for(var r=n.Dir,i=n.Left,a=n.Right,o=t.WindDelta===0,s=t,c=null;s.NextInLML!==null&&e.ClipperBase.IsHorizontal(s.NextInLML);)s=s.NextInLML;s.NextInLML===null&&(c=this.GetMaximaPair(s));var l=this.m_Maxima;if(l!==null)if(r===e.Direction.dLeftToRight){for(;l!==null&&l.X<=t.Bot.X;)l=l.Next;l!==null&&l.X>=s.Top.X&&(l=null)}else{for(;l.Next!==null&&l.Next.X<t.Bot.X;)l=l.Next;l.X<=s.Top.X&&(l=null)}for(var u=null;;){for(var d=t===s,f=this.GetNextInAEL(t,r);f!==null;){if(l!==null)if(r===e.Direction.dLeftToRight)for(;l!==null&&l.X<f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Next;else for(;l!==null&&l.X>f.Curr.X;)t.OutIdx>=0&&!o&&this.AddOutPt(t,new e.IntPoint2(l.X,t.Bot.Y)),l=l.Prev;if(r===e.Direction.dLeftToRight&&f.Curr.X>a||r===e.Direction.dRightToLeft&&f.Curr.X<i||f.Curr.X===t.Top.X&&t.NextInLML!==null&&f.Dx<t.NextInLML.Dx)break;if(t.OutIdx>=0&&!o){e.use_xyz&&(r===e.Direction.dLeftToRight?this.SetZ(f.Curr,t,f):this.SetZ(f.Curr,f,t)),u=this.AddOutPt(t,f.Curr);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Bot)}if(f===c&&d){t.OutIdx>=0&&this.AddLocalMaxPoly(t,c,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(c);return}if(r===e.Direction.dLeftToRight){var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(t,f,h)}else{var h=new e.IntPoint2(f.Curr.X,t.Curr.Y);this.IntersectEdges(f,t,h)}var g=this.GetNextInAEL(f,r);this.SwapPositionsInAEL(t,f),f=g}if(t.NextInLML===null||!e.ClipperBase.IsHorizontal(t.NextInLML))break;t=this.UpdateEdgeIntoAEL(t),t.OutIdx>=0&&this.AddOutPt(t,t.Bot),n={Dir:r,Left:i,Right:a},this.GetHorzDirection(t,n),r=n.Dir,i=n.Left,a=n.Right}if(t.OutIdx>=0&&u===null){u=this.GetLastOutPt(t);for(var p=this.m_SortedEdges;p!==null;){if(p.OutIdx>=0&&this.HorzSegmentsOverlap(t.Bot.X,t.Top.X,p.Bot.X,p.Top.X)){var m=this.GetLastOutPt(p);this.AddJoin(m,u,p.Top)}p=p.NextInSEL}this.AddGhostJoin(u,t.Top)}if(t.NextInLML!==null)if(t.OutIdx>=0){if(u=this.AddOutPt(t,t.Top),t=this.UpdateEdgeIntoAEL(t),t.WindDelta===0)return;var _=t.PrevInAEL,g=t.NextInAEL;if(_!==null&&_.Curr.X===t.Bot.X&&_.Curr.Y===t.Bot.Y&&_.WindDelta===0&&_.OutIdx>=0&&_.Curr.Y>_.Top.Y&&e.ClipperBase.SlopesEqual3(t,_,this.m_UseFullRange)){var m=this.AddOutPt(_,t.Bot);this.AddJoin(u,m,t.Top)}else if(g!==null&&g.Curr.X===t.Bot.X&&g.Curr.Y===t.Bot.Y&&g.WindDelta!==0&&g.OutIdx>=0&&g.Curr.Y>g.Top.Y&&e.ClipperBase.SlopesEqual3(t,g,this.m_UseFullRange)){var m=this.AddOutPt(g,t.Bot);this.AddJoin(u,m,t.Top)}}else t=this.UpdateEdgeIntoAEL(t);else t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t)},e.Clipper.prototype.GetNextInAEL=function(t,n){return n===e.Direction.dLeftToRight?t.NextInAEL:t.PrevInAEL},e.Clipper.prototype.IsMinima=function(e){return e!==null&&e.Prev.NextInLML!==e&&e.Next.NextInLML!==e},e.Clipper.prototype.IsMaxima=function(e,t){return e!==null&&e.Top.Y===t&&e.NextInLML===null},e.Clipper.prototype.IsIntermediate=function(e,t){return e.Top.Y===t&&e.NextInLML!==null},e.Clipper.prototype.GetMaximaPair=function(t){return e.IntPoint.op_Equality(t.Next.Top,t.Top)&&t.Next.NextInLML===null?t.Next:e.IntPoint.op_Equality(t.Prev.Top,t.Top)&&t.Prev.NextInLML===null?t.Prev:null},e.Clipper.prototype.GetMaximaPairEx=function(t){var n=this.GetMaximaPair(t);return n===null||n.OutIdx===e.ClipperBase.Skip||n.NextInAEL===n.PrevInAEL&&!e.ClipperBase.IsHorizontal(n)?null:n},e.Clipper.prototype.ProcessIntersections=function(t){if(this.m_ActiveEdges===null)return!0;try{if(this.BuildIntersectList(t),this.m_IntersectList.length===0)return!0;if(this.m_IntersectList.length===1||this.FixupIntersectionOrder())this.ProcessIntersectList();else return!1}catch{this.m_SortedEdges=null,this.m_IntersectList.length=0,e.Error(`ProcessIntersections error`)}return this.m_SortedEdges=null,!0},e.Clipper.prototype.BuildIntersectList=function(t){if(this.m_ActiveEdges!==null){var n=this.m_ActiveEdges;for(this.m_SortedEdges=n;n!==null;)n.PrevInSEL=n.PrevInAEL,n.NextInSEL=n.NextInAEL,n.Curr.X=e.Clipper.TopX(n,t),n=n.NextInAEL;for(var r=!0;r&&this.m_SortedEdges!==null;){for(r=!1,n=this.m_SortedEdges;n.NextInSEL!==null;){var i=n.NextInSEL,a=new e.IntPoint0;if(n.Curr.X>i.Curr.X){this.IntersectPoint(n,i,a),a.Y<t&&(a=new e.IntPoint2(e.Clipper.TopX(n,t),t));var o=new e.IntersectNode;o.Edge1=n,o.Edge2=i,o.Pt.X=a.X,o.Pt.Y=a.Y,e.use_xyz&&(o.Pt.Z=a.Z),this.m_IntersectList.push(o),this.SwapPositionsInSEL(n,i),r=!0}else n=i}if(n.PrevInSEL!==null)n.PrevInSEL.NextInSEL=null;else break}this.m_SortedEdges=null}},e.Clipper.prototype.EdgesAdjacent=function(e){return e.Edge1.NextInSEL===e.Edge2||e.Edge1.PrevInSEL===e.Edge2},e.Clipper.IntersectNodeSort=function(e,t){return t.Pt.Y-e.Pt.Y},e.Clipper.prototype.FixupIntersectionOrder=function(){this.m_IntersectList.sort(this.m_IntersectNodeComparer),this.CopyAELToSEL();for(var e=this.m_IntersectList.length,t=0;t<e;t++){if(!this.EdgesAdjacent(this.m_IntersectList[t])){for(var n=t+1;n<e&&!this.EdgesAdjacent(this.m_IntersectList[n]);)n++;if(n===e)return!1;var r=this.m_IntersectList[t];this.m_IntersectList[t]=this.m_IntersectList[n],this.m_IntersectList[n]=r}this.SwapPositionsInSEL(this.m_IntersectList[t].Edge1,this.m_IntersectList[t].Edge2)}return!0},e.Clipper.prototype.ProcessIntersectList=function(){for(var e=0,t=this.m_IntersectList.length;e<t;e++){var n=this.m_IntersectList[e];this.IntersectEdges(n.Edge1,n.Edge2,n.Pt),this.SwapPositionsInAEL(n.Edge1,n.Edge2)}this.m_IntersectList.length=0};var ht=function(e){return e<0?Math.ceil(e-.5):Math.round(e)},gt=function(e){return e<0?Math.ceil(e-.5):Math.floor(e+.5)},_t=function(e){return e<0?-Math.round(Math.abs(e)):Math.round(e)},vt=function(e){return e<0?(e-=.5,e<-2147483648?Math.ceil(e):e|0):(e+=.5,e>2147483647?Math.floor(e):e|0)};a.msie?e.Clipper.Round=ht:a.chromium?e.Clipper.Round=_t:a.safari?e.Clipper.Round=vt:e.Clipper.Round=gt,e.Clipper.TopX=function(t,n){return n===t.Top.Y?t.Top.X:t.Bot.X+e.Clipper.Round(t.Dx*(n-t.Bot.Y))},e.Clipper.prototype.IntersectPoint=function(t,n,r){r.X=0,r.Y=0;var i,a;if(t.Dx===n.Dx){r.Y=t.Curr.Y,r.X=e.Clipper.TopX(t,r.Y);return}if(t.Delta.X===0)r.X=t.Bot.X,e.ClipperBase.IsHorizontal(n)?r.Y=n.Bot.Y:(a=n.Bot.Y-n.Bot.X/n.Dx,r.Y=e.Clipper.Round(r.X/n.Dx+a));else if(n.Delta.X===0)r.X=n.Bot.X,e.ClipperBase.IsHorizontal(t)?r.Y=t.Bot.Y:(i=t.Bot.Y-t.Bot.X/t.Dx,r.Y=e.Clipper.Round(r.X/t.Dx+i));else{i=t.Bot.X-t.Bot.Y*t.Dx,a=n.Bot.X-n.Bot.Y*n.Dx;var o=(a-i)/(t.Dx-n.Dx);r.Y=e.Clipper.Round(o),Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.Round(t.Dx*o+i):r.X=e.Clipper.Round(n.Dx*o+a)}if(r.Y<t.Top.Y||r.Y<n.Top.Y){if(t.Top.Y>n.Top.Y)return r.Y=t.Top.Y,r.X=e.Clipper.TopX(n,t.Top.Y),r.X<t.Top.X;r.Y=n.Top.Y,Math.abs(t.Dx)<Math.abs(n.Dx)?r.X=e.Clipper.TopX(t,r.Y):r.X=e.Clipper.TopX(n,r.Y)}r.Y>t.Curr.Y&&(r.Y=t.Curr.Y,Math.abs(t.Dx)>Math.abs(n.Dx)?r.X=e.Clipper.TopX(n,r.Y):r.X=e.Clipper.TopX(t,r.Y))},e.Clipper.prototype.ProcessEdgesAtTopOfScanbeam=function(t){for(var n=this.m_ActiveEdges;n!==null;){var r=this.IsMaxima(n,t);if(r){var i=this.GetMaximaPairEx(n);r=i===null||!e.ClipperBase.IsHorizontal(i)}if(r){this.StrictlySimple&&this.InsertMaxima(n.Top.X);var a=n.PrevInAEL;this.DoMaxima(n),n=a===null?this.m_ActiveEdges:a.NextInAEL}else{if(this.IsIntermediate(n,t)&&e.ClipperBase.IsHorizontal(n.NextInLML)?(n=this.UpdateEdgeIntoAEL(n),n.OutIdx>=0&&this.AddOutPt(n,n.Bot),this.AddEdgeToSEL(n)):(n.Curr.X=e.Clipper.TopX(n,t),n.Curr.Y=t),e.use_xyz&&(n.Top.Y===t?n.Curr.Z=n.Top.Z:n.Bot.Y===t?n.Curr.Z=n.Bot.Z:n.Curr.Z=0),this.StrictlySimple){var a=n.PrevInAEL;if(n.OutIdx>=0&&n.WindDelta!==0&&a!==null&&a.OutIdx>=0&&a.Curr.X===n.Curr.X&&a.WindDelta!==0){var o=new e.IntPoint1(n.Curr);e.use_xyz&&this.SetZ(o,a,n);var s=this.AddOutPt(a,o),c=this.AddOutPt(n,o);this.AddJoin(s,c,o)}}n=n.NextInAEL}}for(this.ProcessHorizontals(),this.m_Maxima=null,n=this.m_ActiveEdges;n!==null;){if(this.IsIntermediate(n,t)){var s=null;n.OutIdx>=0&&(s=this.AddOutPt(n,n.Top)),n=this.UpdateEdgeIntoAEL(n);var a=n.PrevInAEL,l=n.NextInAEL;if(a!==null&&a.Curr.X===n.Bot.X&&a.Curr.Y===n.Bot.Y&&s!==null&&a.OutIdx>=0&&a.Curr.Y===a.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,a.Curr,a.Top,this.m_UseFullRange)&&n.WindDelta!==0&&a.WindDelta!==0){var c=this.AddOutPt(ePrev2,n.Bot);this.AddJoin(s,c,n.Top)}else if(l!==null&&l.Curr.X===n.Bot.X&&l.Curr.Y===n.Bot.Y&&s!==null&&l.OutIdx>=0&&l.Curr.Y===l.Top.Y&&e.ClipperBase.SlopesEqual5(n.Curr,n.Top,l.Curr,l.Top,this.m_UseFullRange)&&n.WindDelta!==0&&l.WindDelta!==0){var c=this.AddOutPt(l,n.Bot);this.AddJoin(s,c,n.Top)}}n=n.NextInAEL}},e.Clipper.prototype.DoMaxima=function(t){var n=this.GetMaximaPairEx(t);if(n===null){t.OutIdx>=0&&this.AddOutPt(t,t.Top),this.DeleteFromAEL(t);return}for(var r=t.NextInAEL;r!==null&&r!==n;)this.IntersectEdges(t,r,t.Top),this.SwapPositionsInAEL(t,r),r=t.NextInAEL;t.OutIdx===-1&&n.OutIdx===-1?(this.DeleteFromAEL(t),this.DeleteFromAEL(n)):t.OutIdx>=0&&n.OutIdx>=0?(t.OutIdx>=0&&this.AddLocalMaxPoly(t,n,t.Top),this.DeleteFromAEL(t),this.DeleteFromAEL(n)):e.use_lines&&t.WindDelta===0?(t.OutIdx>=0&&(this.AddOutPt(t,t.Top),t.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(t),n.OutIdx>=0&&(this.AddOutPt(n,t.Top),n.OutIdx=e.ClipperBase.Unassigned),this.DeleteFromAEL(n)):e.Error(`DoMaxima error`)},e.Clipper.ReversePaths=function(e){for(var t=0,n=e.length;t<n;t++)e[t].reverse()},e.Clipper.Orientation=function(t){return e.Clipper.Area(t)>=0},e.Clipper.prototype.PointCount=function(e){if(e===null)return 0;var t=0,n=e;do t++,n=n.Next;while(n!==e);return t},e.Clipper.prototype.BuildResult=function(t){e.Clear(t);for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];if(i.Pts!==null){var a=i.Pts.Prev,o=this.PointCount(a);if(!(o<2)){for(var s=Array(o),c=0;c<o;c++)s[c]=a.Pt,a=a.Prev;t.push(s)}}}},e.Clipper.prototype.BuildResult2=function(t){t.Clear();for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n],a=this.PointCount(i.Pts);if(!(i.IsOpen&&a<2||!i.IsOpen&&a<3)){this.FixHoleLinkage(i);var o=new e.PolyNode;t.m_AllPolys.push(o),i.PolyNode=o,o.m_polygon.length=a;for(var s=i.Pts.Prev,c=0;c<a;c++)o.m_polygon[c]=s.Pt,s=s.Prev}}for(var n=0,r=this.m_PolyOuts.length;n<r;n++){var i=this.m_PolyOuts[n];i.PolyNode!==null&&(i.IsOpen?(i.PolyNode.IsOpen=!0,t.AddChild(i.PolyNode)):i.FirstLeft!==null&&i.FirstLeft.PolyNode!==null?i.FirstLeft.PolyNode.AddChild(i.PolyNode):t.AddChild(i.PolyNode))}},e.Clipper.prototype.FixupOutPolyline=function(t){for(var n=t.Pts,r=n.Prev;n!==r;)if(n=n.Next,e.IntPoint.op_Equality(n.Pt,n.Prev.Pt)){n===r&&(r=n.Prev);var i=n.Prev;i.Next=n.Next,n.Next.Prev=i,n=i}n===n.Prev&&(t.Pts=null)},e.Clipper.prototype.FixupOutPolygon=function(t){var n=null;t.BottomPt=null;for(var r=t.Pts,i=this.PreserveCollinear||this.StrictlySimple;;){if(r.Prev===r||r.Prev===r.Next){t.Pts=null;return}if(e.IntPoint.op_Equality(r.Pt,r.Next.Pt)||e.IntPoint.op_Equality(r.Pt,r.Prev.Pt)||e.ClipperBase.SlopesEqual4(r.Prev.Pt,r.Pt,r.Next.Pt,this.m_UseFullRange)&&(!i||!this.Pt2IsBetweenPt1AndPt3(r.Prev.Pt,r.Pt,r.Next.Pt)))n=null,r.Prev.Next=r.Next,r.Next.Prev=r.Prev,r=r.Prev;else if(r===n)break;else n===null&&(n=r),r=r.Next}t.Pts=r},e.Clipper.prototype.DupOutPt=function(t,n){var r=new e.OutPt;return r.Pt.X=t.Pt.X,r.Pt.Y=t.Pt.Y,e.use_xyz&&(r.Pt.Z=t.Pt.Z),r.Idx=t.Idx,n?(r.Next=t.Next,r.Prev=t,t.Next.Prev=r,t.Next=r):(r.Prev=t.Prev,r.Next=t,t.Prev.Next=r,t.Prev=r),r},e.Clipper.prototype.GetOverlap=function(e,t,n,r,i){return e<t?n<r?(i.Left=Math.max(e,n),i.Right=Math.min(t,r)):(i.Left=Math.max(e,r),i.Right=Math.min(t,n)):n<r?(i.Left=Math.max(t,n),i.Right=Math.min(e,r)):(i.Left=Math.max(t,r),i.Right=Math.min(e,n)),i.Left<i.Right},e.Clipper.prototype.JoinHorz=function(t,n,r,i,a,o){var s=t.Pt.X>n.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight,c=r.Pt.X>i.Pt.X?e.Direction.dRightToLeft:e.Direction.dLeftToRight;if(s===c)return!1;if(s===e.Direction.dLeftToRight){for(;t.Next.Pt.X<=a.X&&t.Next.Pt.X>=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,!o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,!o))}else{for(;t.Next.Pt.X>=a.X&&t.Next.Pt.X<=t.Pt.X&&t.Next.Pt.Y===a.Y;)t=t.Next;!o&&t.Pt.X!==a.X&&(t=t.Next),n=this.DupOutPt(t,o),e.IntPoint.op_Inequality(n.Pt,a)&&(t=n,t.Pt.X=a.X,t.Pt.Y=a.Y,e.use_xyz&&(t.Pt.Z=a.Z),n=this.DupOutPt(t,o))}if(c===e.Direction.dLeftToRight){for(;r.Next.Pt.X<=a.X&&r.Next.Pt.X>=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,!o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,!o))}else{for(;r.Next.Pt.X>=a.X&&r.Next.Pt.X<=r.Pt.X&&r.Next.Pt.Y===a.Y;)r=r.Next;!o&&r.Pt.X!==a.X&&(r=r.Next),i=this.DupOutPt(r,o),e.IntPoint.op_Inequality(i.Pt,a)&&(r=i,r.Pt.X=a.X,r.Pt.Y=a.Y,e.use_xyz&&(r.Pt.Z=a.Z),i=this.DupOutPt(r,o))}return s===e.Direction.dLeftToRight===o?(t.Prev=r,r.Next=t,n.Next=i,i.Prev=n):(t.Next=r,r.Prev=t,n.Prev=i,i.Next=n),!0},e.Clipper.prototype.JoinPoints=function(t,n,r){var i=t.OutPt1,a=new e.OutPt,o=t.OutPt2,s=new e.OutPt,c=t.OutPt1.Pt.Y===t.OffPt.Y;if(c&&e.IntPoint.op_Equality(t.OffPt,t.OutPt1.Pt)&&e.IntPoint.op_Equality(t.OffPt,t.OutPt2.Pt)){if(n!==r)return!1;for(a=t.OutPt1.Next;a!==i&&e.IntPoint.op_Equality(a.Pt,t.OffPt);)a=a.Next;var l=a.Pt.Y>t.OffPt.Y;for(s=t.OutPt2.Next;s!==o&&e.IntPoint.op_Equality(s.Pt,t.OffPt);)s=s.Next;return l===s.Pt.Y>t.OffPt.Y?!1:l?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}else if(c){for(a=i;i.Prev.Pt.Y===i.Pt.Y&&i.Prev!==a&&i.Prev!==o;)i=i.Prev;for(;a.Next.Pt.Y===a.Pt.Y&&a.Next!==i&&a.Next!==o;)a=a.Next;if(a.Next===i||a.Next===o)return!1;for(s=o;o.Prev.Pt.Y===o.Pt.Y&&o.Prev!==s&&o.Prev!==a;)o=o.Prev;for(;s.Next.Pt.Y===s.Pt.Y&&s.Next!==o&&s.Next!==i;)s=s.Next;if(s.Next===o||s.Next===i)return!1;var u={Left:null,Right:null};if(!this.GetOverlap(i.Pt.X,a.Pt.X,o.Pt.X,s.Pt.X,u))return!1;var d=u.Left,f=u.Right,p=new e.IntPoint0,m;return i.Pt.X>=d&&i.Pt.X<=f?(p.X=i.Pt.X,p.Y=i.Pt.Y,e.use_xyz&&(p.Z=i.Pt.Z),m=i.Pt.X>a.Pt.X):o.Pt.X>=d&&o.Pt.X<=f?(p.X=o.Pt.X,p.Y=o.Pt.Y,e.use_xyz&&(p.Z=o.Pt.Z),m=o.Pt.X>s.Pt.X):a.Pt.X>=d&&a.Pt.X<=f?(p.X=a.Pt.X,p.Y=a.Pt.Y,e.use_xyz&&(p.Z=a.Pt.Z),m=a.Pt.X>i.Pt.X):(p.X=s.Pt.X,p.Y=s.Pt.Y,e.use_xyz&&(p.Z=s.Pt.Z),m=s.Pt.X>o.Pt.X),t.OutPt1=i,t.OutPt2=o,this.JoinHorz(i,a,o,s,p,m)}else{for(a=i.Next;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Next;var h=a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange);if(h){for(a=i.Prev;e.IntPoint.op_Equality(a.Pt,i.Pt)&&a!==i;)a=a.Prev;if(a.Pt.Y>i.Pt.Y||!e.ClipperBase.SlopesEqual4(i.Pt,a.Pt,t.OffPt,this.m_UseFullRange))return!1}for(s=o.Next;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Next;var g=s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange);if(g){for(s=o.Prev;e.IntPoint.op_Equality(s.Pt,o.Pt)&&s!==o;)s=s.Prev;if(s.Pt.Y>o.Pt.Y||!e.ClipperBase.SlopesEqual4(o.Pt,s.Pt,t.OffPt,this.m_UseFullRange))return!1}return a===i||s===o||a===s||n===r&&h===g?!1:h?(a=this.DupOutPt(i,!1),s=this.DupOutPt(o,!0),i.Prev=o,o.Next=i,a.Next=s,s.Prev=a,t.OutPt1=i,t.OutPt2=a,!0):(a=this.DupOutPt(i,!0),s=this.DupOutPt(o,!1),i.Next=o,o.Prev=i,a.Prev=s,s.Next=a,t.OutPt1=i,t.OutPt2=a,!0)}},e.Clipper.GetBounds=function(t){for(var n=0,r=t.length;n<r&&t[n].length===0;)n++;if(n===r)return new e.IntRect(0,0,0,0);var i=new e.IntRect;for(i.left=t[n][0].X,i.right=i.left,i.top=t[n][0].Y,i.bottom=i.top;n<r;n++)for(var a=0,o=t[n].length;a<o;a++)t[n][a].X<i.left?i.left=t[n][a].X:t[n][a].X>i.right&&(i.right=t[n][a].X),t[n][a].Y<i.top?i.top=t[n][a].Y:t[n][a].Y>i.bottom&&(i.bottom=t[n][a].Y);return i},e.Clipper.prototype.GetBounds2=function(t){var n=t,r=new e.IntRect;for(r.left=t.Pt.X,r.right=t.Pt.X,r.top=t.Pt.Y,r.bottom=t.Pt.Y,t=t.Next;t!==n;)t.Pt.X<r.left&&(r.left=t.Pt.X),t.Pt.X>r.right&&(r.right=t.Pt.X),t.Pt.Y<r.top&&(r.top=t.Pt.Y),t.Pt.Y>r.bottom&&(r.bottom=t.Pt.Y),t=t.Next;return r},e.Clipper.PointInPolygon=function(e,t){var n=0,r=t.length;if(r<3)return 0;for(var i=t[0],a=1;a<=r;++a){var o=a===r?t[0]:t[a];if(o.Y===e.Y&&(o.X===e.X||i.Y===e.Y&&o.X>e.X==i.X<e.X))return-1;if(i.Y<e.Y!=o.Y<e.Y){if(i.X>=e.X)if(o.X>e.X)n=1-n;else{var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}else if(o.X>e.X){var s=(i.X-e.X)*(o.Y-e.Y)-(o.X-e.X)*(i.Y-e.Y);if(s===0)return-1;s>0==o.Y>i.Y&&(n=1-n)}}i=o}return n},e.Clipper.prototype.PointInPolygon=function(e,t){var n=0,r=t,i=e.X,a=e.Y,o=t.Pt.X,s=t.Pt.Y;do{t=t.Next;var c=t.Pt.X,l=t.Pt.Y;if(l===a&&(c===i||s===a&&c>i==o<i))return-1;if(s<a!=l<a){if(o>=i)if(c>i)n=1-n;else{var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}else if(c>i){var u=(o-i)*(l-a)-(c-i)*(s-a);if(u===0)return-1;u>0==l>s&&(n=1-n)}}o=c,s=l}while(r!==t);return n},e.Clipper.prototype.Poly2ContainsPoly1=function(e,t){var n=e;do{var r=this.PointInPolygon(n.Pt,t);if(r>=0)return r>0;n=n.Next}while(n!==e);return!0},e.Clipper.prototype.FixupFirstLefts1=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&this.Poly2ContainsPoly1(r.Pts,n.Pts)&&(r.FirstLeft=n)},e.Clipper.prototype.FixupFirstLefts2=function(t,n){for(var r=n.FirstLeft,i,a,o=0,s=this.m_PolyOuts.length;o<s;o++)i=this.m_PolyOuts[o],!(i.Pts===null||i===n||i===t)&&(a=e.Clipper.ParseFirstLeft(i.FirstLeft),!(a!==r&&a!==t&&a!==n)&&(this.Poly2ContainsPoly1(i.Pts,t.Pts)?i.FirstLeft=t:this.Poly2ContainsPoly1(i.Pts,n.Pts)?i.FirstLeft=n:(i.FirstLeft===t||i.FirstLeft===n)&&(i.FirstLeft=r)))},e.Clipper.prototype.FixupFirstLefts3=function(t,n){for(var r,i,a=0,o=this.m_PolyOuts.length;a<o;a++)r=this.m_PolyOuts[a],i=e.Clipper.ParseFirstLeft(r.FirstLeft),r.Pts!==null&&i===t&&(r.FirstLeft=n)},e.Clipper.ParseFirstLeft=function(e){for(;e!==null&&e.Pts===null;)e=e.FirstLeft;return e},e.Clipper.prototype.JoinCommonEdges=function(){for(var e=0,t=this.m_Joins.length;e<t;e++){var n=this.m_Joins[e],r=this.GetOutRec(n.OutPt1.Idx),i=this.GetOutRec(n.OutPt2.Idx);if(!(r.Pts===null||i.Pts===null)&&!(r.IsOpen||i.IsOpen)){var a=r===i?r:this.OutRec1RightOfOutRec2(r,i)?i:this.OutRec1RightOfOutRec2(i,r)?r:this.GetLowermostRec(r,i);this.JoinPoints(n,r,i)&&(r===i?(r.Pts=n.OutPt1,r.BottomPt=null,i=this.CreateOutRec(),i.Pts=n.OutPt2,this.UpdateOutPtIdxs(i),this.Poly2ContainsPoly1(i.Pts,r.Pts)?(i.IsHole=!r.IsHole,i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts2(i,r),(i.IsHole^this.ReverseSolution)==this.Area$1(i)>0&&this.ReversePolyPtLinks(i.Pts)):this.Poly2ContainsPoly1(r.Pts,i.Pts)?(i.IsHole=r.IsHole,r.IsHole=!i.IsHole,i.FirstLeft=r.FirstLeft,r.FirstLeft=i,this.m_UsingPolyTree&&this.FixupFirstLefts2(r,i),(r.IsHole^this.ReverseSolution)==this.Area$1(r)>0&&this.ReversePolyPtLinks(r.Pts)):(i.IsHole=r.IsHole,i.FirstLeft=r.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(r,i))):(i.Pts=null,i.BottomPt=null,i.Idx=r.Idx,r.IsHole=a.IsHole,a===i&&(r.FirstLeft=i.FirstLeft),i.FirstLeft=r,this.m_UsingPolyTree&&this.FixupFirstLefts3(i,r)))}}},e.Clipper.prototype.UpdateOutPtIdxs=function(e){var t=e.Pts;do t.Idx=e.Idx,t=t.Prev;while(t!==e.Pts)},e.Clipper.prototype.DoSimplePolygons=function(){for(var t=0;t<this.m_PolyOuts.length;){var n=this.m_PolyOuts[t++],r=n.Pts;if(!(r===null||n.IsOpen))do{for(var i=r.Next;i!==n.Pts;){if(e.IntPoint.op_Equality(r.Pt,i.Pt)&&i.Next!==r&&i.Prev!==r){var a=r.Prev,o=i.Prev;r.Prev=o,o.Next=r,i.Prev=a,a.Next=i,n.Pts=r;var s=this.CreateOutRec();s.Pts=i,this.UpdateOutPtIdxs(s),this.Poly2ContainsPoly1(s.Pts,n.Pts)?(s.IsHole=!n.IsHole,s.FirstLeft=n,this.m_UsingPolyTree&&this.FixupFirstLefts2(s,n)):this.Poly2ContainsPoly1(n.Pts,s.Pts)?(s.IsHole=n.IsHole,n.IsHole=!s.IsHole,s.FirstLeft=n.FirstLeft,n.FirstLeft=s,this.m_UsingPolyTree&&this.FixupFirstLefts2(n,s)):(s.IsHole=n.IsHole,s.FirstLeft=n.FirstLeft,this.m_UsingPolyTree&&this.FixupFirstLefts1(n,s)),i=r}i=i.Next}r=r.Next}while(r!==n.Pts)}},e.Clipper.Area=function(e){if(!Array.isArray(e))return 0;var t=e.length;if(t<3)return 0;for(var n=0,r=0,i=t-1;r<t;++r)n+=(e[i].X+e[r].X)*(e[i].Y-e[r].Y),i=r;return-n*.5},e.Clipper.prototype.Area=function(e){var t=e;if(e===null)return 0;var n=0;do n+=(e.Prev.Pt.X+e.Pt.X)*(e.Prev.Pt.Y-e.Pt.Y),e=e.Next;while(e!==t);return n*.5},e.Clipper.prototype.Area$1=function(e){return this.Area(e.Pts)},e.Clipper.SimplifyPolygon=function(t,n){var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPath(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.SimplifyPolygons=function(t,n){n===void 0&&(n=e.PolyFillType.pftEvenOdd);var r=[],i=new e.Clipper(0);return i.StrictlySimple=!0,i.AddPaths(t,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,n,n),r},e.Clipper.DistanceSqrd=function(e,t){var n=e.X-t.X,r=e.Y-t.Y;return n*n+r*r},e.Clipper.DistanceFromLineSqrd=function(e,t,n){var r=t.Y-n.Y,i=n.X-t.X,a=r*t.X+i*t.Y;return a=r*e.X+i*e.Y-a,a*a/(r*r+i*i)},e.Clipper.SlopesNearCollinear=function(t,n,r,i){return Math.abs(t.X-n.X)>Math.abs(t.Y-n.Y)?t.X>n.X==t.X<r.X?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.X>t.X==n.X<r.X?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i:t.Y>n.Y==t.Y<r.Y?e.Clipper.DistanceFromLineSqrd(t,n,r)<i:n.Y>t.Y==n.Y<r.Y?e.Clipper.DistanceFromLineSqrd(n,t,r)<i:e.Clipper.DistanceFromLineSqrd(r,t,n)<i},e.Clipper.PointsAreClose=function(e,t,n){var r=e.X-t.X,i=e.Y-t.Y;return r*r+i*i<=n},e.Clipper.ExcludeOp=function(e){var t=e.Prev;return t.Next=e.Next,e.Next.Prev=t,t.Idx=0,t},e.Clipper.CleanPolygon=function(t,n){n===void 0&&(n=1.415);var r=t.length;if(r===0)return[];for(var i=Array(r),a=0;a<r;++a)i[a]=new e.OutPt;for(var a=0;a<r;++a)i[a].Pt=t[a],i[a].Next=i[(a+1)%r],i[a].Next.Prev=i[a],i[a].Idx=0;for(var o=n*n,s=i[0];s.Idx===0&&s.Next!==s.Prev;)e.Clipper.PointsAreClose(s.Pt,s.Prev.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):e.Clipper.PointsAreClose(s.Prev.Pt,s.Next.Pt,o)?(e.Clipper.ExcludeOp(s.Next),s=e.Clipper.ExcludeOp(s),r-=2):e.Clipper.SlopesNearCollinear(s.Prev.Pt,s.Pt,s.Next.Pt,o)?(s=e.Clipper.ExcludeOp(s),r--):(s.Idx=1,s=s.Next);r<3&&(r=0);for(var c=Array(r),a=0;a<r;++a)c[a]=new e.IntPoint1(s.Pt),s=s.Next;return i=null,c},e.Clipper.CleanPolygons=function(t,n){for(var r=Array(t.length),i=0,a=t.length;i<a;i++)r[i]=e.Clipper.CleanPolygon(t[i],n);return r},e.Clipper.Minkowski=function(t,n,r,i){var a=+!!i,o=t.length,s=n.length,c=[];if(r)for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X+p.X,n[l].Y+p.Y);c.push(u)}else for(var l=0;l<s;l++){for(var u=Array(o),d=0,f=t.length,p=t[d];d<f;d++,p=t[d])u[d]=new e.IntPoint2(n[l].X-p.X,n[l].Y-p.Y);c.push(u)}for(var m=[],l=0;l<s-1+a;l++)for(var d=0;d<o;d++){var h=[];h.push(c[l%s][d%o]),h.push(c[(l+1)%s][d%o]),h.push(c[(l+1)%s][(d+1)%o]),h.push(c[l%s][(d+1)%o]),e.Clipper.Orientation(h)||h.reverse(),m.push(h)}return m},e.Clipper.MinkowskiSum=function(t,n,r){if(n[0]instanceof Array){for(var i=n,a=new e.Paths,o=new e.Clipper,s=0;s<i.length;++s){var c=e.Clipper.Minkowski(t,i[s],!0,r);if(o.AddPaths(c,e.PolyType.ptSubject,!0),r){var l=e.Clipper.TranslatePath(i[s],t[0]);o.AddPath(l,e.PolyType.ptClip,!0)}}return o.Execute(e.ClipType.ctUnion,a,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),a}else{var l=n,i=e.Clipper.Minkowski(t,l,!0,r),o=new e.Clipper;return o.AddPaths(i,e.PolyType.ptSubject,!0),o.Execute(e.ClipType.ctUnion,i,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),i}},e.Clipper.TranslatePath=function(t,n){for(var r=new e.Path,i=0;i<t.length;i++)r.push(new e.IntPoint2(t[i].X+n.X,t[i].Y+n.Y));return r},e.Clipper.MinkowskiDiff=function(t,n){var r=e.Clipper.Minkowski(t,n,!1,!0),i=new e.Clipper;return i.AddPaths(r,e.PolyType.ptSubject,!0),i.Execute(e.ClipType.ctUnion,r,e.PolyFillType.pftNonZero,e.PolyFillType.pftNonZero),r},e.Clipper.PolyTreeToPaths=function(t){var n=[];return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntAny,n),n},e.Clipper.AddPolyNodeToPaths=function(t,n,r){var i=!0;switch(n){case e.Clipper.NodeType.ntOpen:return;case e.Clipper.NodeType.ntClosed:i=!t.IsOpen;break;default:break}t.m_polygon.length>0&&i&&r.push(t.m_polygon);for(var a=0,o=t.Childs(),s=o.length,c=o[a];a<s;a++,c=o[a])e.Clipper.AddPolyNodeToPaths(c,n,r)},e.Clipper.OpenPathsFromPolyTree=function(t){for(var n=new e.Paths,r=0,i=t.ChildCount();r<i;r++)t.Childs()[r].IsOpen&&n.push(t.Childs()[r].m_polygon);return n},e.Clipper.ClosedPathsFromPolyTree=function(t){var n=new e.Paths;return e.Clipper.AddPolyNodeToPaths(t,e.Clipper.NodeType.ntClosed,n),n},mt(e.Clipper,e.ClipperBase),e.Clipper.NodeType={ntAny:0,ntOpen:1,ntClosed:2},e.ClipperOffset=function(t,n){t===void 0&&(t=2),n===void 0&&(n=e.ClipperOffset.def_arc_tolerance),this.m_destPolys=new e.Paths,this.m_srcPoly=new e.Path,this.m_destPoly=new e.Path,this.m_normals=[],this.m_delta=0,this.m_sinA=0,this.m_sin=0,this.m_cos=0,this.m_miterLim=0,this.m_StepsPerRad=0,this.m_lowest=new e.IntPoint0,this.m_polyNodes=new e.PolyNode,this.MiterLimit=t,this.ArcTolerance=n,this.m_lowest.X=-1},e.ClipperOffset.two_pi=6.28318530717959,e.ClipperOffset.def_arc_tolerance=.25,e.ClipperOffset.prototype.Clear=function(){e.Clear(this.m_polyNodes.Childs()),this.m_lowest.X=-1},e.ClipperOffset.Round=e.Clipper.Round,e.ClipperOffset.prototype.AddPath=function(t,n,r){var i=t.length-1;if(!(i<0)){var a=new e.PolyNode;if(a.m_jointype=n,a.m_endtype=r,r===e.EndType.etClosedLine||r===e.EndType.etClosedPolygon)for(;i>0&&e.IntPoint.op_Equality(t[0],t[i]);)i--;a.m_polygon.push(t[0]);for(var o=0,s=0,c=1;c<=i;c++)e.IntPoint.op_Inequality(a.m_polygon[o],t[c])&&(o++,a.m_polygon.push(t[c]),(t[c].Y>a.m_polygon[s].Y||t[c].Y===a.m_polygon[s].Y&&t[c].X<a.m_polygon[s].X)&&(s=o));if(!(r===e.EndType.etClosedPolygon&&o<2)&&(this.m_polyNodes.AddChild(a),r===e.EndType.etClosedPolygon))if(this.m_lowest.X<0)this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s);else{var l=this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon[this.m_lowest.Y];(a.m_polygon[s].Y>l.Y||a.m_polygon[s].Y===l.Y&&a.m_polygon[s].X<l.X)&&(this.m_lowest=new e.IntPoint2(this.m_polyNodes.ChildCount()-1,s))}}},e.ClipperOffset.prototype.AddPaths=function(e,t,n){for(var r=0,i=e.length;r<i;r++)this.AddPath(e[r],t,n)},e.ClipperOffset.prototype.FixOrientations=function(){if(this.m_lowest.X>=0&&!e.Clipper.Orientation(this.m_polyNodes.Childs()[this.m_lowest.X].m_polygon))for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];(n.m_endtype===e.EndType.etClosedPolygon||n.m_endtype===e.EndType.etClosedLine&&e.Clipper.Orientation(n.m_polygon))&&n.m_polygon.reverse()}else for(var t=0;t<this.m_polyNodes.ChildCount();t++){var n=this.m_polyNodes.Childs()[t];n.m_endtype===e.EndType.etClosedLine&&!e.Clipper.Orientation(n.m_polygon)&&n.m_polygon.reverse()}},e.ClipperOffset.GetUnitNormal=function(t,n){var r=n.X-t.X,i=n.Y-t.Y;if(r===0&&i===0)return new e.DoublePoint2(0,0);var a=1/Math.sqrt(r*r+i*i);return r*=a,i*=a,new e.DoublePoint2(i,-r)},e.ClipperOffset.prototype.DoOffset=function(t){if(this.m_destPolys=[],this.m_delta=t,e.ClipperBase.near_zero(t)){for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];r.m_endtype===e.EndType.etClosedPolygon&&this.m_destPolys.push(r.m_polygon)}return}this.MiterLimit>2?this.m_miterLim=2/(this.MiterLimit*this.MiterLimit):this.m_miterLim=.5;var i=this.ArcTolerance<=0?e.ClipperOffset.def_arc_tolerance:this.ArcTolerance>Math.abs(t)*e.ClipperOffset.def_arc_tolerance?Math.abs(t)*e.ClipperOffset.def_arc_tolerance:this.ArcTolerance,a=3.14159265358979/Math.acos(1-i/Math.abs(t));this.m_sin=Math.sin(e.ClipperOffset.two_pi/a),this.m_cos=Math.cos(e.ClipperOffset.two_pi/a),this.m_StepsPerRad=a/e.ClipperOffset.two_pi,t<0&&(this.m_sin=-this.m_sin);for(var n=0;n<this.m_polyNodes.ChildCount();n++){var r=this.m_polyNodes.Childs()[n];this.m_srcPoly=r.m_polygon;var o=this.m_srcPoly.length;if(!(o===0||t<=0&&(o<3||r.m_endtype!==e.EndType.etClosedPolygon))){if(this.m_destPoly=[],o===1){if(r.m_jointype===e.JoinType.jtRound)for(var s=1,c=0,l=1;l<=a;l++){this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t)));var u=s;s=s*this.m_cos-this.m_sin*c,c=u*this.m_sin+c*this.m_cos}else for(var s=-1,c=-1,l=0;l<4;++l)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+s*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+c*t))),s<0?s=1:c<0?c=1:s=-1;this.m_destPolys.push(this.m_destPoly);continue}this.m_normals.length=0;for(var l=0;l<o-1;l++)this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[l],this.m_srcPoly[l+1]));if(r.m_endtype===e.EndType.etClosedLine||r.m_endtype===e.EndType.etClosedPolygon?this.m_normals.push(e.ClipperOffset.GetUnitNormal(this.m_srcPoly[o-1],this.m_srcPoly[0])):this.m_normals.push(new e.DoublePoint1(this.m_normals[o-2])),r.m_endtype===e.EndType.etClosedPolygon){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else if(r.m_endtype===e.EndType.etClosedLine){for(var d=o-1,l=0;l<o;l++)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly),this.m_destPoly=[];for(var f=this.m_normals[o-1],l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-f.X,-f.Y),d=0;for(var l=o-1;l>=0;l--)d=this.OffsetPoint(l,d,r.m_jointype);this.m_destPolys.push(this.m_destPoly)}else{for(var d=0,l=1;l<o-1;++l)d=this.OffsetPoint(l,d,r.m_jointype);var p;if(r.m_endtype===e.EndType.etOpenButt){var l=o-1;p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X+this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y+this.m_normals[l].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[l].X-this.m_normals[l].X*t),e.ClipperOffset.Round(this.m_srcPoly[l].Y-this.m_normals[l].Y*t)),this.m_destPoly.push(p)}else{var l=o-1;d=o-2,this.m_sinA=0,this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l].X,-this.m_normals[l].Y),r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(l,d):this.DoRound(l,d)}for(var l=o-1;l>0;l--)this.m_normals[l]=new e.DoublePoint2(-this.m_normals[l-1].X,-this.m_normals[l-1].Y);this.m_normals[0]=new e.DoublePoint2(-this.m_normals[1].X,-this.m_normals[1].Y),d=o-1;for(var l=d-1;l>0;--l)d=this.OffsetPoint(l,d,r.m_jointype);r.m_endtype===e.EndType.etOpenButt?(p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X-this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y-this.m_normals[0].Y*t)),this.m_destPoly.push(p),p=new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[0].X+this.m_normals[0].X*t),e.ClipperOffset.Round(this.m_srcPoly[0].Y+this.m_normals[0].Y*t)),this.m_destPoly.push(p)):(d=1,this.m_sinA=0,r.m_endtype===e.EndType.etOpenSquare?this.DoSquare(0,1):this.DoRound(0,1)),this.m_destPolys.push(this.m_destPoly)}}}},e.ClipperOffset.prototype.Execute=function(){var t=arguments;if(t[0]instanceof e.PolyTree){var n=t[0],r=t[1];n.Clear(),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;if(o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.ChildCount()===1&&n.Childs()[0].ChildCount()>0){var s=n.Childs()[0];n.Childs()[0]=s.Childs()[0],n.Childs()[0].m_Parent=n;for(var c=1;c<s.ChildCount();c++)n.AddChild(s.Childs()[c])}else n.Clear()}}else{var n=t[0],r=t[1];e.Clear(n),this.FixOrientations(),this.DoOffset(r);var i=new e.Clipper(0);if(i.AddPaths(this.m_destPolys,e.PolyType.ptSubject,!0),r>0)i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftPositive,e.PolyFillType.pftPositive);else{var a=e.Clipper.GetBounds(this.m_destPolys),o=new e.Path;o.push(new e.IntPoint2(a.left-10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.bottom+10)),o.push(new e.IntPoint2(a.right+10,a.top-10)),o.push(new e.IntPoint2(a.left-10,a.top-10)),i.AddPath(o,e.PolyType.ptSubject,!0),i.ReverseSolution=!0,i.Execute(e.ClipType.ctUnion,n,e.PolyFillType.pftNegative,e.PolyFillType.pftNegative),n.length>0&&n.splice(0,1)}}},e.ClipperOffset.prototype.OffsetPoint=function(t,n,r){if(this.m_sinA=this.m_normals[n].X*this.m_normals[t].Y-this.m_normals[t].X*this.m_normals[n].Y,Math.abs(this.m_sinA*this.m_delta)<1){if(this.m_normals[n].X*this.m_normals[t].X+this.m_normals[t].Y*this.m_normals[n].Y>0)return this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),n}else this.m_sinA>1?this.m_sinA=1:this.m_sinA<-1&&(this.m_sinA=-1);if(this.m_sinA*this.m_delta<0)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[n].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[n].Y*this.m_delta))),this.m_destPoly.push(new e.IntPoint1(this.m_srcPoly[t])),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)));else switch(r){case e.JoinType.jtMiter:var i=1+(this.m_normals[t].X*this.m_normals[n].X+this.m_normals[t].Y*this.m_normals[n].Y);i>=this.m_miterLim?this.DoMiter(t,n,i):this.DoSquare(t,n);break;case e.JoinType.jtSquare:this.DoSquare(t,n);break;case e.JoinType.jtRound:this.DoRound(t,n);break}return n=t,n},e.ClipperOffset.prototype.DoSquare=function(t,n){var r=Math.tan(Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y)/4);this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[n].X-this.m_normals[n].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[n].Y+this.m_normals[n].X*r)))),this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_delta*(this.m_normals[t].X+this.m_normals[t].Y*r)),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_delta*(this.m_normals[t].Y-this.m_normals[t].X*r))))},e.ClipperOffset.prototype.DoMiter=function(t,n,r){var i=this.m_delta/r;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+(this.m_normals[n].X+this.m_normals[t].X)*i),e.ClipperOffset.Round(this.m_srcPoly[t].Y+(this.m_normals[n].Y+this.m_normals[t].Y)*i)))},e.ClipperOffset.prototype.DoRound=function(t,n){for(var r=Math.atan2(this.m_sinA,this.m_normals[n].X*this.m_normals[t].X+this.m_normals[n].Y*this.m_normals[t].Y),i=Math.max(e.Cast_Int32(e.ClipperOffset.Round(this.m_StepsPerRad*Math.abs(r))),1),a=this.m_normals[n].X,o=this.m_normals[n].Y,s,c=0;c<i;++c)this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+a*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+o*this.m_delta))),s=a,a=a*this.m_cos-this.m_sin*o,o=s*this.m_sin+o*this.m_cos;this.m_destPoly.push(new e.IntPoint2(e.ClipperOffset.Round(this.m_srcPoly[t].X+this.m_normals[t].X*this.m_delta),e.ClipperOffset.Round(this.m_srcPoly[t].Y+this.m_normals[t].Y*this.m_delta)))},e.Error=function(e){try{throw Error(e)}catch(e){alert(e.message)}},e.JS={},e.JS.AreaOfPolygon=function(t,n){return n||=1,e.Clipper.Area(t)/(n*n)},e.JS.AreaOfPolygons=function(t,n){n||=1;for(var r=0,i=0;i<t.length;i++)r+=e.Clipper.Area(t[i]);return r/(n*n)},e.JS.BoundsOfPath=function(t,n){return e.JS.BoundsOfPaths([t],n)},e.JS.BoundsOfPaths=function(t,n){n||=1;var r=e.Clipper.GetBounds(t);return r.left/=n,r.bottom/=n,r.right/=n,r.top/=n,r},e.JS.Clean=function(t,n){if(!(t instanceof Array))return[];var r=t[0]instanceof Array,t=e.JS.Clone(t);if(typeof n!=`number`||n===null)return e.Error(`Delta is not a number in Clean().`),t;if(t.length===0||t.length===1&&t[0].length===0||n<0)return t;r||(t=[t]);for(var i=t.length,a,o,s,c,l,u,d,f=[],p=0;p<i;p++)if(o=t[p],a=o.length,a!==0){if(a<3){s=o,f.push(s);continue}for(s=o,c=n*n,l=o[0],u=1,d=1;d<a;d++)(o[d].X-l.X)*(o[d].X-l.X)+(o[d].Y-l.Y)*(o[d].Y-l.Y)<=c||(s[u]=o[d],l=o[d],u++);l=o[u-1],(o[0].X-l.X)*(o[0].X-l.X)+(o[0].Y-l.Y)*(o[0].Y-l.Y)<=c&&u--,u<a&&s.splice(u,a-u),s.length&&f.push(s)}return!r&&f.length?f=f[0]:!r&&f.length===0?f=[]:r&&f.length===0&&(f=[[]]),f},e.JS.Clone=function(e){if(!(e instanceof Array)||e.length===0)return[];if(e.length===1&&e[0].length===0)return[[]];var t=e[0]instanceof Array;t||(e=[e]);var n=e.length,r,i,a,o,s=Array(n);for(i=0;i<n;i++){for(r=e[i].length,o=Array(r),a=0;a<r;a++)o[a]={X:e[i][a].X,Y:e[i][a].Y};s[i]=o}return t||(s=s[0]),s},e.JS.Lighten=function(t,n){if(!(t instanceof Array))return[];if(typeof n!=`number`||n===null)return e.Error(`Tolerance is not a number in Lighten().`),e.JS.Clone(t);if(t.length===0||t.length===1&&t[0].length===0||n<0)return e.JS.Clone(t);var r=t[0]instanceof Array;r||(t=[t]);var i,a,o,s,c,l,u,d,f,p,m,h,g,_,v,y,b,x=t.length,S=n*n,C=[];for(i=0;i<x;i++)if(o=t[i],l=o.length,l!==0){for(s=0;s<1e6;s++){for(c=[],l=o.length,o[l-1].X!==o[0].X||o[l-1].Y!==o[0].Y?(h=1,o.push({X:o[0].X,Y:o[0].Y}),l=o.length):h=0,m=[],a=0;a<l-2;a++)u=o[a],f=o[a+1],d=o[a+2],y=u.X,b=u.Y,g=d.X-y,_=d.Y-b,(g!==0||_!==0)&&(v=((f.X-y)*g+(f.Y-b)*_)/(g*g+_*_),v>1?(y=d.X,b=d.Y):v>0&&(y+=g*v,b+=_*v)),g=f.X-y,_=f.Y-b,p=g*g+_*_,p<=S&&(m[a+1]=1,a++);for(c.push({X:o[0].X,Y:o[0].Y}),a=1;a<l-1;a++)m[a]||c.push({X:o[a].X,Y:o[a].Y});if(c.push({X:o[l-1].X,Y:o[l-1].Y}),h&&o.pop(),m.length)o=c;else break}l=c.length,c[l-1].X===c[0].X&&c[l-1].Y===c[0].Y&&c.pop(),c.length>2&&C.push(c)}return r||(C=C[0]),C===void 0&&(C=[]),C},e.JS.PerimeterOfPath=function(e,t,n){if(e===void 0)return 0;var r=Math.sqrt,i=0,a,o,s=0,c=0,l=0,u=0,d=e.length;if(d<2)return 0;for(t&&(e[d]=e[0],d++);--d;)a=e[d],s=a.X,c=a.Y,o=e[d-1],l=o.X,u=o.Y,i+=r((s-l)*(s-l)+(c-u)*(c-u));return t&&e.pop(),i/n},e.JS.PerimeterOfPaths=function(t,n,r){r||=1;for(var i=0,a=0;a<t.length;a++)i+=e.JS.PerimeterOfPath(t[a],n,r);return i},e.JS.ScaleDownPath=function(e,t){var n,r;for(t||=1,n=e.length;n--;)r=e[n],r.X/=t,r.Y/=t},e.JS.ScaleDownPaths=function(e,t){var n,r,i;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X/=t,i.Y/=t},e.JS.ScaleUpPath=function(e,t){var n,r,i=Math.round;for(t||=1,n=e.length;n--;)r=e[n],r.X=i(r.X*t),r.Y=i(r.Y*t)},e.JS.ScaleUpPaths=function(e,t){var n,r,i,a=Math.round;for(t||=1,n=e.length;n--;)for(r=e[n].length;r--;)i=e[n][r],i.X=a(i.X*t),i.Y=a(i.Y*t)},e.ExPolygons=function(){return[]},e.ExPolygon=function(){this.outer=null,this.holes=null},e.JS.AddOuterPolyNodeToExPolygons=function(t,n){var r=new e.ExPolygon;r.outer=t.Contour();var i=t.Childs(),a=i.length;r.holes=Array(a);var o,s,c,l,u,d;for(c=0;c<a;c++)for(o=i[c],r.holes[c]=o.Contour(),l=0,u=o.Childs(),d=u.length;l<d;l++)s=u[l],e.JS.AddOuterPolyNodeToExPolygons(s,n);n.push(r)},e.JS.ExPolygonsToPaths=function(t){var n,r,i,a,o=new e.Paths;for(n=0,i=t.length;n<i;n++)for(o.push(t[n].outer),r=0,a=t[n].holes.length;r<a;r++)o.push(t[n].holes[r]);return o},e.JS.PolyTreeToExPolygons=function(t){var n=new e.ExPolygons,r,i,a,o;for(i=0,a=t.Childs(),o=a.length;i<o;i++)r=a[i],e.JS.AddOuterPolyNodeToExPolygons(r,n);return n}})()}))(),1);let h=1e4,g=1e-4;function _(e){let t=0;for(let n=0,r=e.length-1;n<e.length;r=n++)t+=e[r].x*e[n].y-e[n].x*e[r].y;return t/2}function v(e){let t=1/0,n=1/0,r=-1/0,i=-1/0;for(let a of e)for(let e of a.points)t=Math.min(t,e.x),n=Math.min(n,e.y),r=Math.max(r,e.x),i=Math.max(i,e.y);return{minX:t,minY:n,maxX:r,maxY:i,width:r-t,height:i-n}}function y(e){return e.map(e=>e.points.map(e=>({X:Math.round(e.x*h),Y:Math.round(e.y*h)})))}function b(e){let t=[];function n(e){for(let r of e.Childs()){let e=r.IsHole(),i=m.default.Clipper.CleanPolygon(r.Contour(),1.1).map(e=>({x:e.X/h,y:e.Y/h}));i.length>=3&&(_(i)>0===e&&i.reverse(),t.push({isHole:e,points:i})),n(r)}}return n(e),t}function x(e,t,n,r=!1){if(!e.length)return[];let i=new m.default.Clipper;i.StrictlySimple=!0,i.AddPaths(y(e),m.default.PolyType.ptSubject,!0),t.length&&i.AddPaths(y(t),m.default.PolyType.ptClip,!0);let a=new m.default.PolyTree,o=r?m.default.PolyFillType.pftEvenOdd:m.default.PolyFillType.pftNonZero;return i.Execute(n===`union`?m.default.ClipType.ctUnion:n===`difference`?m.default.ClipType.ctDifference:m.default.ClipType.ctIntersection,a,o,m.default.PolyFillType.pftNonZero),b(a)}function S(e,t){if(!e.length)return[];if(Math.abs(t)<1e-4/10)return e.map(e=>({...e,points:e.points.map(e=>({...e}))}));let n=new m.default.ClipperOffset(2,.002*h);n.AddPaths(y(e),m.default.JoinType.jtMiter,m.default.EndType.etClosedPolygon);let r=new m.default.PolyTree;return n.Execute(r,t*h),b(r)}function C(e,t){let n=!1;for(let r=0,i=t.length-1;r<t.length;i=r++){let a=t[r],o=t[i];a.y>e.y!=o.y>e.y&&e.x<(o.x-a.x)*(e.y-a.y)/(o.y-a.y)+a.x&&(n=!n)}return n}function w(e,t){let n=!1;for(let r of t)C(e,r.points)&&(n=!n);return n}function T(e){let t=e.filter(e=>!e.isHole).map(e=>[e]);for(let n of e.filter(e=>e.isHole)){let e=t.filter(e=>C(n.points[0],e[0].points));e.sort((e,t)=>Math.abs(_(e[0].points))-Math.abs(_(t[0].points))),e[0]&&e[0].push(n)}return t}function E(e){return e.reduce((e,t)=>e+(t.isHole?-1:1)*Math.abs(_(t.points)),0)}function D(e){let t=0;for(let n of e)for(let e=0,r=n.points.length-1;e<n.points.length;r=e++)t+=Math.hypot(n.points[e].x-n.points[r].x,n.points[e].y-n.points[r].y);return t}function O(e,t){let n=1/0;for(let r of t)for(let t=0,i=r.points.length-1;t<r.points.length;i=t++){let a=r.points[i],o=r.points[t],s=o.x-a.x,c=o.y-a.y,l=Math.max(0,Math.min(1,((e.x-a.x)*s+(e.y-a.y)*c)/(s*s+c*c||1)));n=Math.min(n,Math.hypot(e.x-a.x-l*s,e.y-a.y-l*c))}return w(e,t)?n:-n}function k(e){let t=v(e),n={point:{x:(t.minX+t.maxX)/2,y:(t.minY+t.maxY)/2},clearance:-1/0};for(let r=0;r<18;r++)for(let i=0;i<18;i++){let a={x:t.minX+(r+.5)*t.width/18,y:t.minY+(i+.5)*t.height/18},o=O(a,e);o>n.clearance&&(n={point:a,clearance:o})}let r=Math.max(t.width,t.height)/18;for(let t=0;t<7;t++){let t=n.point;for(let i=-1;i<=1;i++)for(let a=-1;a<=1;a++){let o={x:t.x+i*r,y:t.y+a*r},s=O(o,e);s>n.clearance&&(n={point:o,clearance:s})}r/=2}return n}function A(e,t){return{isHole:!1,points:Array.from({length:96},(n,r)=>({x:e.x+t*Math.cos(r*Math.PI*2/96),y:e.y+t*Math.sin(r*Math.PI*2/96)}))}}function j(e,t){let n=[];for(let r of e)for(let e=0,i=r.points.length-1;e<r.points.length;i=e++){let a=r.points[i],o=r.points[e];(a.x<=t&&o.x>t||o.x<=t&&a.x>t)&&n.push(a.y+(o.y-a.y)*(t-a.x)/(o.x-a.x))}n.sort((e,t)=>e-t);let r=[];for(let e=0;e+1<n.length;e+=2)n[e+1]-n[e]>1e-4&&r.push([n[e],n[e+1]]);return r}function M(e,t,n){let r=t===`X`?0:t===`Y`?1:2,i=+(r===0),a=r===2?1:2,o=new Map,s=new Map,c=e=>`${Math.round(e.x/g)},${Math.round(e.y/g)}`;for(let t=0;t<e.length;t+=9){let l=[e[t+r]-n,e[t+3+r]-n,e[t+6+r]-n].map(e=>Math.abs(e)<1e-4/10?0:e);if(l.every(e=>e>=0)||l.every(e=>e<0))continue;let u=[];for(let n=0;n<3;n++){let r=(n+1)%3;if(l[n]<0==l[r]<0)continue;let o=l[n]/(l[n]-l[r]);u.push({x:e[t+n*3+i]+o*(e[t+r*3+i]-e[t+n*3+i]),y:e[t+n*3+a]+o*(e[t+r*3+a]-e[t+n*3+a])})}if(u.length!==2)continue;let d=c(u[0]),f=c(u[1]);if(d===f)continue;s.set(d,u[0]),s.set(f,u[1]);let p=d<f?`${d}|${f}`:`${f}|${d}`;o.has(p)?o.delete(p):o.set(p,[d,f])}let l=new Map;for(let[e,t]of o.values())l.has(e)||l.set(e,new Set),l.has(t)||l.set(t,new Set),l.get(e).add(t),l.get(t).add(e);let u=0,d=0;for(let e of l.values())e.size===1&&u++,e.size>2&&d++;let f=new Set,p=[];for(let e of l.keys()){if(f.has(e))continue;let t=[e];f.add(e);for(let e=0;e<t.length;e++)for(let n of l.get(t[e]))f.has(n)||(f.add(n),t.push(n));if(t.some(e=>l.get(e).size!==2))continue;let n=[],r=``,i=e;do{n.push(s.get(i));let e=[...l.get(i)].find(e=>e!==r);r=i,i=e}while(i!==e&&n.length<=t.length);i===e&&n.length>=3&&p.push({isHole:!1,points:n})}return{loops:x(p,[],`union`,!0),open:u,branches:d}}let N={0:[[0,0,.6,0,.6,1,0,1,0,0]],1:[[.12,.8,.3,1,.3,0],[.08,0,.52,0]],2:[[0,1,.6,1,.6,.5,0,.5,0,0,.6,0]],3:[[0,1,.6,1,.6,0,0,0],[.15,.5,.6,.5]],4:[[0,1,0,.5,.6,.5],[.6,1,.6,0]],5:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],6:[[.6,1,0,1,0,0,.6,0,.6,.5,0,.5]],7:[[0,1,.6,1,.1,0]],8:[[0,0,.6,0,.6,1,0,1,0,0],[0,.5,.6,.5]],9:[[.6,.5,0,.5,0,1,.6,1,.6,0,0,0]],X:[[0,0,.6,1],[0,1,.6,0]],Y:[[0,1,.3,.5,.6,1],[.3,.5,.3,0]],Z:[[0,1,.6,1,0,0,.6,0]],"-":[[.08,.5,.52,.5]],A:[[0,0,.3,1,.6,0],[.12,.4,.48,.4]],B:[[0,0,0,1,.5,1,.6,.75,.5,.5,0,.5],[.5,.5,.6,.25,.5,0,0,0]],C:[[.6,1,0,1,0,0,.6,0]],D:[[0,0,0,1,.4,1,.6,.8,.6,.2,.4,0,0,0]],E:[[.6,1,0,1,0,0,.6,0],[0,.5,.5,.5]],F:[[.6,1,0,1,0,0],[0,.5,.5,.5]],G:[[.6,1,0,1,0,0,.6,0,.6,.5,.35,.5]],H:[[0,0,0,1],[.6,0,.6,1],[0,.5,.6,.5]],I:[[0,1,.6,1],[.3,1,.3,0],[0,0,.6,0]],J:[[0,1,.6,1,.6,0,0,0,0,.25]],K:[[0,0,0,1],[.6,1,0,.5,.6,0]],L:[[0,1,0,0,.6,0]],M:[[0,0,0,1,.3,.5,.6,1,.6,0]],N:[[0,0,0,1,.6,0,.6,1]],O:[[0,0,.6,0,.6,1,0,1,0,0]],P:[[0,0,0,1,.6,1,.6,.5,0,.5]],Q:[[0,0,.6,0,.6,1,0,1,0,0],[.35,.25,.65,-.05]],R:[[0,0,0,1,.6,1,.6,.5,0,.5],[.25,.5,.6,0]],S:[[.6,1,0,1,0,.5,.6,.5,.6,0,0,0]],T:[[0,1,.6,1],[.3,1,.3,0]],U:[[0,1,0,0,.6,0,.6,1]],V:[[0,1,.3,0,.6,1]],W:[[0,1,.15,0,.3,.5,.45,0,.6,1]]};function P(e,t,n){let{point:r,clearance:i}=n||k(t),a=e.length*.85-.25,o=Math.min(3.8,2*Math.max(0,i-.7)/Math.hypot(a,1));if(o<.65)return[];let s=r.x-a*o/2,c=r.y-o/2,l=[];return[...e.toUpperCase()].forEach((e,t)=>{for(let n of N[e]||N[`-`]){let e=[];for(let r=0;r<n.length;r+=2)e.push({x:s+(t*.85+n[r])*o,y:c+n[r+1]*o});l.push({points:e})}}),l}function F(e,t){return t.x>=e.x-1e-8&&t.y>=e.y-1e-8&&t.x+t.w<=e.x+e.w+1e-8&&t.y+t.h<=e.y+e.h+1e-8}function I(e,t){let n=[];for(let r of e){if(t.x>=r.x+r.w-1e-8||t.x+t.w<=r.x+1e-8||t.y>=r.y+r.h-1e-8||t.y+t.h<=r.y+1e-8){n.push(r);continue}t.x>r.x&&n.push({x:r.x,y:r.y,w:t.x-r.x,h:r.h}),t.x+t.w<r.x+r.w&&n.push({x:t.x+t.w,y:r.y,w:r.x+r.w-t.x-t.w,h:r.h}),t.y>r.y&&n.push({x:r.x,y:r.y,w:r.w,h:t.y-r.y}),t.y+t.h<r.y+r.h&&n.push({x:r.x,y:t.y+t.h,w:r.w,h:r.y+r.h-t.y-t.h})}return n.filter((e,t)=>e.w>1e-8&&e.h>1e-8&&!n.some((n,r)=>r!==t&&F(n,e)&&(!F(e,n)||r<t)))}function L(e,t){let n=t.sheetWidth-t.sheetMargin*2,r=t.sheetHeight-t.sheetMargin*2,i=[],a=[],o=[...e].sort((e,t)=>t.bounds.width*t.bounds.height-e.bounds.width*e.bounds.height||e.id.localeCompare(t.id));for(let e of o){let o=e.bounds.width+t.partSpacing,s=e.bounds.height+t.partSpacing;if(!(o<=n&&s<=r||t.allowRotation&&s<=n&&o<=r)){a.push(e.id);continue}let c=null,l=e=>{for(let n of i[e].free)for(let r of t.allowRotation?[0,90]:[0]){let t=r===0?o:s,i=r===0?s:o;if(t>n.w+1e-8||i>n.h+1e-8)continue;let a=Math.min(n.w-t,n.h-i),l=Math.max(n.w-t,n.h-i);(!c||a<c.short-1e-8||Math.abs(a-c.short)<1e-8&&l<c.long)&&(c={bin:e,rect:{x:n.x,y:n.y,w:t,h:i},rotation:r,short:a,long:l})}};for(let e=0;e<i.length;e++)l(e);c||(i.push({free:[{x:0,y:0,w:n,h:r}],sheet:{sheetIndex:i.length,placements:[],utilization:0,cutLength:0}}),l(i.length-1));let u=c;if(!u){a.push(e.id);continue}let d=i[u.bin];d.free=I(d.free,u.rect),d.sheet.placements.push({pieceId:e.id,x:u.rect.x+t.sheetMargin+t.partSpacing/2,y:u.rect.y+t.sheetMargin+t.partSpacing/2,rotation:u.rotation}),d.sheet.utilization+=e.area/(t.sheetWidth*t.sheetHeight),d.sheet.cutLength+=e.cutLength}return{sheets:i.map(e=>e.sheet),unplaced:a}}function R(e,t){let n=t.pinDiameter+t.slotFitTolerance,r=t.materialThickness+t.slotFitTolerance;return{isHole:!1,points:[{x:e.x-n/2,y:e.y-r/2},{x:e.x+n/2,y:e.y-r/2},{x:e.x+n/2,y:e.y+r/2},{x:e.x-n/2,y:e.y+r/2}]}}function z(e,t,n,r){let i=r.materialThickness,a=r.pinDiameter,o=a/2,s=o+i,c=n+i,l=Math.min(i/2,a/4),u=[[-s,-i],[s,-i],[s,0],[o,0],[o,c-l],[o-l,c],[-o+l,c],[-o,c-l],[-o,0],[-s,0]].map(([t,n])=>r.stackedAxis===`X`?{x:n,y:e.x+t}:{x:e.x+t,y:n});_(u)<0&&u.reverse();let d=[{isHole:!1,points:u}],f=S(d,r.laserKerf/2),p=`P-${String(t+1).padStart(2,`0`)}`;return{id:p,label:p,parentId:p,kind:`alignment-pin`,axis:r.stackedAxis===`Z`?`Y`:`Z`,sliceIndex:t,worldPosition:e.y,unmodifiedPaths:d,assemblyPaths:d,cutPaths:f,etchPaths:P(p,d,k(d)),bounds:v(f),area:E(d),cutLength:D(f),joints:[]}}function B(e){for(let[t,[n,r]]of Object.entries({targetWidth:[1,1e4],targetDepth:[1,1e4],targetHeight:[1,1e4],materialThickness:[.1,100],laserKerf:[0,5],slotFitTolerance:[-2,5],leadInChamfer:[0,20],xSliceCount:[1,100],ySliceCount:[1,100],slotDepthRatio:[.1,.9],pinDiameter:[.5,100],pinCount:[1,5],sheetWidth:[20,5e3],sheetHeight:[20,5e3],sheetMargin:[0,500],partSpacing:[0,100]})){let i=e[t];if(typeof i!=`number`||!Number.isFinite(i)||i<n||i>r)throw Error(`${t.replace(/([A-Z])/g,` $1`)} must be between ${n} and ${r}.`)}for(let t of[`xSliceCount`,`ySliceCount`,`pinCount`])if(!Number.isInteger(e[t]))throw Error(`Slice and pin counts must be whole numbers.`);if(![`interlocking`,`stacked`].includes(e.mode)||![`X`,`Y`,`Z`].includes(e.stackedAxis)||![`X`,`Y`,`Z`].includes(e.scaleAxis))throw Error(`Invalid slicing mode or axis.`);if(e.materialThickness+e.slotFitTolerance<=e.laserKerf+1e-4&&e.mode===`interlocking`)throw Error(`The desired slot is smaller than the laser kerf. Increase thickness/tolerance or reduce kerf.`);if(e.alignmentPins&&e.pinDiameter<=e.laserKerf+1e-4&&e.mode===`stacked`)throw Error(`Pin diameter must be larger than the laser kerf.`);if(e.alignmentPinType!==void 0&&![`dowel`,`material`].includes(e.alignmentPinType))throw Error(`Choose dowels or pins cut from sheet material.`);if(e.mode===`stacked`&&e.alignmentPins&&e.alignmentPinType===`material`&&Math.min(e.pinDiameter+e.slotFitTolerance,e.materialThickness+e.slotFitTolerance)<=e.laserKerf+1e-4)throw Error(`The material-pin slot is smaller than the kerf. Increase pin width or fit tolerance, or reduce kerf.`);if(e.sheetMargin*2>=Math.min(e.sheetWidth,e.sheetHeight))throw Error(`The margin leaves no usable sheet area.`)}function V(e,t,n,r,i,a,o,s){let c=a/2,l=Math.min(o,(n-t)*.15,(i?n-r:r-t)*.45);return{isHole:!1,points:(i?[[e-c,r],[e+c,r],[e+c,n-l],[e+c+l,n],[e+c+l,s],[e-c-l,s],[e-c-l,n],[e-c,n-l]]:[[e-c-l,s],[e+c+l,s],[e+c+l,t],[e+c,t+l],[e+c,r],[e-c,r],[e-c,t+l],[e-c-l,t]]).map(([e,t])=>({x:e,y:t}))}}function H(e,t){let n=e[0]?.raw||[];for(let t=1;t<e.length&&n.length;t++)n=x(n,e[t].raw,`intersection`);let r=t.alignmentPinType===`material`?Math.hypot(t.pinDiameter+t.slotFitTolerance,t.materialThickness+t.slotFitTolerance)/2:t.pinDiameter/2,i=S(n,-(r+Math.max(t.materialThickness,2)));if(!i.length)return[];let a=v(i),o=[];for(let e=0;e<29;e++)for(let t=0;t<29;t++){let n={x:a.minX+(e+.5)*a.width/29,y:a.minY+(t+.5)*a.height/29};w(n,i)&&o.push(n)}for(let e of T(i))o.push(k(e).point);let s=[];for(;s.length<t.pinCount&&o.length;){let e=-1,n=-1/0;if(o.forEach((r,a)=>{let o=s.length?Math.min(...s.map(e=>Math.hypot(r.x-e.x,r.y-e.y))):O(r,i);s.length&&o<t.pinDiameter+2*t.materialThickness||o>n&&(n=o,e=a)}),e<0)break;s.push(o.splice(e,1)[0])}return s}function U(e,t){let n=performance.now();B(t);let r=[],i=(e,t,n,i=[])=>{let a=r.find(t=>t.code===e);a||(a={code:e,severity:t,message:n,partIds:[]},r.push(a));for(let e of i)a.partIds.includes(e)||a.partIds.push(e)};(e.info.boundaryEdges||e.info.nonManifoldEdges)&&i(`mesh-topology`,`warning`,`Mesh has ${e.info.boundaryEdges.toLocaleString()} open edges and ${e.info.nonManifoldEdges.toLocaleString()} non-manifold edges. Repair the STL for reliable sections.`);let a=l(e.vertices),o=[t.targetWidth,t.targetDepth,t.targetHeight],s=t.scaleAxis===`X`?0:t.scaleAxis===`Y`?1:2,c=t.keepAspectRatio?a.dimensions.map(()=>o[s]/a.dimensions[s]):o.map((e,t)=>e/a.dimensions[t]),u=a.dimensions.map((e,t)=>e*c[t]),d=new Float64Array(e.vertices.length);for(let t=0;t<d.length;t++)d[t]=(e.vertices[t]-a.min[t%3])*c[t%3];let f=[],p=[],m=0,h=0,_=(e,t,n,r=n)=>{let a=`${e}-${String(t+1).padStart(2,`0`)}`,o=M(d,e,r);(o.open||o.branches)&&i(`open-contours`,`error`,`Some sections have open or branching contours and were omitted. DXF can export the generated parts; repair the STL for complete sections.`,[a]),o.loops.length?f.push({id:a,axis:e,index:t,position:n,raw:o.loops,cuts:[]}):i(`empty-sections`,`warning`,`Some slicing planes have no closed material contour.`,[a])};if(t.mode===`interlocking`){for(let[e,n,r]of[[`X`,t.xSliceCount,u[0]],[`Y`,t.ySliceCount,u[1]]]){let a=r/(n+1);a<t.materialThickness?i(`slice-collision`,`error`,`${e} ribs overlap. Reduce the slice count or material thickness.`):a<t.materialThickness*1.5&&i(`tight-spacing`,`warning`,`${e} ribs are closely spaced. Check the material remaining between slots.`);for(let t=0;t<n;t++)_(e,t,(t+1)*a)}let e=f.filter(e=>e.axis===`X`),n=f.filter(e=>e.axis===`Y`),r=t.materialThickness+t.slotFitTolerance;for(let a of e)for(let e of n){let n=j(a.raw,e.position),o=j(e.raw,a.position),s=[];for(let[e,t]of n)for(let[n,r]of o){let i=Math.max(e,n),a=Math.min(t,r);a-i>1e-4&&s.push([i,a])}s.length>1&&i(`multi-span-joints`,`warning`,`Some joints cross hollow or concave regions. Check that each slot is accessible during assembly.`,[a.id,e.id]);for(let n=0;n<s.length;n++){let[o,c]=s[n];if(c-o<=2*t.materialThickness||(c-o)*Math.min(t.slotDepthRatio,1-t.slotDepthRatio)<t.materialThickness){i(`short-joints`,`warning`,`Short intersections were left unslotted to avoid fragile joints.`,[a.id,e.id]);continue}let l=c-(c-o)*t.slotDepthRatio,d=n?s[n-1][1]:-t.materialThickness,f=(c+(n+1<s.length?s[n+1][0]:u[2]+t.materialThickness))/2+g,m=(o+d)/2-g;a.cuts.push(V(e.position,o,c,l,!0,r,t.leadInChamfer,s.length===1?u[2]+1:f)),e.cuts.push(V(a.position,o,c,l,!1,r,t.leadInChamfer,s.length===1?-1:m)),p.push({a:a.id,b:e.id,x:a.position,y:e.position,z:l})}}}else{let e=t.stackedAxis===`X`?0:t.stackedAxis===`Y`?1:2;if(m=Math.max(1,Math.round(u[e]/t.materialThickness)),h=m*t.materialThickness,m>400)throw Error(`This stack needs more than 400 layers. Increase material thickness or reduce model size.`);for(let n=0;n<m;n++)_(t.stackedAxis,n,(n+.5)*t.materialThickness,(n+.5)*u[e]/m);Math.abs(h-u[e])>.001&&i(`rounded-stack`,`warning`,`Stack depth is rounded to ${h.toFixed(2)} mm (${m} layers × ${t.materialThickness} mm).`)}let y=t.mode===`stacked`&&t.alignmentPins?H(f,t):[];if(t.mode===`stacked`&&t.alignmentPins&&y.length<t.pinCount&&i(`pin-placement`,`warning`,y.length?`Only ${y.length} pin positions fit through every layer with a material margin.`:`No safe pin position passes through every layer. Pins were omitted; use adhesive or external registration.`),y.length)for(let e of f)e.cuts.push(...y.map(e=>t.alignmentPinType===`material`?R(e,t):A(e,t.pinDiameter/2)));let b=[];for(let e of f){let n=T(e.cuts.length?x(e.raw,e.cuts,`difference`):e.raw).filter(t=>E(t)>=2?!0:(i(`micro-islands`,`warning`,`Tiny components below 2 mm² were omitted.`,[e.id]),!1));n.length>1&&i(`split-components`,`warning`,`Disconnected regions are exported as separate labeled parts. Inspect their assembly connections.`,[e.id]),n.length||i(`removed-pieces`,`warning`,`Slots removed all usable material from some slices.`,[e.id]),n.forEach((r,a)=>{let o=n.length>1?`-${a<26?String.fromCharCode(65+a):a+1}`:``,s=e.id+o,c=S(r,t.laserKerf/2);if(c.filter(e=>e.isHole).length<r.filter(e=>e.isHole).length&&i(`vanishing-holes`,`error`,`A hole is smaller than the kerf and disappeared. Reduce kerf or increase feature size.`,[s]),!c.length){i(`collapsed-path`,`error`,`Kerf compensation removed an entire part.`,[s]);return}for(let e of c)e.isHole&&y.some(t=>C(t,e.points))&&(e.isRegistration=!0);let l=k(r),u=l.point,d=T(e.raw).find(e=>w(u,e))||e.raw,f=P(s,r,l);f.length||i(`small-labels`,`warning`,`Some narrow parts have no room for an etched label. Match them using the assembly preview.`,[s]),b.push({id:s,label:s,parentId:e.id,axis:e.axis,sliceIndex:e.index,worldPosition:e.position,unmodifiedPaths:d,assemblyPaths:r,cutPaths:c,etchPaths:f,bounds:v(c),area:E(r),cutLength:D(c),joints:[]})})}let N=[];for(let e of p){let n=b.find(t=>t.parentId===e.a&&w({x:e.y,y:e.z-.1},t.assemblyPaths)),r=b.find(t=>t.parentId===e.b&&w({x:e.x,y:e.z+.1},t.assemblyPaths));if(n&&r){n.joints.push(r.id),r.joints.push(n.id),N.push({...e,a:n.id,b:r.id});for(let[i,a,o]of[[n,e.y,-1],[r,e.x,1]])for(let n of[-1,1]){let r={x:a+n*(t.materialThickness+t.slotFitTolerance)/2+n*.7,y:e.z+o*.9},s={x:r.x+n*1.4,y:r.y};O(r,i.assemblyPaths)>.2&&O(s,i.assemblyPaths)>.2&&i.etchPaths.push({points:[r,s]})}}else i(`incomplete-joints`,`warning`,`Some joints lost their supporting material during slot subtraction.`,[e.a,e.b])}if(t.mode===`interlocking`){let e=b.filter(e=>!e.joints.length).map(e=>e.id);e.length&&i(`unanchored-parts`,`warning`,`Some parts have no usable interlock. They need support or adhesive.`,e);let t=new Set,n=0,r=new Map(b.map(e=>[e.id,e]));for(let e of b){if(t.has(e.id))continue;n++;let i=[e.id];t.add(e.id);for(let e=0;e<i.length;e++)for(let n of r.get(i[e]).joints)t.has(n)||(t.add(n),i.push(n))}n>1&&i(`separate-assemblies`,`warning`,`The joint graph contains ${n} separate assemblies. Review how they are supported.`)}else if(y.length){let e=b.filter(e=>!e.cutPaths.some(e=>e.isRegistration)).map(e=>e.id);e.length&&i(`unpinned-components`,`warning`,`Some stacked components contain no registration pin. Use adhesive and position them by the preview.`,e)}b.length?t.mode===`stacked`&&t.alignmentPinType===`material`&&y.length&&b.unshift(...y.map((e,n)=>z(e,n,h,t))):i(`no-pieces`,`error`,`No usable parts were generated. Try fewer slices, a thicker stack, or a closed mesh.`);let F=L(b,t);return F.unplaced.length&&i(`oversize-parts`,`error`,`Some parts do not fit the usable sheet area. Increase the sheet size, reduce margins/spacing, or scale the model down.`,F.unplaced),{model:e.info,dimensions:u,vertices:new Float32Array(d),settings:{...t},pieces:b,...F,joints:N,pins:y,issues:r,processingMs:performance.now()-n,layerCount:m,builtDepth:h}}function W(){let e=null;return t=>{try{let n=t.type===`load`?d(t.buffer,t.name):t.type===`preset`?p(t.preset):e;if(!n)throw Error(`Load an STL or choose a sample model.`);let r=U(n,t.settings);return e=n,{id:t.id,result:r}}catch(e){return{id:t.id,error:e instanceof Error?e.message:`Could not process this mesh.`}}}}let G=W();self.onmessage=e=>{let t=G(e.data);self.postMessage(t,`result`in t?{transfer:[t.result.vertices.buffer]}:void 0)},self.postMessage({type:`ready`})})();',hE=typeof self<`u`&&self.Blob&&new Blob([`(self.URL || self.webkitURL).revokeObjectURL(self.location.href);`,mE],{type:`text/javascript;charset=utf-8`});function gE(e){let t;try{if(t=hE&&(self.URL||self.webkitURL).createObjectURL(hE),!t)throw``;let n=new Worker(t,{name:e?.name});return n.addEventListener(`error`,()=>{(self.URL||self.webkitURL).revokeObjectURL(t)}),n}catch{return new Worker(`data:text/javascript;charset=utf-8,`+encodeURIComponent(mE),{name:e?.name})}}function _E(){let e=null;return t=>{try{let n=t.type===`load`?Aw(t.buffer,t.name):t.type===`preset`?Mw(t.preset):e;if(!n)throw Error(`Load an STL or choose a sample model.`);let r=fE(n,t.settings);return e=n,{id:t.id,result:r}}catch(e){return{id:t.id,error:e instanceof Error?e.message:`Could not process this mesh.`}}}}var vE=class{constructor(){this.onmessage=null,this.onerror=null,this.worker=null,this.ready=!1,this.closed=!1,this.pending=[],this.session=null,this.startupTimer=null;try{let e=new gE;this.worker=e,e.onmessage=e=>{if(!this.closed)if(`type`in e.data&&e.data.type===`ready`){this.clearStartupTimer(),this.ready=!0;for(let e of this.pending.splice(0))this.postMessage(e)}else this.onmessage?.({data:e.data})},e.onerror=e=>{e.preventDefault?.(),this.ready?this.onerror?.({message:e.message||`The slicing engine stopped. Reload the page and try again.`}):this.useCompatibilityMode()},this.startupTimer=setTimeout(()=>this.useCompatibilityMode(),3e3)}catch{this.useCompatibilityMode()}}postMessage(e){if(this.closed)throw Error(`The slicing engine has closed.`);this.session?setTimeout(()=>{this.closed||this.onmessage?.({data:this.session(e)})},0):this.ready?this.worker.postMessage(e,e.type===`load`?[e.buffer]:[]):this.pending.push(e)}terminate(){this.closed=!0,this.clearStartupTimer(),this.worker?.terminate(),this.worker=null,this.pending.length=0}clearStartupTimer(){this.startupTimer!==null&&clearTimeout(this.startupTimer),this.startupTimer=null}useCompatibilityMode(){if(!(this.closed||this.session)){this.clearStartupTimer(),this.worker?.terminate(),this.worker=null,this.session=_E();for(let e of this.pending.splice(0))this.postMessage(e)}}},yE=(e,t=1)=>e.toLocaleString(`en-US`,{maximumFractionDigits:t});function bE({label:e,value:t,max:n=100,min:r=0,step:i=1,onChange:a}){let o=(0,C.useRef)(null);return(0,C.useEffect)(()=>{o.current?.querySelectorAll(`[role=slider]`).forEach(t=>t.setAttribute(`aria-label`,e))},[e]),(0,G.jsx)(`div`,{ref:o,children:(0,G.jsx)(of,{value:[t],max:n,min:r,step:i,onValueChange:e=>a(e[0]),"aria-label":e})})}function xE({label:e,value:t,onChange:n,min:r=0,max:i=1e4,step:a=.1,unit:o=`mm`}){let s=(0,C.useId)(),[c,l]=(0,C.useState)(String(Number(t.toFixed(3))));return(0,C.useEffect)(()=>l(String(Number(t.toFixed(3)))),[t]),(0,G.jsxs)(`label`,{htmlFor:s,className:`number-field`,children:[(0,G.jsx)(`span`,{children:e}),(0,G.jsxs)(`div`,{className:`number-input`,children:[(0,G.jsx)(rf,{id:s,type:`number`,value:c,min:r,max:i,step:a,inputMode:`decimal`,onChange:e=>{l(e.target.value);let t=Number(e.target.value);e.target.value!==``&&Number.isFinite(t)&&t>=r&&t<=i&&(a!==1||Number.isInteger(t))&&n(t)},onBlur:()=>{let e=Number(c);if(c===``||!Number.isFinite(e)){l(String(t));return}let o=Math.max(r,Math.min(i,a===1?Math.round(e):e));l(String(o)),o!==t&&n(o)}}),o&&(0,G.jsx)(`span`,{children:o})]})]})}function SE({label:e,checked:t,onChange:n,id:r}){let i=(0,C.useId)(),a=r||i;return(0,G.jsxs)(`div`,{className:`toggle-row`,children:[(0,G.jsx)(`label`,{htmlFor:a,children:e}),(0,G.jsx)(af,{id:a,checked:t,onCheckedChange:n})]})}function CE({label:e,value:t,onChange:n,items:r}){return(0,G.jsxs)(ff,{value:t,onValueChange:n,children:[(0,G.jsx)(mf,{"aria-label":e,className:`picker`,children:(0,G.jsx)(pf,{})}),(0,G.jsx)(hf,{position:`popper`,children:r.map(e=>(0,G.jsx)(gf,{value:e.value,children:e.label},e.value))})]})}function wE(e,t,n){let r=typeof e==`string`?e:new Uint8Array(e).buffer,i=URL.createObjectURL(new Blob([r],{type:n})),a=document.createElement(`a`);a.href=i,a.download=t,a.click(),setTimeout(()=>URL.revokeObjectURL(i),3e4)}function TE(e){return e?{model:e.model.name,dimensions:e.dimensions,settings:e.settings,partCount:e.pieces.length,sheetCount:e.sheets.length,unplaced:e.unplaced,issues:e.issues,processingMs:Math.round(e.processingMs)}:{status:`No completed project`}}function EE(){let[e,t]=(0,C.useState)({...Nw}),[n,r]=(0,C.useState)(null),[i,a]=(0,C.useState)(!0),[o,s]=(0,C.useState)(``),[c,l]=(0,C.useState)(`ripple`),[u,d]=(0,C.useState)(null),[f,p]=(0,C.useState)(0),[m,h]=(0,C.useState)(0),[g,_]=(0,C.useState)(1e4),[v,y]=(0,C.useState)(!1),[b,x]=(0,C.useState)(!1),[S,w]=(0,C.useState)(`iso`),[T,E]=(0,C.useState)(0),[D,A]=(0,C.useState)(!0),[N,fe]=(0,C.useState)(!0),[pe,me]=(0,C.useState)(!0),[he,H]=(0,C.useState)(!1),[ge,_e]=(0,C.useState)({id:0,kind:`fit`}),[ve,U]=(0,C.useState)(!1),[ye,W]=(0,C.useState)(!1),[be,xe]=(0,C.useState)(!1),[Se,Ce]=(0,C.useState)(!1),[we,Te]=(0,C.useState)(!1),[Ee,De]=(0,C.useState)(!0),[Oe,ke]=(0,C.useState)(!1),[Ae,je]=(0,C.useState)(!0),[Me,Ne]=(0,C.useState)(``),Pe=(0,C.useRef)(null),Fe=(0,C.useRef)(0),Ie=(0,C.useRef)(e),Le=(0,C.useRef)(!0),Re=(0,C.useRef)(n),ze=(0,C.useRef)(!0);Ie.current=e,Re.current=n;let Be=(0,C.useRef)(null),K=(0,C.useRef)(new Map),Ve=(0,C.useCallback)(e=>{let t=Pe.current;if(!t)return Promise.reject(Error(`The slicer is still starting.`));let n=++Fe.current;Le.current=!0,a(!0),s(``);for(let[e,t]of K.current)t.reject(Error(`Regeneration was replaced by a newer request.`)),K.current.delete(e);return new Promise((r,i)=>{K.current.set(n,{resolve:r,reject:i});try{t.postMessage({...e,id:n})}catch(e){K.current.delete(n),Le.current=!1,a(!1);let t=e instanceof Error?e.message:`Could not send the slicing request.`;s(t),i(Error(t))}})},[]);(0,C.useEffect)(()=>{let e=new vE;return Pe.current=e,e.onmessage=e=>{let t=e.data;if(t.id!==Fe.current)return;Le.current=!1,a(!1);let n=K.current.get(t.id);if(K.current.delete(t.id),`error`in t){s(t.error),n?.reject(Error(t.error));return}let i=t.result,o=Re.current?.pieces.length||0;Re.current=i,r(i),p(e=>Math.min(e,Math.max(0,i.sheets.length-1))),d(e=>i.pieces.some(t=>t.id===e)?e:null),_(e=>e>=o?i.pieces.length:Math.min(e,i.pieces.length)),requestAnimationFrame(()=>n?.resolve(i))},e.onerror=e=>{Le.current=!1,a(!1),s(e.message);for(let t of K.current.values())t.reject(Error(e.message));K.current.clear()},Ve({type:`preset`,preset:`ripple`,settings:Ie.current}).catch(()=>{}),()=>{e.terminate(),Pe.current=null;for(let e of K.current.values())e.reject(Error(`Workspace closed.`));K.current.clear()}},[Ve]),(0,C.useEffect)(()=>{if(ze.current){ze.current=!1;return}Fe.current++,Le.current=!0,a(!0);let t=setTimeout(()=>{Ve({type:`settings`,settings:e}).catch(()=>{})},150);return()=>clearTimeout(t)},[e,Ve]),(0,C.useEffect)(()=>{if(!Me)return;let e=setTimeout(()=>Ne(``),4500);return()=>clearTimeout(e)},[Me]),(0,C.useEffect)(()=>{if(!v||!n)return;let e=setInterval(()=>_(e=>e>=n.pieces.length?(y(!1),e):e+1),420);return()=>clearInterval(e)},[v,n]);let He=(e,n)=>{Fe.current++,Le.current=!0,a(!0),t(t=>({...t,[e]:n}))},Ue=(e,n)=>{Fe.current++,Le.current=!0,a(!0),t(t=>({...t,[e===`X`?`targetWidth`:e===`Y`?`targetDepth`:`targetHeight`]:n,scaleAxis:e}))},We=(e,n=!1)=>{let r=n?{...Nw}:{...Ie.current};e===`cube`&&!n&&Object.assign(r,{targetWidth:100,targetDepth:100,targetHeight:100,scaleAxis:`X`,xSliceCount:4,ySliceCount:4,materialThickness:4}),ze.current=!0,t(r),l(e),d(null),h(0),_(1e4),y(!1),p(0),Ve({type:`preset`,preset:e,settings:r}).catch(()=>{})},Ge=async e=>{if(!/\.stl$/i.test(e.name)){s(`Choose a binary or ASCII .stl file.`);return}if(e.size>100*1024*1024){s(`This STL is over 100 MB. Simplify it before importing.`);return}Fe.current++,Le.current=!0,a(!0),s(``),y(!1),d(null),_(1e4),h(0),p(0);try{await Ve({type:`load`,buffer:await e.arrayBuffer(),name:e.name,settings:Ie.current}),l(`uploaded`)}catch(e){e instanceof Error&&!e.message.includes(`replaced`)&&(s(e.message),Le.current=!1,a(!1))}},Ke=e=>{let t=e&&n&&(n.pieces.find(t=>t.id===e)||n.pieces.find(t=>t.parentId===e))?.id||null;if(d(t),t&&n){y(!1),_(e=>Math.max(e,n.pieces.findIndex(e=>e.id===t)+1));let e=n.sheets.find(e=>e.placements.some(e=>e.pieceId===t));e&&p(e.sheetIndex)}},qe=i||!!o||!n||n.issues.some(e=>e.severity===`error`),Je=i||!!o||!n||!n.pieces.length,Ye=(e,t=f,n=Ee)=>{let r=Re.current;if(Le.current||o||!r||!r.pieces.length)throw Error(`Wait for a completed slicing result before exporting.`);if(e!==`dxf`&&r.issues.some(e=>e.severity===`error`))throw Error(`Resolve the fabrication errors before exporting SVG or the laser ZIP. DXF export is available.`);let i=e===`dxf`&&r.unplaced.length>0&&t===r.sheets.length;if(!i&&!r.sheets[t])throw Error(`Choose an existing sheet.`);let a=r.model.name.replace(/\.stl$/i,``).replace(/[^a-z0-9-_]+/gi,`-`).replace(/^-|-$/g,``)||`slice-lab`,s=e===`zip`?`${a}-laser-sheets.zip`:i?`${a}-unplaced-parts.dxf`:`${a}-sheet-${String(t+1).padStart(2,`0`)}.${e}`;return e===`zip`?wE(zT(r,n,Oe,Ae),s,`application/zip`):e===`dxf`?wE(i?LT(r,n,Oe,Ae):IT(r,r.sheets[t],n,Oe,Ae),s,`application/dxf`):wE(FT(r,r.sheets[t],n),s,`image/svg+xml`),Ne(`Downloaded ${s}`),{filename:s,format:e,sheets:e===`zip`?r.sheets.length:1}},Xe=(0,C.useRef)({settings:e,save:Ye,process:Ve,error:o});Xe.current={settings:e,save:Ye,process:Ve,error:o},(0,C.useEffect)(()=>pE({read:()=>({...TE(Re.current),pending:Le.current,error:Xe.current.error}),configure:async e=>{if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Expected an object of slicing settings.`);let n=[`mode`,`targetWidth`,`materialThickness`,`laserKerf`,`slotFitTolerance`,`xSliceCount`,`ySliceCount`,`stackedAxis`,`alignmentPins`,`alignmentPinType`,`pinDiameter`,`pinCount`,`slotFitTolerance`,`sheetWidth`,`sheetHeight`];for(let[t,r]of Object.entries(e)){if(!n.includes(t))throw Error(`Unknown setting: ${t}`);if(t===`alignmentPins`&&typeof r!=`boolean`)throw Error(`alignmentPins must be a boolean.`)}let r={...Xe.current.settings,...e,...`targetWidth`in e?{scaleAxis:`X`}:{}};return lE(r),ze.current=!0,t(r),TE(await Xe.current.process({type:`settings`,settings:r}))},export:e=>{if(!e||typeof e!=`object`||Array.isArray(e))throw Error(`Expected export options.`);let t=e;if(Object.keys(t).some(e=>![`format`,`sheet`,`labels`].includes(e)))throw Error(`Unknown export option.`);if(![`zip`,`dxf`,`svg`].includes(String(t.format)))throw Error(`Format must be zip, svg, or dxf.`);if(t.sheet!==void 0&&(typeof t.sheet!=`number`||!Number.isInteger(t.sheet)||t.sheet<1))throw Error(`Sheet must be a positive integer.`);if(t.labels!==void 0&&typeof t.labels!=`boolean`)throw Error(`labels must be a boolean.`);return Xe.current.save(t.format,typeof t.sheet==`number`?t.sheet-1:0,typeof t.labels==`boolean`?t.labels:!0)}}),[]);let Ze=e.keepAspectRatio&&n?.model.originalDimensions?(()=>{let t=n.model.originalDimensions,r=e.scaleAxis===`X`?0:e.scaleAxis===`Y`?1:2,i=[e.targetWidth,e.targetDepth,e.targetHeight][r];return t.map(e=>e*i/t[r])})():[e.targetWidth,e.targetDepth,e.targetHeight],Qe=n?.sheets[f],$e=n?.pieces.find(e=>e.id===u),et=n?.issues||[],tt=et.filter(e=>e.severity===`error`),nt=et.filter(e=>e.severity===`warning`),rt=n?Math.min(g,n.pieces.length):0,it=n?.pieces.reduce((e,t)=>e+t.cutLength,0)||0,at=e=>_e(t=>({id:t.id+1,kind:e}));return(0,G.jsxs)(`div`,{className:`slice-app`,onDragOver:e=>{e.preventDefault(),e.dataTransfer.types.includes(`Files`)&&Te(!0)},onDragLeave:e=>{e.currentTarget.contains(e.relatedTarget)||Te(!1)},onDrop:e=>{e.preventDefault(),Te(!1),e.dataTransfer.files[0]&&Ge(e.dataTransfer.files[0])},children:[(0,G.jsxs)(`header`,{className:`app-header`,children:[(0,G.jsxs)(`div`,{className:`brand`,children:[(0,G.jsx)(`div`,{className:`brand-mark`,children:(0,G.jsx)(L,{size:24,strokeWidth:1.6})}),(0,G.jsxs)(`h1`,{children:[`SLICE`,(0,G.jsx)(`span`,{children:`LAB`})]}),(0,G.jsx)(`span`,{className:`header-divider`}),(0,G.jsx)(`span`,{className:`app-category`,children:`Fabrication workspace`})]}),(0,G.jsxs)(`div`,{className:`header-actions`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`mobile-parameters icon-button`,"aria-label":`Toggle parameters`,onClick:()=>Ce(e=>!e),children:(0,G.jsx)(se,{size:18})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button help-button`,"aria-label":`How to use Slice Lab`,onClick:()=>W(!0),children:(0,G.jsx)(I,{size:18})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button reset-button`,"aria-label":`Reset to default model and settings`,onClick:()=>We(`ripple`,!0),children:(0,G.jsx)(ie,{size:17})}),(0,G.jsxs)(nf,{variant:`outline`,className:`upload-button`,"aria-label":`Import STL`,onClick:()=>Be.current?.click(),children:[(0,G.jsx)(ue,{size:16}),(0,G.jsx)(`span`,{children:`Import STL`})]}),(0,G.jsxs)(nf,{className:`primary-button`,"aria-label":`Export sheets`,disabled:Je,onClick:()=>U(!0),children:[(0,G.jsx)(P,{size:16}),(0,G.jsx)(`span`,{children:`Export sheets`})]})]}),(0,G.jsx)(`input`,{ref:Be,type:`file`,accept:`.stl`,className:`sr-only`,"aria-label":`Import STL file`,onChange:e=>{let t=e.target.files?.[0];t&&Ge(t),e.target.value=``}})]}),(0,G.jsxs)(`div`,{className:`workspace-layout`,children:[(0,G.jsxs)(`aside`,{className:`parameters ${Se?`parameters-open`:``}`,"aria-label":`Fabrication parameters`,children:[(0,G.jsxs)(`section`,{className:`parameter-section model-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`01`}),(0,G.jsx)(`h2`,{children:`Source model`})]}),(0,G.jsx)(CE,{label:`Sample model`,value:c,onChange:e=>{e!==`uploaded`&&We(e)},items:[...Object.entries(jw).map(([e,t])=>({value:e,label:t})),...c===`uploaded`?[{value:`uploaded`,label:n?.model.name||`Imported STL`}]:[]]}),(0,G.jsx)(`p`,{className:`field-note`,children:`Or drop an STL anywhere in the workspace.`})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`02`}),(0,G.jsx)(`h2`,{children:`Construction`})]}),(0,G.jsxs)(sf,{value:e.mode,onValueChange:e=>He(`mode`,e),className:`construction-tabs`,children:[(0,G.jsxs)(lf,{children:[(0,G.jsxs)(uf,{value:`interlocking`,children:[(0,G.jsx)(F,{size:15}),`Interlocking`]}),(0,G.jsxs)(uf,{value:`stacked`,children:[(0,G.jsx)(L,{size:15}),`Stacked`]})]}),(0,G.jsx)(df,{value:`interlocking`,children:(0,G.jsx)(`p`,{className:`field-note`,children:`Two families of ribs with matching half-lap slots.`})}),(0,G.jsx)(df,{value:`stacked`,children:(0,G.jsx)(`p`,{className:`field-note`,children:`Solid layers, spaced by your material thickness.`})})]})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`03`}),(0,G.jsx)(`h2`,{children:`Model dimensions`}),(0,G.jsx)(`button`,{className:`ratio-lock`,title:e.keepAspectRatio?`Unlock proportions`:`Lock proportions`,"aria-label":e.keepAspectRatio?`Unlock proportions`:`Lock proportions`,"aria-pressed":e.keepAspectRatio,onClick:()=>{let n=!e.keepAspectRatio;t(e=>({...e,keepAspectRatio:n,targetWidth:Ze[0],targetDepth:Ze[1],targetHeight:Ze[2]}))},children:e.keepAspectRatio?(0,G.jsx)(ee,{size:15}):(0,G.jsx)(le,{size:15})})]}),(0,G.jsxs)(`div`,{className:`dimension-fields`,children:[(0,G.jsx)(xE,{label:`Width · X`,value:Ze[0],onChange:e=>Ue(`X`,e),min:1}),(0,G.jsx)(xE,{label:`Depth · Y`,value:Ze[1],onChange:e=>Ue(`Y`,e),min:1}),(0,G.jsx)(xE,{label:`Height · Z`,value:Ze[2],onChange:e=>Ue(`Z`,e),min:1})]}),(0,G.jsxs)(`p`,{className:`field-note`,children:[e.keepAspectRatio?`Proportions locked`:`Scale each axis independently`,` · millimeters`]})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`04`}),(0,G.jsx)(`h2`,{children:e.mode===`interlocking`?`Slice grid`:`Stack settings`})]}),e.mode===`interlocking`?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(xE,{label:`X ribs`,unit:``,value:e.xSliceCount,min:1,max:100,step:1,onChange:e=>He(`xSliceCount`,e)}),(0,G.jsx)(xE,{label:`Y ribs`,unit:``,value:e.ySliceCount,min:1,max:100,step:1,onChange:e=>He(`ySliceCount`,e)})]}),(0,G.jsxs)(`div`,{className:`range-row`,children:[(0,G.jsx)(`label`,{children:`Joint split`}),(0,G.jsxs)(`span`,{children:[yE(e.slotDepthRatio*100,0),` / `,yE((1-e.slotDepthRatio)*100,0),`%`]})]}),(0,G.jsx)(bE,{label:`Joint depth split`,value:e.slotDepthRatio*100,min:10,max:90,step:5,onChange:e=>He(`slotDepthRatio`,e/100)})]}):(0,G.jsxs)(G.Fragment,{children:[(0,G.jsxs)(`div`,{className:`labeled-picker`,children:[(0,G.jsx)(`label`,{children:`Stack axis`}),(0,G.jsx)(CE,{label:`Stack axis`,value:e.stackedAxis,onChange:e=>He(`stackedAxis`,e),items:[{value:`Z`,label:`Z · vertical`},{value:`X`,label:`X · width`},{value:`Y`,label:`Y · depth`}]})]}),(0,G.jsx)(SE,{label:`Registration pins`,checked:e.alignmentPins,onChange:e=>He(`alignmentPins`,e)}),e.alignmentPins&&(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(CE,{label:`Pin type`,value:e.alignmentPinType,onChange:e=>He(`alignmentPinType`,e),items:[{value:`dowel`,label:`Round dowels`},{value:`material`,label:`Cut from sheet material`}]}),(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(xE,{label:e.alignmentPinType===`material`?`Pin width`:`Diameter`,value:e.pinDiameter,min:.5,max:100,onChange:e=>He(`pinDiameter`,e)}),(0,G.jsx)(xE,{label:`Pins`,unit:``,value:e.pinCount,min:1,max:5,step:1,onChange:e=>He(`pinCount`,e)})]}),e.alignmentPinType===`material`&&(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(xE,{label:`Pin fit tolerance`,value:e.slotFitTolerance,min:-2,max:5,step:.01,onChange:e=>He(`slotFitTolerance`,e)}),(0,G.jsxs)(`p`,{className:`field-note`,children:[`Flat pins with stop heads are included in the cut sheets. Slots are `,yE(e.pinDiameter+e.slotFitTolerance,3),` × `,yE(e.materialThickness+e.slotFitTolerance,3),` mm. Positive tolerance loosens the fit.`]})]})]}),n?.settings.mode===`stacked`&&(0,G.jsxs)(`p`,{className:`field-note`,children:[n.layerCount,` layers · `,yE(n.builtDepth,2),` mm built depth`]})]})]}),(0,G.jsxs)(`section`,{className:`parameter-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`05`}),(0,G.jsx)(`h2`,{children:`Material & fit`})]}),(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(xE,{label:`Thickness`,value:e.materialThickness,min:.1,max:100,onChange:e=>He(`materialThickness`,e)}),(0,G.jsx)(xE,{label:`Laser kerf`,value:e.laserKerf,step:.01,min:0,max:5,onChange:e=>He(`laserKerf`,e)})]}),e.mode===`interlocking`&&(0,G.jsxs)(G.Fragment,{children:[(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(xE,{label:`Fit tolerance`,value:e.slotFitTolerance,step:.01,min:-2,max:5,onChange:e=>He(`slotFitTolerance`,e)}),(0,G.jsx)(xE,{label:`Lead-in`,value:e.leadInChamfer,min:0,max:20,onChange:e=>He(`leadInChamfer`,e)})]}),(0,G.jsxs)(`div`,{className:`fit-readout`,children:[(0,G.jsx)(`span`,{children:`Finished slot`}),(0,G.jsxs)(`strong`,{children:[yE(e.materialThickness+e.slotFitTolerance,3),` mm`]})]}),(0,G.jsx)(`p`,{className:`field-note`,children:`Positive tolerance loosens the fit. Kerf is applied once to the cut paths.`})]})]}),(0,G.jsxs)(`section`,{className:`parameter-section bed-section`,children:[(0,G.jsxs)(`div`,{className:`section-caption`,children:[(0,G.jsx)(`span`,{children:`06`}),(0,G.jsx)(`h2`,{children:`Laser sheet`})]}),(0,G.jsxs)(`div`,{className:`two-fields`,children:[(0,G.jsx)(xE,{label:`Width`,value:e.sheetWidth,min:20,max:5e3,step:1,onChange:e=>He(`sheetWidth`,e)}),(0,G.jsx)(xE,{label:`Height`,value:e.sheetHeight,min:20,max:5e3,step:1,onChange:e=>He(`sheetHeight`,e)}),(0,G.jsx)(xE,{label:`Margin`,value:e.sheetMargin,min:0,max:500,onChange:e=>He(`sheetMargin`,e)}),(0,G.jsx)(xE,{label:`Part spacing`,value:e.partSpacing,min:0,max:100,onChange:e=>He(`partSpacing`,e)})]}),(0,G.jsx)(SE,{label:`Allow 90° rotation`,checked:e.allowRotation,onChange:e=>He(`allowRotation`,e)})]}),(0,G.jsxs)(`div`,{className:`local-note`,children:[(0,G.jsx)(O,{size:15}),(0,G.jsx)(`span`,{children:`STL files stay in your browser.`})]})]}),(0,G.jsxs)(`main`,{className:`main-workspace`,children:[(0,G.jsxs)(`div`,{className:`project-bar`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsxs)(`div`,{className:`project-eyebrow`,children:[`MODEL / `,e.mode===`interlocking`?`INTERLOCKING RIBS`:`STACKED LAYERS`]}),(0,G.jsx)(`h2`,{children:n?.model.name||`Ripple form`})]}),(0,G.jsxs)(`div`,{className:`project-dimensions`,children:[Ze.map(e=>yE(e)).join(` × `),(0,G.jsx)(`span`,{children:` mm`})]})]}),(0,G.jsxs)(`div`,{className:`workspace-stats`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Parts`}),(0,G.jsx)(`strong`,{children:n?.pieces.length??`—`})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Sheets`}),(0,G.jsx)(`strong`,{children:n?.sheets.length??`—`})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Cut length`}),(0,G.jsxs)(`strong`,{children:[n?yE(it/1e3,2):`—`,(0,G.jsx)(`small`,{children:` m`})]})]}),(0,G.jsxs)(`div`,{className:`status-stat`,children:[(0,G.jsx)(`span`,{children:`Fabrication check`}),(0,G.jsx)(`button`,{disabled:!et.length&&!o,onClick:()=>xe(!0),className:tt.length||o?`check-error`:nt.length?`check-warning`:`check-ok`,children:i?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(te,{size:14,className:`spin`}),`Generating`]}):o||tt.length?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(ce,{size:14}),`Needs attention`]}):nt.length?(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(ce,{size:14}),nt.length,` notes`]}):(0,G.jsxs)(G.Fragment,{children:[(0,G.jsx)(k,{size:14}),`Ready to export`]})})]})]}),(o||tt.length>0)&&(0,G.jsxs)(`div`,{className:`error-banner`,role:`alert`,children:[(0,G.jsx)(ce,{size:16}),(0,G.jsx)(`span`,{children:o||tt[0].message}),!o&&(0,G.jsx)(`button`,{onClick:()=>xe(!0),children:`Details`})]}),(0,G.jsxs)(`div`,{className:`preview-grid`,children:[(0,G.jsxs)(`section`,{className:`assembly-panel`,"aria-label":`3D assembly preview`,children:[(0,G.jsxs)(`div`,{className:`panel-header`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(O,{size:16}),(0,G.jsx)(`h3`,{children:`Assembly`}),(0,G.jsx)(`span`,{className:`small-tag`,children:`3D`})]}),(0,G.jsxs)(`div`,{className:`view-actions`,children:[(0,G.jsx)(`div`,{className:`view-buttons`,children:[`iso`,`front`,`top`].map(e=>(0,G.jsx)(`button`,{className:S===e?`active`:``,onClick:()=>w(e),"aria-label":`${e} view`,"aria-pressed":S===e,children:e},e))}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Fit assembly in view`,onClick:()=>E(e=>e+1),children:(0,G.jsx)(ne,{size:15})})]})]}),(0,G.jsxs)(`div`,{className:`assembly-stage`,children:[(0,G.jsx)(xw,{result:n,explode:m,step:rt,ghost:b,selected:u,onSelect:Ke,view:S,fit:T}),(0,G.jsxs)(`div`,{className:`stage-note`,children:[`Drag to orbit `,(0,G.jsx)(`span`,{children:`·`}),` Scroll to zoom`]}),(0,G.jsxs)(`div`,{className:`axis-legend`,children:[(0,G.jsx)(`span`,{className:`axis-x`,children:`X`}),(0,G.jsx)(`span`,{className:`axis-y`,children:`Y`}),(0,G.jsx)(`span`,{className:`axis-z`,children:`Z`})]}),i&&(0,G.jsxs)(`div`,{className:`processing-pill`,role:`status`,children:[(0,G.jsx)(te,{size:14,className:`spin`}),`Generating parts…`]}),!n&&!o&&(0,G.jsxs)(`div`,{className:`stage-initial`,children:[(0,G.jsx)(L,{size:48,strokeWidth:1}),(0,G.jsx)(`p`,{children:`Preparing your first assembly`})]})]}),(0,G.jsxs)(`div`,{className:`assembly-controls`,children:[(0,G.jsxs)(`div`,{className:`explode-control`,children:[(0,G.jsxs)(`div`,{className:`range-row`,children:[(0,G.jsx)(`label`,{children:`Exploded view`}),(0,G.jsx)(`span`,{children:m===0?`Assembled`:`${m}%`})]}),(0,G.jsx)(bE,{label:`Explode assembly`,value:m,onChange:h})]}),(0,G.jsx)(`div`,{className:`ghost-control`,children:(0,G.jsx)(SE,{label:`Ghost mesh`,checked:b,onChange:x})})]}),(0,G.jsxs)(`div`,{className:`sequence-control`,children:[(0,G.jsxs)(`div`,{className:`sequence-title`,children:[(0,G.jsx)(`span`,{children:`Assembly sequence`}),(0,G.jsxs)(`span`,{children:[rt,` / `,n?.pieces.length??0]})]}),(0,G.jsxs)(`div`,{className:`sequence-player`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`First assembly step`,onClick:()=>{y(!1),_(0)},children:(0,G.jsx)(ae,{size:14})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button play-button`,disabled:!n,"aria-label":v?`Pause assembly`:`Play assembly`,onClick:()=>{!v&&n&&rt>=n.pieces.length&&_(0),y(e=>!e)},children:v?(0,G.jsx)(B,{size:15}):(0,G.jsx)(re,{size:15})}),(0,G.jsx)(bE,{label:`Assembly step`,value:rt,max:Math.max(1,n?.pieces.length||1),onChange:e=>{y(!1),_(e)}}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Show completed assembly`,onClick:()=>{y(!1),_(n?.pieces.length||0)},children:(0,G.jsx)(oe,{size:14})})]})]})]}),(0,G.jsxs)(`section`,{className:`sheet-panel`,"aria-label":`Laser sheet layout`,children:[(0,G.jsxs)(`div`,{className:`panel-header`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(F,{size:16}),(0,G.jsx)(`h3`,{children:`Laser layout`}),(0,G.jsx)(`span`,{className:`small-tag`,children:`2D`})]}),(0,G.jsxs)(`span`,{className:`sheet-size`,children:[yE(e.sheetWidth,0),` × `,yE(e.sheetHeight,0),` mm`]})]}),(0,G.jsxs)(`div`,{className:`sheet-navigation`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Previous sheet`,disabled:f===0,onClick:()=>p(e=>e-1),children:(0,G.jsx)(j,{size:16})}),(0,G.jsx)(CE,{label:`Selected laser sheet`,value:String(f),onChange:e=>p(Number(e)),items:n?.sheets.length?n.sheets.map(e=>({value:String(e.sheetIndex),label:`Sheet ${e.sheetIndex+1} of ${n.sheets.length}`})):[{value:`0`,label:n?`No sheets`:`Preparing sheets`}]}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Next sheet`,disabled:!n||f>=n.sheets.length-1,onClick:()=>p(e=>e+1),children:(0,G.jsx)(M,{size:16})}),(0,G.jsxs)(`div`,{className:`sheet-zoom`,children:[(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Zoom out of sheet`,onClick:()=>at(`out`),children:(0,G.jsx)(R,{size:14})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Zoom into sheet`,onClick:()=>at(`in`),children:(0,G.jsx)(V,{size:14})}),(0,G.jsx)(nf,{variant:`ghost`,className:`icon-button`,"aria-label":`Fit sheet in view`,onClick:()=>at(`fit`),children:(0,G.jsx)(ne,{size:14})})]})]}),(0,G.jsxs)(`div`,{className:`sheet-stage`,children:[n&&Qe?(0,G.jsx)(Dw,{result:n,sheetIndex:f,selected:u,onSelect:Ke,cuts:D,labels:N,raw:he,pins:pe,zoomAction:ge}):(0,G.jsxs)(`div`,{className:`sheet-empty`,children:[(0,G.jsx)(F,{size:32,strokeWidth:1}),(0,G.jsx)(`p`,{children:n?`No parts fit this sheet`:`Nesting your parts`})]}),(0,G.jsxs)(`div`,{className:`sheet-stage-note`,children:[`Click a part to inspect `,(0,G.jsx)(`span`,{children:`·`}),` Drag to pan`]})]}),(0,G.jsx)(`div`,{className:`layer-toggles`,children:[{name:`Cut`,checked:D,set:A,color:`cut`},{name:`Labels`,checked:N,set:fe,color:`labels`},{name:`Pins`,checked:pe,set:me,color:`pins`},{name:`Raw`,checked:he,set:H,color:`raw`}].map(e=>(0,G.jsxs)(`button`,{"aria-pressed":e.checked,className:`${e.color} ${e.checked?`on`:``}`,onClick:()=>e.set(e=>!e),children:[(0,G.jsx)(`span`,{}),e.name]},e.name))}),(0,G.jsxs)(`div`,{className:`sheet-metrics`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`On this sheet`}),(0,G.jsxs)(`strong`,{children:[Qe?.placements.length??0,` parts`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Material used`}),(0,G.jsxs)(`strong`,{children:[yE((Qe?.utilization||0)*100,0),`%`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Cut length`}),(0,G.jsxs)(`strong`,{children:[yE((Qe?.cutLength||0)/1e3,2),` m`]})]})]}),(0,G.jsxs)(`div`,{className:`sheet-downloads`,children:[(0,G.jsxs)(nf,{variant:`outline`,disabled:Je,onClick:()=>Ye(`dxf`),children:[(0,G.jsx)(P,{size:14}),`DXF`]}),!!n?.sheets.length&&!!n.unplaced.length&&(0,G.jsxs)(nf,{variant:`outline`,disabled:Je,onClick:()=>Ye(`dxf`,n.sheets.length),children:[(0,G.jsx)(P,{size:14}),`Unplaced DXF`]}),(0,G.jsxs)(nf,{variant:`outline`,disabled:qe,onClick:()=>Ye(`svg`),children:[(0,G.jsx)(P,{size:14}),`SVG`]})]})]})]}),(0,G.jsxs)(`section`,{className:`part-inspector`,children:[(0,G.jsxs)(`div`,{className:`part-list-heading`,children:[(0,G.jsx)(`h3`,{children:`Parts on this sheet`}),(0,G.jsx)(`span`,{children:$e?`Selected ${$e.id}`:`Select a part in either view`})]}),(0,G.jsx)(`div`,{className:`part-chips`,children:Qe?.placements.map(e=>(0,G.jsxs)(`button`,{className:u===e.pieceId?`selected`:``,onClick:()=>Ke(e.pieceId),"aria-pressed":u===e.pieceId,children:[(0,G.jsx)(`span`,{className:e.pieceId.startsWith(`Y`)?`chip-y`:`chip-x`}),e.pieceId,e.rotation===90&&(0,G.jsx)(`small`,{children:`90°`})]},e.pieceId))}),$e&&(0,G.jsxs)(`div`,{className:`selected-part-details`,children:[(0,G.jsx)(`strong`,{children:$e.id}),(0,G.jsxs)(`span`,{children:[`Cut bounds `,yE($e.bounds.width),` × `,yE($e.bounds.height),` mm`]}),(0,G.jsxs)(`span`,{children:[$e.axis,` = `,yE($e.worldPosition,2),` mm`]}),(0,G.jsx)(`span`,{children:$e.kind===`alignment-pin`?`Cut-material alignment pin · insert from layer 1`:$e.joints.length?`Joins ${[...new Set($e.joints)].join(`, `)}`:e.mode===`stacked`?`Stack in numerical order`:`No interlocking joint`}),(0,G.jsx)(`button`,{"aria-label":`Clear part selection`,onClick:()=>d(null),children:(0,G.jsx)(de,{size:14})})]})]})]})]}),(0,G.jsxs)(`footer`,{className:`app-footer`,children:[(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`span`,{className:`footer-square`}),`All dimensions in millimeters`]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:n?`${yE(n.model.triangleCount,0)} triangles`:`Preparing model`}),(0,G.jsx)(`span`,{children:n?`${Math.round(n.processingMs)} ms`:``}),(0,G.jsx)(`span`,{className:`footer-engine`,children:`Browser processing`})]})]}),we&&(0,G.jsxs)(`div`,{className:`drop-overlay`,children:[(0,G.jsx)(ue,{size:48}),(0,G.jsx)(`h2`,{children:`Drop your STL`}),(0,G.jsx)(`p`,{children:`Binary or ASCII · up to 100 MB`})]}),Me&&(0,G.jsxs)(`div`,{className:`download-notice`,role:`status`,children:[(0,G.jsx)(k,{size:16}),Me]}),(0,G.jsx)(yf,{open:ve,onOpenChange:U,children:(0,G.jsxs)(Sf,{className:`export-dialog`,children:[(0,G.jsxs)(Cf,{children:[(0,G.jsx)(`div`,{className:`dialog-icon`,children:(0,G.jsx)(z,{size:24})}),(0,G.jsx)(wf,{children:tt.length?`Export for CAD editing`:`Ready for the laser`}),(0,G.jsxs)(Tf,{children:[n?.pieces.length,` parts across `,n?.sheets.length,` sheets. Files use millimeters at 1:1 scale.`]})]}),(0,G.jsxs)(`div`,{className:`export-summary`,children:[(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Material`}),(0,G.jsxs)(`strong`,{children:[e.materialThickness,` mm`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Kerf`}),(0,G.jsxs)(`strong`,{children:[e.laserKerf,` mm`]})]}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`span`,{children:`Cut length`}),(0,G.jsxs)(`strong`,{children:[yE(it/1e3,2),` m`]})]})]}),(0,G.jsx)(SE,{label:`Include vector labels & guides`,checked:Ee,onChange:De}),(0,G.jsx)(SE,{label:`Legacy R12 DXF`,checked:Oe,onChange:ke}),!Oe&&(0,G.jsx)(SE,{label:`DXF line segments (Illustrator)`,checked:Ae,onChange:je}),(0,G.jsx)(`p`,{className:`field-note`,children:Oe?`R12 uses classic POLYLINE entities. Select millimeters when importing.`:`Complete AutoCAD 2000 DXF. In Illustrator, use Original Size, millimeters, and Model layout. Line segments improve import compatibility.`}),(0,G.jsxs)(`div`,{className:`export-layer-key`,children:[(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`i`,{className:`cut`}),`Cut outlines`]}),(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`i`,{className:`labels`}),`Etch labels`]}),(0,G.jsxs)(`span`,{children:[(0,G.jsx)(`i`,{className:`pins`}),`Pin holes`]})]}),nt.length>0&&(0,G.jsxs)(`button`,{className:`export-notes`,onClick:()=>{U(!1),xe(!0)},children:[(0,G.jsx)(ce,{size:15}),`Review `,nt.length,` fabrication notes`]}),tt.length>0&&(0,G.jsx)(`p`,{className:`field-note`,children:`DXF export is available with the reported fabrication errors. Unplaced parts export without a sheet-size limit.`}),(0,G.jsxs)(nf,{variant:`outline`,disabled:Je,onClick:()=>Ye(`dxf`),children:[(0,G.jsx)(P,{size:14}),`Download DXF`]}),!!n?.sheets.length&&!!n.unplaced.length&&(0,G.jsxs)(nf,{variant:`outline`,disabled:Je,onClick:()=>Ye(`dxf`,n.sheets.length),children:[(0,G.jsx)(P,{size:14}),`Download unplaced parts · DXF`]}),(0,G.jsx)(`p`,{className:`export-fit-note`,children:`Paths already include kerf compensation. Disable extra kerf offsets in your laser software, and cut a small fit sample first.`}),(0,G.jsxs)(nf,{className:`primary-button bundle-button`,disabled:qe,onClick:()=>Ye(`zip`),children:[(0,G.jsx)(P,{size:17}),`Download all sheets · ZIP`]}),(0,G.jsx)(`p`,{className:`export-contents`,children:`DXF + SVG for every sheet, assembly guide, and part table.`})]})}),(0,G.jsx)(yf,{open:be,onOpenChange:xe,children:(0,G.jsxs)(Sf,{className:`issues-dialog`,children:[(0,G.jsxs)(Cf,{children:[(0,G.jsx)(wf,{children:`Fabrication check`}),(0,G.jsx)(Tf,{children:tt.length?`DXF export is available. Resolve these errors before exporting SVG or the laser ZIP.`:`Inspect these notes before cutting and assembling.`})]}),(0,G.jsxs)(`div`,{className:`issues-list`,children:[o&&(0,G.jsxs)(`div`,{className:`issue error`,children:[(0,G.jsx)(ce,{size:17}),(0,G.jsx)(`div`,{children:(0,G.jsx)(`p`,{children:o})})]}),et.map(e=>(0,G.jsxs)(`div`,{className:`issue ${e.severity}`,children:[(0,G.jsx)(ce,{size:17}),(0,G.jsxs)(`div`,{children:[(0,G.jsx)(`p`,{children:e.message}),!!e.partIds?.length&&(0,G.jsxs)(`div`,{className:`issue-parts`,children:[e.partIds.slice(0,18).map(e=>(0,G.jsx)(`button`,{onClick:()=>{Ke(e),xe(!1)},children:e},e)),e.partIds.length>18&&(0,G.jsxs)(`span`,{children:[`+`,e.partIds.length-18,` more`]})]})]})]},e.code)),!et.length&&!o&&(0,G.jsx)(`p`,{children:`All generated contours are closed and all parts fit the sheets.`})]})]})}),(0,G.jsx)(yf,{open:ye,onOpenChange:W,children:(0,G.jsxs)(Sf,{className:`help-dialog`,children:[(0,G.jsxs)(Cf,{children:[(0,G.jsx)(wf,{children:`From mesh to material`}),(0,G.jsx)(Tf,{children:`Create a rib structure or a stack of laser-cut layers.`})]}),(0,G.jsxs)(`ol`,{className:`help-steps`,children:[(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Import and size`}),(0,G.jsx)(`p`,{children:`Load a closed STL or choose a sample. STL has no units; check the X, Y, and Z dimensions before cutting.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Choose a construction`}),(0,G.jsx)(`p`,{children:`Interlocking: X ribs lie in YZ planes and slot down from the top. Y ribs lie in XZ planes and slot up from the bottom. Stacked: layers follow the selected axis at your material thickness.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Measure your material`}),(0,G.jsx)(`p`,{children:`Use the actual sheet thickness. Positive fit tolerance makes slots looser; negative tolerance tightens them. Lead-in adds a chamfer at slot mouths.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Inspect the assembly`}),(0,G.jsx)(`p`,{children:`Orbit the model, turn on the ghost mesh, or separate the slices with exploded view. Click a part to find it on its sheet. The sequence player reveals parts in order; check slot accessibility on complex forms.`})]}),(0,G.jsxs)(`li`,{children:[(0,G.jsx)(`strong`,{children:`Export and cut`}),(0,G.jsx)(`p`,{children:`Download one sheet or the entire ZIP. Etch blue labels first, then cut green pin holes and red outlines. Kerf is already applied. Start with a small fit test.`})]})]}),(0,G.jsx)(`p`,{className:`field-note`,children:`Nesting packs bounding rectangles, so curved parts may leave gaps. Registration pins are placed only where they pass through every stacked layer. Round dowels use circular holes; cut-material pins add flat P-parts and matching rectangular slots. Open sections block export.`})]})})]})}(0,fe.createRoot)(document.getElementById(`root`)).render((0,G.jsx)(EE,{}))})();
